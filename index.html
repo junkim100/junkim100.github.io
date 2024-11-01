@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dong Jun Kim - AI and LLM Interpretability Researcher</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    />
+    <style>
+      :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --accent-color: #e74c3c;
+        --light-color: #ecf0f1;
+        --dark-color: #34495e;
+        --bg-color: #ecf0f1;
+        --text-color: #34495e;
+        --card-bg: #ffffff;
+        --skill-bg: #e0e0e0;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
+        overflow-x: hidden;
+      }
+
+      .always-white {
+        color: #ffffff !important;
+      }
+
+      .dark-mode {
+        --primary-color: #4a6c8c;
+        --secondary-color: #5dade2;
+        --accent-color: #e67e22;
+        --light-color: #bfc9ca;
+        --dark-color: #1a252f;
+        --bg-color: #1a1a1a;
+        --text-color: #ecf0f1;
+        --card-bg: #243442;
+        --skill-bg: #34495e;
+      }
+
+      .navbar {
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.8);
+        transition: background-color 0.3s ease;
+      }
+
+      .dark-mode .navbar {
+        background-color: rgba(26, 26, 26, 0.8);
+      }
+
+      .navbar-brand,
+      .nav-link {
+        color: var(--text-color) !important;
+      }
+
+      .hero {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        color: white;
+        background-attachment: fixed;
+        background-size: cover;
+        position: relative;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        backdrop-filter: blur(5px);
+        opacity: 0.7;
+      }
+
+      .hero-content {
+        z-index: 10;
+      }
+
+      .section-title {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 2rem;
+        color: var(--text-color);
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 50px;
+        height: 3px;
+        background-color: var(--accent-color);
+      }
+
+      .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, background-color 0.3s ease,
+          color 0.3s ease;
+        background-color: var(--card-bg);
+        color: var(--text-color);
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      }
+
+      .skill-item {
+        background-color: var(--skill-bg);
+        border-radius: 20px;
+        padding: 0.5rem 1rem;
+        margin: 0.25rem;
+        display: inline-block;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        color: var(--text-color);
+      }
+
+      .skill-item:hover {
+        background-color: var(--secondary-color);
+        color: white;
+      }
+
+      .timeline {
+        border-left: 3px solid var(--secondary-color);
+        padding-left: 20px;
+        margin-left: 10px;
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 30px;
+      }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -29px;
+        top: 0;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: var(--secondary-color);
+      }
+
+      .btn-custom {
+        background-color: var(--accent-color);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 10px 25px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-custom:hover {
+        background-color: var(--primary-color);
+        transform: translateY(-2px);
+      }
+
+      #dark-mode-toggle {
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 20px;
+        background-color: var(--light-color);
+        color: var(--dark-color);
+        border: none;
+        transition: all 0.3s ease;
+      }
+
+      .dark-mode #dark-mode-toggle {
+        background-color: var(--dark-color);
+        color: var(--light-color);
+      }
+
+      .text-muted {
+        color: #6c757d !important;
+      }
+
+      .dark-mode .text-muted {
+        color: #a0a0a0 !important;
+      }
+
+      .text-primary {
+        color: var(--primary-color) !important;
+      }
+
+      .dark-mode .text-primary {
+        color: var(--secondary-color) !important;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      li {
+        color: var(--text-color);
+      }
+
+      .card-title,
+      .card-text {
+        color: var(--text-color);
+      }
+
+      #research,
+      #projects,
+      #publications {
+        background-color: #ffffff;
+        transition: background-color 0.3s ease;
+      }
+
+      .dark-mode #research,
+      .dark-mode #projects,
+      .dark-mode #publications {
+        background-color: #2c3e50;
+      }
+
+      .dark-mode #research .card,
+      .dark-mode #projects .card,
+      .dark-mode #publications .card {
+        background-color: #34495e;
+      }
+
+      .dark-mode #research .card-title,
+      .dark-mode #projects .card-title,
+      .dark-mode #publications .card-title,
+      .dark-mode #research .card-text,
+      .dark-mode #projects .card-text,
+      .dark-mode #publications .card-text {
+        color: var(--light-color);
+      }
+
+      .bg-light {
+        background-color: var(--bg-color) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold always-white" href="#">Dong Jun Kim</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link always-white" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link always-white" href="#research">Research</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link always-white" href="#experience">Experience</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link always-white" href="#projects">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link always-white" href="#publications"
+                >Publications</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link always-white" href="#contact">Contact</a>
+            </li>
+            <li class="nav-item">
+              <button id="dark-mode-toggle" class="always-white">
+                <i class="fas fa-moon"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="overlay"></div>
+      <div class="container text-center hero-content" data-aos="zoom-in">
+        <h1 class="display-1 fw-bold mb-4 always-white">Dong Jun Kim</h1>
+        <p class="lead fs-2 mb-5 always-white">
+          AI and LLM Interpretability Researcher
+        </p>
+        <a href="#about" class="btn btn-custom btn-lg">Learn More</a>
+      </div>
+    </header>
+
+    <section id="about" class="py-5 bg-light">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">About Me</h2>
+        <div class="row align-items-center">
+          <div class="col-md-6" data-aos="fade-right">
+            <p class="lead">
+              I'm a researcher specializing in Large Language Models (LLMs) with
+              a specific focus on interpretability. My work aims to enhance AI
+              systems' transparency and understandability, emphasizing the
+              ethical implications of AI applications.
+            </p>
+            <p>
+              Pursuing my Ph.D. at Korea University, I explore innovative
+              approaches to improve LLM interpretability, making AI systems more
+              transparent and actionable in real-world settings.
+            </p>
+          </div>
+          <div class="col-md-6" data-aos="fade-left">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Skills</h4>
+                <div>
+                  <a
+                    href="https://github.com/bitsandbytes-foundation/bitsandbytes"
+                    target="_blank"
+                    ><span class="skill-item">bitsandbytes</span></a
+                  >
+                  <a href="https://codalab.org/" target="_blank"
+                    ><span class="skill-item">CodaLab</span></a
+                  >
+                  <a href="https://docker.com/" target="_blank"
+                    ><span class="skill-item">Docker</span></a
+                  >
+                  <a href="https://fast.ai/" target="_blank"
+                    ><span class="skill-item">FastAI</span></a
+                  >
+                  <a href="https://github.com/google/flax" target="_blank"
+                    ><span class="skill-item">Flax</span></a
+                  >
+                  <a href="https://huggingface.co/" target="_blank"
+                    ><span class="skill-item">Hugging Face</span></a
+                  >
+                  <a href="https://kubernetes.io/" target="_blank"
+                    ><span class="skill-item">Kubernetes</span></a
+                  >
+                  <a href="https://onnx.ai/" target="_blank"
+                    ><span class="skill-item">ONNX</span></a
+                  >
+                  <a href="https://onnxruntime.ai/" target="_blank"
+                    ><span class="skill-item">ONNX Runtime</span></a
+                  >
+                  <a href="https://numpy.org/" target="_blank"
+                    ><span class="skill-item">NumPy</span></a
+                  >
+                  <a href="https://pytorch.org/" target="_blank"
+                    ><span class="skill-item">PyTorch</span></a
+                  >
+                  <a href="https://www.deepspeed.ai/" target="_blank"
+                    ><span class="skill-item">DeepSpeed</span></a
+                  >
+                  <a href="https://www.scikit-learn.org/" target="_blank"
+                    ><span class="skill-item">Scikit-Learn</span></a
+                  >
+                  <a href="https://streamlit.io/" target="_blank"
+                    ><span class="skill-item">Streamlit</span></a
+                  >
+                  <a href="https://www.tensorflow.org/" target="_blank"
+                    ><span class="skill-item">TensorFlow</span></a
+                  >
+                  <a href="https://www.tensorRT.com/" target="_blank"
+                    ><span class="skill-item">TensorRT Optimization</span></a
+                  >
+                  <a href="https://wandb.ai/" target="_blank"
+                    ><span class="skill-item">Weights & Biases (wandb)</span></a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="research" class="py-5">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Research Focus</h2>
+        <div class="row">
+          <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">LLM Interpretability</h5>
+                <p class="card-text">
+                  Focusing on improving transparency and explainability in
+                  language models, developing methods for better understanding
+                  of AI decision-making processes.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">LLM Architectures</h5>
+                <p class="card-text">
+                  Researching and designing advanced architectures for large
+                  language models to enhance their performance and efficiency.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Sparse Autoencoders & LLM Circuits</h5>
+                <p class="card-text">
+                  Developing sparse autoencoders and exploring the circuitry
+                  within LLMs to optimize their interpretability and
+                  functionality.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Retrieval-Augmented Generation (RAG)</h5>
+                <p class="card-text">
+                  Integrating RAG techniques to enhance the information
+                  retrieval capabilities of language models, improving their
+                  accuracy and relevance.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="500">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Bias & Harm Mitigation</h5>
+                <p class="card-text">
+                  Analyzing and mitigating biases in LLMs, developing strategies
+                  to prevent harmful outputs and safeguard against jailbreak
+                  attacks.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="600">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">LLM Alignment</h5>
+                <p class="card-text">
+                  Ensuring that large language models align with human values
+                  and intended use-cases, developing techniques to guide model
+                  behavior towards desired outcomes.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="py-5 bg-light">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">
+          Professional Experience
+        </h2>
+        <div class="timeline">
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <h4>NLP & AI Researcher</h4>
+            <h5>Korea University, Seoul, South Korea</h5>
+            <p class="text-muted">Sep 2023 – Present</p>
+            <ul>
+              <li>
+                Focusing on LLM interpretability and research on LLM
+                architectures
+              </li>
+              <li>
+                Developing methods for enhancing model transparency and
+                explainability
+              </li>
+              <li>
+                Project lead in interdisciplinary teams extending AI
+                applications
+              </li>
+            </ul>
+          </div>
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+            <h4>AR/VR Software Engineer</h4>
+            <h5>Simacro, Cambridge, MA</h5>
+            <p class="text-muted">May 2023 – Nov 2023</p>
+            <ul>
+              <li>
+                Created VR/AR applications using LLM-powered interactions and
+                mappings
+              </li>
+              <li>
+                Engineered a symbol detection API for enhanced virtual reality
+                experiences
+              </li>
+            </ul>
+          </div>
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+            <h4>High Performance Computing Intern</h4>
+            <h5>
+              Dr. Edwin Michael's Lab, University of South Florida, Tampa, FL
+            </h5>
+            <p class="text-muted">Aug 2022 – May 2023</p>
+            <ul>
+              <li>
+                Collaborated with Hillsborough County to build a city-scale
+                digital twin for forecasting Covid-19 spread in the Tampa Bay
+                area.
+              </li>
+              <li>
+                Utilized Git, C++, Python, MPI, OpenMP, CUDA, OpenCL for
+                Parallel Computing and GPU Acceleration.
+              </li>
+              <li>
+                Implemented an agent-based model within a team of 7 researchers.
+              </li>
+              <li>
+                Focused on debugging, refactoring, and documenting projects in
+                C++ and Python.
+              </li>
+              <li>
+                Developed a dashboard using Python and Dash to visualize
+                simulation results.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="py-5">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Key Projects</h2>
+        <div class="row">
+          <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="card h-100">
+              <div class="card-body">
+                <h4 class="card-title">LLM Interpretability Framework</h4>
+                <p class="card-text">
+                  Developing novel methods to visualize and explain LLM decision
+                  processes, focusing on enhancing AI model transparency and
+                  user understanding.
+                </p>
+                <!-- <a
+                  href="https://example.com/llm-interpretability-framework"
+                  target="_blank"
+                  class="btn btn-custom"
+                  >View Research</a
+                > -->
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="card h-100">
+              <div class="card-body">
+                <h4 class="card-title">Responsible AI with KT Corporation</h4>
+                <p class="card-text">
+                  Collaborating with KT to create ethical AI practices, focusing
+                  on fairness, accountability, and transparency in large-scale
+                  AI systems.
+                </p>
+                <!-- <a
+                  href="https://example.com/responsible-ai-kt"
+                  target="_blank"
+                  class="btn btn-custom"
+                  >View Collaboration</a
+                > -->
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="card h-100">
+              <div class="card-body">
+                <h4 class="card-title">
+                  Efficient Fine-tuning of LLMs for Domain-Specific Tasks
+                </h4>
+                <p class="card-text">
+                  Developed a novel approach for fine-tuning large language
+                  models on domain-specific tasks with minimal computational
+                  resources, achieving state-of-the-art performance on several
+                  benchmarks.
+                </p>
+                <!-- <a
+                  href="https://example.com/efficient-fine-tuning-llms"
+                  target="_blank"
+                  class="btn btn-custom"
+                  >View Publication</a
+                > -->
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="card h-100">
+              <div class="card-body">
+                <h4 class="card-title">
+                  LLM-Powered Automatic Room Mapping in Mixed Reality
+                </h4>
+                <p class="card-text">
+                  Extended previous work on automatic room mapping in Mixed
+                  Reality by incorporating LLM-based scene understanding and
+                  semantic segmentation, significantly improving mapping
+                  accuracy and user experience.
+                </p>
+                <a
+                  href="https://dl.acm.org/doi/10.1145/3582177.3582183"
+                  target="_blank"
+                  class="btn btn-custom"
+                  >View Publication</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="publications" class="py-5 bg-light">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Publications</h2>
+        <div class="row">
+          <div class="col-md-12 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  A View Direction-Driven Approach for Automatic Room Mapping in
+                  Mixed Reality
+                </h5>
+                <p class="card-text">
+                  <strong>Kim, Dong Jun</strong> and Wanwan Li. Proceedings of
+                  the 2023 5th International Conference on Image Processing and
+                  Machine Vision, pp. 29–33, 2023.
+                </p>
+                <a
+                  href="https://dl.acm.org/doi/10.1145/3582177.3582183"
+                  target="_blank"
+                  class="btn btn-custom"
+                  >Read Paper</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mb-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  Exploring Inherent Biases in LLMs within Korean Social
+                  Context: A Comparative Analysis of ChatGPT and GPT-4
+                </h5>
+                <p class="card-text">
+                  <strong>Lee, Seungyoon</strong>, Dong Kim, Dahyun Jung,
+                  Chanjun Park, and Heui-Seok Lim. Proceedings of the 2024
+                  Conference of the North American Chapter of the Association
+                  for Computational Linguistics: Human Language Technologies
+                  (Volume 4: Student Research Workshop), pp. 93–104, 2024.
+                </p>
+                <a
+                  href="https://aclanthology.org/2024.naacl-srw.11/"
+                  target="_blank"
+                  class="btn btn-custom"
+                  >Read Paper</a
+                >
+              </div>
+            </div>
+          </div>
+          <!-- Add more publications here as needed -->
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="py-5">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Education</h2>
+        <div class="timeline">
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <h4>Bachelor of Science in Computer Science</h4>
+            <h5>University of South Florida, Tampa, FL</h5>
+            <p class="text-muted">Graduated: May 2023</p>
+            <ul>
+              <li>Honors: Cum Laude</li>
+              <li>
+                Relevant coursework: Machine Learning, Data Structures,
+                Algorithms
+              </li>
+              <li>
+                Projects: Developed a VR application using Unity and C#,
+                contributing to coursework on Human-Computer Interaction.
+              </li>
+            </ul>
+          </div>
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+            <h4>Master's Degree Graduate Student in Computer Science</h4>
+            <h5>Korea University, Seoul, South Korea</h5>
+            <p class="text-muted">Expected Graduation: Dec 2025</p>
+            <ul>
+              <li>
+                Research Focus: Large Language Models Interpretability and
+                Responsible AI
+              </li>
+              <li>
+                Project: Leading a research initiative on developing frameworks
+                for ethical AI deployment.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-5 bg-light">
+      <div class="container text-center" data-aos="fade-up">
+        <h2 class="section-title">Get in Touch</h2>
+        <p class="lead mb-5">
+          Interested in discussing AI research or potential collaborations?
+          Let's connect!
+        </p>
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-body d-flex justify-content-around">
+                <div class="contact-item mb-3">
+                  <a
+                    href="mailto:junkim100@gmail.com"
+                    class="text-decoration-none"
+                  >
+                    <i class="fas fa-envelope fa-2x text-primary mb-2"></i>
+                  </a>
+                </div>
+                <div class="contact-item mb-3">
+                  <a
+                    href="https://linkedin.com/in/junkim100/"
+                    target="_blank"
+                    class="text-decoration-none"
+                  >
+                    <i class="fab fa-linkedin fa-2x text-primary mb-2"></i>
+                  </a>
+                </div>
+                <div class="contact-item mb-3">
+                  <a
+                    href="https://github.com/junkim100/"
+                    target="_blank"
+                    class="text-decoration-none"
+                  >
+                    <i class="fab fa-github fa-2x text-primary mb-2"></i>
+                  </a>
+                </div>
+                <div class="contact-item mb-3">
+                  <a
+                    href="https://scholar.google.com/citations?user=ZE8__uoAAAAJ"
+                    target="_blank"
+                    class="text-decoration-none"
+                  >
+                    <i
+                      class="fas fa-graduation-cap fa-2x text-primary mb-2"
+                    ></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-dark text-white text-center py-3">
+      <div class="container">
+        <p>&copy; 2024 Dong Jun Kim. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+      // Initialize AOS (Animate On Scroll) library
+      AOS.init();
+
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+
+      // Navbar background change on scroll
+      window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("shadow-sm");
+          if (document.body.classList.contains("dark-mode")) {
+            navbar.style.backgroundColor = "rgba(26, 26, 26, 0.8)";
+          } else {
+            navbar.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+          }
+        } else {
+          navbar.classList.remove("shadow-sm");
+          navbar.style.backgroundColor = "transparent";
+        }
+      });
+
+      // Dark mode toggle functionality
+      const darkModeToggle = document.getElementById("dark-mode-toggle");
+      const body = document.body;
+      const icon = darkModeToggle.querySelector("i");
+
+      // Function to set the theme based on system preference
+      function setThemePreference() {
+        if (
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
+          body.classList.add("dark-mode");
+          icon.classList.replace("fa-moon", "fa-sun");
+        }
+      }
+
+      // Set initial theme based on system preference
+      setThemePreference();
+
+      // Toggle dark mode
+      darkModeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        icon.classList.toggle("fa-moon");
+        icon.classList.toggle("fa-sun");
+
+        // Update navbar background color
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          if (body.classList.contains("dark-mode")) {
+            navbar.style.backgroundColor = "rgba(26, 26, 26, 0.8)";
+          } else {
+            navbar.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+          }
+        }
+      });
+
+      // Listen for changes in system color scheme
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (e) => {
+          if (e.matches) {
+            body.classList.add("dark-mode");
+            icon.classList.replace("fa-moon", "fa-sun");
+          } else {
+            body.classList.remove("dark-mode");
+            icon.classList.replace("fa-sun", "fa-moon");
+          }
+
+          // Update navbar background color
+          const navbar = document.querySelector(".navbar");
+          if (window.scrollY > 50) {
+            if (body.classList.contains("dark-mode")) {
+              navbar.style.backgroundColor = "rgba(26, 26, 26, 0.8)";
+            } else {
+              navbar.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+            }
+          }
+        });
+    </script>
+  </body>
+</html>
