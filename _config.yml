@@ -1,0 +1,50 @@
+title: Dong Jun Kim
+description: AI and LLM Interpretability Researcher
+
+# GitHub Pages settings
+baseurl: "" # Update this if your site will be hosted at username.github.io/project-name
+url: "https://junkim100.github.io" 
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /blog/:year/:month/:day/:title/
+
+# Default layouts
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Exclude files from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - server/
+  - client/
+  - package.json
+  - package-lock.json
+  - tsconfig.json
+  - vite.config.ts
+  - tailwind.config.ts
+  - postcss.config.js
+  - drizzle.config.ts
+  - .gitignore
