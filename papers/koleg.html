@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KoLEG — Dongjun Kim</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="container" style="padding-top: 6rem; padding-bottom: 4rem">
+      <a href="../index.html#publications" class="project-link"
+        >← Back to Publications</a
+      >
+      <h1 class="section-title" style="margin-top: 1rem">
+        KoLEG: On-the-Fly Korean Legal Knowledge Editing with Continuous
+        Retrieval
+      </h1>
+      <p class="publication-authors">
+        Jaehyung Seo, Dahyun Jung, Jaewook Lee, Yong Chan Chun,
+        <strong>Dongjun Kim</strong>, Hwijung Ryu, Donghoon Shin, Heuiseok Lim
+      </p>
+      <p class="publication-venue">EMNLP 2025 Findings</p>
+
+      <figure
+        class="pub-figure-placeholder"
+        style="
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          border: 1px solid #e2e8f0;
+          border-radius: 0.5rem;
+          background: #f8fafc;
+        "
+      >
+        <img
+          alt="KoLEG paper figure"
+          style="width: 100%; height: auto; object-fit: contain"
+          src="images/koleg.png"
+        />
+      </figure>
+
+      <div style="margin-top: 1rem">
+        <h3 style="margin-bottom: 0.5rem; color: #000000">Abstract</h3>
+        <div
+          class="publication-abstract"
+          style="display: block; margin-top: 0.5rem"
+        >
+          <p>
+            Korean legal knowledge is subject to frequent temporal updates
+            driven by societal needs and government policies. Even minor
+            modifications to legal provisions can have significant consequences,
+            yet continuously retraining large language models (LLMs) to
+            incorporate such updates is resource-intensive and impractical. To
+            address this, we propose KoLEG, an on-the-fly Korean Legal knowledge
+            editing framework enhanced with continuous retrieval. KoLEG employs
+            an Editing-Aware Learning Strategy and a LawEdit Retriever, which
+            together adaptively integrate subtle linguistic nuances and
+            continuous legislative amendments. To support this task, we
+            construct the Korean Legislative Amendment Dataset, explicitly
+            designed for continuous legal knowledge updates with attention to
+            both temporal dynamics and linguistic subtleties. KoLEG outperforms
+            existing locate-then-edit and retrieval-based editing methods,
+            demonstrating superior effectiveness in legal knowledge editing
+            while preserving linguistic capabilities. Furthermore, KoLEG
+            maintains robust performance in sequential editing, improves
+            performance on precedent application tasks, and is qualitatively
+            validated by legal experts.
+          </p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
