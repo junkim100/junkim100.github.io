@@ -817,6 +817,9 @@ section {
 .project-bullets li::before { content: '▹'; position: absolute; left: 0; color: #60a5fa; }
 
 .project-meta { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.75rem; }
+/* Slightly more space under tags when used in project headers */
+.project-header .project-meta { margin-top: 0.25rem; margin-bottom: 0.6rem; }
+
 .badge { padding: 0.25rem 0.5rem; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.02em; }
 .badge.eval { background: rgba(96,165,250,0.15); color: #60a5fa; border: 1px solid rgba(96,165,250,0.3); }
 .badge.train { background: rgba(52,211,153,0.15); color: #34d399; border: 1px solid rgba(52,211,153,0.3); }
