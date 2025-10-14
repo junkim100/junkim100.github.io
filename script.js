@@ -8,6 +8,7 @@
       "korean-biases": "papers/korean-biases.html",
       koleg: "papers/koleg.html",
       cityseircast: "papers/cityseircast.html",
+      "mma-asia": "papers/mma-asia.html",
     };
     const url = routes[id];
     if (url) window.location.href = url;

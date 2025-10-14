@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MMA-ASIA — Dongjun Kim</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="container" style="padding-top: 6rem; padding-bottom: 4rem">
+      <a href="../index.html#publications" class="project-link"
+        >← Back to Publications</a
+      >
+
+      <h1 class="section-title" style="margin-top: 1rem">
+        MMA-ASIA: A Multilingual and Multimodal Alignment Framework for
+        Culturally-Grounded Evaluation
+      </h1>
+
+      <p class="publication-authors">
+        Weihua Zheng, ..., <strong>Dongjun Kim</strong>, ...
+      </p>
+      <p class="publication-venue">
+        arXiv, 2024 —
+        <a
+          href="https://arxiv.org/abs/2510.08608"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Link</a
+        >
+      </p>
+
+      <figure
+        class="pub-figure-placeholder"
+        style="
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          border: 1px solid #e2e8f0;
+          border-radius: 0.5rem;
+          background: #f8fafc;
+        "
+      >
+        <img
+          alt="MMA-Asia paper figure"
+          style="width: 100%; height: auto; object-fit: contain"
+          src="./images/mma-asia.png"
+        />
+      </figure>
+
+      <div style="margin-top: 1rem">
+        <h3 style="margin-bottom: 0.5rem; color: #000000">Abstract</h3>
+        <div
+          class="publication-abstract"
+          style="display: block; margin-top: 0.5rem"
+        >
+          <p>
+            Large language models (LLMs) are now used worldwide, yet their
+            multimodal understanding and reasoning often degrade outside
+            Western, high-resource settings. We propose MMA-ASIA, a
+            comprehensive framework to evaluate LLMs’ cultural awareness with a
+            focus on Asian contexts. MMA-ASIA centers on a human-curated,
+            multilingual, and multimodally aligned multiple-choice benchmark
+            covering 8 Asian countries and 10 languages, comprising 27,000
+            questions; over 79% require multi-step reasoning grounded in
+            cultural context, moving beyond simple memorization. To our
+            knowledge, this is the first dataset aligned at the input level
+            across three modalities: text, image (visual question answering),
+            and speech. This enables direct tests of cross-modal transfer.
+            Building on this benchmark, we propose a five-dimensional evaluation
+            protocol that measures – (i) cultural-awareness disparities across
+            countries, (ii) cross-lingual consistency, (iii) cross-modal
+            consistency, (iv) cultural knowledge generalization, and (v)
+            grounding validity. To ensure rigorous assessment, a Cultural
+            Awareness Grounding Validation Module detects “shortcut learning” by
+            checking whether the requisite cultural knowledge supports correct
+            answers. Finally, through comparative model analysis, attention
+            tracing, and an innovative Vision-ablated Prefix Replay (VPR)
+            method, we probe why models diverge across languages and modalities,
+            offering actionable insights for building culturally reliable
+            multimodal LLMs.
+          </p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
