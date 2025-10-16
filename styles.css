@@ -302,6 +302,13 @@ section {
     z-index: 3;
 }
 
+/* CTA that sits just below About should match About background */
+.post-about-cta {
+  background: #ffffff;
+  padding: 0; /* override global section padding for a tighter look */
+}
+
+
 .about-text p {
     font-size: 1.1rem;
     color: #334155;
