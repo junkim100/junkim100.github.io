@@ -348,7 +348,7 @@ section {
 .education-item::before {
     content: '';
     position: absolute;
-    left: 1.5rem;
+    left: calc(2rem - 5px);
     top: 0;
     width: 10px;
     height: 10px;
@@ -669,7 +669,7 @@ section {
     }
 
     .education-item::before {
-        left: 0.5rem;
+        left: calc(1rem - 5px);
     }
 
     .education-period {
