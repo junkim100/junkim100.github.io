@@ -379,22 +379,26 @@
             <div class="project-body">
               <ul class="project-bullets">
                 <li>
-                  Built a
-                  <strong>fully automated evaluation framework</strong>
-                  covering ~50 benchmarks across reasoning, safety,
-                  multilinguality, and robustness.
+                  Implemented an <strong>evaluation framework</strong> (50+
+                  benchmarks) covering reasoning, safety, and robustness with
+                  reproducible pipelines and CI triggers.
                 </li>
                 <li>
-                  Implemented a
-                  <strong>unified metric layer</strong> and
-                  <strong>wandb Weave visual analytics</strong> for
-                  longitudinal, cross-model comparison.
+                  Designed a <strong>unified metric layer</strong> and
+                  <em>Weights &amp; Biases</em>
+                  dashboards for time series tracking, regression checks, and
+                  cross-model slice analysis.
                 </li>
                 <li>
-                  Continuously
-                  <strong>diagnosed model checkpoints</strong>
-                  (pre-training and post-training) to provide actionable
-                  insights for training decisions.
+                  Conducted <strong>pre- and post-training</strong> analyses on
+                  successive checkpoints, identified failure modes, and provided
+                  recommendations used for data and recipe updates.
+                </li>
+                <li>
+                  Introduced
+                  <strong>contamination checks</strong> (deduplication and
+                  overlap scans) and standardized runbooks to support fair,
+                  comparable evaluations across systems.
                 </li>
               </ul>
             </div>
@@ -425,22 +429,27 @@
             <div class="project-body">
               <ul class="project-bullets">
                 <li>
-                  Co-developed <strong>KoLEG</strong>, an
-                  <strong>on-the-fly legal knowledge editing</strong>
-                  framework with continuous retrieval for dynamic law updates.
+                  Co-developed an
+                  <strong>on-the-fly legal knowledge editing</strong> framework
+                  with <strong>continuous retrieval</strong> and
+                  <strong>timestamp-aware sequential updates</strong> (team of
+                  8).
                 </li>
                 <li>
-                  Led
-                  <strong>dataset crawling and construction</strong> for the
-                  <strong>Korean Legislative Amendment Dataset</strong>,
-                  targeting temporal updates and linguistic subtleties.
+                  Led crawling and construction of the
+                  <strong>Korean Legislative Amendment</strong> dataset,
+                  aligning implementation periods and applying high-precision
+                  filtering.
                 </li>
                 <li>
-                  Designed an
-                  <strong>Editing-Aware Learning Strategy</strong> and
-                  <strong>LawEdit Retriever</strong> to integrate subtle
-                  linguistic changes and sequential edits without full
-                  retraining.
+                  Contributed
+                  <strong>mechanistic interpretability</strong> analyses on
+                  locality and generalization in edited knowledge.
+                </li>
+                <li>
+                  Built <strong>expert evaluation</strong> demos and protocols
+                  for human assessment, enabling attorney review and iterative
+                  error analysis.
                 </li>
               </ul>
             </div>
@@ -469,17 +478,21 @@
             <div class="project-body">
               <ul class="project-bullets">
                 <li>
-                  Curated, filtered, and prepared large-scale training data with
-                  a focus on
-                  <strong>multilingual capability</strong>.
+                  Contributed to <strong>post-training</strong> (team of 10),
+                  including instruction tuning, training framework, and
+                  multilingual/code-switch datasets.
                 </li>
                 <li>
-                  Constructed <strong>code-switched</strong> datasets to improve
-                  cross-lingual alignment and instruction following.
+                  Curated <strong>code</strong> and
+                  <strong>math</strong> corpora, established quality gates, and
+                  ran capability evaluations for coding and math.
                 </li>
                 <li>
-                  Supported end-to-end data operations enabling successful
-                  fine-tuning of <strong>KULLM</strong>.
+                  Implemented <strong>RL</strong> with custom rewards
+                  (<strong>GRPO</strong>) and
+                  <strong>adaptive response length</strong>; observed improved
+                  Korean reasoning and math accuracy vs a Qwen3 reasoning
+                  baseline while reducing verbosity.
                 </li>
               </ul>
             </div>
@@ -508,13 +521,17 @@
             <div class="project-body">
               <ul class="project-bullets">
                 <li>
-                  Collected and translated <strong>code</strong> and
-                  <strong>math</strong> datasets into Korean for model tuning.
+                  Collected and translated specialized <strong>code</strong> and
+                  <strong>math</strong> datasets into Korean to support
+                  fine-tuning.
                 </li>
-
                 <li>
-                  Established quality control processes for
-                  <strong>domain-specific data</strong> sourcing.
+                  Established <strong>quality gates</strong> and data hygiene
+                  for domain-specific corpora and translation workflows.
+                </li>
+                <li>
+                  Ran <strong>capability evaluations</strong> for coding and
+                  math to validate dataset impact.
                 </li>
               </ul>
             </div>
@@ -571,15 +588,20 @@
             <div class="project-body">
               <ul class="project-bullets">
                 <li>
-                  Designed and operated an
-                  <strong>automation pipeline</strong> to retrieve real-time
-                  data, generate Q/A pairs, verify datasets, and
-                  <strong>auto-evaluate</strong> models.
+                  Implemented <strong>daily crawlers</strong> across news
+                  categories, <strong>real-time QA generation</strong>, and
+                  automated multi-LLM evaluation on daily refreshed data.
                 </li>
                 <li>
-                  Maintained a live leaderboard with
-                  <strong>continuous model ranking</strong> and performance
-                  tracking to mitigate <strong>training contamination</strong>.
+                  Launched a live leaderboard with
+                  <strong>time-aware ranking</strong> and
+                  <strong>quarterly stability/volatility</strong> metrics to
+                  track consistency over time.
+                </li>
+                <li>
+                  Maintained
+                  <strong>scheduling, monitoring, and data hygiene</strong> to
+                  support regular refreshes and clear longitudinal comparisons.
                 </li>
               </ul>
             </div>
