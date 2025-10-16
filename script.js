@@ -364,3 +364,18 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   document.head.appendChild(rippleStyle);
 });
+
+// Open Resume in new tab and trigger download
+function openResume(e) {
+  if (e) e.preventDefault();
+  const url = "Resume.pdf";
+  // Open in a new tab for viewing
+  window.open(url, "_blank");
+  // Trigger a download as well
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "Resume.pdf";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
