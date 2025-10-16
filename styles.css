@@ -680,6 +680,11 @@ section {
         margin-bottom: 1rem;
     }
 
+    /* Prevent timeline overlap with text on small screens */
+    .education-details {
+        padding-left: 2rem;
+    }
+
     .contact-content {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -738,6 +743,11 @@ section {
 
     .about {
         margin-top: 0.5rem;
+    }
+
+    /* Extra-small phones: a bit more left padding for timeline clearance */
+    .education-details {
+        padding-left: 2.25rem;
     }
 }
 
