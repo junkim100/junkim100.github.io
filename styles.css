@@ -480,6 +480,12 @@ section {
     margin-bottom: 0.25rem;
 }
 
+/* Emphasize my name on the main Publications grid only */
+.publications .publication-authors strong {
+    font-size: 1.1em;
+}
+
+
 .publication-venue {
     color: #334155;
     font-style: normal;
