@@ -446,15 +446,14 @@
               </div>
 
               <p class="project-subtitle">
-                독자 AI 파운데이션 모델 프로젝트 - Collaboration with
+                Collaboration with
                 <a
                   href="https://nc-ai.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="project-link"
-                  >NC AI nsortium</a
-                >
-                and
+                  >NC AI</a
+                >,
                 <a
                   href="https://www.etri.re.kr/eng/main/main.etri"
                   target="_blank"
@@ -462,6 +461,7 @@
                   class="project-link"
                   >ETRI</a
                 >
+                (NC AI Consortium)
               </p>
             </header>
             <div class="project-body">
@@ -496,7 +496,7 @@
           <article class="project-card" data-category="training">
             <header class="project-header">
               <h3 class="project-title train">
-                KoLEG: Korean Legal Knowledge Editing with Continuous Retrieval
+                KoLEG: Korean Legal Knowledge Editing
               </h3>
               <div class="project-meta">
                 <span class="badge train">Training</span>
@@ -547,29 +547,20 @@
           <article class="project-card" data-category="training">
             <header class="project-header">
               <h3 class="project-title train">
-                <a
-                  href="https://github.com/nlpai-lab/KULLM"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                  >KULLM 3 and KULLM R</a
-                >
-                — Post-Training & RL (GRPO)
+                KULLM 3 &amp; KULLM R &amp; Ko Gemma Model Training
               </h3>
               <div class="project-meta">
                 <span class="badge train">Training</span>
                 <span class="badge data">Data</span>
               </div>
-              <p class="project-subtitle">
-                Multilingual and Code-Switched Data Engineering
-              </p>
+              <p class="project-subtitle">NLP&amp;AI Lab, Korea University</p>
             </header>
             <div class="project-body">
               <ul class="project-bullets">
                 <li>
-                  Contributed to <strong>post-training</strong> (team of 10),
-                  including instruction tuning, training framework, and
-                  multilingual/code-switch datasets.
+                  Contributed on <strong>post-training</strong> for a team of
+                  10, including instruction tuning, training framework, and
+                  multilingual and <strong>code-switch</strong> datasets.
                 </li>
                 <li>
                   Curated <strong>code</strong> and
@@ -577,79 +568,16 @@
                   ran capability evaluations for coding and math.
                 </li>
                 <li>
-                  Implemented <strong>RL</strong> with custom rewards
-                  (<strong>GRPO</strong>) and
-                  <strong>adaptive response length</strong>; observed improved
-                  Korean reasoning and math accuracy vs a Qwen3 reasoning
-                  baseline while reducing verbosity.
-                </li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- Project: Ko-Gemma Data Collection -->
-          <article class="project-card" data-category="training">
-            <header class="project-header">
-              <h3 class="project-title train">
-                <a
-                  href="https://github.com/KU-HIAI/Ko-Gemma"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                  >Ko-Gemma</a
-                >
-                — Code & Math Data Collection
-              </h3>
-              <div class="project-meta">
-                <span class="badge train">Training</span>
-                <span class="badge data">Data</span>
-              </div>
-              <p class="project-subtitle">Large-Scale Data Collection</p>
-            </header>
-            <div class="project-body">
-              <ul class="project-bullets">
-                <li>
-                  Collected and translated specialized <strong>code</strong> and
-                  <strong>math</strong> datasets into Korean to support
-                  fine-tuning.
+                  <strong>KULLM Reasoning:</strong> implemented reinforcement
+                  learning with custom reward functions and
+                  <strong>GRPO</strong> and applied
+                  <strong>adaptive response length</strong> (concise on easier
+                  tasks, deeper chains on harder ones).
                 </li>
                 <li>
-                  Established <strong>quality gates</strong> and data hygiene
-                  for domain-specific corpora and translation workflows.
-                </li>
-                <li>
-                  Ran <strong>capability evaluations</strong> for coding and
-                  math to validate dataset impact.
-                </li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- Project: Korean Instruction Following Benchmark -->
-          <article class="project-card" data-category="evaluation">
-            <header class="project-header">
-              <h3 class="project-title eval">
-                Korean Instruction Following Benchmark
-              </h3>
-              <div class="project-meta">
-                <span class="badge eval">Evaluation</span>
-                <span class="badge data">Data</span>
-              </div>
-              <p class="project-subtitle">
-                Evaluation Framework for Korean Instruction Following
-              </p>
-            </header>
-            <div class="project-body">
-              <ul class="project-bullets">
-                <li>
-                  Developed a <strong>benchmark framework</strong> to evaluate
-                  instruction following in Korean, addressing
-                  <strong>linguistic and cultural differences</strong>.
-                </li>
-                <li>
-                  Benchmarked multilingual models where English performance did
-                  not transfer to Korean, highlighting
-                  <strong>cross-lingual instruction gaps</strong>.
+                  Observed improved Korean reasoning and math accuracy versus a
+                  <strong>Qwen3 reasoning</strong> baseline while reducing
+                  unnecessary verbosity in internal evaluations.
                 </li>
               </ul>
             </div>
@@ -664,7 +592,7 @@
                   target="_blank"
                   rel="noopener noreferrer"
                   class="project-link"
-                  >Self-Improving Leaderboard</a
+                  >Self Improving Leaderboard</a
                 >
               </h3>
               <div class="project-meta">
@@ -698,38 +626,37 @@
           </article>
 
           <!-- Project: LLM Lesion Brain Mapping -->
-          <!-- <article class="project-card" data-category="interpretability">
+          <article class="project-card" data-category="interpretability">
             <header class="project-header">
               <h3 class="project-title interp">LLM Lesion Brain Mapping</h3>
               <div class="project-meta">
                 <span class="badge interp">Interpretability</span>
               </div>
-              <p class="project-subtitle">
-                Mechanistic Interpretability — Mapping parameters to linguistic
-                deficits
-              </p>
+              <p class="project-subtitle">NLP&amp;AI Lab, Korea University</p>
             </header>
             <div class="project-body">
               <ul class="project-bullets">
                 <li>
-                  Investigated whether targeted parameter perturbations induce
-                  <strong>human-analogous language deficits</strong>.
+                  Studied how targeted parameter perturbations relate to
+                  language deficits in LLMs across <strong>syntax</strong>,
+                  <strong>semantics</strong>, and <strong>retrieval</strong>
+                  behaviors.
                 </li>
                 <li>
-                  Explored correspondence between
-                  <strong>parameter subspaces</strong> and
-                  <strong>cortical functionality</strong> implied by
-                  neuro-linguistic deficits.
+                  Explored correspondences between internal
+                  <strong>subspaces</strong> and
+                  <strong>neuro-linguistic</strong> functionality with layer-
+                  and module-level analysis.
                 </li>
                 <li>
-                  Prototyped lesion-based
-
-                  <strong>causal tracing</strong> to connect model internals to
-                  linguistic behaviors.
+                  Prototyped a
+                  <strong>lesion-based causal tracing</strong> method linking
+                  internal changes to observable behaviors with reproducible
+                  analysis tooling.
                 </li>
               </ul>
             </div>
-          </article> -->
+          </article>
         </div>
       </div>
     </section>
