@@ -11,6 +11,7 @@
       "mma-asia": "papers/mma-asia.html",
       ate: "papers/ate.html",
       kite: "papers/kite.html",
+      sil: "papers/sil.html",
     };
     const url = routes[id];
     if (url) window.location.href = url;
