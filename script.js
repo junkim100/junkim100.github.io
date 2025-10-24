@@ -9,6 +9,8 @@
       koleg: "papers/koleg.html",
       cityseircast: "papers/cityseircast.html",
       "mma-asia": "papers/mma-asia.html",
+      ate: "papers/ate.html",
+      kite: "papers/kite.html",
     };
     const url = routes[id];
     if (url) window.location.href = url;
