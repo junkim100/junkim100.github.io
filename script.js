@@ -1,3 +1,5 @@
+"use strict";
+
 // Publication cards: open detail pages on click
 (function () {
   function navigateToPaper(id) {
@@ -18,11 +20,81 @@
   }
   document.addEventListener("click", (e) => {
     const t = e.target;
-    if (t && t.classList && t.classList.contains("publication-title")) {
-      const id = t.getAttribute("data-pub-id");
+    // Make the whole publication card (and its thumbnail) clickable
+    const card = t.closest && t.closest(".publication-item");
+    if (card) {
+      const h3 = card.querySelector(".publication-title");
+      const id = h3 && h3.getAttribute("data-pub-id");
       if (id) navigateToPaper(id);
+      return;
     }
   });
+})();
+
+// Language Toggle (KO/EN)
+(function () {
+  function setLanguage(lang) {
+    const isKo = lang === "ko";
+
+    document.querySelectorAll("[data-ko][data-en]").forEach((el) => {
+      el.textContent = isKo
+        ? el.getAttribute("data-ko")
+        : el.getAttribute("data-en");
+    });
+
+    document.querySelectorAll("[data-ko-html]").forEach((el) => {
+      const html = isKo
+        ? el.getAttribute("data-ko-html")
+        : el.getAttribute("data-en-html");
+      if (html != null) el.innerHTML = html;
+    });
+
+    // Specific override for the last About paragraph to fix legacy/broken KO attribute safely
+    const p4 = document.getElementById("about-p4");
+    if (
+      p4 &&
+      (!p4.hasAttribute("data-ko-html") || !p4.hasAttribute("data-en-html"))
+    ) {
+      const ko =
+        "평가, 해석 가능성, 안전, 추론 전반에서 일합니다. 모델이 어떻게 작동하는지 이해하는 것은 성능을 끌어내고 위험을 줄이는 핵심입니다.";
+      const en =
+        "I work across evaluation, interpretability, safety, and reasoning. Understanding how models work is key to unlocking capability and reducing risk.";
+      p4.setAttribute("data-ko-html", ko);
+      p4.setAttribute("data-en-html", en);
+      p4.innerHTML = isKo ? ko : en;
+    }
+
+    localStorage.setItem("preferredLanguage", isKo ? "ko" : "en");
+    document.documentElement.setAttribute("lang", isKo ? "ko" : "en");
+
+    const btnKo = document.getElementById("btn-ko");
+    const btnEn = document.getElementById("btn-en");
+    if (btnKo && btnEn) {
+      btnKo.classList.toggle("active", isKo);
+      btnEn.classList.toggle("active", !isKo);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const stored = localStorage.getItem("preferredLanguage");
+    let initial = stored === "ko" || stored === "en" ? stored : null;
+    if (!initial) {
+      const sys = (
+        navigator.language ||
+        navigator.userLanguage ||
+        ""
+      ).toLowerCase();
+      initial = sys.startsWith("ko") ? "ko" : "en";
+    }
+    setLanguage(initial);
+    const btnKo = document.getElementById("btn-ko");
+    const btnEn = document.getElementById("btn-en");
+    if (btnKo) btnKo.addEventListener("click", () => setLanguage("ko"));
+    if (btnEn) btnEn.addEventListener("click", () => setLanguage("en"));
+  });
+
+  // Expose for manual toggling if needed
+  window.setLanguage = setLanguage;
 })();
 
 // Mobile Navigation Toggle
@@ -112,9 +184,13 @@ function typeWriter(element, text, speed = 100) {
 // Initialize typing animation when page loads
 window.addEventListener("load", () => {
   const heroDescription = document.querySelector(".hero-description");
+  if (!heroDescription) return;
+  const hasHtmlAttrs =
+    heroDescription.hasAttribute("data-ko-html") ||
+    heroDescription.hasAttribute("data-en-html");
+  // If the hero description uses HTML content (bold, <br>), skip typing to preserve formatting
+  if (hasHtmlAttrs) return;
   const originalText = heroDescription.textContent;
-
-  // Add a slight delay before starting the typing animation
   setTimeout(() => {
     typeWriter(heroDescription, originalText, 30);
   }, 1000);
@@ -367,6 +443,19 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   document.head.appendChild(rippleStyle);
 });
+
+// Open CV in new tab and trigger download (global)
+function openCV(e) {
+  if (e) e.preventDefault();
+  const url = "CV.pdf";
+  window.open(url, "_blank");
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "CV.pdf";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
 
 // Open Resume in new tab and trigger download
 function openResume(e) {

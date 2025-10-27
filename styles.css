@@ -1,4 +1,10 @@
 /* Reset and Base Styles */
+/* Language switcher */
+.lang-switch{display:flex;gap:8px;align-items:center;margin-left:auto}
+.lang-switch button{font-size:.85rem;padding:6px 10px;border-radius:8px;border:1px solid #cbd5e1;background:#fff;color:#0f172a;cursor:pointer;transition:.2s ease}
+.lang-switch button:hover{background:#f1f5f9}
+.lang-switch button.active{background:#2563eb;color:#fff;border-color:#2563eb}
+
 * {
     margin: 0;
     padding: 0;
@@ -24,7 +30,7 @@ a:hover { color: #1e40af; }
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1.5rem;
 }
 
 /* Navigation */
@@ -42,7 +48,7 @@ a:hover { color: #1e40af; }
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem 2rem;
+    padding: 1rem 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -125,7 +131,7 @@ a:hover { color: #1e40af; }
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1.5rem;
 }
 
 .hero-content {
@@ -140,11 +146,20 @@ a:hover { color: #1e40af; }
 }
 
 .hero-name {
-    display: block;
+    display: inline-block;
     font-size: 4rem;
     font-weight: 800;
     color: #0f172a;
     margin-bottom: 0.5rem;
+}
+
+/* Small-sized '입니다' next to the name in Korean */
+.hero-title .hero-imnida {
+    display: inline-block;
+    font-size: 1.0em;
+    margin-left: 0.25em;
+    color: inherit;
+    font-weight: 500;
 }
 
 .hero-nickname {
@@ -372,6 +387,15 @@ section {
     padding-right: 1rem;
 }
 
+
+/* Experience section */
+.experience .experience-grid{display:grid;grid-template-columns:1fr;gap:24px}
+.experience-item{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:24px;box-shadow:0 6px 16px rgba(0,0,0,.05)}
+.experience-header h3{margin:0 0 4px;font-size:1.25rem;color:#0f172a}
+.exp-meta{color:#475569;margin-bottom:8px}
+.exp-bullets{list-style:disc;margin-left:1.25rem;display:grid;gap:6px}
+@media (min-width: 900px){.experience .experience-grid{grid-template-columns:1fr 1fr}}
+
 .education-details h3 {
     font-size: 1.5rem;
     color: #0f172a;
@@ -425,6 +449,42 @@ section {
     left: 0;
     color: #60a5fa;
 }
+
+/* Top Achievements */
+.achievements .highlights-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+.achievements .highlight-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px;
+}
+.achievements .highlight-card h4 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  color: #2563eb;
+}
+.achievements .highlight-list { list-style: none; margin: 0; padding: 0; }
+.achievements .highlight-list li { margin: 6px 0; }
+.achievements .highlight-list a { color: #0f172a; text-decoration: none; }
+.achievements .highlight-list a:hover { text-decoration: underline; }
+.achievements .highlight-list li a {
+  display: grid;
+  grid-template-columns: clamp(360px, 70%, 1100px) 1fr;
+  column-gap: 12px;
+  row-gap: 4px;
+  align-items: start;
+}
+.achievements .highlight-list li a .ta-title { min-width: 0; font-weight: 600; }
+.achievements .highlight-list li a .ta-meta { color: #64748b; text-align: right; justify-self: end; }
+@media (max-width: 640px) {
+  .achievements .highlight-list li a { grid-template-columns: 1fr; }
+}
+
 
 /* Publications Section */
 .publications {
@@ -496,6 +556,24 @@ section {
     color: #cbd5e1;
     line-height: 1.6;
 }
+
+/* Portfolio-style paper sections on main Publications cards */
+.case-sections { margin-top: 0.75rem; }
+.case-sections dt { font-weight: 600; color: #0ea5e9; margin-top: 0.5rem; font-size: 0.9rem; }
+.case-sections dd { margin: 0.25rem 0 0.75rem 0; color: #334155; }
+/* Bullets inside paper cards */
+.case-sections dd ul { list-style: disc; margin: 0.25rem 0 0.75rem 1.25rem; padding-left: 0; display: grid; gap: 4px; }
+.case-sections dd ul li { margin: 0; }
+
+
+/* Two-column grid for publication cards (image left, details right) */
+.case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+@media (max-width: 768px) { .case-grid { grid-template-columns: 1fr; } }
+
+/* Paper meta labels */
+.paper-meta { margin-bottom: 0.75rem; }
+.paper-meta .label { font-weight: 600; color: #64748b; margin-top: 0.5rem; font-size: 0.9rem; }
+
 
 /* Contact Section */
 .contact-content {
@@ -812,7 +890,7 @@ section {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
 }
 
@@ -852,6 +930,8 @@ section {
 
 .badge.interp { background: rgba(244,114,182,0.15); color: #f472b6; border: 1px solid rgba(244,114,182,0.3); }
 .badge.data { background: rgba(251,191,36,0.15); color: #f59e0b; border: 1px solid rgba(251,191,36,0.3); }
+.badge.agents { background: rgba(167,139,250,0.15); color: #a78bfa; border: 1px solid rgba(167,139,250,0.3); }
+
 
 .project-link { color: #93c5fd; text-decoration: none; }
 .project-link:hover { text-decoration: underline; }
@@ -888,4 +968,49 @@ section {
     background: linear-gradient(90deg, #3b82f6, #60a5fa);
     border-radius: 4px;
     transition: width 1s ease;
+}
+
+
+
+/* Projects: match portfolio light card style */
+.projects { background: #ffffff; }
+.projects .section-title { color: #0f172a; }
+.project-card { background: #ffffff; border: 1px solid #e5e7eb; color: #0f172a; }
+.project-subtitle { color: #475569; }
+.project-bullets li { color: #334155; }
+.project-link { color: #2563eb; }
+
+/* Education bullets layout (from portfolio) */
+.edu-bullets { list-style: none; padding-left: 0; margin: 10px 0 0; }
+.edu-item { display: grid; grid-template-columns: 120px 1fr; gap: 8px 12px; align-items: start; }
+.edu-key { color: #64748b; font-weight: 600; white-space: nowrap; }
+.edu-val { color: #0f172a; }
+@media (max-width: 640px){ .edu-item{ grid-template-columns: 1fr; } .edu-key{ margin-top:6px; white-space: normal; } }
+
+/* Generic card + grid utilities to mirror portfolio */
+.card { background:#fff; border:1px solid #e5e7eb; border-radius:14px; padding:16px; color:#0f172a; }
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media (max-width: 900px){ .grid-2{ grid-template-columns:1fr; } }
+
+.education .grid-2 { grid-template-columns: 1fr; }
+
+.experience .grid-2 { grid-template-columns: 1fr; }
+
+
+/* Ensure project title color on light background */
+.projects .project-title { color: #0f172a; }
+
+/* Generic bullets for cards */
+.bullets { list-style: disc; margin-left: 1.25rem; display: grid; gap: 6px; }
+.meta { color: #64748b; margin-left: 6px; }
+
+
+/* Global: tighten horizontal padding for all cards site‑wide */
+.publication-item,
+.project-card,
+.experience-item,
+.card,
+.achievements .highlight-card {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
