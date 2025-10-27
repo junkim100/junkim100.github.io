@@ -331,6 +331,11 @@ section {
     line-height: 1.8;
 }
 
+
+/* About bullets indentation */
+.about .about-text ul { list-style: disc; margin: 0.25rem 0 0.75rem 1.25rem; padding-left: 0; display: grid; gap: 6px; }
+.about .about-text ul li { margin: 0; }
+
 /* Education Section */
 .education-intro {
     margin-bottom: 3rem;
@@ -1013,4 +1018,20 @@ section {
 .achievements .highlight-card {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+
+/* Contact buttons centering */
+.contact .contact-info { grid-column: 1 / -1; text-align: center; }
+.contact .contact-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.contact .contact-buttons .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
