@@ -1035,3 +1035,31 @@ section {
   align-items: center;
   gap: 0.5rem;
 }
+
+/* Paper page styles - constrain image widths */
+.paper-main .pub-figure-placeholder {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.paper-main .pub-figure-placeholder img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments for paper images */
+@media (max-width: 768px) {
+  .paper-main .pub-figure-placeholder img {
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  .paper-main .pub-figure-placeholder img {
+    max-width: 90%;
+  }
+}
