@@ -448,6 +448,85 @@
         <div class="publications-grid">
           <div class="publication-item">
             <div class="publication-content">
+              <h3 class="publication-title" data-pub-id="langsae">
+                LangSAE Editing: Improving Multilingual Information Retrieval via
+                Post-hoc Language Identity Removal
+              </h3>
+              <p class="publication-authors">
+                <strong>Dongjun Kim</strong>, Jeongho Yoon, Chanjun Park,
+                Heuiseok Lim
+              </p>
+              <div class="case-grid">
+                <div>
+                  <img
+                    class="publication-thumb"
+                    src="papers/images/langsae.png"
+                    alt="LangSAE Editing"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div>
+                  <div class="paper-meta">
+                    <div class="label" data-ko="게재" data-en="Venue">
+                      Venue
+                    </div>
+                    <div data-ko="arXiv, 2026" data-en="arXiv, 2026">
+                      arXiv, 2026
+                    </div>
+                  </div>
+                  <dl class="case-sections">
+                    <dt data-ko="배경" data-en="Background">Background</dt>
+                    <dd
+                      data-ko="multilingual retrieval에서 dense embedding이 language signal을 함께 encode하여, cross-language로 관련 있는 evidence를 가려버림"
+                      data-en="In multilingual retrieval, dense embeddings also encode language signals that can overshadow relevant cross-language evidence"
+                    >
+                      Dense embeddings encode language signals that overshadow
+                      cross-language evidence
+                    </dd>
+
+                    <dt data-ko="문제 정의" data-en="Problem Definition">
+                      Problem Definition
+                    </dt>
+                    <dd
+                      data-ko="base model retraining이나 text re-encoding 없이, inference 시점에 language signal을 제거하여 cross-language retrieval을 개선할 것"
+                      data-en="Remove language signals at inference time to improve cross-language retrieval, without retraining the base model or re-encoding text"
+                    >
+                      Remove language signals at inference time without
+                      retraining or re-encoding
+                    </dd>
+
+                    <dt data-ko="문제 해결 방법" data-en="Method">Method</dt>
+                    <dd
+                      data-ko-html="<ul><li><strong>sparse autoencoder</strong>로 embedding을 latent unit으로 분해</li><li>cross-language activation 통계로 <strong>language-associated latent unit</strong>을 식별</li><li>inference 시점에 해당 signal을 제거(<strong>post-hoc editing</strong>)하되 원본 embedding dimension은 보존</li></ul>"
+                      data-en-html="<ul><li>Decompose embeddings into latent units with a <strong>sparse autoencoder</strong></li><li>Identify <strong>language-associated latent units</strong> via cross-language activation statistics</li><li>Remove those signals at inference (<strong>post-hoc editing</strong>) while preserving original embedding dimensions</li></ul>"
+                    >
+                      <ul><li>SAE decomposition of embeddings</li><li>Identify language latents via activation stats</li><li>Post-hoc removal at inference</li></ul>
+                    </dd>
+
+                    <dt data-ko="성과" data-en="Results">Results</dt>
+                    <dd
+                      data-ko-html="<ul><li>여러 language에서 일관된 retrieval 성능 향상</li><li>서로 다른 writing system 간에 특히 큰 개선</li><li>retraining·re-encoding 없이 적용 가능</li></ul>"
+                      data-en-html="<ul><li>Consistent retrieval improvements across multiple languages</li><li>Especially strong gains across different writing systems</li><li>Applicable without retraining or re-encoding</li></ul>"
+                    >
+                      <ul><li>Consistent cross-language gains</li><li>Strongest across writing systems</li><li>No retraining needed</li></ul>
+                    </dd>
+
+                    <dt data-ko="맡은 역할" data-en="Role">Role</dt>
+                    <dd
+                      data-ko-html="<ul><li>제1저자: 연구 방법론 및 전체 연구 설계 주도</li><li>sparse autoencoder 기반 language latent 식별·제거 pipeline 구현</li><li>multilingual retrieval 실험 설계 및 분석·논문 집필</li></ul>"
+                      data-en-html="<ul><li>First author: led methodology and overall study design</li><li>Implemented the SAE-based language-latent identification and removal pipeline</li><li>Designed multilingual retrieval experiments, analysis, and writing</li></ul>"
+                    >
+                      <ul><li>First author: methodology & design</li><li>SAE editing pipeline</li><li>Experiments, analysis, writing</li></ul>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="publication-item">
+            <div class="publication-content">
               <h3 class="publication-title" data-pub-id="bench-prof">
                 Benchmark Profiling: Mechanistic Diagnosis of LLM Benchmarks
               </h3>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LangSAE Editing — Dongjun Kim</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <main class="container paper-main">
+      <a href="../index.html#publications" class="project-link"
+        >← Back to Publications</a
+      >
+      <h1 class="section-title page-title">
+        LangSAE Editing: Improving Multilingual Information Retrieval via
+        Post-hoc Language Identity Removal
+      </h1>
+      <p class="publication-authors">
+        <strong>Dongjun Kim</strong>, Jeongho Yoon, Chanjun Park, Heuiseok Lim
+      </p>
+      <p class="publication-venue">
+        arXiv Preprint, 2026 —
+        <a
+          href="https://arxiv.org/abs/2601.04768"
+          target="_blank"
+          rel="noopener noreferrer"
+          >arXiv</a
+        >
+      </p>
+
+      <figure class="pub-figure-placeholder">
+        <img
+          alt="LangSAE Editing paper figure"
+          src="./images/langsae.png"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <div style="margin-top: 1rem">
+        <h3 style="margin-bottom: 0.5rem; color: #000000">Abstract</h3>
+        <div
+          class="publication-abstract"
+          style="display: block; margin-top: 0.5rem"
+        >
+          <p style="color: #334155">
+            Multilingual retrieval systems face a persistent challenge: dense
+            embeddings encode language signals that can overshadow relevant
+            cross-language evidence. We introduce a sparse autoencoder approach
+            that identifies language-associated latent units using
+            cross-language activation statistics and removes these signals at
+            inference time. The method preserves the original embedding
+            dimensions and avoids retraining of base models or re-encoding of
+            text. Across multiple languages, our post-hoc editing yields
+            consistent retrieval improvements, with particularly strong gains
+            for languages that use different writing systems.
+          </p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

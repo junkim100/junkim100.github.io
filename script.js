@@ -5,6 +5,7 @@
   function navigateToPaper(id) {
     // Map pub-id to detail page URL (to be created/linked)
     const routes = {
+      langsae: "papers/langsae.html",
       "bench-prof": "papers/bench-prof.html",
       "coding-spot": "papers/coding-spot.html",
       "korean-biases": "papers/korean-biases.html",
