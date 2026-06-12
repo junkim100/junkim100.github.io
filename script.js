@@ -1,451 +1,325 @@
 "use strict";
 
-// Publication cards: open detail pages on click
+/* ============================================================
+   Theme toggle (light / dark, persisted; default follows system)
+   ============================================================ */
 (function () {
-  function navigateToPaper(id) {
-    // Map pub-id to detail page URL (to be created/linked)
-    const routes = {
-      langsae: "papers/langsae.html",
-      "bench-prof": "papers/bench-prof.html",
-      "coding-spot": "papers/coding-spot.html",
-      "korean-biases": "papers/korean-biases.html",
-      koleg: "papers/koleg.html",
-      cityseircast: "papers/cityseircast.html",
-      "mma-asia": "papers/mma-asia.html",
-      ate: "papers/ate.html",
-      kite: "papers/kite.html",
-      sil: "papers/sil.html",
-    };
-    const url = routes[id];
-    if (url) window.location.href = url;
-  }
-  document.addEventListener("click", (e) => {
-    const t = e.target;
-    // Make the whole publication card (and its thumbnail) clickable
-    const card = t.closest && t.closest(".publication-item");
-    if (card) {
-      const h3 = card.querySelector(".publication-title");
-      const id = h3 && h3.getAttribute("data-pub-id");
-      if (id) navigateToPaper(id);
-      return;
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.querySelector(".theme-toggle");
+    if (!btn) return;
+    btn.addEventListener("click", () => {
+      const root = document.documentElement;
+      const systemDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      const current =
+        root.getAttribute("data-theme") || (systemDark ? "dark" : "light");
+      const next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem("theme", next);
+      } catch (_) {}
+    });
+  });
+})();
+
+/* ============================================================
+   Mobile overlay menu
+   ============================================================ */
+(function () {
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.querySelector(".menu-toggle");
+    const overlay = document.querySelector(".menu-overlay");
+    if (!toggle || !overlay) return;
+
+    function close() {
+      document.body.classList.remove("menu-open");
+      toggle.setAttribute("aria-expanded", "false");
+    }
+
+    toggle.addEventListener("click", () => {
+      const open = document.body.classList.toggle("menu-open");
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+
+    overlay.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", close);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") close();
+    });
+  });
+})();
+
+/* ============================================================
+   Publications accordion
+   ============================================================ */
+(function () {
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".pub").forEach((pub) => {
+      const head = pub.querySelector(".pub-head");
+      const trigger = pub.querySelector(".pub-trigger");
+      if (!head || !trigger) return;
+
+      function toggle() {
+        const open = pub.classList.toggle("open");
+        trigger.setAttribute("aria-expanded", String(open));
+      }
+
+      head.addEventListener("click", (e) => {
+        // Let inner links (arXiv, code, …) behave normally
+        if (e.target.closest("a")) return;
+        e.preventDefault();
+        toggle();
+      });
+
+      trigger.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    });
+
+    // Deep link: #pub-xxx opens that entry
+    if (location.hash) {
+      const target = document.querySelector(location.hash);
+      if (target && target.classList.contains("pub")) {
+        target.classList.add("open");
+        const trigger = target.querySelector(".pub-trigger");
+        if (trigger) trigger.setAttribute("aria-expanded", "true");
+      }
     }
   });
 })();
 
-// Language Toggle (KO/EN)
+/* ============================================================
+   Scroll-triggered reveals
+   ============================================================ */
 (function () {
-  function setLanguage(lang) {
-    const isKo = lang === "ko";
-
-    document.querySelectorAll("[data-ko][data-en]").forEach((el) => {
-      el.textContent = isKo
-        ? el.getAttribute("data-ko")
-        : el.getAttribute("data-en");
-    });
-
-    document.querySelectorAll("[data-ko-html]").forEach((el) => {
-      const html = isKo
-        ? el.getAttribute("data-ko-html")
-        : el.getAttribute("data-en-html");
-      if (html != null) el.innerHTML = html;
-    });
-
-    // Specific override for the last About paragraph to fix legacy/broken KO attribute safely
-    const p4 = document.getElementById("about-p4");
-    if (
-      p4 &&
-      (!p4.hasAttribute("data-ko-html") || !p4.hasAttribute("data-en-html"))
-    ) {
-      const ko =
-        "평가, 해석 가능성, 안전, 추론 전반에서 일합니다. 모델이 어떻게 작동하는지 이해하는 것은 성능을 끌어내고 위험을 줄이는 핵심입니다.";
-      const en =
-        "I work across evaluation, interpretability, safety, and reasoning. Understanding how models work is key to unlocking capability and reducing risk.";
-      p4.setAttribute("data-ko-html", ko);
-      p4.setAttribute("data-en-html", en);
-      p4.innerHTML = isKo ? ko : en;
+  document.addEventListener("DOMContentLoaded", () => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches;
+    const items = document.querySelectorAll(
+      ".section-head, .highlight-item, .pub, .project-card, .xp-item, .edu-card, .contact-inner, .hero-stats .stat"
+    );
+    if (reduced || !("IntersectionObserver" in window)) {
+      items.forEach((el) => el.classList.add("visible"));
+      return;
     }
 
-    localStorage.setItem("preferredLanguage", isKo ? "ko" : "en");
-    document.documentElement.setAttribute("lang", isKo ? "ko" : "en");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+    );
 
-    const btnKo = document.getElementById("btn-ko");
-    const btnEn = document.getElementById("btn-en");
-    if (btnKo && btnEn) {
-      btnKo.classList.toggle("active", isKo);
-      btnEn.classList.toggle("active", !isKo);
+    items.forEach((el, i) => {
+      el.classList.add("reveal");
+      el.style.setProperty("--d", `${(i % 4) * 0.07}s`);
+      observer.observe(el);
+    });
+  });
+})();
+
+/* ============================================================
+   Marquee: drifts at a base speed and can be handled directly.
+   Sideways wheel / trackpad swipe scrubs it, click (or touch)
+   and drag grabs it with momentum on release, and it always
+   eases back to the default drift once you let go.
+   ============================================================ */
+(function () {
+  document.addEventListener("DOMContentLoaded", () => {
+    const marquee = document.querySelector(".marquee");
+    const track = document.querySelector(".marquee-track");
+    if (!marquee || !track) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    track.classList.add("js-driven");
+    marquee.classList.add("js-interactive");
+
+    const BASE = 55; // px/s default drift
+    const MAX = 3200; // cap for added velocity
+    const clamp = (v) => Math.max(-MAX, Math.min(MAX, v));
+
+    let offset = 0;
+    let extra = 0; // velocity on top of the base drift
+    let dragging = false;
+    let lastX = 0;
+    let lastMoveT = 0;
+    let dragVel = 0;
+    let lastT = performance.now();
+
+    // Sideways wheel / trackpad swipe scrubs the strip;
+    // vertical wheel passes through to the page.
+    marquee.addEventListener(
+      "wheel",
+      (e) => {
+        if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+        e.preventDefault();
+        offset += e.deltaX;
+        extra = clamp(extra * 0.8 + e.deltaX * 6);
+      },
+      { passive: false }
+    );
+
+    // Click / touch and drag
+    marquee.addEventListener("pointerdown", (e) => {
+      dragging = true;
+      lastX = e.clientX;
+      lastMoveT = performance.now();
+      dragVel = 0;
+      extra = 0;
+      marquee.classList.add("dragging");
+      try {
+        marquee.setPointerCapture(e.pointerId);
+      } catch (_) {}
+    });
+
+    marquee.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - lastX;
+      lastX = e.clientX;
+      const now = performance.now();
+      const dt = Math.max(now - lastMoveT, 1) / 1000;
+      lastMoveT = now;
+      offset -= dx; // strip follows the pointer
+      dragVel = -dx / dt;
+    });
+
+    function endDrag() {
+      if (!dragging) return;
+      dragging = false;
+      marquee.classList.remove("dragging");
+      // If the last movement was a while ago, drop the momentum
+      if (performance.now() - lastMoveT > 120) dragVel = 0;
+      extra = clamp(dragVel - BASE); // hand off fling momentum
     }
+    marquee.addEventListener("pointerup", endDrag);
+    marquee.addEventListener("pointercancel", endDrag);
+
+    function frame(t) {
+      const dt = Math.min((t - lastT) / 1000, 0.05);
+      lastT = t;
+      if (!dragging) {
+        offset += (BASE + extra) * dt;
+        extra *= Math.pow(0.001, dt); // eases back to base in ~0.5s
+        if (Math.abs(extra) < 1) extra = 0;
+      }
+      const half = track.scrollWidth / 2;
+      if (half > 0) {
+        offset = ((offset % half) + half) % half;
+        track.style.transform = `translateX(${-offset}px)`;
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  });
+})();
+
+/* ============================================================
+   Scroll progress + active nav link
+   ============================================================ */
+(function () {
+  document.addEventListener("DOMContentLoaded", () => {
+    const bar = document.querySelector(".scroll-progress");
+    let ticking = false;
+
+    function update() {
+      ticking = false;
+      if (bar) {
+        const doc = document.documentElement;
+        const max = doc.scrollHeight - doc.clientHeight;
+        bar.style.transform = `scaleX(${max > 0 ? doc.scrollTop / max : 0})`;
+      }
+    }
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true }
+    );
+    update();
+
+    // Active section highlighting
+    const navLinks = document.querySelectorAll(".site-nav .nav-link");
+    if (navLinks.length && "IntersectionObserver" in window) {
+      const map = new Map();
+      navLinks.forEach((link) => {
+        const id = link.getAttribute("href");
+        if (id && id.startsWith("#")) {
+          const section = document.querySelector(id);
+          if (section) map.set(section, link);
+        }
+      });
+
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              navLinks.forEach((l) => l.classList.remove("active"));
+              const link = map.get(entry.target);
+              if (link) link.classList.add("active");
+            }
+          });
+        },
+        { rootMargin: "-30% 0px -60% 0px" }
+      );
+
+      map.forEach((_, section) => sectionObserver.observe(section));
+    }
+  });
+})();
+
+/* ============================================================
+   Contact email: click to copy, with a toast
+   ============================================================ */
+(function () {
+  let toast, timer;
+
+  function showToast(message) {
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.className = "toast";
+      toast.setAttribute("role", "status");
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(timer);
+    timer = setTimeout(() => toast.classList.remove("show"), 1800);
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    const stored = localStorage.getItem("preferredLanguage");
-    let initial = stored === "ko" || stored === "en" ? stored : null;
-    if (!initial) {
-      const sys = (
-        navigator.language ||
-        navigator.userLanguage ||
-        ""
-      ).toLowerCase();
-      initial = sys.startsWith("ko") ? "ko" : "en";
-    }
-    setLanguage(initial);
-    const btnKo = document.getElementById("btn-ko");
-    const btnEn = document.getElementById("btn-en");
-    if (btnKo) btnKo.addEventListener("click", () => setLanguage("ko"));
-    if (btnEn) btnEn.addEventListener("click", () => setLanguage("en"));
+    const email = document.querySelector(".contact-email");
+    if (!email || !navigator.clipboard) return;
+    email.addEventListener("click", (e) => {
+      e.preventDefault();
+      navigator.clipboard
+        .writeText(email.textContent.trim())
+        .then(() => showToast("Email copied to clipboard"))
+        .catch(() => {
+          window.location.href = email.href;
+        });
+    });
   });
-
-  // Expose for manual toggling if needed
-  window.setLanguage = setLanguage;
 })();
 
-// Mobile Navigation Toggle
-const hamburger = document.querySelector(".hamburger");
-const navMenu = document.querySelector(".nav-menu");
-
-hamburger.addEventListener("click", () => {
-  hamburger.classList.toggle("active");
-  navMenu.classList.toggle("active");
-});
-
-// Close mobile menu when clicking on a link
-document.querySelectorAll(".nav-link").forEach((n) =>
-  n.addEventListener("click", () => {
-    hamburger.classList.remove("active");
-    navMenu.classList.remove("active");
-  })
-);
-
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute("href"));
-    if (target) {
-      const offsetTop = target.offsetTop - 80; // Account for fixed navbar
-      window.scrollTo({
-        top: offsetTop,
-        behavior: "smooth",
-      });
-    }
-  });
-});
-
-// Navbar background on scroll
-window.addEventListener("scroll", () => {
-  const navbar = document.querySelector(".navbar");
-  if (window.scrollY > 100) {
-    navbar.style.background = "rgba(255, 255, 255, 0.95)";
-  } else {
-    navbar.style.background = "rgba(255, 255, 255, 0.85)";
-  }
-});
-
-// Intersection Observer for fade-in animations
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: "0px 0px -50px 0px",
-};
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-    }
-  });
-}, observerOptions);
-
-// Add fade-in class to elements and observe them
-document.addEventListener("DOMContentLoaded", () => {
-  const elementsToAnimate = document.querySelectorAll(
-    ".about-text, .education-item, .publication-item, .contact-content"
-  );
-
-  elementsToAnimate.forEach((el) => {
-    el.classList.add("fade-in");
-    observer.observe(el);
-  });
-});
-
-// Typing animation for hero section
-function typeWriter(element, text, speed = 100) {
-  let i = 0;
-  element.innerHTML = "";
-
-  function type() {
-    if (i < text.length) {
-      element.innerHTML += text.charAt(i);
-      i++;
-      setTimeout(type, speed);
-    }
-  }
-
-  type();
-}
-
-// Initialize typing animation when page loads
-window.addEventListener("load", () => {
-  const heroDescription = document.querySelector(".hero-description");
-  if (!heroDescription) return;
-  const hasHtmlAttrs =
-    heroDescription.hasAttribute("data-ko-html") ||
-    heroDescription.hasAttribute("data-en-html");
-  // If the hero description uses HTML content (bold, <br>), skip typing to preserve formatting
-  if (hasHtmlAttrs) return;
-  const originalText = heroDescription.textContent;
-  setTimeout(() => {
-    typeWriter(heroDescription, originalText, 30);
-  }, 1000);
-});
-
-// Parallax effect for hero section
-window.addEventListener("scroll", () => {
-  const scrolled = window.pageYOffset;
-  const parallax = document.querySelector(".hero");
-  const speed = scrolled * 0.5;
-
-  if (parallax) {
-    parallax.style.transform = `translateY(${speed}px)`;
-  }
-});
-
-// Active navigation link highlighting
-window.addEventListener("scroll", () => {
-  const sections = document.querySelectorAll("section[id]");
-  const navLinks = document.querySelectorAll(".nav-link");
-
-  let current = "";
-
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop - 100;
-    const sectionHeight = section.clientHeight;
-
-    if (
-      window.scrollY >= sectionTop &&
-      window.scrollY < sectionTop + sectionHeight
-    ) {
-      current = section.getAttribute("id");
-    }
-  });
-
-  navLinks.forEach((link) => {
-    link.classList.remove("active");
-    if (link.getAttribute("href") === `#${current}`) {
-      link.classList.add("active");
-    }
-  });
-});
-
-// Form submission handling
-const contactForm = document.querySelector(".form");
-if (contactForm) {
-  contactForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    // Get form data
-    const formData = new FormData(this);
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const message = formData.get("message");
-
-    // Simple validation
-    if (!name || !email || !message) {
-      alert("Please fill in all fields.");
-      return;
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert("Please enter a valid email address.");
-      return;
-    }
-
-    // Simulate form submission (replace with actual form handling)
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-
-    submitBtn.textContent = "Sending...";
-    submitBtn.disabled = true;
-
-    // Simulate API call
-    setTimeout(() => {
-      alert("Thank you for your message! I will get back to you soon.");
-      this.reset();
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
-    }, 2000);
-  });
-}
-
-// Scroll to top functionality
-function createScrollToTopButton() {
-  const scrollBtn = document.createElement("button");
-  scrollBtn.innerHTML = "↑";
-  scrollBtn.className = "scroll-to-top";
-  scrollBtn.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: #3b82f6;
-        color: white;
-        border: none;
-        font-size: 20px;
-        cursor: pointer;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-        z-index: 1000;
-    `;
-
-  document.body.appendChild(scrollBtn);
-
-  // Show/hide scroll button based on scroll position
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      scrollBtn.style.opacity = "1";
-      scrollBtn.style.visibility = "visible";
-    } else {
-      scrollBtn.style.opacity = "0";
-      scrollBtn.style.visibility = "hidden";
-    }
-  });
-
-  // Scroll to top when clicked
-  scrollBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  });
-}
-
-// Initialize scroll to top button
-document.addEventListener("DOMContentLoaded", createScrollToTopButton);
-
-// Add loading animation
-window.addEventListener("load", () => {
-  document.body.classList.add("loaded");
-});
-
-// Preloader (if needed)
-function createPreloader() {
-  const preloader = document.createElement("div");
-  preloader.className = "preloader";
-  preloader.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #0f172a;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        transition: opacity 0.5s ease;
-    `;
-
-  preloader.innerHTML = `
-        <div style="
-            width: 50px;
-            height: 50px;
-            border: 3px solid #334155;
-            border-top: 3px solid #60a5fa;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        "></div>
-    `;
-
-  // Add spin animation
-  const style = document.createElement("style");
-  style.textContent = `
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    `;
-  document.head.appendChild(style);
-
-  document.body.appendChild(preloader);
-
-  // Remove preloader when page is loaded
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      preloader.style.opacity = "0";
-      setTimeout(() => {
-        preloader.remove();
-      }, 500);
-    }, 1000);
-  });
-}
-
-// Initialize preloader
-// createPreloader();
-
-// Add some interactive hover effects
-document.addEventListener("DOMContentLoaded", () => {
-  // Add hover effect to publication items
-  const publicationItems = document.querySelectorAll(".publication-item");
-  publicationItems.forEach((item) => {
-    item.addEventListener("mouseenter", function () {
-      this.style.transform = "translateY(-10px) scale(1.02)";
-    });
-
-    item.addEventListener("mouseleave", function () {
-      this.style.transform = "translateY(0) scale(1)";
-    });
-  });
-
-  // Add ripple effect to buttons
-  const buttons = document.querySelectorAll(".btn");
-  buttons.forEach((button) => {
-    button.addEventListener("click", function (e) {
-      const ripple = document.createElement("span");
-      const rect = this.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const x = e.clientX - rect.left - size / 2;
-      const y = e.clientY - rect.top - size / 2;
-
-      ripple.style.cssText = `
-                position: absolute;
-                width: ${size}px;
-                height: ${size}px;
-                left: ${x}px;
-                top: ${y}px;
-                background: rgba(255, 255, 255, 0.3);
-                border-radius: 50%;
-                transform: scale(0);
-                animation: ripple 0.6s linear;
-                pointer-events: none;
-            `;
-
-      this.style.position = "relative";
-      this.style.overflow = "hidden";
-      this.appendChild(ripple);
-
-      setTimeout(() => {
-        ripple.remove();
-      }, 600);
-    });
-  });
-
-  // Add ripple animation
-  const rippleStyle = document.createElement("style");
-  rippleStyle.textContent = `
-        @keyframes ripple {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
-    `;
-  document.head.appendChild(rippleStyle);
-});
-
-// Open CV in new tab and trigger download (global)
+/* ============================================================
+   CV: open in a new tab and download
+   ============================================================ */
 function openCV(e) {
   if (e) e.preventDefault();
   const url = "CV.pdf";
@@ -453,21 +327,6 @@ function openCV(e) {
   const a = document.createElement("a");
   a.href = url;
   a.download = "CV.pdf";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-}
-
-// Open Resume in new tab and trigger download
-function openResume(e) {
-  if (e) e.preventDefault();
-  const url = "Resume.pdf";
-  // Open in a new tab for viewing
-  window.open(url, "_blank");
-  // Trigger a download as well
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "Resume.pdf";
   document.body.appendChild(a);
   a.click();
   a.remove();

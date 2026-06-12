@@ -3,54 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KoLEG — Dongjun Kim</title>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light" || t === "dark")
+            document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <title>KoLEG · Dongjun Kim</title>
+    <meta name="description" content="Keeps LLMs current with Korean legal amendments through on-the-fly knowledge editing." />
+    <link rel="canonical" href="https://junkim100.github.io/papers/koleg.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://junkim100.github.io/papers/koleg.html" />
+    <meta property="og:title" content="KoLEG: On-the-Fly Korean Legal Knowledge Editing with Continuous Retrieval" />
+    <meta property="og:description" content="Keeps LLMs current with Korean legal amendments through on-the-fly knowledge editing." />
+    <meta property="og:image" content="https://junkim100.github.io/og-image.png" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="KoLEG: On-the-Fly Korean Legal Knowledge Editing with Continuous Retrieval" />
+    <meta property="twitter:description" content="Keeps LLMs current with Korean legal amendments through on-the-fly knowledge editing." />
+    <meta property="twitter:image" content="https://junkim100.github.io/og-image.png" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
-    <main class="container paper-main">
-      <a href="../index.html#publications" class="project-link"
-        >← Back to Publications</a
-      >
-      <h1 class="section-title page-title">
-        KoLEG: On-the-Fly Korean Legal Knowledge Editing with Continuous
-        Retrieval
-      </h1>
-      <p class="publication-authors">
-        Jaehyung Seo, Dahyun Jung, Jaewook Lee, Yong Chan Chun,
-        <strong>Dongjun Kim</strong>, Hwijung Ryu, Donghoon Shin, Heuiseok Lim
-      </p>
-      <p class="publication-venue">
-        EMNLP 2025 Findings —
-        <a
-          href="https://aclanthology.org/2025.findings-emnlp.489"
-          target="_blank"
-          rel="noopener noreferrer"
-          >ACL Anthology</a
+    <main class="paper-page">
+      <div class="paper-container">
+        <a href="../index.html#publications" class="paper-back"
+          >← Back to publications</a
         >
-        —
-        <a
-          href="https://github.com/ekgus9/KoLEG"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Code</a
-        >
-      </p>
 
-      <figure class="pub-figure-placeholder">
-        <img
-          alt="KoLEG paper figure"
-          src="images/koleg.png"
-          loading="lazy"
-          decoding="async"
-        />
-      </figure>
+        <p class="paper-kicker">
+          <span class="chip">EMNLP 2025 · Findings</span>
+        </p>
+        <h1 class="paper-title">
+          KoLEG: On-the-Fly Korean Legal Knowledge Editing with Continuous
+          Retrieval
+        </h1>
+        <p class="paper-authors">
+          Jaehyung Seo, Dahyun Jung, Jaewook Lee, Yong Chan Chun,
+          <strong>Dongjun Kim</strong>, Hwijung Ryu, Donghoon Shin, Heuiseok Lim
+        </p>
+        <div class="paper-links">
+          <a
+            href="https://aclanthology.org/2025.findings-emnlp.489"
+            target="_blank"
+            rel="noopener noreferrer"
+            >ACL Anthology ↗</a
+          >
+          <a
+            href="https://github.com/ekgus9/KoLEG"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Code ↗</a
+          >
+        </div>
 
-      <div style="margin-top: 1rem">
-        <h3 style="margin-bottom: 0.5rem; color: #000000">Abstract</h3>
-        <div
-          class="publication-abstract"
-          style="display: block; margin-top: 0.5rem"
-        >
+        <figure class="paper-figure">
+          <img
+            alt="KoLEG framework"
+            src="./images/koleg.webp"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+
+        <section class="paper-abstract">
+          <h2 class="paper-section-label">Abstract</h2>
           <p>
             Korean legal knowledge is subject to frequent temporal updates
             driven by societal needs and government policies. Even minor
@@ -72,7 +98,91 @@
             performance on precedent application tasks, and is qualitatively
             validated by legal experts.
           </p>
-        </div>
+        </section>
+
+        <section class="paper-case">
+          <h2 class="paper-section-label">At a Glance</h2>
+          <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          Korean law evolves through frequent, fine-grained
+                          amendments; even minor wording changes carry legal
+                          weight, yet retraining an LLM for every revision is
+                          impractical
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Edit legal knowledge on the fly, achieving edit
+                          success, preservation, and generalization under
+                          continuous sequential updates
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              <strong>Editing-Aware Learning Strategy</strong>
+                              combined with continuous retrieval
+                            </li>
+                            <li>
+                              <strong>LawEdit Retriever</strong> for
+                              amendment-aware retrieval
+                            </li>
+                            <li>
+                              <strong
+                                >Korean Legislative Amendment Dataset</strong
+                              >, built for temporal dynamics and linguistic
+                              subtlety
+                            </li>
+                            <li>Timestamp-aware evaluation protocol</li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Outperforms locate-then-edit and retrieval-based
+                              editing baselines while preserving linguistic
+                              capabilities
+                            </li>
+                            <li>
+                              Stays robust under sequential edits; improves
+                              precedent-application tasks
+                            </li>
+                            <li>Qualitatively validated by legal experts</li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Designed and built the Korean law crawling
+                              pipeline: effective-date alignment,
+                              high-precision filtering, change tracking
+                            </li>
+                            <li>
+                              Implemented timestamp-aware evaluation and quality
+                              control
+                            </li>
+                            <li>Analyzed results and co-wrote the paper</li>
+                          </ul>
+                        </dd>
+                      </dl>
+        </section>
+
+        <nav class="paper-nav" aria-label="More papers">
+          <a class="paper-nav-link prev" href="bench-prof.html"
+            ><span class="paper-nav-label">← Previous paper</span
+            ><span class="paper-nav-title">Benchmark Profiling</span></a
+          >
+          <a class="paper-nav-link next" href="mma-asia.html"
+            ><span class="paper-nav-label">Next paper →</span
+            ><span class="paper-nav-title">MMA-ASIA</span></a
+          >
+        </nav>
       </div>
     </main>
   </body>

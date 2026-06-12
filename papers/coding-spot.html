@@ -3,47 +3,75 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Exploring Coding Spot — Dongjun Kim</title>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light" || t === "dark")
+            document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <title>Exploring Coding Spot · Dongjun Kim</title>
+    <meta name="description" content="Locates the compact parameter region that LLM coding ability lives in." />
+    <link rel="canonical" href="https://junkim100.github.io/papers/coding-spot.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://junkim100.github.io/papers/coding-spot.html" />
+    <meta property="og:title" content="Exploring Coding Spot: Understanding Parametric Contributions to LLM Coding Performance" />
+    <meta property="og:description" content="Locates the compact parameter region that LLM coding ability lives in." />
+    <meta property="og:image" content="https://junkim100.github.io/og-image.png" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Exploring Coding Spot: Understanding Parametric Contributions to LLM Coding Performance" />
+    <meta property="twitter:description" content="Locates the compact parameter region that LLM coding ability lives in." />
+    <meta property="twitter:image" content="https://junkim100.github.io/og-image.png" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
-    <main class="container paper-main">
-      <a href="../index.html#publications" class="project-link"
-        >← Back to Publications</a
-      >
-      <h1 class="section-title page-title">
-        Exploring Coding Spot: Understanding Parametric Contributions to LLM
-        Coding Performance
-      </h1>
-      <p class="publication-authors">
-        <strong>Dongjun Kim</strong>, Minhyuk Kim, Yong Chan Chun, Chanjun Park,
-        Heuiseok Lim
-      </p>
-      <p class="publication-venue">
-        arXiv, 2024 —
-        <a
-          href="https://arxiv.org/abs/2412.07113"
-          target="_blank"
-          rel="noopener noreferrer"
-          >arXiv</a
+    <main class="paper-page">
+      <div class="paper-container">
+        <a href="../index.html#publications" class="paper-back"
+          >← Back to publications</a
         >
-      </p>
 
-      <figure class="pub-figure-placeholder">
-        <img
-          alt="Coding Spot paper figure"
-          src="./images/coding-spot.png"
-          loading="lazy"
-          decoding="async"
-        />
-      </figure>
+        <p class="paper-kicker">
+          <span class="chip">ACL 2026 · Findings</span>
+          <span class="chip chip-accent">First author</span>
+        </p>
+        <h1 class="paper-title">
+          Exploring Coding Spot: Understanding Parametric Contributions to LLM
+          Coding Performance
+        </h1>
+        <p class="paper-authors">
+          <strong>Dongjun Kim</strong>, Minhyuk Kim, Yong Chan Chun, Chanjun
+          Park, Heuiseok Lim
+        </p>
+        <div class="paper-links">
+          <a
+            href="https://arxiv.org/abs/2412.07113"
+            target="_blank"
+            rel="noopener noreferrer"
+            >arXiv ↗</a
+          >
+        </div>
 
-      <div style="margin-top: 1rem">
-        <h3 style="margin-bottom: 0.5rem; color: #000000">Abstract</h3>
-        <div
-          class="publication-abstract"
-          style="display: block; margin-top: 0.5rem"
-        >
+        <figure class="paper-figure">
+          <img
+            alt="Coding Spot analysis"
+            src="./images/coding-spot.webp"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+
+        <section class="paper-abstract">
+          <h2 class="paper-section-label">Abstract</h2>
           <p>
             Large Language Models (LLMs) have demonstrated notable proficiency
             in both code generation and comprehension across multiple
@@ -52,19 +80,100 @@
             whether distinct programming languages are processed independently
             or within a shared parametric region. Drawing an analogy to the
             specialized regions of the brain responsible for distinct cognitive
-            functions, we introduce the concept of <strong>Coding Spot</strong>,
-            a specialized parametric region within LLMs that facilitates coding
-            capabilities. Our findings identify this
-            <strong>Coding Spot</strong> and show that targeted modifications to
-            this subset significantly affect performance on coding tasks, while
-            largely preserving non-coding functionalities. This
-            compartmentalization mirrors the functional specialization observed
-            in cognitive neuroscience, where specific brain regions are
+            functions, we introduce the concept of Coding Spot, a specialized
+            parametric region within LLMs that facilitates coding capabilities.
+            Our findings identify this Coding Spot and show that targeted
+            modifications to this subset significantly affect performance on
+            coding tasks, while largely preserving non-coding functionalities.
+            This compartmentalization mirrors the functional specialization
+            observed in cognitive neuroscience, where specific brain regions are
             dedicated to distinct tasks, suggesting that LLMs may similarly
             employ specialized parameter regions for different knowledge
             domains.
           </p>
-        </div>
+        </section>
+
+        <section class="paper-case">
+          <h2 class="paper-section-label">At a Glance</h2>
+          <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          LLMs are strong at code generation and comprehension,
+                          but whether that ability lives in shared or
+                          language-specific parameters was unknown
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Identify and characterize the parametric region
+                          responsible for coding: the
+                          <strong>Coding Spot</strong>
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Isolate candidate parameter subsets per
+                              programming language and across languages
+                            </li>
+                            <li>
+                              Apply targeted modification and ablation to the
+                              identified subset
+                            </li>
+                            <li>
+                              Compare coding vs. non-coding task performance
+                              before and after to establish causal contribution
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              A compact Coding Spot exists: modifying it sharply
+                              degrades coding tasks
+                            </li>
+                            <li>
+                              Non-coding capabilities are largely preserved,
+                              showing compartmentalization akin to functional
+                              specialization in the brain
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              First author: conceived the approach and
+                              methodology
+                            </li>
+                            <li>
+                              Implemented the ablation experiments and
+                              evaluation sweeps at layer/module granularity
+                              (reproducible tooling)
+                            </li>
+                            <li>
+                              Designed control tasks verifying non-coding
+                              preservation; led analysis and writing
+                            </li>
+                          </ul>
+                        </dd>
+                      </dl>
+        </section>
+
+        <nav class="paper-nav" aria-label="More papers">
+          <a class="paper-nav-link prev" href="langsae.html"
+            ><span class="paper-nav-label">← Previous paper</span
+            ><span class="paper-nav-title">LangSAE Editing</span></a
+          >
+          <a class="paper-nav-link next" href="bench-prof.html"
+            ><span class="paper-nav-label">Next paper →</span
+            ><span class="paper-nav-title">Benchmark Profiling</span></a
+          >
+        </nav>
       </div>
     </main>
   </body>

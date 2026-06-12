@@ -5,58 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Dongjun Kim - AI Research Engineer at Upstage, specializing in Large Language Models, evaluation systems, and AI safety"
+      content="Dongjun Kim · AI Research Engineer at Upstage. LLM evaluation, mechanistic interpretability, and AI safety."
     />
     <meta
       name="keywords"
-      content="LLM engineer, machine learning, LLM, evaluation systems, AI safety, Upstage, Korea University"
+      content="Dongjun Kim, AI Research Engineer, LLM evaluation, mechanistic interpretability, AI safety, Upstage, Korea University"
     />
     <meta name="author" content="Dongjun Kim" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Apply stored theme before first paint -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light" || t === "dark")
+            document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://junkim.dev" />
-    <meta property="og:title" content="Dongjun Kim - AI Research Engineer" />
+    <meta property="og:url" content="https://junkim100.github.io" />
+    <meta property="og:title" content="Dongjun Kim · AI Research Engineer" />
     <meta
       property="og:description"
-      content="AI Research Engineer at Upstage, specializing in Large Language Models, evaluation systems, and AI safety"
+      content="AI Research Engineer at Upstage. LLM evaluation, mechanistic interpretability, and AI safety."
     />
-    <meta property="og:image" content="https://junkim.dev/og-image.png" />
+    <meta
+      property="og:image"
+      content="https://junkim100.github.io/og-image.png"
+    />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://junkim.dev" />
-    <meta property="twitter:title" content="Dongjun Kim - AI Research Engineer" />
+    <meta property="twitter:url" content="https://junkim100.github.io" />
+    <meta
+      property="twitter:title"
+      content="Dongjun Kim · AI Research Engineer"
+    />
     <meta
       property="twitter:description"
-      content="AI Research Engineer at Upstage, specializing in Large Language Models, evaluation systems, and AI safety"
+      content="AI Research Engineer at Upstage. LLM evaluation, mechanistic interpretability, and AI safety."
     />
-    <meta property="twitter:image" content="https://junkim.dev/og-image.png" />
+    <meta
+      property="twitter:image"
+      content="https://junkim100.github.io/og-image.png"
+    />
 
-    <!-- Additional SEO -->
     <meta name="robots" content="index, follow" />
-    <meta name="language" content="English" />
-    <meta name="revisit-after" content="7 days" />
-    <link rel="canonical" href="https://junkim.dev" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f3ec" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#161410" />
+    <link rel="canonical" href="https://junkim100.github.io" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-
-    <title>Dongjun Kim - AI Research Engineer</title>
+    <title>Dongjun Kim · AI Research Engineer</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
 
-    <!-- CSS -->
     <link rel="stylesheet" href="styles.css" />
 
     <!-- Structured Data -->
@@ -65,1736 +77,2248 @@
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Dongjun Kim",
-        "alternateName": "Jun",
         "jobTitle": "AI Research Engineer",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "Upstage",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Seoul",
-            "addressCountry": "South Korea"
+        "worksFor": { "@type": "Organization", "name": "Upstage" },
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "Korea University" },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "University of South Florida"
           }
-        },
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Upstage"
-        },
+        ],
         "knowsAbout": [
           "Large Language Models",
+          "LLM Evaluation",
           "Mechanistic Interpretability",
           "AI Safety",
-          "Machine Learning",
-          "Deep Neural Networks",
           "Natural Language Processing"
         ],
         "url": "https://junkim100.github.io",
-        "email": "junkim100@gmail.com",
-        "description": "AI Research Engineer at Upstage, specializing in Large Language Models, evaluation systems, and AI safety"
+        "email": "junkim100@gmail.com"
       }
     </script>
   </head>
   <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-      <div class="nav-container">
-        <!-- <div class="nav-logo">
-          <a href="#home">Jun's Portfolio</a>
-        </div> -->
-        <div class="nav-menu">
-          <a href="#home" class="nav-link" data-ko="홈" data-en="Home"
-            >Home</a
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- ================= Header ================= -->
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="wordmark" href="#home"
+          >Dongjun Kim<span class="dot">.</span></a
+        >
+
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#publications" class="nav-link">Publications</a>
+          <a href="#projects" class="nav-link">Projects</a>
+          <a href="#experience" class="nav-link">Experience</a>
+          <a href="#education" class="nav-link">Education</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="header-tools">
+          <button
+            class="theme-toggle"
+            aria-label="Toggle dark mode"
+            title="Toggle dark mode"
           >
-          <!-- <a href="#about" class="nav-link" data-ko="소개" data-en="About"
-            >About</a
-          > -->
-          <a
-            href="#education"
-            class="nav-link"
-            data-ko="학력"
-            data-en="Education"
-            >Education</a
+            <svg
+              class="icon-moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" />
+            </svg>
+            <svg
+              class="icon-sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+              />
+            </svg>
+          </button>
+          <a href="CV.pdf" class="btn btn-primary header-cv" onclick="openCV(event)">CV</a>
+          <button
+            class="menu-toggle"
+            aria-label="Menu"
+            aria-expanded="false"
+            aria-controls="menu-overlay"
           >
-          <a
-            href="#publications"
-            class="nav-link"
-            data-ko="논문"
-            data-en="Publications"
-            >Publications</a
-          >
-          <a
-            href="#projects"
-            class="nav-link"
-            data-ko="프로젝트"
-            data-en="Projects"
-            >Projects</a
-          >
-          <a
-            href="#experience"
-            class="nav-link"
-            data-ko="경력"
-            data-en="Experience"
-            >Experience</a
-          >
-          <a href="#contact" class="nav-link" data-ko="연락처" data-en="Contact"
-            >Contact</a
-          >
-        </div>
-        <div class="lang-switch" aria-label="Language switch">
-          <button type="button" id="btn-ko">KO</button>
-          <button type="button" id="btn-en" class="active">EN</button>
-        </div>
-        <div class="hamburger">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
         </div>
       </div>
-    </nav>
+      <div class="scroll-progress" aria-hidden="true"></div>
+    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-      <div class="hero-container">
-        <div class="hero-content">
-          <h1 class="hero-title">
-            <span
-              class="hero-greeting"
-              data-ko="안녕하세요, 저는"
-              data-en="Hi, I'm"
-              >Hi, I'm</span
-            >
-            <span class="hero-name" data-ko="김동준" data-en="Dongjun Kim"
-              >Dongjun Kim</span
-            >
-            <span class="hero-imnida" data-ko="입니다" data-en=""></span>
-
-          </h1>
-          <p
-            class="hero-subtitle-small"
-            data-en="I turn deep research insights into real-world AI systems."
-            data-ko="깊이 있는 연구 통찰을 현실 세계의 AI 시스템으로 연결합니다."
-          >
-          I turn deep research insights into real-world AI systems.
-          </p>
-
-          <p
-            class="hero-description"
-            data-en-html="I am an AI Research Engineer at <strong>Upstage</strong>, building LLM evaluation systems and infrastructure. Previously, I was in the <a href='https://nlp.korea.ac.kr/' target='_blank' rel='noopener noreferrer' class='professor-link'>NLP&amp;AI Lab</a> at Korea University, advised by <a href='https://scholar.google.com/citations?user=HMTkz7oAAAAJ' target='_blank' rel='noopener noreferrer' class='professor-link'>Dr. Heuiseok Lim</a>."
-            data-ko-html="<strong>Upstage</strong>에서 AI Research Engineer로 LLM 평가 시스템 및 인프라를 개발하고 있습니다. 이전에는 고려대학교 <a href='https://nlp.korea.ac.kr/' target='_blank' rel='noopener noreferrer' class='professor-link'>NLP&amp;AI Lab</a>에서 <a href='https://scholar.google.com/citations?user=HMTkz7oAAAAJ' target='_blank' rel='noopener noreferrer' class='professor-link'>임희석 교수님</a> 지도 하에 연구했습니다."
-          >
-            I am an AI Research Engineer at Upstage, building LLM evaluation systems and infrastructure.
-            Previously, I was in the NLP&AI Lab at Korea University, advised by
-            <a
-              href="https://scholar.google.com/citations?user=HMTkz7oAAAAJ"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="professor-link"
-              >Dr. Heuiseok Lim</a
-            >.
-          </p>
-
-
-
-
-          <div
-            class="hero-buttons"
-          >
-            <a
-              href="CV.pdf"
-              class="btn btn-primary"
-              onclick="openCV(event)"
-              >CV (PDF)</a
-            >
-            <a
-              href="https://scholar.google.com/citations?user=ZE8__uoAAAAJ"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn btn-secondary"
-              >Google Scholar</a
-            >
-          </div>
-        </div>
-        <div class="hero-image">
-          <div class="hero-avatar">
-            <img
-              src="profile_photo.jpg"
-              alt="Dongjun Kim"
-              class="avatar-photo"
-              decoding="async"
-              fetchpriority="high"
-            />
-          </div>
-        </div>
+    <!-- Mobile overlay menu -->
+    <div class="menu-overlay" id="menu-overlay">
+      <nav aria-label="Mobile">
+        <a class="overlay-link" href="#publications"
+          ><span class="no">02</span><span>Publications</span></a
+        >
+        <a class="overlay-link" href="#projects"
+          ><span class="no">03</span><span>Projects</span></a
+        >
+        <a class="overlay-link" href="#experience"
+          ><span class="no">04</span><span>Experience</span></a
+        >
+        <a class="overlay-link" href="#education"
+          ><span class="no">05</span><span>Education</span></a
+        >
+        <a class="overlay-link" href="#contact"
+          ><span class="no">06</span><span>Contact</span></a
+        >
+      </nav>
+      <div class="overlay-foot">
+        <a href="CV.pdf" onclick="openCV(event)">CV (PDF)</a>
+        <a
+          href="https://scholar.google.com/citations?user=ZE8__uoAAAAJ"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Scholar ↗</a
+        >
+        <a
+          href="https://github.com/junkim100"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub ↗</a
+        >
+        <a
+          href="https://www.linkedin.com/in/junkim100/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >LinkedIn ↗</a
+        >
       </div>
-      <div class="scroll-indicator">
-        <div class="scroll-arrow"></div>
-      </div>
-    </section>
+    </div>
 
-
-    <!-- About Section -->
-    <section id="about" class="about">
-      <div class="container">
-        <!-- <div class="section-header">
-          <h2 class="section-title" data-ko="소개" data-en="About">About</h2>
-        </div> -->
-        <div class="about-content">
-          <!-- <div class="about-text">
-            <p
-              data-en-html='I’m a master’s researcher at Korea University advised by <a href="https://scholar.google.com/citations?user=HMTkz7oAAAAJ" target="_blank" rel="noopener noreferrer" class="professor-link">Dr. Heuiseok Lim</a>. I design and ship <strong>End to End</strong> LLM evaluation and safety systems—mechanistic insights plus production rigor. I work across evaluation, interpretability, safety, and reasoning.'
-              data-ko-html='저는 고려대학교에서 <a href="https://scholar.google.com/citations?user=HMTkz7oAAAAJ" target="_blank" rel="noopener noreferrer" class="professor-link">임희석 교수님</a>의 지도를 받는 석사 연구원입니다. <strong>End to End</strong> LLM 평가·안전 시스템을 설계·구현하고, 연구를 운영 가능한 제품으로 연결합니다. 평가, 해석 가능성, 안전, 추론 전반에서 일합니다.'
-            >
-              I’m a master’s researcher at Korea University advised
-              by
-              <a
-                href="https://scholar.google.com/citations?user=HMTkz7oAAAAJ"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="professor-link"
-                >Dr. Heuiseok Lim</a
-              >.
-              I design and ship <strong>End to End</strong> LLM evaluation and safety systems—mechanistic insights plus production rigor.
-            </p>
-          </div> -->
-
-          <!-- Top Achievements (inside About, after text) -->
-          <div id="achievements" class="achievements">
-            <div class="highlights-grid">
-              <div class="highlight-card">
-                <h4 data-ko="Top Achievements" data-en="Top Achievements">Top Achievements</h4>
-                <ul class="highlight-list">
-                  <li>
-                    <a href="https://www.msit.go.kr/bbs/view.do?sCode=user&mId=214&mPid=208&bbsSeqNo=88&nttSeqNo=3175891"
-                       data-ko-html="<span class='ta-title'>독자 AI 파운데이션 모델 프로젝트(WBL)</span><span class='ta-meta'>NC AI 컨소시엄</span>"
-                       data-en-html="<span class='ta-title'>Independent AI Foundation Model Project (WBL)</span><span class='ta-meta'>NC AI Consortium</span>">
-                      <span class="ta-title">Independent AI Foundation Model Project (WBL)</span>
-                      <span class="ta-meta">NC AI Consortium</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="papers/bench-prof.html"
-                       data-ko-html="<span class='ta-title'>Benchmark Profiling: Mechanistic Diagnosis of LLM Benchmarks</span><span class='ta-meta'>EMNLP 2025 Main Oral (제1저자)</span>"
-                       data-en-html="<span class='ta-title'>Benchmark Profiling: Mechanistic Diagnosis of LLM Benchmarks</span><span class='ta-meta'>EMNLP 2025 Main Oral (First Author)</span>">
-                      <span class="ta-title">Benchmark Profiling: Mechanistic Diagnosis of LLM Benchmarks</span>
-                      <span class="ta-meta">EMNLP 2025 Oral (First Author)</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="papers/koleg.html"
-                       data-ko-html="<span class='ta-title'>KoLEG: Korean Legal Knowledge Editing</span><span class='ta-meta'>EMNLP 2025 Findings</span>"
-                       data-en-html="<span class='ta-title'>KoLEG: Korean Legal Knowledge Editing</span><span class='ta-meta'>EMNLP 2025 Findings</span>">
-                      <span class="ta-title">KoLEG: Korean Legal Knowledge Editing</span>
-                      <span class="ta-meta">EMNLP 2025 Findings</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="papers/ate.html"
-                       data-ko-html="<span class='ta-title'>Enhancing Automatic Term Extraction with LLMs via Syntactic Retrieval</span><span class='ta-meta'>ACL 2025 Findings</span>"
-                       data-en-html="<span class='ta-title'>Enhancing Automatic Term Extraction with LLMs via Syntactic Retrieval</span><span class='ta-meta'>ACL 2025 Findings</span>">
-                      <span class="ta-title">Enhancing Automatic Term Extraction</span>
-                      <span class="ta-meta">ACL 2025 Findings</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- Education Section (portfolio-identical) -->
-    <section id="education" class="education">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" data-ko="학력" data-en="Education">
-            Education
-          </h2>
-        </div>
-        <div class="education-content">
-          <div class="grid-2">
-            <!-- Korea University -->
-            <article class="card">
-              <h3
-                data-ko-html="고려대학교 — <span class='degree'>컴퓨터학 석사</span>"
-                data-en-html="Korea University — <span class='degree'>M.S. in Computer Science</span>"
-              >
-                고려대학교 — <span class="degree">컴퓨터학 석사</span>
-              </h3>
-              <div
-                class="meta"
-                data-ko="2026년 2월 졸업 · Seoul, South Korea"
-                data-en="Graduated Feb 2026 · Seoul, South Korea"
-              >
-                2026년 2월 졸업 · Seoul, South Korea
-              </div>
-              <div class="meta">
-                <span data-ko="지도교수:" data-en="Advisor:">지도교수:</span>
+    <main id="main">
+      <!-- ================= Hero ================= -->
+      <section id="home" class="hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div class="hero-content">
+              <p class="hero-kicker kicker">
+                AI Research Engineer · Upstage · Seoul
+              </p>
+              <h1 class="hero-name">Dongjun&nbsp;<em>Kim</em></h1>
+              <p class="hero-tagline">
+                I turn deep research insights into real-world AI systems.
+              </p>
+              <p class="hero-bio">
+                I'm an AI Research Engineer at
                 <a
-                  href="https://scholar.google.com/citations?user=HMTkz7oAAAAJ"
+                  href="https://www.upstage.ai/"
                   target="_blank"
-                  rel="noopener"
-                  class="professor-link"
-                  data-ko="임희석 교수님"
-                  data-en="Dr. Heuiseok Lim"
-                  >임희석 교수님</a
-                >
-                <span data-ko=" — " data-en=" — "> — </span>
-
-
+                  rel="noopener noreferrer"
+                  >Upstage</a
+                >, where I evaluate <strong>Solar</strong>, our frontier model
+                family, through 50+ benchmark campaigns that steer training and
+                data decisions. My research applies mechanistic
+                interpretability to
+                what models and benchmarks actually measure, with first-author
+                orals at ACL 2026 and EMNLP 2025. Previously, I was in the
                 <a
                   href="https://nlp.korea.ac.kr/"
                   target="_blank"
-                  rel="noopener"
-                  class="professor-link"
-                  data-ko="고려대학교 NLP&AI Lab"
-                  data-en="Korea University NLP&AI Lab"
-                  >NLP&AI Lab</a
+                  rel="noopener noreferrer"
+                  >NLP&amp;AI Lab</a
                 >
+                at Korea University, advised by
+                <a
+                  href="https://scholar.google.com/citations?user=HMTkz7oAAAAJ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Dr. Heuiseok Lim</a
+                >.
+              </p>
+              <div class="hero-actions">
+                <a href="CV.pdf" class="btn btn-primary" onclick="openCV(event)">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 3v12" />
+                    <path d="m7 11 5 5 5-5" />
+                    <path d="M4 21h16" />
+                  </svg>
+                  CV (PDF)
+                </a>
+                <a
+                  href="https://scholar.google.com/citations?user=ZE8__uoAAAAJ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-ghost"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3z" />
+                    <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+                  </svg>
+                  Google Scholar
+                </a>
+                <span class="action-divider" aria-hidden="true"></span>
+                <a
+                  class="icon-btn"
+                  href="https://github.com/junkim100"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                  title="GitHub"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M12 .5a12 12 0 0 0-3.793 23.4c.6.111.793-.261.793-.58v-2.234c-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.084 1.84 1.237 1.84 1.237 1.07 1.833 2.807 1.304 3.492.997.108-.776.419-1.305.762-1.605-2.665-.304-5.467-1.333-5.467-5.93 0-1.31.469-2.381 1.236-3.22-.124-.303-.536-1.524.116-3.176 0 0 1.008-.322 3.3 1.23a11.47 11.47 0 0 1 6.003 0c2.291-1.552 3.298-1.23 3.298-1.23.653 1.652.241 2.873.118 3.176.77.839 1.235 1.91 1.235 3.22 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .321.192.694.801.576A12 12 0 0 0 12 .5z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  class="icon-btn"
+                  href="https://www.linkedin.com/in/junkim100/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  title="LinkedIn"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.447-2.136 2.943v5.663H9.351V9h3.414v1.561h.049c.476-.9 1.637-1.852 3.37-1.852 3.604 0 4.268 2.372 4.268 5.455v6.288zM5.337 7.433a2.062 2.062 0 1 1 .001-4.124 2.062 2.062 0 0 1-.001 4.124zM6.964 20.452H3.713V9h3.251v11.452z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  class="icon-btn"
+                  href="mailto:junkim100@gmail.com"
+                  aria-label="Email"
+                  title="Email"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <path d="m3 7 9 6 9-6" />
+                  </svg>
+                </a>
               </div>
-              <ul class="edu-bullets">
-                <li class="edu-item">
-                  <span class="edu-key" data-ko="Skills" data-en="Skills"
-                    >Skills</span
-                  >
-                  <span
-                    class="edu-val"
-                    data-ko="PyTorch, PEFT (LoRA, QLoRA), RL(GRPO, RLHF), Inference Optimization(vLLM, SGLang, KV Cache Optimization), Quantization(AWQ), DeepSpeed, Megatron-LM, CUDA, Docker, Kubernetes"
-                    data-en="PyTorch, PEFT (LoRA, QLoRA), RL(GRPO, RLHF), Inference Optimization(vLLM, SGLang, KV Cache Optimization), Quantization(AWQ), DeepSpeed, Megatron-LM, CUDA, Docker, Kubernetes"
-                    >PyTorch, Hugging Face (Transformers, Accelerate),
-                    DeepSpeed, Megatron-LM, PEFT (LoRA, QLoRA), GRPO, GSPO,
-                    RLHF, vLLM, SGLang, KV Cache Optimization,
-                    Quantization(AWQ), CUDA, Docker, Kubernetes</span
-                  >
+            </div>
+
+            <figure class="hero-figure">
+              <img
+                src="profile_photo.jpg"
+                alt="Portrait of Dongjun Kim"
+                class="hero-portrait"
+                decoding="async"
+                fetchpriority="high"
+              />
+            </figure>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <div class="stat-value">10</div>
+              <div class="stat-label">Publications</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">4</div>
+              <div class="stat-label">First-author papers</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">2<em>×</em></div>
+              <div class="stat-label">Main-conference orals (ACL · EMNLP)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="marquee" aria-hidden="true">
+          <div class="marquee-track">
+            <span>LLM Evaluation Systems</span><span class="sep">✺</span>
+            <span>Benchmark Engineering</span><span class="sep">✺</span>
+            <span>Mechanistic Interpretability</span><span class="sep">✺</span>
+            <span>Large-Scale Model Serving</span><span class="sep">✺</span>
+            <span>Inference Optimization</span><span class="sep">✺</span>
+            <span>Supervised Fine-Tuning</span><span class="sep">✺</span>
+            <span>Parameter-Efficient Fine-Tuning</span><span class="sep">✺</span>
+            <span>Quantization</span><span class="sep">✺</span>
+            <span>RLHF</span><span class="sep">✺</span>
+            <span>RLVR</span><span class="sep">✺</span>
+            <span>LLM Evaluation Systems</span><span class="sep">✺</span>
+            <span>Benchmark Engineering</span><span class="sep">✺</span>
+            <span>Mechanistic Interpretability</span><span class="sep">✺</span>
+            <span>Large-Scale Model Serving</span><span class="sep">✺</span>
+            <span>Inference Optimization</span><span class="sep">✺</span>
+            <span>Supervised Fine-Tuning</span><span class="sep">✺</span>
+            <span>Parameter-Efficient Fine-Tuning</span><span class="sep">✺</span>
+            <span>Quantization</span><span class="sep">✺</span>
+            <span>RLHF</span><span class="sep">✺</span>
+            <span>RLVR</span><span class="sep">✺</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Highlights ================= -->
+      <section id="highlights" class="section">
+        <div class="container">
+          <div class="section-head">
+            <div class="section-head-left">
+              <span class="section-no">01</span>
+              <h2 class="section-title">Selected Highlights</h2>
+            </div>
+          </div>
+
+          <ul class="highlight-list">
+            <li class="highlight-item">
+              <a href="#projects">
+                <span class="highlight-no">01</span>
+                <span class="highlight-title">Solar Open 2</span>
+                <span class="highlight-meta">Upstage · Frontier open model</span>
+                <span class="highlight-arrow">→</span>
+              </a>
+            </li>
+            <li class="highlight-item">
+              <a href="#projects">
+                <span class="highlight-no">02</span>
+                <span class="highlight-title">Solar Pro 4</span>
+                <span class="highlight-meta"
+                  >Upstage · Flagship frontier model</span
+                >
+                <span class="highlight-arrow">→</span>
+              </a>
+            </li>
+            <li class="highlight-item">
+              <a href="papers/langsae.html">
+                <span class="highlight-no">03</span>
+                <span class="highlight-title"
+                  >LangSAE Editing: Improving Multilingual Information
+                  Retrieval</span
+                >
+                <span class="highlight-meta"
+                  >ACL 2026 Main · Oral · First author</span
+                >
+                <span class="highlight-arrow">→</span>
+              </a>
+            </li>
+            <li class="highlight-item">
+              <a href="papers/bench-prof.html">
+                <span class="highlight-no">04</span>
+                <span class="highlight-title"
+                  >Benchmark Profiling: Mechanistic Diagnosis of LLM
+                  Benchmarks</span
+                >
+                <span class="highlight-meta"
+                  >EMNLP 2025 Main · Oral · First author</span
+                >
+                <span class="highlight-arrow">→</span>
+              </a>
+            </li>
+            <li class="highlight-item">
+              <a href="papers/koleg.html">
+                <span class="highlight-no">05</span>
+                <span class="highlight-title"
+                  >KoLEG: On-the-Fly Korean Legal Knowledge Editing</span
+                >
+                <span class="highlight-meta">EMNLP 2025 Findings</span>
+                <span class="highlight-arrow">→</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ================= Publications ================= -->
+      <section id="publications" class="section">
+        <div class="container">
+          <div class="section-head">
+            <div class="section-head-left">
+              <span class="section-no">02</span>
+              <h2 class="section-title">Publications</h2>
+            </div>
+            <p class="section-note">Click an entry to expand the case study</p>
+          </div>
+
+          <div class="pub-list">
+            <!-- 01 · LangSAE -->
+            <article class="pub" id="pub-langsae">
+              <div class="pub-head">
+                <span class="pub-no">01</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-langsae"
+                    >
+                      LangSAE Editing: Improving Multilingual Information
+                      Retrieval via Post-hoc Language Identity Removal
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">Removes language identity from embeddings at inference time to improve cross-lingual retrieval.</p>
+                  <p class="pub-authors">
+                    <strong>Dongjun Kim</strong>, Jeongho Yoon, Chanjun Park,
+                    Heuiseok Lim
+                  </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">ACL 2026 · Main</span>
+                    <span class="chip chip-accent">Oral</span>
+                    <span class="chip chip-accent">First author</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-langsae">
+                <div class="pub-body-inner">
+                  <div class="pub-detail">
+                    <figure class="pub-figure">
+                      <img
+                        src="papers/images/langsae.webp"
+                        alt="LangSAE Editing method overview"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </figure>
+                    <div>
+                      <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          In multilingual retrieval, dense embeddings also
+                          encode language signals that can overshadow relevant
+                          cross-language evidence
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Remove language signals at inference time to improve
+                          cross-language retrieval, without retraining the base
+                          model or re-encoding text
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Decompose embeddings into latent units with a
+                              <strong>sparse autoencoder</strong>
+                            </li>
+                            <li>
+                              Identify
+                              <strong>language-associated latent units</strong>
+                              via cross-language activation statistics
+                            </li>
+                            <li>
+                              <strong>Post-hoc editing</strong> removes those
+                              signals at inference while preserving the original
+                              embedding dimensions
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Consistent retrieval improvements across multiple
+                              languages
+                            </li>
+                            <li>
+                              Strongest gains across different writing systems
+                            </li>
+                            <li>
+                              Drops into existing systems with no retraining or
+                              re-encoding required
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              First author: led the methodology and overall
+                              study design
+                            </li>
+                            <li>
+                              Implemented the SAE-based language-latent
+                              identification and removal pipeline
+                            </li>
+                            <li>
+                              Designed the multilingual retrieval experiments;
+                              led analysis and writing
+                            </li>
+                          </ul>
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a href="papers/langsae.html">Paper page →</a>
+                        <a
+                          href="https://arxiv.org/abs/2601.04768"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >arXiv ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 02 · Coding Spot -->
+            <article class="pub" id="pub-coding-spot">
+              <div class="pub-head">
+                <span class="pub-no">02</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-coding-spot"
+                    >
+                      Exploring Coding Spot: Understanding Parametric
+                      Contributions to LLM Coding Performance
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">Locates the compact parameter region that LLM coding ability lives in.</p>
+                  <p class="pub-authors">
+                    <strong>Dongjun Kim</strong>, Minhyuk Kim, Yong Chan Chun,
+                    Chanjun Park, Heuiseok Lim
+                  </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">ACL 2026 · Findings</span>
+                    <span class="chip chip-accent">First author</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-coding-spot">
+                <div class="pub-body-inner">
+                  <div class="pub-detail">
+                    <figure class="pub-figure">
+                      <img
+                        src="papers/images/coding-spot.webp"
+                        alt="Coding Spot analysis"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </figure>
+                    <div>
+                      <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          LLMs are strong at code generation and comprehension,
+                          but whether that ability lives in shared or
+                          language-specific parameters was unknown
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Identify and characterize the parametric region
+                          responsible for coding: the
+                          <strong>Coding Spot</strong>
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Isolate candidate parameter subsets per
+                              programming language and across languages
+                            </li>
+                            <li>
+                              Apply targeted modification and ablation to the
+                              identified subset
+                            </li>
+                            <li>
+                              Compare coding vs. non-coding task performance
+                              before and after to establish causal contribution
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              A compact Coding Spot exists: modifying it sharply
+                              degrades coding tasks
+                            </li>
+                            <li>
+                              Non-coding capabilities are largely preserved,
+                              showing compartmentalization akin to functional
+                              specialization in the brain
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              First author: conceived the approach and
+                              methodology
+                            </li>
+                            <li>
+                              Implemented the ablation experiments and
+                              evaluation sweeps at layer/module granularity
+                              (reproducible tooling)
+                            </li>
+                            <li>
+                              Designed control tasks verifying non-coding
+                              preservation; led analysis and writing
+                            </li>
+                          </ul>
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a href="papers/coding-spot.html">Paper page →</a>
+                        <a
+                          href="https://arxiv.org/abs/2412.07113"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >arXiv ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 03 · Benchmark Profiling -->
+            <article class="pub" id="pub-bench-prof">
+              <div class="pub-head">
+                <span class="pub-no">03</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-bench-prof"
+                    >
+                      Benchmark Profiling: Mechanistic Diagnosis of LLM
+                      Benchmarks
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">Decomposes benchmark scores into the cognitive abilities they actually measure.</p>
+                  <p class="pub-authors">
+                    <strong>Dongjun Kim</strong>, Gyuho Shim, Yong Chan Chun,
+                    Minhyuk Kim, Chanjun Park, Heuiseok Lim
+                  </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">EMNLP 2025 · Main</span>
+                    <span class="chip chip-accent">Oral</span>
+                    <span class="chip chip-accent">First author</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-bench-prof">
+                <div class="pub-body-inner">
+                  <div class="pub-detail">
+                    <figure class="pub-figure">
+                      <img
+                        src="papers/images/bench-prof.webp"
+                        alt="Benchmark Profiling framework"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </figure>
+                    <div>
+                      <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          Benchmark scores are read as evidence of specific
+                          capabilities, yet a single number masks the mixture of
+                          abilities a task actually requires, and gains often
+                          fail to match user-perceived competence
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Establish a framework that systematically diagnoses
+                          and quantifies which cognitive abilities each
+                          benchmark actually measures
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Define
+                              <strong>10 cognitively grounded abilities</strong>
+                              with ability-specific diagnostic datasets
+                            </li>
+                            <li>
+                              Locate ability-relevant parameters via
+                              <strong>gradient-based importance</strong>
+                            </li>
+                            <li>
+                              Apply targeted <strong>MLP weight ablation</strong>
+                              and compare original vs. ablated performance to
+                              compute an
+                              <strong>Ability Impact Score (AIS)</strong>
+                            </li>
+                            <li>
+                              Profile three instruction-tuned models across ten
+                              widely used benchmarks
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Most benchmarks tap a
+                              <strong>mixture of abilities</strong>, not the
+                              single skill on their label
+                            </li>
+                            <li>
+                              Similarly labeled datasets rely on distinct
+                              ability mixes
+                            </li>
+                            <li>
+                              Code generation rewards broad multi-skill
+                              improvement; narrow fine-tuning yields modest
+                              gains
+                            </li>
+                            <li>
+                              Task-irrelevant abilities can interfere and hurt
+                              performance
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              First author: led the methodology and overall
+                              study design
+                            </li>
+                            <li>
+                              Built the diagnostic datasets and the
+                              gradient-importance / ablation pipelines as
+                              reproducible tooling
+                            </li>
+                            <li>
+                              Automated large-scale experiment sweeps; designed
+                              and ran the human-expert evaluation
+                            </li>
+                            <li>
+                              Led analysis, writing, and the open-source release
+                            </li>
+                          </ul>
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a href="papers/bench-prof.html">Paper page →</a>
+                        <a
+                          href="https://arxiv.org/abs/2510.01232"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >arXiv ↗</a
+                        >
+                        <a
+                          href="https://github.com/junkim100/Benchmark-Profiling"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >Code ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 04 · KoLEG -->
+            <article class="pub" id="pub-koleg">
+              <div class="pub-head">
+                <span class="pub-no">04</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-koleg"
+                    >
+                      KoLEG: On-the-Fly Korean Legal Knowledge Editing with
+                      Continuous Retrieval
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">Keeps LLMs current with Korean legal amendments through on-the-fly knowledge editing.</p>
+                  <p class="pub-authors">
+                    Jaehyung Seo, Dahyun Jung, Jaewook Lee, Yong Chan Chun,
+                    <strong>Dongjun Kim</strong>, Hwijung Ryu, Donghoon Shin,
+                    Heuiseok Lim
+                  </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">EMNLP 2025 · Findings</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-koleg">
+                <div class="pub-body-inner">
+                  <div class="pub-detail">
+                    <figure class="pub-figure">
+                      <img
+                        src="papers/images/koleg.webp"
+                        alt="KoLEG framework"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </figure>
+                    <div>
+                      <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          Korean law evolves through frequent, fine-grained
+                          amendments; even minor wording changes carry legal
+                          weight, yet retraining an LLM for every revision is
+                          impractical
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Edit legal knowledge on the fly, achieving edit
+                          success, preservation, and generalization under
+                          continuous sequential updates
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              <strong>Editing-Aware Learning Strategy</strong>
+                              combined with continuous retrieval
+                            </li>
+                            <li>
+                              <strong>LawEdit Retriever</strong> for
+                              amendment-aware retrieval
+                            </li>
+                            <li>
+                              <strong
+                                >Korean Legislative Amendment Dataset</strong
+                              >, built for temporal dynamics and linguistic
+                              subtlety
+                            </li>
+                            <li>Timestamp-aware evaluation protocol</li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Outperforms locate-then-edit and retrieval-based
+                              editing baselines while preserving linguistic
+                              capabilities
+                            </li>
+                            <li>
+                              Stays robust under sequential edits; improves
+                              precedent-application tasks
+                            </li>
+                            <li>Qualitatively validated by legal experts</li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Designed and built the Korean law crawling
+                              pipeline: effective-date alignment,
+                              high-precision filtering, change tracking
+                            </li>
+                            <li>
+                              Implemented timestamp-aware evaluation and quality
+                              control
+                            </li>
+                            <li>Analyzed results and co-wrote the paper</li>
+                          </ul>
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a href="papers/koleg.html">Paper page →</a>
+                        <a
+                          href="https://aclanthology.org/2025.findings-emnlp.489"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >ACL Anthology ↗</a
+                        >
+                        <a
+                          href="https://github.com/ekgus9/KoLEG"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >Code ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 05 · MMA-ASIA -->
+            <article class="pub" id="pub-mma-asia">
+              <div class="pub-head">
+                <span class="pub-no">05</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-mma-asia"
+                    >
+                      MMA-ASIA: A Multilingual and Multimodal Alignment
+                      Framework for Culturally-Grounded Evaluation
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">A tri-modal benchmark of cultural awareness across 8 Asian countries and 10 languages.</p>
+                  <p class="pub-authors">
+                    Weihua Zheng, Zhengyuan Liu, et al., incl.
+                    <strong>Dongjun Kim</strong> (35 authors)
+                  </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">arXiv · 2025</span>
+                    <span class="chip chip-muted">Under review · ICLR 2026</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-mma-asia">
+                <div class="pub-body-inner">
+                  <div class="pub-detail">
+                    <figure class="pub-figure">
+                      <img
+                        src="papers/images/mma-asia.webp"
+                        alt="MMA-ASIA benchmark overview"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </figure>
+                    <div>
+                      <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          Multimodal understanding and reasoning often degrade
+                          outside Western, high-resource settings, and
+                          culture-aware evaluation has lagged behind
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Quantify cultural awareness across Asian languages and
+                          modalities, and verify that models answer for the
+                          right reasons
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Human-curated benchmark across
+                              <strong
+                                >8 Asian countries, 10 languages, 27,000
+                                questions</strong
+                              >; 79% require multi-step cultural reasoning
+                            </li>
+                            <li>
+                              First dataset input-aligned across
+                              <strong>text, image, and speech</strong>, enabling
+                              direct cross-modal transfer tests
+                            </li>
+                            <li>
+                              Five-dimensional protocol: country disparities,
+                              cross-lingual and cross-modal consistency,
+                              generalization, grounding validity
+                            </li>
+                            <li>
+                              A grounding validation module detects shortcut
+                              learning;
+                              <strong>Vision-ablated Prefix Replay (VPR)</strong>
+                              probes modality divergence
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Reveals cultural-awareness gaps across countries
+                              and languages
+                            </li>
+                            <li>
+                              Demonstrates cross-modal inconsistency and
+                              shortcut-learning risks in current models
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Led the Korean subset: taxonomy design, image
+                              collection, and QA authoring guidelines
+                            </li>
+                            <li>
+                              Evaluated diverse VLMs and calibrated
+                              quality-control criteria
+                            </li>
+                            <li>Contributed analysis and writing</li>
+                          </ul>
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a href="papers/mma-asia.html">Paper page →</a>
+                        <a
+                          href="https://arxiv.org/abs/2510.08608"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >arXiv ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 06 · KITE -->
+            <article class="pub" id="pub-kite">
+              <div class="pub-head">
+                <span class="pub-no">06</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-kite"
+                    >
+                      KITE: A Benchmark for Evaluating Korean
+                      Instruction-Following Abilities in Large Language Models
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">The first open-ended benchmark for Korean instruction following.</p>
+                  <p class="pub-authors">
+                    <strong>Dongjun Kim</strong>, Chanhee Park, Chanjun Park,
+                    Heuiseok Lim
+                  </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">arXiv · 2025</span>
+                    <span class="chip chip-muted">Under review · AACL 2026</span>
+                    <span class="chip chip-accent">First author</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-kite">
+                <div class="pub-body-inner">
+                  <div class="pub-detail">
+                    <figure class="pub-figure">
+                      <img
+                        src="papers/images/kite.webp"
+                        alt="KITE benchmark overview"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </figure>
+                    <div>
+                      <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          Instruction-following evaluation is English-centric;
+                          Korean, with honorifics, rich morphology, and dual
+                          numbering systems, lacked an open-ended benchmark
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Measure both general and Korean-specific instruction
+                          following on diverse open-ended tasks, fairly and
+                          reproducibly
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Tasks and prompts target
+                              <strong>Korean-specific phenomena</strong>
+                              (honorific shifts, morphology, dual numerals)
+                              alongside general instructions
+                            </li>
+                            <li>
+                              <strong>Open-ended generation</strong> rather than
+                              multiple choice
+                            </li>
+                            <li>
+                              Evaluation pipeline combines automated metrics
+                              with human assessment
+                            </li>
+                            <li>Full public release of dataset and code</li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Reveals performance disparities across models with
+                              per-ability insight into strengths and weaknesses
+                            </li>
+                            <li>
+                              Released on Hugging Face and GitHub; used as a
+                              reference benchmark for Korean LLM comparison
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              First author: designed and built the benchmark
+                              (tasks, prompts, scoring)
+                            </li>
+                            <li>
+                              Ran large-scale automated and human evaluations;
+                              led the analysis
+                            </li>
+                            <li>Released and maintains the public artifacts</li>
+                          </ul>
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a href="papers/kite.html">Paper page →</a>
+                        <a
+                          href="https://arxiv.org/abs/2510.15558"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >arXiv ↗</a
+                        >
+                        <a
+                          href="https://huggingface.co/datasets/junkim100/KITE"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >Dataset ↗</a
+                        >
+                        <a
+                          href="https://github.com/junkim100/KITE"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >Code ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 07 · ATE -->
+            <article class="pub" id="pub-ate">
+              <div class="pub-head">
+                <span class="pub-no">07</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-ate"
+                    >
+                      Enhancing Automatic Term Extraction with Large Language
+                      Models via Syntactic Retrieval
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">Syntax-based demonstration retrieval that fixes term-boundary errors in LLM term extraction.</p>
+                  <p class="pub-authors">
+                    Yong Chan Chun, Minhyuk Kim, <strong>Dongjun Kim</strong>,
+                    Chanjun Park, Heuiseok Lim
+                  </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">ACL 2025 · Findings</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-ate">
+                <div class="pub-body-inner">
+                  <div class="pub-detail">
+                    <figure class="pub-figure">
+                      <img
+                        src="papers/images/ate.webp"
+                        alt="Syntactic retrieval for ATE"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </figure>
+                    <div>
+                      <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Automatic Term Extraction (ATE) identifies the
+                              domain-specific terms that underpin machine
+                              translation, information retrieval, and more
+                            </li>
+                            <li>
+                              LLM-based ATE is barely explored, and
+                              term-boundary identification is the hard part
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Semantic-similarity demonstration retrieval misleads
+                          term-boundary recognition under domain mismatch,
+                          so retrieve demonstrations by syntax instead
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Retrieve few-shot demonstrations by
+                              <strong>syntactic similarity</strong> over parse
+                              trees using <strong>FastKASSIM</strong>
+                            </li>
+                            <li>
+                              Domain-agnostic guidance for capturing term
+                              boundaries
+                            </li>
+                            <li>
+                              Analyze how lexical overlap between the query and
+                              retrieved examples affects performance
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Consistent F1 gains on three specialized ATE
+                              benchmarks (ACTER, ACLR2, BCGM)
+                            </li>
+                            <li>
+                              Notably more stable than semantic retrieval in
+                              cross-domain settings
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Co-author: contributed to experiment design and
+                              methodology
+                            </li>
+                            <li>
+                              Supported the syntactic retrieval experiments and
+                              analysis
+                            </li>
+                          </ul>
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a href="papers/ate.html">Paper page →</a>
+                        <a
+                          href="https://arxiv.org/abs/2506.21222"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >arXiv ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 08 · SIL -->
+            <article class="pub" id="pub-sil">
+              <div class="pub-head">
+                <span class="pub-no">08</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-sil"
+                    >
+                      From Snapshot to Stream: A Self-Improving Leaderboard for
+                      Robust and Evolving NLP Evaluation
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">A leaderboard that regenerates itself daily from real-world data.</p>
+                  <p class="pub-authors">
+                    Chanjun Park, Hyeonseok Moon, <strong>Dongjun Kim</strong>,
+                    Seolhwa Lee, Jaehyung Seo, Sugyeong Eo, Heuiseok Lim
+                  </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">arXiv · 2025</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-sil">
+                <div class="pub-body-inner">
+                  <div class="pub-detail">
+                    <figure class="pub-figure">
+                      <img
+                        src="papers/images/sil.webp"
+                        alt="Self-Improving Leaderboard overview"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </figure>
+                    <div>
+                      <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          Static test-set leaderboards fail to reflect rapidly
+                          changing models and data distributions, and they
+                          incentivize test-set overfitting
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Build a fair, sustainable comparison framework with
+                          time-aware ranking and regression detection
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              <strong>Agent system</strong> collects daily news
+                              → LLM agents generate and review Q&amp;A items →
+                              multi-LLM <strong>automated evaluation</strong>
+                              (vLLM backend) → time-aware ranking with stability
+                              and volatility metrics
+                            </li>
+                            <li>
+                              <strong>Live leaderboard</strong> operated on
+                              Hugging Face Spaces
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>Stabilized real-time benchmark operations</li>
+                            <li>
+                              Time-aware ranking with stability/volatility
+                              metrics and quarterly regression detection
+                            </li>
+                            <li>
+                              Automation reduced operational cost and risk
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Agentic engineering lead: built the news-crawling
+                              agents (sources, scheduling, deduplication)
+                            </li>
+                            <li>
+                              Designed the LLM agent pipeline converting daily
+                              news into reviewed Q&amp;A benchmark items
+                            </li>
+                            <li>
+                              Implemented the vLLM-based automated evaluation
+                              pipeline and time-aware ranking
+                            </li>
+                            <li>
+                              Operated the live leaderboard on HF Spaces with
+                              monitoring and data hygiene
+                            </li>
+                          </ul>
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a href="papers/sil.html">Paper page →</a>
+                        <a
+                          href="https://arxiv.org/abs/2303.10888"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >arXiv ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 09 · Korean Biases -->
+            <article class="pub" id="pub-korean-biases">
+              <div class="pub-head">
+                <span class="pub-no">09</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-korean-biases"
+                    >
+                      Exploring Inherent Biases in LLMs within Korean Social
+                      Context: A Comparative Analysis of ChatGPT and GPT-4
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">Measures ChatGPT and GPT-4 toxicity across Korean social issues and personas.</p>
+                  <p class="pub-authors">
+                    Seungyoon Lee, <strong>Dongjun Kim</strong>, Dahyun Jung,
+                    Chanjun Park, Heuiseok Lim
+                  </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">NAACL 2024 · SRW</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-korean-biases">
+                <div class="pub-body-inner">
+                  <div class="pub-detail">
+                    <figure class="pub-figure">
+                      <img
+                        src="papers/images/korean-biases.webp"
+                        alt="Korean social bias analysis"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </figure>
+                    <div>
+                      <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              LLM bias and toxicity are widely studied, but
+                              almost entirely in English-speaking contexts
+                            </li>
+                            <li>
+                              Rigorous analysis within the Korean sociocultural
+                              context was missing
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Quantify and compare ChatGPT vs. GPT-4 toxicity under
+                          Korean social issues and persona conditions
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          Design prompts reflecting major Korean social issues
+                          with varied <strong>personas</strong> → collect model
+                          outputs → compute automated
+                          <strong>toxicity</strong> metrics with human
+                          validation → analyze bias patterns by condition
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Certain persona–issue combinations consistently
+                              yield harmful content
+                            </li>
+                            <li>
+                              Under some conditions GPT-4 produces
+                              <strong>more than twice</strong> the toxicity of
+                              ChatGPT
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Analyzed and organized results across persona and
+                              issue conditions
+                            </li>
+                            <li>
+                              Built the visualizations and co-wrote the paper
+                            </li>
+                          </ul>
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a href="papers/korean-biases.html">Paper page →</a>
+                        <a
+                          href="https://aclanthology.org/2024.naacl-srw.11/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >ACL Anthology ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 10 · CitySEIRCast -->
+            <article class="pub" id="pub-cityseircast">
+              <div class="pub-head">
+                <span class="pub-no">10</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-cityseircast"
+                    >
+                      CitySEIRCast: An Agent-Based City Digital Twin for
+                      Pandemic Analysis and Simulation
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">An agent-based city digital twin for high-resolution pandemic forecasting.</p>
+                  <p class="pub-authors">
+                    Shakir Bilal, Wajdi Zaatour, Yilian Alonso Otano, Arindam
+                    Saha, Ken Newcomb, Soo Kim, <strong>Dongjun Kim</strong>,
+                    Raveena Ginjala, Derek Groen, Edwin Michael
+                  </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">Complex &amp; Intelligent Systems · 2024</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-cityseircast">
+                <div class="pub-body-inner">
+                  <div class="pub-detail">
+                    <figure class="pub-figure">
+                      <img
+                        src="papers/images/cityseircast.webp"
+                        alt="CitySEIRCast digital twin"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </figure>
+                    <div>
+                      <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          City-scale epidemic forecasting must handle
+                          population/spatial heterogeneity and early-data
+                          scarcity, calling for high-resolution digital-twin
+                          simulation
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Couple an agent-based transmission model with
+                          real-world city data pipelines to deliver timely,
+                          high-resolution forecasts
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Build a <strong>city digital twin</strong> from
+                              navigation and social data, coupled with a modular
+                              <strong>agent-based SEIR</strong> model
+                            </li>
+                            <li>
+                              Automate pipelines for scalable execution on
+                              hybrid cloud/HPC
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Realistic city-level simulations with
+                              high-resolution spatiotemporal forecasts
+                            </li>
+                            <li>
+                              Actionable for identifying vulnerable
+                              groups/hotspots and evaluating policy scenarios
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Analyzed and cleaned county-provided COVID data
+                              (validation, missing-data handling, metadata
+                              curation)
+                            </li>
+                            <li>
+                              Set up the HPC environment (Slurm, modules,
+                              containers) and large-scale batch pipelines
+                            </li>
+                            <li>
+                              Optimized Python/C++ simulation code; implemented
+                              the agent-based SEIR application end to end
+                            </li>
+                            <li>
+                              Deployed on Azure with containers; configured
+                              monitoring and logging
+                            </li>
+                          </ul>
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a href="papers/cityseircast.html">Paper page →</a>
+                        <a
+                          href="https://link.springer.com/article/10.1007/s40747-024-01683-x"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >Springer ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Projects ================= -->
+      <section id="projects" class="section section-projects">
+        <div class="container">
+          <div class="section-head">
+            <div class="section-head-left">
+              <span class="section-no">03</span>
+              <h2 class="section-title">Projects</h2>
+            </div>
+          </div>
+
+          <div class="projects-grid">
+            <!-- P-01 · Solar Open 2 -->
+            <article class="project-card">
+              <div class="project-no">
+                <span>P-01 · 2026 –</span>
+                <span class="project-tags">
+                  <span class="chip t-eval">Evaluation</span>
+                  <span class="chip t-infra">Infrastructure</span>
+                </span>
+              </div>
+              <h3 class="project-title">Solar Open 2</h3>
+              <p class="project-subtitle">
+                <a
+                  href="https://www.upstage.ai/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Upstage</a
+                >
+                Solar Model Project · Evaluation Team ·
+                <a
+                  href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;mId=214&amp;mPid=208&amp;bbsSeqNo=88&amp;nttSeqNo=3175891"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >MSIT national project</a
+                >
+              </p>
+              <ul class="project-bullets">
+                <li>
+                  Member of the Evaluation Team for
+                  <strong>Solar Open 2</strong>, Upstage's frontier open model
+                  for Korea's Independent AI Foundation Model project.
                 </li>
-                <li class="edu-item">
-                  <span class="edu-key" data-ko="MLOps" data-en="MLOps"
-                    >MLOps</span
-                  >
-                  <span
-                    class="edu-val"
-                    data-ko="서버 관리자: GPU/클러스터 운영; 모델 서빙 및 데모 운영"
-                    data-en="Server Admin: GPU/Cluster Operations; Model Serving and Demos"
-                    >Server Admin: GPU/Cluster Operations; Model Serving and
-                    Demos</span
-                  >
+                <li>
+                  Develop the team's registry-based
+                  <strong>LLM evaluation framework</strong>: 50+ benchmarks
+                  across reasoning, math, coding, agentic, and Korean-specific
+                  domains, managed as declarative specs.
                 </li>
-                <li class="edu-item">
-                  <span class="edu-key" data-ko="논문" data-en="Paper"
-                    >논문</span
-                  >
-                  <span
-                    class="edu-val"
-                    data-ko="Benchmark Profiling - EMNLP 2025 Main Oral (제1저자)"
-                    data-en="Benchmark Profiling - EMNLP 2025 Main Oral (First Author)"
-                    >Benchmark Profiling - EMNLP 2025 Main Oral (First
-                    Author)</span
-                  >
+                <li>
+                  Orchestrate large-scale evaluation runs end to end:
+                  <strong>vLLM/SGLang serving</strong> on Slurm and Backend.AI
+                  clusters, provider batch-API pipelines, and LLM-as-judge
+                  protocols.
+                </li>
+                <li>
+                  Track checkpoint-over-checkpoint progress with automated
+                  reporting and dashboards that feed
+                  <strong>training and data decisions</strong>.
                 </li>
               </ul>
             </article>
 
-            <!-- University of South Florida -->
-            <article class="card">
-              <h3
-                data-ko-html="University of South Florida — <span class='degree'>Computer Science 학사</span>"
-                data-en-html="University of South Florida — <span class='degree'>B.S. in Computer Science</span>"
-              >
-                University of South Florida —
-                <span class="degree">Computer Science 학사</span>
-              </h3>
-              <div
-                class="meta"
-                data-ko="2023년 5월 졸업 · Tampa, FL, USA"
-                data-en="Graduated May 2023 · Tampa, FL, USA"
-              >
-                2023년 5월 졸업 · Tampa, FL, USA
+            <!-- P-02 · Solar Pro 4 -->
+            <article class="project-card">
+              <div class="project-no">
+                <span>P-02 · 2026 –</span>
+                <span class="project-tags">
+                  <span class="chip t-eval">Evaluation</span>
+                </span>
               </div>
-              <ul class="bullets">
-                <li
-                  data-ko-html="<strong>HPC 인턴</strong>: Slurm 기반 클러스터 운영 지원; Docker/Singularity로 GPU 작업 컨테이너화; PyTorch/CUDA 워크로드 프로파일링·최적화."
-                  data-en-html="<strong>HPC Intern</strong>: Supported Slurm-based cluster operations; containerized GPU jobs with Docker/Singularity; profiled and optimized PyTorch/CUDA workloads."
+              <h3 class="project-title">Solar Pro 4</h3>
+              <p class="project-subtitle">
+                <a
+                  href="https://www.upstage.ai/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Upstage</a
                 >
-                  <strong>HPC Intern</strong>: Supported Slurm-based cluster
-                  operations; containerized GPU jobs with Docker/Singularity;
-                  profiled and optimized PyTorch/CUDA workloads; automated batch
-                  scripts and built data preprocessing pipelines.
+                · Evaluation Team
+              </p>
+              <ul class="project-bullets">
+                <li>
+                  Evaluating <strong>Solar Pro 4</strong>, Upstage's flagship
+                  frontier model, across the full benchmark suite: reasoning,
+                  coding, agentic, and Korean-specific domains.
                 </li>
-                <li
-                  data-ko-html="<strong>Mixed Reality 인턴</strong>: Unity(C#, OpenXR)로 AR/VR 프로토타입 개발; 시선/제스처 상호작용 및 UI 설계; 소규모 사용자 평가 및 데모 배포 준비."
-                  data-en-html="<strong>Mixed Reality Intern</strong>: Built AR/VR prototypes in Unity (C#, OpenXR); designed gaze/gesture interactions and UI; ran small user studies and prepared demo deployments."
-                >
-                  <strong>XR Intern</strong>: Built AR/VR prototypes in Unity
-                  (C#, OpenXR); designed gaze/gesture interactions and UI; tuned
-                  performance for mobile/PC; ran small user studies and prepared
-                  demo deployments.
+                <li>
+                  Tracking frontier-model parity against external indices and
+                  prior Solar generations, with regression analysis between
+                  checkpoints.
+                </li>
+                <li>
+                  Runs on the same evaluation stack as Solar Open 2:
+                  registry-driven benchmark specs, multi-node serving, and
+                  automated reporting.
                 </li>
               </ul>
             </article>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Publications Section -->
-    <section id="publications" class="publications">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" data-ko="논문" data-en="Publications">
-            Publications
-          </h2>
-        </div>
-        <div class="publications-grid">
-          <div class="publication-item">
-            <div class="publication-content">
-              <h3 class="publication-title" data-pub-id="langsae">
-                LangSAE Editing: Improving Multilingual Information Retrieval via
-                Post-hoc Language Identity Removal
-              </h3>
-              <p class="publication-authors">
-                <strong>Dongjun Kim</strong>, Jeongho Yoon, Chanjun Park,
-                Heuiseok Lim
-              </p>
-              <div class="case-grid">
-                <div>
-                  <img
-                    class="publication-thumb"
-                    src="papers/images/langsae.png"
-                    alt="LangSAE Editing"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div>
-                  <div class="paper-meta">
-                    <div class="label" data-ko="게재" data-en="Venue">
-                      Venue
-                    </div>
-                    <div data-ko="arXiv, 2026" data-en="arXiv, 2026">
-                      arXiv, 2026
-                    </div>
-                  </div>
-                  <dl class="case-sections">
-                    <dt data-ko="배경" data-en="Background">Background</dt>
-                    <dd
-                      data-ko="multilingual retrieval에서 dense embedding이 language signal을 함께 encode하여, cross-language로 관련 있는 evidence를 가려버림"
-                      data-en="In multilingual retrieval, dense embeddings also encode language signals that can overshadow relevant cross-language evidence"
-                    >
-                      Dense embeddings encode language signals that overshadow
-                      cross-language evidence
-                    </dd>
-
-                    <dt data-ko="문제 정의" data-en="Problem Definition">
-                      Problem Definition
-                    </dt>
-                    <dd
-                      data-ko="base model retraining이나 text re-encoding 없이, inference 시점에 language signal을 제거하여 cross-language retrieval을 개선할 것"
-                      data-en="Remove language signals at inference time to improve cross-language retrieval, without retraining the base model or re-encoding text"
-                    >
-                      Remove language signals at inference time without
-                      retraining or re-encoding
-                    </dd>
-
-                    <dt data-ko="문제 해결 방법" data-en="Method">Method</dt>
-                    <dd
-                      data-ko-html="<ul><li><strong>sparse autoencoder</strong>로 embedding을 latent unit으로 분해</li><li>cross-language activation 통계로 <strong>language-associated latent unit</strong>을 식별</li><li>inference 시점에 해당 signal을 제거(<strong>post-hoc editing</strong>)하되 원본 embedding dimension은 보존</li></ul>"
-                      data-en-html="<ul><li>Decompose embeddings into latent units with a <strong>sparse autoencoder</strong></li><li>Identify <strong>language-associated latent units</strong> via cross-language activation statistics</li><li>Remove those signals at inference (<strong>post-hoc editing</strong>) while preserving original embedding dimensions</li></ul>"
-                    >
-                      <ul><li>SAE decomposition of embeddings</li><li>Identify language latents via activation stats</li><li>Post-hoc removal at inference</li></ul>
-                    </dd>
-
-                    <dt data-ko="성과" data-en="Results">Results</dt>
-                    <dd
-                      data-ko-html="<ul><li>여러 language에서 일관된 retrieval 성능 향상</li><li>서로 다른 writing system 간에 특히 큰 개선</li><li>retraining·re-encoding 없이 적용 가능</li></ul>"
-                      data-en-html="<ul><li>Consistent retrieval improvements across multiple languages</li><li>Especially strong gains across different writing systems</li><li>Applicable without retraining or re-encoding</li></ul>"
-                    >
-                      <ul><li>Consistent cross-language gains</li><li>Strongest across writing systems</li><li>No retraining needed</li></ul>
-                    </dd>
-
-                    <dt data-ko="맡은 역할" data-en="Role">Role</dt>
-                    <dd
-                      data-ko-html="<ul><li>제1저자: 연구 방법론 및 전체 연구 설계 주도</li><li>sparse autoencoder 기반 language latent 식별·제거 pipeline 구현</li><li>multilingual retrieval 실험 설계 및 분석·논문 집필</li></ul>"
-                      data-en-html="<ul><li>First author: led methodology and overall study design</li><li>Implemented the SAE-based language-latent identification and removal pipeline</li><li>Designed multilingual retrieval experiments, analysis, and writing</li></ul>"
-                    >
-                      <ul><li>First author: methodology & design</li><li>SAE editing pipeline</li><li>Experiments, analysis, writing</li></ul>
-                    </dd>
-                  </dl>
-                </div>
+            <!-- P-03 · VAETKI -->
+            <article class="project-card">
+              <div class="project-no">
+                <span>P-03 · 2025</span>
+                <span class="project-tags">
+                  <span class="chip t-eval">Evaluation</span>
+                  <span class="chip t-data">Data</span>
+                </span>
               </div>
-            </div>
-          </div>
-
-          <div class="publication-item">
-            <div class="publication-content">
-              <h3 class="publication-title" data-pub-id="bench-prof">
-                Benchmark Profiling: Mechanistic Diagnosis of LLM Benchmarks
-              </h3>
-              <p class="publication-authors">
-                <strong>Dongjun Kim</strong>, Gyuho Shim, Yong Chan Chun,
-                Minhyuk Kim, Chanjun Park, Heuiseok Lim
-              </p>
-              <div class="case-grid">
-                <div>
-                  <img
-                    class="publication-thumb"
-                    src="papers/images/bench-prof.png"
-                    alt="Benchmark Profiling"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div>
-                  <div class="paper-meta">
-                    <div class="label" data-ko="게재" data-en="Venue">
-                      Venue
-                    </div>
-                    <div data-ko="EMNLP 2025 Main" data-en="EMNLP 2025 Main">
-                      EMNLP 2025 Main
-                    </div>
-                  </div>
-                  <dl class="case-sections">
-                    <dt data-ko="배경" data-en="Background">Background</dt>
-                    <dd
-                      data-ko="표준 벤치마크 점수는 모델의 실제 능력 구성을 가려 인간이 기대하는 역량과 괴리가 발생할 수 있음(리더보드 순위와 사용자 선호 불일치 등)"
-                      data-en="Standard benchmark scores can obscure the actual ability mix a task requires, leading to misalignment with human-perceived competence (e.g., leaderboard vs. user preferences)"
-                    >Standard benchmark scores can obscure the actual ability mix and misalign with human‑perceived competence</dd>
-
-                    <dt data-ko="문제 정의" data-en="Problem Definition">Problem Definition</dt>
-                    <dd
-                      data-ko="각 벤치마크가 실제로 의존하는 ‘능력 단위’를 체계적으로 진단·정량화하는 프레임워크 정립"
-                      data-en="Establish a framework that systematically diagnoses and quantifies which ‘ability units’ a benchmark truly relies on"
-                    >Diagnose and quantify which “ability units” each benchmark truly relies on</dd>
-
-                    <dt data-ko="문제 해결 방법" data-en="Method">Method</dt>
-                    <dd
-                      data-ko-html="인지과학 기반 <strong>10개 능력</strong>을 정의하고 능력별 <strong>진단 데이터셋</strong>을 구성 → 능력별 <strong>gradient 기반 중요도</strong>로 파라미터를 식별 → <strong>MLP 가중치 top‑k 절제</strong> 후 본 벤치마크를 평가하여 <strong>Ability Impact Score (AIS)</strong> 산출(모델·벤치마크 전반에 적용)"
-                      data-en-html="Define <strong>10 cognitively grounded abilities</strong> and build ability‑specific <strong>diagnostic datasets</strong> → identify parameters via <strong>gradient‑based importance</strong> → <strong>MLP top‑k weight ablation</strong> and evaluate original vs. ablated models to compute the <strong>Ability Impact Score (AIS)</strong>"
-                    >Define 10 abilities → gradient importance → MLP top‑k ablation → compute AIS</dd>
-
-                    <dt data-ko="성과" data-en="Results">Results</dt>
-                    <dd
-                      data-ko-html="<ul><li>대부분의 벤치마크는 단일이 아닌 복수 능력의 혼합에 의존</li><li>유사한 라벨의 데이터셋도 능력 조합이 상이하며, 코드 생성은 폭넓은 다능력 개선에 보상을 줌</li><li>무관한 능력을 추가하면 성능이 저하될 수 있음</li></ul>"
-                      data-en-html="<ul><li>Most benchmarks rely on mixtures of abilities</li><li>Similarly labeled datasets use distinct mixes; code generation rewards broad multi‑skill gains</li><li>Adding irrelevant abilities can hurt performance</li></ul>"
-                    ><ul><li>Benchmarks use ability mixtures</li><li>Code tasks reward broad skills</li><li>Irrelevant abilities can hurt</li></ul></dd>
-
-                    <dt data-ko="맡은 역할" data-en="Role">Role</dt>
-                    <dd
-                      data-ko-html="<ul><li>제1저자: 연구 방법론 및 전체 연구 설계 주도</li><li>모델 아키텍처/훈련 레시피 설계, 능력별·대조군 등 다양한 모델 variant 제작</li><li>gradient 기반 중요도 및 MLP top‑k 절제 파이프라인 구현(재현 가능한 도구화)</li><li>대규모 실험/스위프 자동화 및 자원/스케줄 관리</li><li>휴먼 전문가 평가 프로토콜·가이드라인 설계/운영</li><li>결과 분석·시각화(그림/대시보드) 및 논문 집필·공저자 조율</li><li>데이터/코드 공개와 레포 정리(품질·재현성 관리)</li></ul>"
-                      data-en-html="<ul><li>First author: led methodology and overall study design</li><li>Designed architectures/training recipes; built multiple model variants (ability‑focused and controls)</li><li>Implemented gradient‑based importance and MLP top‑k ablation pipelines (reproducible tooling)</li><li>Automated large‑scale experiments/sweeps and managed compute/resources</li><li>Led human‑expert evaluation protocol and guidelines</li><li>Analyzed results, built figures/dashboards, wrote the paper, coordinated contributors</li><li>Released data/code and ensured repository quality/reproducibility</li></ul>"
-                    ><ul><li>First author: methodology & design</li><li>Built variants & ablations</li><li>Automation & human eval</li><li>Analysis, writing, release</li></ul></dd>
-                  </dl>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="publication-item">
-            <div class="publication-content">
-              <h3 class="publication-title" data-pub-id="koleg">
-                KoLEG: On-the-Fly Korean Legal Knowledge Editing with Continuous
-                Retrieval
-              </h3>
-              <p class="publication-authors">
-                Jaehyung Seo, Dahyun Jung, Jaewook Lee, Yong Chan Chun,
-                <strong>Dongjun Kim</strong>, Hwijung Ryu, Donghoon Shin,
-                Heuiseok Lim
-              </p>
-              <div class="case-grid">
-                <div>
-                  <img
-                    class="publication-thumb"
-                    src="papers/images/koleg.png"
-                    alt="KoLEG"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div>
-                  <div class="paper-meta">
-                    <div class="label" data-ko="게재" data-en="Venue">
-                      Venue
-                    </div>
-                    <div
-                      data-ko="EMNLP 2025 Findings"
-                      data-en="EMNLP 2025 Findings"
-                    >
-                      EMNLP 2025 Findings
-                    </div>
-                  </div>
-                  <dl class="case-sections">
-  <dt data-ko="배경" data-en="Background">Background</dt>
-  <dd
-    data-ko="법령은 잦은 개정과 미세한 문언 변경이 발생하며, 최신 지식 반영과 기존 사실 보존을 동시에 만족해야 함"
-    data-en="Law continuously evolves via frequent, fine‑grained revisions; systems must reflect updates while preserving existing facts"
-  >Frequent fine‑grained revisions require updating without breaking prior facts</dd>
-
-  <dt data-ko="문제 정의" data-en="Problem Definition">Problem Definition</dt>
-  <dd
-    data-ko="연속 업데이트 환경에서 모순 없이 편집 성공·보존·일반화를 동시에 달성하는 법률 지식 편집"
-    data-en="Achieve edit success, preservation, and generalization without contradictions under continuous updates"
-  >Editing that remains consistent under continuous updates</dd>
-
-  <dt data-ko="문제 해결 방법" data-en="Method">Method</dt>
-  <dd
-    data-ko-html="<ul><li><strong>Continuous Retrieval</strong> + Editing‑Aware Learning</li><li><strong>LawEdit Retriever</strong></li><li><strong>타임스탬프 인식 평가</strong></li><li>한국 법령 개정 <strong>크롤링 파이프라인</strong> (시행일 정합·고정밀 필터·변경 추적)</li></ul>"
-    data-en-html="<ul><li><strong>Continuous Retrieval</strong> + editing‑aware learning</li><li><strong>LawEdit Retriever</strong></li><li><strong>Timestamp‑aware evaluation</strong></li><li>Korean law revision <strong>crawling pipeline</strong>: effective‑date alignment, high‑precision filters, change tracking</li></ul>"
-  ><ul><li>Continuous Retrieval + editing‑aware learning</li><li>LawEdit Retriever</li><li>Timestamp‑aware eval</li><li>KR law crawling</li></ul></dd>
-
-  <dt data-ko="성과" data-en="Results">Results</dt>
-  <dd
-    data-ko-html="<ul><li>locate‑then‑edit 대비 우수</li><li>연속 편집 강건성 향상</li><li>판례 적용 확장</li><li>전문가 정성 평가 통과</li></ul>"
-    data-en-html="<ul><li>Outperforms locate‑then‑edit</li><li>Stronger robustness under sequential edits</li><li>Better transfer to case law</li><li>Passed expert review</li></ul>"
-  ><ul><li>Outperforms locate‑then‑edit</li><li>Robust sequential edits</li><li>Expert‑validated</li></ul></dd>
-
-  <dt data-ko="맡은 역할" data-en="Role">Role</dt>
-  <dd
-    data-ko-html="<ul><li>공동 주도: 방법론 및 실험 프로토콜 설계</li><li>한국 법령 데이터 크롤링 파이프라인 설계·구현(시행일 정합, 고정밀 필터, 변경 추적)</li><li>타임스탬프 인식 평가/품질 관리 체계 구축</li><li>결과 분석 및 논문 공저</li></ul>"
-    data-en-html="<ul><li>Co‑lead: designed methodology and experimental protocols</li><li>Built the Korean law crawling pipeline (effective‑date alignment, high‑precision filters, change tracking)</li><li>Implemented timestamp‑aware evaluation and quality control</li><li>Analyzed results and co‑wrote the paper</li></ul>"
-  ><ul><li>Methodology & experiments</li><li>Law crawling pipeline</li><li>Timestamp‑aware eval</li><li>Analysis & writing</li></ul></dd>
-</dl>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="publication-item">
-            <div class="publication-content">
-              <h3 class="publication-title" data-pub-id="mma-asia">
-                MMA-ASIA: A Multilingual and Multimodal Alignment Framework for
-                Culturally-Grounded Evaluation
-              </h3>
-              <p class="publication-authors">
-                Weihua Zheng, ..., <strong>Dongjun Kim</strong>, ...
-              </p>
-              <div class="case-grid">
-                <div>
-                  <img
-                    class="publication-thumb"
-                    src="papers/images/mma-asia.png"
-                    alt="MMA-ASIA"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div>
-                  <div class="paper-meta">
-                    <div class="label" data-ko="게재" data-en="Venue">
-                      Venue
-                    </div>
-                    <div data-ko="arXiv, 2025" data-en="arXiv, 2025">
-                      arXiv, 2025
-                    </div>
-                    <div class="label" data-ko="상태" data-en="Status">
-                      Status
-                    </div>
-                    <div
-                      data-ko="ICLR 2026 심사 중"
-                      data-en="Under review at ICLR 2026"
-                    >
-                      Under review at ICLR 2026
-                    </div>
-                  </div>
-                  <dl class="case-sections">
-  <dt data-ko="배경" data-en="Background">Background</dt>
-  <dd
-    data-ko="서구 중심 데이터로 인해 다중모달 이해와 문화적 정렬이 저하되는 한계를 보완할 평가가 필요"
-    data-en="Western‑centric data limits multimodal understanding and cultural alignment; culture‑aware evaluation is needed"
-  >Culture‑aware, multimodal evaluation is needed</dd>
-
-  <dt data-ko="문제 정의" data-en="Problem Definition">Problem Definition</dt>
-  <dd
-    data-ko="아시아권 다국어·다중모달 전반에서 문화 인식·추론을 정량화할 벤치마크와 프로토콜 구축"
-    data-en="Build a benchmark/protocol that quantifies cultural knowledge and reasoning across Asian languages and modalities"
-  >Benchmark cultural knowledge/reasoning across Asian languages & modalities</dd>
-
-  <dt data-ko="문제 해결 방법" data-en="Method">Method</dt>
-  <dd
-    data-ko-html="<ul><li>문화 지식을 반영한 <strong>텍스트·이미지</strong> 기반 Q&amp;A/태깅 세트 구성</li><li>품질 기준(QC) 수립</li><li>다양한 <strong>VLM</strong>으로 평가</li><li>한국 문화 <strong>이미지 서브셋</strong> 별도 설계·구축</li></ul>"
-    data-en-html="<ul><li>Construct <strong>text and image</strong> QA/tagging sets reflecting cultural knowledge</li><li>Define QC criteria</li><li>Evaluate with diverse <strong>VLMs</strong></li><li>Build a dedicated <strong>Korean culture image subset</strong></li></ul>"
-  ><ul><li>Text/image QA+tagging</li><li>QC</li><li>VLM evaluation</li><li>KR image subset</li></ul></dd>
-
-  <dt data-ko="성과" data-en="Results">Results</dt>
-  <dd
-    data-ko-html="<ul><li>문화 맥락 의존 과제에서 모델 간 성능 격차와 정렬 한계를 관찰</li><li>국가·언어별 편차를 정량화</li></ul>"
-    data-en-html="<ul><li>Observes performance gaps and alignment limits on culture‑dependent tasks</li><li>Quantifies variation across countries/languages</li></ul>"
-  ><ul><li>Shows culture‑dependent gaps</li><li>Cross‑language variation</li></ul></dd>
-
-  <dt data-ko="맡은 역할" data-en="Role">Role</dt>
-  <dd
-    data-ko-html="<ul><li>한국 문화 이미지 서브셋 총괄: 분류 체계 설계 및 이미지 수집</li><li>Q&amp;A 생성 가이드 정립 및 아이템 제작</li><li>다양한 VLM으로 평가/검증( vLLM 추론 포함), 품질 기준 보정</li><li>분석 및 논문 집필 기여; VLM 평가 경험 강조</li></ul>"
-    data-en-html="<ul><li>Led the Korean culture image subset: taxonomy design and image collection</li><li>Authored Q&amp;A generation guidelines and created items</li><li>Evaluated with diverse VLMs (incl. vLLM) and tuned QC criteria; ensured dataset quality</li><li>Contributed analysis and writing; highlighted VLM evaluation experience</li></ul>"
-  ><ul><li>KR image subset lead</li><li>Q&amp;A design</li><li>VLM evaluation</li><li>Analysis & writing</li></ul></dd>
-</dl>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="publication-item">
-            <div class="publication-content">
-              <h3 class="publication-title" data-pub-id="coding-spot">
-                Exploring Coding Spot: Understanding Parametric Contributions to
-                LLM Coding Performance
-              </h3>
-              <p class="publication-authors">
-                <strong>Dongjun Kim</strong>, Minhyuk Kim, Yong Chan Chun,
-                Chanjun Park, Heuiseok Lim
-              </p>
-              <div class="case-grid">
-                <div>
-                  <img
-                    class="publication-thumb"
-                    src="papers/images/coding-spot.png"
-                    alt="Coding Spot"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div>
-                  <div class="paper-meta">
-                    <div class="label" data-ko="게재" data-en="Venue">
-                      Venue
-                    </div>
-                    <div data-ko="arXiv, 2024" data-en="arXiv, 2024">
-                      arXiv, 2024
-                    </div>
-                    <div class="label" data-ko="상태" data-en="Status">
-                      Status
-                    </div>
-                    <div
-                      data-ko="EACL 2026 심사 중"
-                      data-en="Under review at EACL 2026"
-                    >
-                      Under review at EACL 2026
-                    </div>
-                  </div>
-                  <dl class="case-sections">
-                    <dt data-ko="배경" data-en="Background">Background</dt>
-                    <dd
-                      data-ko="코딩 성능을 좌우하는 내부 병목/핫스팟은 충분히 해명되지 않음"
-                      data-en="Internal bottlenecks and hotspots governing coding performance remain underexplained"
-                    >
-                      Internal bottlenecks and hotspots governing coding
-                      performance remain underexplained
-                    </dd>
-                    <dt data-ko="문제 정의" data-en="Problem Definition">
-                      Problem Definition
-                    </dt>
-                    <dd
-                      data-ko="레이어/모듈 수준 매개변수 기여도 정량화와 병목 규명"
-                      data-en="Quantify parameter contributions at layer/module level and identify bottlenecks"
-                    >
-                      Quantify parameter contributions at layer/module level and
-                      identify bottlenecks
-                    </dd>
-                    <dt data-ko="문제 해결 방법" data-en="Method">Method</dt>
-                    <dd
-                      data-ko-html="<ul><li>표적 절제/개입 및 프루닝으로 구조와 행동 간 연계 추적</li><li>코드와 비코드 간 상호 영향 분석</li><li><strong>레이어별 매핑</strong></li></ul>"
-                      data-en-html="<ul><li>Trace structure–behavior links using targeted ablation/intervention and pruning</li><li>Analyze cross-effects between code and non-code</li><li><strong>Layer-wise mapping</strong></li></ul>"
-                    ><ul><li>Trace structure–behavior links</li><li>Analyze cross-effects</li><li><strong>Layer-wise mapping</strong></li></ul>
-                    </dd>
-                    <dt data-ko="성과" data-en="Results">Results</dt>
-                    <dd
-                      data-ko-html="<ul><li>공통/언어별 핫스팟 규명</li><li>코딩 성능 향상 여지 제시</li><li>비코딩 기능 보존 확인</li></ul>"
-                      data-en-html="<ul><li>Identified common and language-specific hotspots</li><li>Showed headroom to improve coding performance</li><li>Preserved non‑coding functions</li></ul>"
-                    ><ul><li>Identified hotspots</li><li>Showed headroom while preserving non-coding functions</li></ul>
-                    </dd>
-                    <dt data-ko="맡은 역할" data-en="Role">Role</dt>
-                    <dd
-                      data-ko-html="<ul><li>제1저자: 코딩 성능에 대한 구조와 행동 연계 방법론 수립</li><li>레이어/모듈/헤드 수준 표적 절제·개입 및 프루닝 실험 설계·구현·실행</li><li>모델 variant 자동 생성·평가 스위프 파이프라인 구축(재현 가능한 스크립트/로그/시드 관리)</li><li>기여 곡선·병목·중복도 분석을 위한 대시보드/시각화 제작</li><li>비코딩 기능 보존 확인을 위한 대조 과제 기반 안전성/회귀 체크 설계</li><li>결과 분석 및 논문 집필, 실험 재현성 검증</li></ul>"
-                      data-en-html="<ul><li>First author: conceived the structure and behavior approach for coding performance</li><li>Designed, implemented, and ran targeted ablation/intervention and pruning at layer/module/head granularity</li><li>Built pipelines to auto‑generate model variants and evaluation sweeps (reproducible scripts, logging, seed control)</li><li>Created dashboards/visualizations for contribution curves, bottlenecks, and redundancy analyses</li><li>Designed safety/regression checks using control tasks to ensure non‑coding function preservation</li><li>Led analysis and writing; verified experimental reproducibility</li></ul>"
-                    ><ul><li>Methodology lead</li><li>Ablations/pruning across layers</li><li>Reproducible sweeps + dashboards</li><li>Safety checks + writing</li></ul></dd>
-                  </dl>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="publication-item">
-            <div class="publication-content">
-              <h3 class="publication-title" data-pub-id="sil">
-                From Snapshot to Stram: A Self-Improving Leaderboard for Robust
-                and Evolving Natural Language Processing (NLP) Evaluation
-              </h3>
-              <p class="publication-authors">
-                Chanjun Park, Hyeonseok Moon, <strong>Dongjun Kim</strong>,
-                Seolhwa Lee, Jaehyung Seo, Sugyeong Eo, Heuiseok Lim
-              </p>
-              <div class="case-grid">
-                <div>
-                  <img
-                    class="publication-thumb"
-                    src="papers/images/sil.png"
-                    alt="Self-Improving Leaderboard"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div>
-                  <div class="paper-meta">
-                    <div class="label" data-ko="게재" data-en="Venue">
-                      Venue
-                    </div>
-                    <div
-                      data-ko="arXiv, 2025"
-                      data-en="arXiv, 2025"
-                    >
-                      arXiv, 2025
-                    </div>
-                  </div>
-                  <dl class="case-sections">
-                    <dt data-ko="배경" data-en="Background">Background</dt>
-                    <dd
-                      data-ko="정적 리더보드는 빠른 모델·데이터 변화를 반영하지 못함"
-                      data-en="Static leaderboards fail to reflect rapid changes in models and data"
-                    >
-                      Static leaderboards fail to reflect rapid changes in
-                      models and data
-                    </dd>
-                    <dt data-ko="문제 정의" data-en="Problem Definition">
-                      Problem Definition
-                    </dt>
-                    <dd
-                      data-ko="시간 축을 고려한 순위·회귀 감지로 공정·지속 가능한 비교 체계"
-                      data-en="A fair and sustainable comparison framework with time-aware ranking and regression detection"
-                    >
-                      Fair and sustainable comparison with time-aware
-                      ranking/regression detection
-                    </dd>
-                    <dt data-ko="문제 해결 방법" data-en="Method">Method</dt>
-                    <dd
-                      data-ko-html="<ul><li><strong>에이전트 시스템</strong>으로 일일 뉴스 수집 → LLM 에이전트 Q&amp;A 생성/검수 → 멀티 LLM <strong>자동 평가</strong>(vLLM) → 시간을 고려한 랭킹(안정성/변동성 지표)</li><li>Hugging Face Spaces에서 <strong>라이브 리더보드</strong> 운영</li></ul>"
-                      data-en-html="<ul><li><strong>Agent system</strong> for daily news collection (sources, scheduling, deduplication) → LLM agent for Q&A generation/review → multi-LLM <strong>automated evaluation</strong> (vLLM backend) → time-aware ranking with stability/volatility metrics</li><li><strong>Live leaderboard</strong> on HF Spaces</li></ul>"
-                    ><ul><li>Agent system → LLM Q&amp;A agents → vLLM auto-eval → time-aware ranking</li><li>HF Spaces live leaderboard</li></ul>
-                    </dd>
-                    <dt data-ko="성과" data-en="Results">Results</dt>
-                    <dd
-                      data-ko-html="<ul><li>실시간 벤치마크 운영 안정화</li><li>안정성/변동성 지표 기반 시간을 고려한 랭킹</li><li>분기별 회귀 탐지·경보</li><li>자동화로 운영 비용·리스크 감소</li></ul>"
-                      data-en-html="<ul><li>Stabilized real-time benchmark operations</li><li>Time-aware ranking with stability/volatility metrics</li><li>Quarterly regression detection and alerts</li><li>Automation reduced operational cost and risk</li></ul>"
-                    >
-                      <ul><li>Stabilized realtime ops</li><li>Time-aware ranking</li><li>Regression detection</li><li>Lower ops cost/risk</li></ul>
-                    </dd>
-                    <dt data-ko="맡은 역할" data-en="Role">Role</dt>
-                    <dd
-                      data-ko-html="<ul><li>Agentic Engineer 주도: 뉴스 크롤링 에이전트 구축(소스/스케줄/중복 제거)</li><li>일일 뉴스→Q&amp;A로 변환하는 LLM 에이전트 파이프라인 설계·구현(검수 포함)</li><li>vLLM 기반 자동 평가 파이프라인 및 시간을 고려한 랭킹(안정성/변동성 지표) 구현</li><li>HF Spaces 라이브 리더보드 운영·모니터링·데이터 품질 관리</li></ul>"
-                      data-en-html="<ul><li>Agentic Engineering Lead: built news‑crawling agents (sources, scheduling, deduplication)</li><li>Designed and built an LLM agent pipeline to convert daily news into Q&amp;A benchmark items with review</li><li>Implemented a vLLM‑based automated evaluation pipeline and time‑aware ranking with stability/volatility metrics</li><li>Launched and managed the live leaderboard on HF Spaces with monitoring and data hygiene</li></ul>"
-                    ><ul><li>Agentic lead</li><li>Q&amp;A agents</li><li>vLLM auto‑eval</li><li>HF Spaces ops</li></ul>
-                    </dd>
-                  </dl>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="publication-item">
-            <div class="publication-content">
-              <h3 class="publication-title" data-pub-id="ate">
-                Enhancing Automatic Term Extraction with Large Language Models
-                via Syntactic Retrieval
-              </h3>
-              <p class="publication-authors">
-                Yong Chan Chun, Minhyuk Kim, <strong>Dongjun Kim</strong>,
-                Chanjun Park, Heuiseok Lim
-              </p>
-              <div class="case-grid">
-                <div>
-                  <img
-                    class="publication-thumb"
-                    src="papers/images/ate.png"
-                    alt="Enhancing Automatic Term Extraction"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div>
-                  <div class="paper-meta">
-                    <div class="label" data-ko="게재" data-en="Venue">
-                      Venue
-                    </div>
-                    <div
-                      data-ko="Findings of ACL 2025"
-                      data-en="Findings of ACL 2025"
-                    >
-                      Findings of ACL 2025
-                    </div>
-                  </div>
-                  <dl class="case-sections">
-                    <dt data-ko="배경" data-en="Background">Background</dt>
-                    <dd
-                      data-ko-html="<ul><li>ATE는 도메인별 핵심 용어를 식별하며 기계번역·정보검색 등 많은 NLP 응용의 기반</li><li>데이터 부족과 경계 식별 문제로 LLM 기반 ATE 연구가 충분하지 않음</li></ul>"
-                      data-en-html="<ul><li>ATE identifies domain-specific key terms and underpins many NLP applications (MT, IR)</li><li>LLM-based ATE is underexplored due to data scarcity and boundary identification issues</li></ul>"
-                    ><ul><li>ATE identifies domain key terms</li><li>LLM-based ATE is underexplored due to data scarcity and boundary issues</li></ul>
-                    </dd>
-                    <dt data-ko="문제 정의" data-en="Problem Definition">
-                      Problem Definition
-                    </dt>
-                    <dd
-                      data-ko="LLM이 의미적 유사성 기반 예시 검색에 의존할 경우, 도메인 불일치로 인한 용어 경계 인식 오류가 발생함. 이를 개선하기 위해 문법적(구문적) 구조를 기준으로 한 Retrieval 방법 제안"
-                      data-en="LLM ATE using semantic-similarity examples misidentifies boundaries under domain mismatch; propose syntactic retrieval using grammatical structure"
-                    >
-                      Syntactic retrieval using grammatical structure to fix
-                      domain-mismatch boundary errors.
-                    </dd>
-                    <dt data-ko="문제 해결 방법" data-en="Method">Method</dt>
-                    <dd
-                      data-ko-html="<ul><li>문장의 구문 트리를 이용해 <strong>FastKASSIM</strong>으로 구조적 유사도를 계산하고 예시를 검색</li><li>도메인 불일치 상황에서도 문장 구조를 통해 LLM이 용어 경계 인식을 학습하도록 유도</li></ul>"
-                      data-en-html="<ul><li>Use a sentence parse tree and <strong>FastKASSIM</strong> to compute structural similarity and retrieve examples</li><li>Help LLMs learn boundary recognition via structure, even under domain mismatch</li></ul>"
-                    ><ul><li>Parse-tree structural similarity via FastKASSIM</li><li>Retrieve examples</li><li>Help LLM learn boundary recognition</li></ul>
-                    </dd>
-                    <dt data-ko="성과" data-en="Results">Results</dt>
-                    <dd
-                      data-ko-html="<ul><li>세 개의 전문 ATE 벤치마크(ACTER, ACLR2, BCGM)에서 일관된 F1 향상</li><li>Cross-domain에서 의미적 retrieval 대비 더 안정적</li></ul>"
-                      data-en-html="<ul><li>Consistent F1 gains on ACTER, ACLR2, and BCGM</li><li>Notably more stable than semantic retrieval in cross-domain settings</li></ul>"
-                    ><ul><li>Consistent F1 gains</li><li>More stable than semantic retrieval cross-domain</li></ul>
-                    </dd>
-                    <dt data-ko="맡은 역할" data-en="Role">Role</dt>
-                    <dd
-                      data-ko-html="<ul><li>공동 연구자: 실험 설계 및 방법론 아이디어 기여</li><li>syntactic retrieval 실험 설계·분석 보조</li></ul>"
-                      data-en-html="<ul><li>Co-author: experiment design and methodology ideas</li><li>Assisted syntactic retrieval experiments and analysis</li></ul>"
-                    ><ul><li>Experiment design</li><li>Syntactic retrieval analysis</li></ul>
-                    </dd>
-                  </dl>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="publication-item">
-            <div class="publication-content">
-              <h3 class="publication-title" data-pub-id="kite">
-                KITE: A Benchmark for Evaluating Korean Instruction-Following
-                Abilities in Large Language Models
-              </h3>
-              <p class="publication-authors">
-                <strong>Dongjun Kim</strong>, Chanhee Park, Chanjun Park,
-                Heuiseok Lim
-              </p>
-              <div class="case-grid">
-                <div>
-                  <img
-                    class="publication-thumb"
-                    src="papers/images/kite.png"
-                    alt="KITE"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div>
-                  <div class="paper-meta">
-                    <div class="label" data-ko="게재" data-en="Venue">
-                      Venue
-                    </div>
-                    <div
-                      data-ko="arXiv, 2025"
-                      data-en="arXiv, 2025"
-                    >
-                      arXiv, 2025
-                    </div>
-                    <div class="label" data-ko="상태" data-en="Status">
-                      Status
-                    </div>
-                    <div
-                      data-ko="IEEE Access 2026 심사 중"
-                      data-en="Under Review at IEEE Access 2026"
-                    >
-                      Under Review at IEEE Access 2026
-                    </div>
-                  </div>
-                  <dl class="case-sections">
-                    <dt data-ko="배경" data-en="Background">Background</dt>
-                    <dd
-                      data-ko="한국어 지시이행 능력을 체계적으로 측정할 공개 벤치마크 부족"
-                      data-en="Public benchmarks systematically measuring Korean instruction-following are lacking"
-                    >
-                      Public benchmarks systematically measuring Korean
-                      instruction-following are lacking
-                    </dd>
-                    <dt data-ko="문제 정의" data-en="Problem Definition">
-                      Problem Definition
-                    </dt>
-                    <dd
-                      data-ko="다영역 따름성/안전성/추론을 공정하고 재현 가능하게 측정"
-                      data-en="Measure adherence, safety, and reasoning across domains fairly and reproducibly"
-                    >
-                      Measure adherence, safety, and reasoning across domains
-                      fairly and reproducibly
-                    </dd>
-                    <dt data-ko="문제 해결 방법" data-en="Method">Method</dt>
-                    <dd
-                      data-ko-html="<ul><li>한국어 고유 현상(존대/형태/이중 숫자) 반영 태스크·프롬프트</li><li>도메인/난이도 균형 데이터</li><li><strong>자동+휴먼</strong> 병렬 채점</li><li>매니페스트·체크섬·표준 스크립트 제공</li></ul>"
-                      data-en-html="<ul><li>Tasks/prompts reflecting Korean-specific phenomena (honorifics, morphology, dual numerals)</li><li>Balanced data across domains and difficulty</li><li>Parallel <strong>automatic + human</strong> scoring</li><li>Releases include manifests, checksums, and standard scripts</li></ul>"
-                    ><ul><li>Tasks/prompts reflecting Korean-specific phenomena</li><li>Balanced data</li><li>Parallel automatic + human scoring</li><li>Manifests/checksums/scripts</li></ul>
-                    </dd>
-                    <dt data-ko="성과" data-en="Results">Results</dt>
-                    <dd
-                      data-ko-html="<ul><li>데이터/코드 공개(HF/GitHub)</li><li>한국어 LLM 비교의 표준 벤치마크로 활용</li><li>상세 분석으로 모델 강점·약점 도출</li></ul>"
-                      data-en-html="<ul><li>Released data and code (HF/GitHub)</li><li>Adopted as a standard benchmark for Korean LLM comparisons</li><li>Detailed analyses surfaced model strengths and weaknesses</li></ul>"
-                    ><ul><li>Released data and code (HF/GitHub)</li><li>Adopted as a standard benchmark</li><li>Analyses surfaced strengths/weaknesses</li></ul>
-                    </dd>
-                    <dt data-ko="맡은 역할" data-en="Role">Role</dt>
-                    <dd
-                      data-ko-html="<ul><li>제1저자: 벤치마크 데이터셋 설계·구축(태스크/프롬프트/채점)</li><li>대규모 평가(자동+휴먼), 분석·시각화 수행</li><li>한국 LLM 커뮤니티에 필요한 표준 벤치마크 정립 및 산출물 공개</li></ul>"
-                      data-en-html="<ul><li>First author: designed and built benchmark datasets (tasks, prompts, scoring)</li><li>Ran large‑scale evaluation (automatic + human), analysis, and visualization</li><li>Established a needed benchmark for the Korean LLM community and released artifacts</li></ul>"
-                    ><ul><li>Dataset design & build</li><li>Large‑scale eval/analysis</li><li>Community benchmark release</li></ul>
-                    </dd>
-                  </dl>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="publication-item">
-            <div class="publication-content">
-              <h3 class="publication-title" data-pub-id="korean-biases">
-                Exploring Inherent Biases in LLMs within Korean Social Context:
-                A Comparative Analysis of ChatGPT and GPT-4
-              </h3>
-              <p class="publication-authors">
-                Seungyoon Lee, <strong>Dongjun Kim</strong>, Dahyun Jung,
-                Chanjun Park, Heuiseok Lim
-              </p>
-              <div class="case-grid">
-                <div>
-                  <img
-                    class="publication-thumb"
-                    src="papers/images/korean-biases.png"
-                    alt="Korean Biases"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div>
-                  <div class="paper-meta">
-                    <div class="label" data-ko="게재" data-en="Venue">
-                      Venue
-                    </div>
-                    <div data-ko="NAACL 2024 SRW" data-en="NAACL 2024 SRW">
-                      NAACL 2024 SRW
-                    </div>
-                  </div>
-                  <dl class="case-sections">
-                    <dt data-ko="배경" data-en="Background">Background</dt>
-                    <dd
-                      data-ko-html="<ul><li>LLM의 편향과 유해성은 널리 논의되고 있으나 연구는 주로 영어권에 편중</li><li>한국의 사회·문화 맥락에서의 체계적 분석은 부족</li></ul>"
-                      data-en-html="<ul><li>LLM bias/toxicity is widely discussed but remains English‑centric</li><li>Rigorous analysis in the Korean sociocultural context is lacking</li></ul>"
-                    ><ul><li>LLM bias/toxicity is widely discussed but remains English‑centric</li><li>Rigorous analysis in the Korean sociocultural context is lacking</li></ul></dd>
-
-                    <dt data-ko="문제 정의" data-en="Problem Definition">Problem Definition</dt>
-                    <dd
-                      data-ko="한국 사회 이슈와 페르소나 조건에서 ChatGPT와 GPT‑4의 유해 발화 경향을 정량화·비교"
-                      data-en="Quantify and compare ChatGPT vs. GPT‑4 toxicity under Korean social issues and persona conditions"
-                    >Quantify toxicity across personas/issues (ChatGPT vs. GPT‑4)</dd>
-
-                    <dt data-ko="문제 해결 방법" data-en="Method">Method</dt>
-                    <dd
-                      data-ko-html="한국 사회 주요 이슈를 반영한 프롬프트 세트와 다양한 <strong>페르소나</strong>를 설계 → 모델 응답 수집 → 자동 <strong>toxicity</strong> 지표와 휴먼 검증 병행 → 조건별 편향 패턴 분석"
-                      data-en-html="Design prompts reflecting Korean social issues with varied <strong>personas</strong> → collect model outputs → compute automated <strong>toxicity</strong> metrics with human validation → analyze bias patterns by condition"
-                    >Persona-conditioned prompts → collect outputs → auto + human toxicity evaluation → pattern analysis</dd>
-
-                    <dt data-ko="성과" data-en="Results">Results</dt>
-                    <dd
-                      data-ko-html="<ul><li>특정 페르소나–이슈 조합에서 일관된 유해 발화가 관찰됨</li><li>조건에 따라 GPT‑4가 ChatGPT 대비 <strong>2배+</strong> 높은 독성을 보일 수 있음</li></ul>"
-                      data-en-html="<ul><li>Certain persona–issue combinations consistently yield harmful content</li><li>Under some conditions GPT‑4 shows <strong>2×+</strong> higher toxicity than ChatGPT</li></ul>"
-                    ><ul><li>Consistent harmful outputs for some persona–issue pairs</li><li>GPT‑4 can be <strong>2×+</strong> more toxic</li></ul></dd>
-
-                    <dt data-ko="맡은 역할" data-en="Role">Role</dt>
-                    <dd
-                      data-ko-html="<ul><li>페르소나/이슈별 결과 분석·정리</li><li>시각화 제작 및 논문 집필(공저자)</li></ul>"
-                      data-en-html="<ul><li>Analyzed and organized results across persona/issue conditions</li><li>Built visualizations and wrote the paper (co‑author)</li></ul>"
-                    ><ul><li>Results analysis</li><li>Visualization & writing</li></ul></dd>
-                  </dl>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="publication-item">
-            <div class="publication-content">
-              <h3 class="publication-title" data-pub-id="cityseircast">
-                CitySEIRCast: an agent-based city digital twin for pandemic
-                analysis and simulation
-              </h3>
-              <p class="publication-authors">
-                Shakir Bilal, Wajdi Zaatour, Yilian Alonso Otano, Arindam Saha,
-                Ken Newcomb, Soo Kim, <strong>Dongjun Kim</strong>, Raveena
-                Ginjala, Derek Groen, Edwin Michael
-              </p>
-              <div class="case-grid">
-                <div>
-                  <img
-                    class="publication-thumb"
-                    src="papers/images/cityseircast.png"
-                    alt="CitySEIRCast"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div>
-                  <div class="paper-meta">
-                    <div class="label" data-ko="게재" data-en="Venue">
-                      Venue
-                    </div>
-                    <div
-                      data-ko="Complex & Intelligent Systems, 2024"
-                      data-en="Complex & Intelligent Systems, 2024"
-                    >
-                      Complex & Intelligent Systems, 2024
-                    </div>
-                  </div>
-                  <dl class="case-sections">
-                    <dt data-ko="배경" data-en="Background">Background</dt>
-                    <dd
-                      data-ko="도시 단위의 이질성과 초기 데이터 희소성 속에서 감염 확산을 고해상도로 예측할 수 있는 시뮬레이션/디지털 트윈의 필요성이 커짐."
-                      data-en="Need city‑level digital‑twin simulations that handle heterogeneity and early‑data scarcity to forecast outbreaks at high resolution."
-                    >High‑resolution city‑level epidemic forecasting is needed.</dd>
-
-                    <dt data-ko="문제 정의" data-en="Problem Definition">Problem Definition</dt>
-                    <dd
-                      data-ko="현실 세계 도시 데이터를 결합한 민첩한 에이전트 기반 전염 모델과 파이프라인으로 시의적절하고 고해상도의 예측을 제공."
-                      data-en="Combine an agent‑based transmission model with real‑world city data pipelines to deliver timely, high‑resolution forecasts."
-                    >Agent‑based modeling + real‑world city data → timely forecasts.</dd>
-
-                    <dt data-ko="문제 해결 방법" data-en="Method">Method</dt>
-                    <dd
-                      data-ko-html="<ul><li>도시 데이터로 <strong>도시 디지털 트윈</strong>을 구성하고 모듈형 <strong>에이전트 기반 SEIR</strong> 모델과 결합</li><li><strong>하이브리드 클라우드/HPC</strong>에서 확장 실행되도록 파이프라인 자동화</li></ul>"
-                      data-en-html="<ul><li>Build a <strong>city digital twin</strong> from navigation/social data and couple it with a modular <strong>agent‑based SEIR</strong> model</li><li>Automate pipelines for scalable execution on <strong>hybrid cloud/HPC</strong></li></ul>"
-                    ><ul><li>City digital twin + agent‑based SEIR</li><li>Automated, scalable pipelines on hybrid cloud/HPC</li></ul></dd>
-
-                    <dt data-ko="성과" data-en="Results">Results</dt>
-                    <dd
-                      data-ko-html="<ul><li>현실적인 도시 수준 시뮬레이션과 고해상도 시공간 예측 달성</li><li>취약 집단·핫스팟 식별과 정책 시나리오 평가에 활용 가능</li></ul>"
-                      data-en-html="<ul><li>Realistic city‑level simulations and high‑resolution spatiotemporal forecasts</li><li>Actionable for identifying vulnerable groups/hotspots and evaluating policy scenarios</li></ul>"
-                    ><ul><li>Realistic city‑level forecasts</li><li>Actionable for policy planning</li></ul></dd>
-
-                    <dt data-ko="맡은 역할" data-en="Role">Role</dt>
-                    <dd
-                      data-ko-html="<ul><li>카운티 제공 COVID 데이터 분석·정제(검증·결측 처리·메타데이터 정리)</li><li>HPC 환경 구축(슬럼/모듈/컨테이너) 및 대규모 배치 실행 파이프라인 구성</li><li>Python과 C++ 코드 상호 변환 및 최적화(시뮬레이션 I/O 관리, NumPy/Pandas/SQL 파이프라인)</li><li>도시 디지털 트윈 기반 <strong>에이전트 기반 SEIR</strong> 시뮬레이션 애플리케이션 End to End 구현</li><li>Azure에 컨테이너 배포/호스팅, 모니터링·로그 수집 설정</li><li>연구 산출물 정리 및 성능/재현성 점검</li></ul>"
-                      data-en-html="<ul><li>Analyzed and cleaned county‑provided COVID data (validation, missing‑data handling, metadata curation)</li><li>Set up the HPC environment (Slurm/modules/containers) and built large‑scale batch execution pipelines</li><li>Converted between Python and C++ and optimized code (simulation I/O management; NumPy/Pandas/SQL pipelines)</li><li>Implemented the end‑to‑end city digital‑twin <strong>agent‑based SEIR</strong> simulation application</li><li>Deployed/hosted on Azure with containers; configured monitoring and logging</li><li>Organized deliverables and verified performance/reproducibility</li></ul>"
-                    ><ul><li>Data analysis</li><li>HPC setup</li><li>Python and C++</li><li>App build</li><li>Azure hosting</li></ul></dd>
-                  </dl>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" data-ko="프로젝트" data-en="Projects">
-            Projects
-          </h2>
-        </div>
-        <div class="projects-grid">
-          <!-- Project: Independent AI Foundation Model Project -->
-          <article class="project-card" data-category="evaluation">
-            <header class="project-header">
-              <h3
-                class="project-title eval"
-                data-ko="독자 AI 파운데이션 모델 프로젝트(WBL) - NC AI 컨소시엄"
-                data-en="Independent AI Foundation Model Project (WBL)"
-              >
-                Independent AI Foundation Model Project (WBL)
-              </h3>
-              <div class="project-meta">
-                <span class="badge eval" data-ko="평가" data-en="Evaluation"
-                  >Evaluation</span
-                >
-                <span class="badge data" data-ko="데이터" data-en="Data"
-                  >Data</span
-                >
-              </div>
-
-              <p
-                class="project-subtitle"
-                data-en-html='Collaboration with <a href="https://nc-ai.com/" target="_blank" rel="noopener noreferrer" class="project-link">NC AI</a>, <a href="https://www.etri.re.kr/eng/main/main.etri" target="_blank" rel="noopener noreferrer" class="project-link">ETRI</a> (NC AI Consortium)'
-                data-ko-html='고려대학교 NLP&amp;AI Lab · <a href="https://nc-ai.com/" target="_blank" rel="noopener noreferrer" class="project-link">NC AI</a> · <a href="https://www.etri.re.kr/eng/main/main.etri" target="_blank" rel="noopener noreferrer" class="project-link">ETRI</a> 협업 (NC AI 컨소시엄)'
-              >
-                Collaboration with
+              <h3 class="project-title">VAETKI</h3>
+              <p class="project-subtitle">
+                Korea University NLP&amp;AI Lab · with
                 <a
                   href="https://nc-ai.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="project-link"
                   >NC AI</a
-                >,
+                >
+                and
                 <a
                   href="https://www.etri.re.kr/eng/main/main.etri"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="project-link"
                   >ETRI</a
                 >
-                (NC AI Consortium)
               </p>
-            </header>
-            <div class="project-body">
               <ul class="project-bullets">
-                <li
-                  data-ko="추론·안전성·강건성 50+ 벤치마크 평가 프레임워크 구현, 재현 가능한 파이프라인/CI 트리거."
-                  data-en="Implemented an evaluation framework (50+ benchmarks) covering reasoning, safety, and robustness with reproducible pipelines and CI triggers."
-                >
-                  Implemented an <strong>evaluation framework</strong> (50+
-                  benchmarks) covering reasoning, safety, and robustness with
-                  reproducible pipelines and CI triggers.
+                <li>
+                  Evaluated <strong>VAETKI</strong>, the consortium's
+                  independent foundation model, implementing an
+                  <strong>evaluation framework spanning 50+ benchmarks</strong>
+                  across reasoning, safety, and robustness with reproducible
+                  pipelines and CI triggers.
                 </li>
-                <li
-                  data-ko="통합 Metric Layer와 Weights &amp; Biases 대시보드 설계(시계열 추적, 회귀 점검, cross-model slice 분석)."
-                  data-en="Designed a unified metric layer and Weights &amp; Biases dashboards for time-series tracking, regression checks, and cross-model slice analysis."
-                >
-                  Designed a <strong>unified metric layer</strong> and
-                  <em>Weights &amp; Biases</em> dashboards for time series
-                  tracking, regression checks, and cross-model slice analysis.
+                <li>
+                  Designed a unified metric layer and
+                  <strong>Weights &amp; Biases dashboards</strong> for
+                  time-series tracking, regression checks, and cross-model slice
+                  analysis.
                 </li>
-                <li
-                  data-ko="연속 checkpoint 기반 pre/post-training 분석, failure mode 규명 및 데이터/레시피 업데이트 권고."
-                  data-en="Conducted pre- and post-training analyses on successive checkpoints, identified failure modes, and provided recommendations used for data and recipe updates."
-                >
-                  Conducted <strong>pre- and post-training</strong> analyses on
-                  successive checkpoints, identified failure modes, and provided
-                  recommendations used for data and recipe updates.
+                <li>
+                  Ran <strong>pre- and post-training analyses</strong> on
+                  successive VAETKI checkpoints, identified failure modes, and
+                  informed data and recipe updates.
                 </li>
-                <li
-                  data-ko="오염 검사(deduplication/overlap scan) 및 표준 runbook 도입으로 공정·비교 가능한 평가 체계화."
-                  data-en="Introduced contamination checks (deduplication and overlap scans) and standardized runbooks to support fair and comparable evaluations across systems."
-                >
-                  Introduced
-                  <strong>contamination checks</strong> (deduplication and
-                  overlap scans) and standardized runbooks to support fair,
-                  comparable evaluations across systems.
+                <li>
+                  Introduced <strong>contamination checks</strong> (deduplication
+                  and overlap scans) and standardized runbooks for fair,
+                  comparable evaluations.
                 </li>
               </ul>
-            </div>
-          </article>
+            </article>
 
-          <!-- Project: Korean Legal Knowledge Editing (KoLEG) -->
-          <article class="project-card" data-category="training">
-            <header class="project-header">
-              <h3
-                class="project-title train"
-                data-ko="KoLEG: 한국 법률 지식 편집"
-                data-en="KoLEG: Korean Legal Knowledge Editing"
-              >
-                KoLEG: Korean Legal Knowledge Editing
-              </h3>
-              <div class="project-meta">
-                <span class="badge train" data-ko="학습" data-en="Training"
-                  >Training</span
-                >
-
-                <span class="badge data" data-ko="데이터" data-en="Data"
-                  >Data</span
-                >
+            <!-- P-04 · KULLM -->
+            <article class="project-card">
+              <div class="project-no">
+                <span>P-04 · 2024 – 2025</span>
+                <span class="project-tags">
+                  <span class="chip t-train">Training</span>
+                </span>
               </div>
-              <p
-                class="project-subtitle"
-                data-ko="고려대학교 NLP&amp;AI Lab · KT 협업"
-                data-en="Korea University NLP&amp;AI Lab · Collaboration with KT Corporation"
-              >
-                Korea University NLP&amp;AI Lab · KT Corporation
-              </p>
-            </header>
-            <div class="project-body">
-              <ul class="project-bullets">
-                <li
-                  data-ko="Continuous Retrieval·타임스탬프 인식 순차 업데이트 기반 on-the-fly 법률 지식 편집 프레임워크 공동 개발(8인 팀)."
-                  data-en="Co-developed an on-the-fly legal knowledge editing framework with Continuous Retrieval and timestamp-aware sequential updates (team of 8)."
-                >
-                  Co-developed an
-                  <strong>on-the-fly legal knowledge editing</strong> framework
-                  with <strong>continuous retrieval</strong> and
-                  <strong>timestamp-aware sequential updates</strong> (team of
-                  8).
-                </li>
-                <li
-                  data-ko="한국 법령 개정 데이터 크롤링·구축 주도(시행 시기 정합, 고정밀 필터링)."
-                  data-en="Led crawling and construction of the Korean Legislative Amendment dataset, aligning implementation periods and applying high-precision filtering."
-                >
-                  Led crawling and construction of the
-                  <strong>Korean Legislative Amendment</strong> dataset,
-                  aligning implementation periods and applying high-precision
-                  filtering.
-                </li>
-                <li
-                  data-ko="편집 지식의 locality·일반화에 대한 mechanistic interpretability 분석 기여."
-                  data-en="Contributed mechanistic interpretability analyses on locality and generalization in edited knowledge."
-                >
-                  Contributed
-                  <strong>mechanistic interpretability</strong> analyses on
-                  locality and generalization in edited knowledge.
-                </li>
-                <li
-                  data-ko="전문가 평가 데모·프로토콜 구축으로 변호사 리뷰와 반복적 오류 분석 지원."
-                  data-en="Built expert evaluation demos and protocols for human assessment, enabling attorney review and iterative error analysis."
-                >
-                  Built <strong>expert evaluation</strong> demos and protocols
-                  for human assessment, enabling attorney review and iterative
-                  error analysis.
-                </li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- Project: KULLM 3 Dataset Preparation -->
-          <article class="project-card" data-category="training">
-            <header class="project-header">
-              <h3
-                class="project-title train"
-                data-ko="KULLM 3 · KULLM R · Ko-Gemma 모델 학습"
-                data-en="KULLM 3 · KULLM R · Ko-Gemma Training"
-              >
+              <h3 class="project-title">
                 KULLM 3 · KULLM R · Ko-Gemma Training
               </h3>
-              <div class="project-meta">
-                <span class="badge train" data-ko="학습" data-en="Training"
-                  >Training</span
-                >
-              </div>
-              <p
-                class="project-subtitle"
-                data-ko="고려대학교 NLP&amp;AI Lab"
-                data-en="NLP&amp;AI Lab, Korea University"
-              >
-                NLP&amp;AI Lab, Korea University
-              </p>
-            </header>
-            <div class="project-body">
+              <p class="project-subtitle">Korea University NLP&amp;AI Lab</p>
               <ul class="project-bullets">
-                <li
-                  data-ko="10인 팀 post-training 기여: instruction tuning, training framework, 다국어·code-switch 데이터셋."
-                  data-en="Contributed on post-training for a team of 10, including instruction tuning, training framework, and multilingual and code-switch datasets."
-                >
-                  Contributed on <strong>post-training</strong> for a team of
-                  10, including instruction tuning, training framework, and
-                  multilingual and <strong>code-switch</strong> datasets.
+                <li>
+                  Contributed to <strong>post-training</strong> on a team of 10:
+                  instruction tuning, the training framework, and multilingual
+                  / code-switch datasets.
                 </li>
-                <li
-                  data-ko="code·math 코퍼스 큐레이션, quality gate 수립, coding·math 능력 평가."
-                  data-en="Curated code and math corpora, established quality gates, and ran capability evaluations for coding and math."
-                >
-                  Curated <strong>code</strong> and
-                  <strong>math</strong> corpora, established quality gates, and
+                <li>
+                  Curated code and math corpora, established quality gates, and
                   ran capability evaluations for coding and math.
                 </li>
-                <li
-                  data-ko="KULLM Reasoning: custom reward·GRPO 기반 RL 구현, adaptive response length 적용."
-                  data-en="KULLM Reasoning: implemented reinforcement learning with custom reward functions and GRPO and applied adaptive response length."
-                >
-                  <strong>KULLM Reasoning:</strong> implemented reinforcement
-                  learning with custom reward functions and
-                  <strong>GRPO</strong> and applied
-                  <strong>adaptive response length</strong>.
+                <li>
+                  <strong>KULLM Reasoning</strong>: implemented RL with custom
+                  reward functions and <strong>GRPO</strong>, applying adaptive
+                  response length.
                 </li>
-                <li
-                  data-ko="내부 평가에서 Qwen3 reasoning baseline 대비 한국어 추론·수학 정확도 향상 및 불필요한 장황함 감소 관찰."
-                  data-en="Observed improved Korean reasoning and math accuracy versus a Qwen3 reasoning baseline while reducing unnecessary verbosity in internal evaluations."
-                >
-                  Observed improved Korean reasoning and math accuracy versus a
-                  <strong>Qwen3 reasoning</strong> baseline while reducing
-                  unnecessary verbosity in internal evaluations.
+                <li>
+                  Internal evaluations showed improved Korean reasoning and math
+                  accuracy over a Qwen3 reasoning baseline, with reduced
+                  verbosity.
                 </li>
               </ul>
-            </div>
-          </article>
+            </article>
 
-          <!-- Project: Self Improving Leaderboard -->
-          <article class="project-card" data-category="evaluation">
-            <header class="project-header">
-              <h3
-                class="project-title eval"
-                data-ko="Self-Improving Leaderboard"
-                data-en="Self-Improving Leaderboard"
-              >
-                Self-Improving Leaderboard
-              </h3>
-              <div class="project-meta">
-                <span class="badge agents" data-ko="에이전트" data-en="Agents"
-                  >Agents</span
-                >
-                <span class="badge eval" data-ko="평가" data-en="Evaluation"
-                  >Evaluation</span
-                >
-              </div>
-              <p
-                class="project-subtitle"
-                data-ko="실시간 데이터로 자동 벤치마크 생성"
-                data-en="Auto-Generated Benchmarks From Real-Time Data"
-              >
-                Auto-Generated Benchmarks From Real-Time Data
-              </p>
-            </header>
-            <div class="project-body">
-              <ul class="project-bullets">
-                <li
-                  data-ko="다중 뉴스 카테고리 일일 크롤러, 실시간 Q&amp;A 생성, 일일 갱신 데이터에 대한 멀티 LLM 자동 평가 구현."
-                  data-en="Implemented daily crawlers across multiple news categories, real-time Q&amp;A generation, and automated multi-LLM evaluation on daily refreshed data."
-                >
-                  Implemented <strong>daily crawlers</strong> across multiple
-                  news categories, <strong>real-time QA generation</strong>, and
-                  automated multi-LLM evaluation on daily refreshed data.
-                </li>
-                <li
-                  data-ko="시간을 고려한 랭킹과 분기별 안정성/변동성 지표로 일관성 추적."
-                  data-en="Launched a live leaderboard with time-aware ranking and quarterly stability and volatility metrics to track consistency over time."
-                >
-                  Launched a live leaderboard with
-                  <strong>time-aware ranking</strong> and
-                  <strong>quarterly stability/volatility</strong> metrics to
-                  track consistency over time.
-                </li>
-                <li
-                  data-ko="스케줄링·모니터링·데이터 품질 관리로 정기 갱신 및 종단 간 비교를 안정화; Hugging Face Spaces 운영."
-                  data-en="Maintained scheduling, monitoring, and data hygiene to support regular refreshes and clear longitudinal comparisons; operated on Hugging Face Spaces."
-                >
-                  Maintained
-                  <strong>scheduling, monitoring, and data hygiene</strong> to
-                  support regular refreshes and clear longitudinal comparisons;
-                  operated on Hugging Face Spaces.
-                </li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- Project: LLM Lesion Brain Mapping -->
-          <!-- <article class="project-card" data-category="interpretability">
-            <header class="project-header">
-              <h3
-                class="project-title interp"
-                data-ko="LLM 병변 브레인 매핑"
-                data-en="LLM Lesion Brain Mapping"
-              >
-                LLM Lesion Brain Mapping
-              </h3>
-              <div class="project-meta"></div>
-              <p
-                class="project-subtitle"
-                data-ko="고려대학교 NLP&amp;AI Lab"
-                data-en="NLP&amp;AI Lab, Korea University"
-              >
-                NLP&amp;AI Lab, Korea University
-              </p>
-            </header>
-            <div class="project-body">
-              <ul class="project-bullets">
-                <li
-                  data-ko="LLM의 문법·의미·검색 행동 전반에서 표적 파라미터 섭동이 언어 결손과 어떻게 연관되는지 연구."
-                >
-                  Studied how targeted parameter perturbations relate to
-                  language deficits in LLMs across <strong>syntax</strong>,
-                  <strong>semantics</strong>, and
-                  <strong>retrieval</strong> behaviors.
-                </li>
-                <li
-                  data-ko="레이어/모듈 수준 분석으로 내부 서브스페이스와 신경언어 기능 간의 대응 관계 탐구."
-                >
-                  Explored correspondences between internal
-                  <strong>subspaces</strong> and
-                  <strong>neuro-linguistic</strong> functionality with layer-
-                  and module-level analysis.
-                </li>
-                <li
-                  data-ko="내부 변화와 관찰 가능 행동을 연결하는 병변 기반 인과 추적 방법을 프로토타이핑(재현 가능한 분석 도구 포함)."
-                >
-                  Prototyped a
-                  <strong>lesion-based causal tracing</strong> method linking
-                  internal changes to observable behaviors with reproducible
-                  analysis tooling.
-                </li>
-              </ul>
-            </div>
-          </article> -->
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Contact Section -->
-
-    <!-- Experience Section (portfolio-identical) -->
-    <section id="experience" class="experience">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" data-ko="경력" data-en="Experience">
-            Experience
-          </h2>
-        </div>
-        <div class="grid-2">
-          <!-- Upstage -->
-          <article class="card">
-            <h3>
-              <span data-ko="AI Research Engineer" data-en="AI Research Engineer"
-                >AI Research Engineer</span
-              >
-              <span class="meta" data-ko="2026.03 – 현재" data-en="2026.03 – Present">2026.03 – Present</span>
-            </h3>
-            <div
-              class="meta"
-              data-ko="Upstage — Seoul, South Korea"
-              data-en="Upstage — Seoul, South Korea"
-            >
-              Upstage — Seoul, South Korea
+      <!-- ================= Experience ================= -->
+      <section id="experience" class="section">
+        <div class="container">
+          <div class="section-head">
+            <div class="section-head-left">
+              <span class="section-no">04</span>
+              <h2 class="section-title">Experience</h2>
             </div>
-            <ul class="bullets">
-              <li
-                data-ko="LLM 평가 시스템 및 인프라 개발."
-                data-en="Working on LLM evaluation systems and infrastructure."
-              >
-                Working on LLM evaluation systems and infrastructure.
-              </li>
-            </ul>
-          </article>
+          </div>
 
-          <!-- Scale AI -->
-          <article class="card">
-            <h3>
-              <span data-ko="RLHF Data Trainer" data-en="RLHF Data Trainer"
-                >RLHF Data Trainer</span
-              >
-              <span class="meta">2023.03 – 2024.01</span>
-            </h3>
-            <div
-              class="meta"
-              data-ko="Scale AI — San Francisco, CA, USA (Remote)"
-              data-en="Scale AI — San Francisco, CA, USA (Remote)"
-            >
-              Scale AI — San Francisco, CA, USA (Remote)
-            </div>
-            <ul class="bullets">
-              <li
-                data-ko="Google(Flamingo, Bard), Meta(Llama), OpenAI 등 플래그십 모델의 alignment·safety 튜닝 지원."
-                data-en="Supported alignment/safety tuning for flagship models at Google (Flamingo, Bard), Meta (Llama), and OpenAI."
-              >
-                Supported alignment/safety tuning for flagship models (Google,
-                Meta, OpenAI).
-              </li>
-              <li
-                data-ko="OpenAI Feather 등 고급 플랫폼으로 RLHF·instruction tuning 선호 데이터 제작."
-                data-en="Produced expert-level preference data for RLHF and instruction tuning using advanced platforms (e.g., OpenAI Feather)."
-              >
-                Produced expert-level RLHF/instruction preference data (OpenAI
-                Feather).
-              </li>
-              <li
-                data-ko="이미지 추론·코딩·수학·멀티턴·안전(PII/유해) 등 다양한 모달리티 주석."
-                data-en="Curated/annotated image reasoning, coding, math, multi-turn dialogs, and safety-critical (PII/harmful) content."
-              >
-                Curated/annotated diverse modalities, incl. safety-critical
-                data.
-              </li>
-            </ul>
-          </article>
-
-          <!-- Simacro -->
-          <article class="card">
-            <h3>
-              <span
-                data-ko="AR/VR Software Engineering Intern"
-                data-en="AR/VR Software Engineering Intern"
-                >AR/VR Software Engineering Intern</span
-              >
-              <span class="meta">2023.05 – 2023.11</span>
-            </h3>
-            <div
-              class="meta"
-              data-ko="Simacro — Cambridge, MA, USA
-              data-en="Simacro — Cambridge, MA, USA"
-            >
-              Simacro — Cambridge, MA, USA
-            </div>
-            <ul class="bullets">
-              <li
-                data-ko="Unity 기반 VR/AR로 정적 P&amp;ID를 인터랙티브 디지털 트윈으로 전환; 현대오일뱅크 등 고객 워크플로우 개선."
-                data-en="Built Unity VR/AR apps converting static P&amp;IDs into interactive digital twins; streamlined ops for clients incl. Hyundai Oil Bank."
-              >
-                Unity VR/AR digital twins for industrial P&amp;IDs.
-              </li>
-              <li
-                data-ko="Python/C# Computer Vision API로 심볼 검출 자동화(수작업 80% 감소, 정확도 95%)."
-                data-en="Developed Python/C# CV API for symbol detection (automated 80% of labeling at 95% accuracy)."
-              >
-                Python/C# CV API: 80% label automation @ 95% acc.
-              </li>
-              <!-- FIX: commented out broken line below -->
-
-              <li
-                data-ko="Virnect 이미지 트래킹 SDK를 Unity에 통합, 산업 설비에 견고한 AR 오버레이 구현."
-                data-en="Integrated Virnect image-tracking SDK into Unity for robust AR overlays on physical machinery."
-              >
-                Integrated Virnect image tracking for robust AR overlays.
-              </li>
-            </ul>
-          </article>
-
-          <!-- HPC Intern -->
-          <article class="card">
-            <h3>
-              <span
-                data-ko="High Performance Computing Intern"
-                data-en="High Performance Computing Intern"
-                >High Performance Computing Intern</span
-              >
-              <span class="meta">2022.08 – 2023.05</span>
-            </h3>
-            <div
-              class="meta"
-              data-ko="Dr. Edwin Michael’s Lab, USF — Tampa, FL, USA"
-              data-en="Dr. Edwin Michael’s Lab, USF — Tampa, FL, USA"
-            >
-              Dr. Edwin Michael’s Lab, USF — Tampa, FL, USA
-            </div>
-            <ul class="bullets">
-              <li
-                data-ko="도시 규모 팬데믹 예측 디지털 트윈 CitySEIRCast 구축(MPI/OpenMP/CUDA 병렬·분산 컴퓨팅)."
-                data-en="Built CitySEIRCast digital twin for city-scale pandemic forecasting using MPI/OpenMP/CUDA."
-              >
-                Built CitySEIRCast (MPI/OpenMP/CUDA).
-              </li>
-              <li
-                data-ko="NumPy/Pandas/SQL로 데이터 파이프라인 구현, 시뮬레이션 I/O 관리 및 C++/Python 최적화."
-                data-en="Implemented NumPy/Pandas/SQL data pipelines; optimized C++/Python simulations for HPC clusters."
-              >
-                Data pipelines + HPC code optimization.
-              </li>
-            </ul>
-          </article>
-
-          <!-- Mixed Reality Research Assistant -->
-          <article class="card">
-            <h3>
-              <span
-                data-ko="Mixed Reality Research Assistant"
-                data-en="Mixed Reality Research Assistant"
-                >Mixed Reality Research Assistant</span
-              >
-              <span class="meta">2022.01 – 2023.05</span>
-            </h3>
-            <div
-              class="meta"
-              data-ko="USF Mixed Reality Lab — Tampa, FL, USA"
-              data-en="USF Mixed Reality Lab — Tampa, FL, USA"
-            >
-              USF Mixed Reality Lab — Tampa, FL, USA
-            </div>
-            <ul class="bullets">
-              <li
-                data-ko="자동 실내 맵핑 기법 설계로 수작업 맵핑 시간 40% 절감."
-                data-en="Designed automatic room-mapping method reducing manual mapping time by 40%."
-              >
-                Automatic room mapping (−40% manual time).
-              </li>
-              <li
-                data-ko="IPMV 2023에 MR 데이터 수집·모델링 기법 연구 발표."
-                data-en="Published MR data collection/modeling work at IPMV 2023."
-              >
-                Published at IPMV 2023.
-              </li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="contact">
-      <div class="container">
-        <div class="section-header">
-          <h2
-            class="section-title"
-            data-ko="Contact"
-            data-en="Contact"
-          >
-            Contact
-          </h2>
-        </div>
-        <div class="contact-content">
-          <div class="contact-info">
-            <div
-              class="contact-buttons"
-            >
-              <a
-                href="mailto:junkim100@gmail.com"
-                class="btn btn-secondary"
-                aria-label="Email"
-                title="Email"
-
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="#1f2937"
-                  stroke-width="2"
-                  aria-hidden="true"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M3 7l9 6 9-6"
+          <div class="xp-list">
+            <article class="xp-item">
+              <div class="xp-when">2026.03 – Present</div>
+              <div>
+                <div class="xp-head">
+                  <img
+                    class="xp-logo"
+                    src="assets/upstage.png"
+                    alt="Upstage logo"
+                    loading="lazy"
+                    decoding="async"
                   />
-                  <rect x="3" y="5" width="18" height="14" rx="2" ry="2" />
+                  <div>
+                    <h3 class="xp-role">AI Research Engineer</h3>
+                    <p class="xp-org">Upstage · Seoul, South Korea</p>
+                  </div>
+                </div>
+                <ul class="xp-bullets">
+                  <li>
+                    Evaluation Team, Solar Model Project: end-to-end evaluation
+                    of <strong>Solar Open 2</strong> (Korea's Independent AI
+                    Foundation Model project) and
+                    <strong>Solar Pro 4</strong> with one-command campaigns over a
+                    50+ benchmark suite (incl. agentic) on multi-node GPU
+                    clusters at each training stage, feeding training and data
+                    decisions.
+                  </li>
+                  <li>
+                    Designed <strong>light benchmark variants</strong> for rapid
+                    checkpoint screening, cutting core-suite wall-time by ~86%
+                    (42 → 6 min), with score fidelity validated through
+                    repeated-run variance analysis and per-category sampling.
+                  </li>
+                  <li>
+                    Migrated and hardened <strong>agentic benchmarks</strong>
+                    (SWE-bench Verified/Pro/Multilingual, GAIA, MCP-Atlas,
+                    Terminal-Bench, τ²-bench, CritPT) with reproduction studies
+                    against reported scores and fixes to timeout semantics,
+                    grading environments, and reasoning-output parsing.
+                  </li>
+                  <li>
+                    Reduced evaluation wall-time through systems work:
+                    tail-latency analysis, multi-completion sampling (up to
+                    1.65× on repeat-sampling math benchmarks), prefix-caching
+                    studies, and a deterministic scheduler that auto-tunes
+                    benchmark ordering and parallelism under cluster-throughput
+                    and sandbox-concurrency constraints.
+                  </li>
+                  <li>
+                    Built automated <strong>leaderboard reporting</strong> on
+                    Notion: incremental per-benchmark upload with pass@k,
+                    response/reasoning length, truncation-ratio, and
+                    degeneration monitoring.
+                  </li>
+                  <li>
+                    Aligned in-house results with external indices (e.g.,
+                    Artificial Analysis), root-causing HLE and CritPT score
+                    gaps down to judge choice, prompts, temperature, and a
+                    streaming reasoning-parser bug.
+                  </li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="xp-item">
+              <div class="xp-when">2023.03 – 2024.01</div>
+              <div>
+                <div class="xp-head">
+                  <img
+                    class="xp-logo logo-invert-dark"
+                    src="assets/scaleai.png"
+                    alt="Scale AI logo"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div>
+                    <h3 class="xp-role">RLHF Data Trainer</h3>
+                    <p class="xp-org">Scale AI · San Francisco, CA, USA (Remote)</p>
+                  </div>
+                </div>
+                <ul class="xp-bullets">
+                  <li>
+                    Supported alignment and safety tuning for flagship models at
+                    Google (Flamingo, Bard), Meta (Llama), and OpenAI.
+                  </li>
+                  <li>
+                    Produced expert-level preference data for RLHF and
+                    instruction tuning on advanced platforms (e.g., OpenAI
+                    Feather).
+                  </li>
+                  <li>
+                    Curated and annotated image reasoning, coding, math,
+                    multi-turn dialog, and safety-critical (PII/harmful)
+                    content.
+                  </li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="xp-item">
+              <div class="xp-when">2023.05 – 2023.11</div>
+              <div>
+                <div class="xp-head">
+                  <img
+                    class="xp-logo"
+                    src="assets/simacro.png"
+                    alt="Simacro logo"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div>
+                    <h3 class="xp-role">AR/VR Software Engineering Intern</h3>
+                    <p class="xp-org">Simacro · Cambridge, MA, USA</p>
+                  </div>
+                </div>
+                <ul class="xp-bullets">
+                  <li>
+                    Built Unity VR/AR apps converting static P&amp;IDs into
+                    interactive digital twins, streamlining operations for
+                    clients incl. Hyundai Oil Bank.
+                  </li>
+                  <li>
+                    Developed a Python/C# computer-vision API for symbol
+                    detection, automating 80% of labeling at 95% accuracy.
+                  </li>
+                  <li>
+                    Integrated the Virnect image-tracking SDK into Unity for
+                    robust AR overlays on physical machinery.
+                  </li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="xp-item">
+              <div class="xp-when">2022.08 – 2023.05</div>
+              <div>
+                <div class="xp-head">
+                  <img
+                    class="xp-logo"
+                    src="assets/usf.png"
+                    alt="University of South Florida seal"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div>
+                    <h3 class="xp-role">High Performance Computing Intern</h3>
+                    <p class="xp-org">Dr. Edwin Michael's Lab, USF · Tampa, FL, USA</p>
+                  </div>
+                </div>
+                <ul class="xp-bullets">
+                  <li>
+                    Built the <strong>CitySEIRCast</strong> digital twin for
+                    city-scale pandemic forecasting using MPI/OpenMP/CUDA.
+                  </li>
+                  <li>
+                    Implemented NumPy/Pandas/SQL data pipelines; optimized
+                    C++/Python simulations for HPC clusters.
+                  </li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="xp-item">
+              <div class="xp-when">2022.01 – 2023.05</div>
+              <div>
+                <div class="xp-head">
+                  <img
+                    class="xp-logo"
+                    src="assets/usf.png"
+                    alt="University of South Florida seal"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div>
+                    <h3 class="xp-role">Mixed Reality Research Assistant</h3>
+                    <p class="xp-org">USF Mixed Reality Lab · Tampa, FL, USA</p>
+                  </div>
+                </div>
+                <ul class="xp-bullets">
+                  <li>
+                    Designed an automatic room-mapping method reducing manual
+                    mapping time by 40%.
+                  </li>
+                  <li>
+                    Published MR data collection and modeling work at IPMV 2023.
+                  </li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Education ================= -->
+      <section id="education" class="section">
+        <div class="container">
+          <div class="section-head">
+            <div class="section-head-left">
+              <span class="section-no">05</span>
+              <h2 class="section-title">Education</h2>
+            </div>
+          </div>
+
+          <div class="edu-grid">
+            <article class="edu-card">
+              <div class="edu-head">
+                <img
+                  class="edu-logo"
+                  src="assets/korea-university.png"
+                  alt="Korea University emblem"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div>
+                  <h3 class="edu-school">
+                    Korea University ·
+                    <span class="edu-degree">M.S. in Computer Science</span>
+                  </h3>
+                  <p class="edu-meta">
+                    Graduated Feb 2026 · Seoul, KR · Advised by
+                    <a
+                      href="https://scholar.google.com/citations?user=HMTkz7oAAAAJ"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >Dr. Heuiseok Lim</a
+                    >
+                    ·
+                    <a
+                      href="https://nlp.korea.ac.kr/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >NLP&amp;AI Lab</a
+                    >
+                  </p>
+                </div>
+              </div>
+              <div class="edu-rows">
+                <div class="edu-row">
+                  <span class="edu-key">Skills</span>
+                  <span class="edu-val"
+                    >PyTorch, PEFT (LoRA, QLoRA), RL (GRPO, RLHF), Inference
+                    Optimization (vLLM, SGLang, KV Cache), Quantization (AWQ),
+                    DeepSpeed, Megatron-LM, CUDA, Docker, Kubernetes</span
+                  >
+                </div>
+                <div class="edu-row">
+                  <span class="edu-key">MLOps</span>
+                  <span class="edu-val"
+                    >Server admin: GPU/cluster operations, model serving, and
+                    demos</span
+                  >
+                </div>
+              </div>
+            </article>
+
+            <article class="edu-card">
+              <div class="edu-head">
+                <img
+                  class="edu-logo"
+                  src="assets/usf.png"
+                  alt="University of South Florida seal"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div>
+                  <h3 class="edu-school">
+                    University of South Florida ·
+                    <span class="edu-degree">B.S. in Computer Science</span>
+                  </h3>
+                  <p class="edu-meta">Graduated May 2023 · Tampa, FL, USA</p>
+                </div>
+              </div>
+              <div class="edu-rows">
+                <div class="edu-row">
+                  <span class="edu-key">HPC</span>
+                  <span class="edu-val"
+                    >Supported Slurm-based cluster operations; containerized
+                    GPU jobs with Docker/Singularity; profiled and optimized
+                    PyTorch/CUDA workloads</span
+                  >
+                </div>
+                <div class="edu-row">
+                  <span class="edu-key">XR</span>
+                  <span class="edu-val"
+                    >Built AR/VR prototypes in Unity (C#, OpenXR): gaze/gesture
+                    interactions and UI design, user studies, and demo
+                    deployments</span
+                  >
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= Contact ================= -->
+      <section id="contact" class="section section-contact">
+        <div class="container">
+          <div class="contact-inner">
+            <p class="contact-kicker kicker">
+              <span class="section-no">06</span> · <span>Contact</span>
+            </p>
+            <h2 class="contact-heading">
+              Let&rsquo;s build <em>reliable</em> AI together.
+            </h2>
+            <a class="contact-email" href="mailto:junkim100@gmail.com"
+              >junkim100@gmail.com</a
+            >
+            <div class="contact-social">
+              <a
+                href="https://github.com/junkim100"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M12 .5a12 12 0 0 0-3.793 23.4c.6.111.793-.261.793-.58v-2.234c-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.084 1.84 1.237 1.84 1.237 1.07 1.833 2.807 1.304 3.492.997.108-.776.419-1.305.762-1.605-2.665-.304-5.467-1.333-5.467-5.93 0-1.31.469-2.381 1.236-3.22-.124-.303-.536-1.524.116-3.176 0 0 1.008-.322 3.3 1.23a11.47 11.47 0 0 1 6.003 0c2.291-1.552 3.298-1.23 3.298-1.23.653 1.652.241 2.873.118 3.176.77.839 1.235 1.91 1.235 3.22 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .321.192.694.801.576A12 12 0 0 0 12 .5z"
+                  />
                 </svg>
-                Email
+                GitHub
               </a>
               <a
                 href="https://www.linkedin.com/in/junkim100/"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="btn btn-secondary"
-                aria-label="LinkedIn"
-                title="LinkedIn"
-
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="#0A66C2"
-                  aria-hidden="true"
-                >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path
-                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.447-2.136 2.943v5.663H9.351V9h3.414v1.561h.049c.476-.9 1.637-1.852 3.37-1.852 3.604 0 4.268 2.372 4.268 5.455v6.288zM5.337 7.433a2.062 2.062 0 11.001-4.124 2.062 2.062 0 01-.001 4.124zM6.964 20.452H3.713V9h3.251v11.452z"
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.447-2.136 2.943v5.663H9.351V9h3.414v1.561h.049c.476-.9 1.637-1.852 3.37-1.852 3.604 0 4.268 2.372 4.268 5.455v6.288zM5.337 7.433a2.062 2.062 0 1 1 .001-4.124 2.062 2.062 0 0 1-.001 4.124zM6.964 20.452H3.713V9h3.251v11.452z"
                   />
                 </svg>
                 LinkedIn
               </a>
               <a
-                href="https://github.com/junkim100"
+                href="https://scholar.google.com/citations?user=ZE8__uoAAAAJ"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="btn btn-secondary"
-                aria-label="GitHub"
-                title="GitHub"
-
               >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3z" />
+                  <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+                </svg>
+                Google Scholar
+              </a>
+              <a href="CV.pdf" onclick="openCV(event)">
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
                   viewBox="0 0 24 24"
-                  fill="#111827"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
                   aria-hidden="true"
                 >
-                  <path
-                    d="M12 .5a12 12 0 00-3.793 23.4c.6.111.793-.261.793-.58v-2.234c-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.084 1.84 1.237 1.84 1.237 1.07 1.833 2.807 1.304 3.492.997.108-.776.419-1.305.762-1.605-2.665-.304-5.467-1.333-5.467-5.93 0-1.31.469-2.381 1.236-3.22-.124-.303-.536-1.524.116-3.176 0 0 1.008-.322 3.3 1.23a11.47 11.47 0 016.003 0c2.291-1.552 3.298-1.23 3.298-1.23.653 1.652.241 2.873.118 3.176.77.839 1.235 1.91 1.235 3.22 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .321.192.694.801.576A12 12 0 0012 .5z"
-                  />
+                  <path d="M12 3v12" />
+                  <path d="m7 11 5 5 5-5" />
+                  <path d="M4 21h16" />
                 </svg>
-                GitHub
+                CV (PDF)
               </a>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <p>&copy; 2026 Dongjun Kim. All rights reserved.</p>
+    <!-- ================= Footer ================= -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>&copy; 2026 Dongjun Kim</span>
+        <span>Seoul, South Korea</span>
+        <a href="#home">Back to top ↑</a>
       </div>
     </footer>
 
-    <!-- JavaScript -->
     <script src="script.js"></script>
   </body>
 </html>

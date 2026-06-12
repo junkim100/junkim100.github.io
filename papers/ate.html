@@ -3,48 +3,75 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Enhancing Automatic Term Extraction — Dongjun Kim</title>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light" || t === "dark")
+            document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <title>Enhancing Automatic Term Extraction · Dongjun Kim</title>
+    <meta name="description" content="Syntax-based demonstration retrieval that fixes term-boundary errors in LLM term extraction." />
+    <link rel="canonical" href="https://junkim100.github.io/papers/ate.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://junkim100.github.io/papers/ate.html" />
+    <meta property="og:title" content="Enhancing Automatic Term Extraction with Large Language Models via Syntactic Retrieval" />
+    <meta property="og:description" content="Syntax-based demonstration retrieval that fixes term-boundary errors in LLM term extraction." />
+    <meta property="og:image" content="https://junkim100.github.io/og-image.png" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Enhancing Automatic Term Extraction with Large Language Models via Syntactic Retrieval" />
+    <meta property="twitter:description" content="Syntax-based demonstration retrieval that fixes term-boundary errors in LLM term extraction." />
+    <meta property="twitter:image" content="https://junkim100.github.io/og-image.png" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
-    <main class="container paper-main">
-      <a href="../index.html#publications" class="project-link"
-        >← Back to Publications</a
-      >
-      <h1 class="section-title page-title">
-        Enhancing Automatic Term Extraction with Large Language Models via
-        Syntactic Retrieval
-      </h1>
-      <p class="publication-authors">
-        Yong Chan Chun, Minhyuk Kim, <strong>Dongjun Kim</strong>, Chanjun Park,
-        Heuiseok Lim
-      </p>
-      <p class="publication-venue">
-        Findings of ACL 2025 —
-        <a
-          href="https://arxiv.org/abs/2506.21222"
-          target="_blank"
-          rel="noopener noreferrer"
-          >arXiv</a
+    <main class="paper-page">
+      <div class="paper-container">
+        <a href="../index.html#publications" class="paper-back"
+          >← Back to publications</a
         >
-      </p>
 
-      <figure class="pub-figure-placeholder">
-        <img
-          alt="ATE paper figure"
-          src="./images/ate.png"
-          loading="lazy"
-          decoding="async"
-        />
-      </figure>
+        <p class="paper-kicker">
+          <span class="chip">ACL 2025 · Findings</span>
+        </p>
+        <h1 class="paper-title">
+          Enhancing Automatic Term Extraction with Large Language Models via
+          Syntactic Retrieval
+        </h1>
+        <p class="paper-authors">
+          Yong Chan Chun, Minhyuk Kim, <strong>Dongjun Kim</strong>, Chanjun
+          Park, Heuiseok Lim
+        </p>
+        <div class="paper-links">
+          <a
+            href="https://arxiv.org/abs/2506.21222"
+            target="_blank"
+            rel="noopener noreferrer"
+            >arXiv ↗</a
+          >
+        </div>
 
-      <div style="margin-top: 1rem">
-        <h3 style="margin-bottom: 0.5rem; color: #000000">Abstract</h3>
-        <div
-          class="publication-abstract"
-          style="display: block; margin-top: 0.5rem"
-        >
-          <p style="color: #334155">
+        <figure class="paper-figure">
+          <img
+            alt="Syntactic retrieval for automatic term extraction"
+            src="./images/ate.webp"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+
+        <section class="paper-abstract">
+          <h2 class="paper-section-label">Abstract</h2>
+          <p>
             Automatic Term Extraction (ATE) identifies domain-specific
             expressions that are crucial for downstream tasks such as machine
             translation and information retrieval. Although large language
@@ -61,7 +88,92 @@
             F1-score. These findings highlight the importance of syntactic cues
             when adapting LLMs to terminology-extraction tasks.
           </p>
-        </div>
+        </section>
+
+        <section class="paper-case">
+          <h2 class="paper-section-label">At a Glance</h2>
+          <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Automatic Term Extraction (ATE) identifies the
+                              domain-specific terms that underpin machine
+                              translation, information retrieval, and more
+                            </li>
+                            <li>
+                              LLM-based ATE is barely explored, and
+                              term-boundary identification is the hard part
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Semantic-similarity demonstration retrieval misleads
+                          term-boundary recognition under domain mismatch,
+                          so retrieve demonstrations by syntax instead
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Retrieve few-shot demonstrations by
+                              <strong>syntactic similarity</strong> over parse
+                              trees using <strong>FastKASSIM</strong>
+                            </li>
+                            <li>
+                              Domain-agnostic guidance for capturing term
+                              boundaries
+                            </li>
+                            <li>
+                              Analyze how lexical overlap between the query and
+                              retrieved examples affects performance
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Consistent F1 gains on three specialized ATE
+                              benchmarks (ACTER, ACLR2, BCGM)
+                            </li>
+                            <li>
+                              Notably more stable than semantic retrieval in
+                              cross-domain settings
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Co-author: contributed to experiment design and
+                              methodology
+                            </li>
+                            <li>
+                              Supported the syntactic retrieval experiments and
+                              analysis
+                            </li>
+                          </ul>
+                        </dd>
+                      </dl>
+        </section>
+
+        <nav class="paper-nav" aria-label="More papers">
+          <a class="paper-nav-link prev" href="kite.html"
+            ><span class="paper-nav-label">← Previous paper</span
+            ><span class="paper-nav-title">KITE</span></a
+          >
+          <a class="paper-nav-link next" href="sil.html"
+            ><span class="paper-nav-label">Next paper →</span
+            ><span class="paper-nav-title">From Snapshot to Stream</span></a
+          >
+        </nav>
       </div>
     </main>
   </body>

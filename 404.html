@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light" || t === "dark")
+            document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <meta name="robots" content="noindex" />
+    <title>404 · Dongjun Kim</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .nf {
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: var(--pad);
+      }
+      .nf-code {
+        font-family: var(--serif);
+        font-size: clamp(6rem, 22vw, 13rem);
+        line-height: 1;
+        letter-spacing: -0.03em;
+      }
+      .nf-code em {
+        font-style: italic;
+        color: var(--accent);
+      }
+      .nf-note {
+        margin-top: 1rem;
+        font-size: 1.05rem;
+        color: var(--ink-soft);
+      }
+      .nf-back {
+        margin-top: 2.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="nf">
+      <p class="kicker">Page not found</p>
+      <h1 class="nf-code">4<em>0</em>4</h1>
+      <p class="nf-note">
+        This page doesn't exist, or it moved during a redesign.
+      </p>
+      <a class="btn btn-primary nf-back" href="/">Back to the homepage</a>
+    </main>
+  </body>
+</html>

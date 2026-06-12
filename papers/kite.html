@@ -3,78 +3,105 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KITE — Dongjun Kim</title>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light" || t === "dark")
+            document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <title>KITE · Dongjun Kim</title>
+    <meta name="description" content="The first open-ended benchmark for Korean instruction following." />
+    <link rel="canonical" href="https://junkim100.github.io/papers/kite.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://junkim100.github.io/papers/kite.html" />
+    <meta property="og:title" content="KITE: A Benchmark for Evaluating Korean Instruction-Following Abilities in Large Language Models" />
+    <meta property="og:description" content="The first open-ended benchmark for Korean instruction following." />
+    <meta property="og:image" content="https://junkim100.github.io/og-image.png" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="KITE: A Benchmark for Evaluating Korean Instruction-Following Abilities in Large Language Models" />
+    <meta property="twitter:description" content="The first open-ended benchmark for Korean instruction following." />
+    <meta property="twitter:image" content="https://junkim100.github.io/og-image.png" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
-    <main class="container paper-main">
-      <a href="../index.html#publications" class="project-link"
-        >← Back to Publications</a
-      >
-      <h1 class="section-title page-title">
-        KITE: A Benchmark for Evaluating Korean Instruction-Following Abilities
-        in Large Language Models
-      </h1>
-      <p class="publication-authors">
-        <strong>Dongjun Kim</strong>, Chanhee Park, Chanjun Park, Heuiseok Lim
-      </p>
-      <p class="publication-venue">
-        arXiv Preprint, 2025 — IEEE Access 2026 Under Review —
-        <a
-          href="https://arxiv.org/abs/2510.15558"
-          target="_blank"
-          rel="noopener noreferrer"
-          >arXiv</a
+    <main class="paper-page">
+      <div class="paper-container">
+        <a href="../index.html#publications" class="paper-back"
+          >← Back to publications</a
         >
-        —
-        <a
-          href="https://huggingface.co/datasets/junkim100/KITE"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Dataset</a
-        >
-        —
-        <a
-          href="https://github.com/junkim100/KITE"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Code</a
-        >
-      </p>
 
-      <figure class="pub-figure-placeholder">
-        <img
-          alt="KITE paper figure"
-          src="./images/kite.png"
-          loading="lazy"
-          decoding="async"
-        />
-      </figure>
+        <p class="paper-kicker">
+          <span class="chip">arXiv · 2025</span>
+          <span class="chip chip-muted">Under review · AACL 2026</span>
+          <span class="chip chip-accent">First author</span>
+        </p>
+        <h1 class="paper-title">
+          KITE: A Benchmark for Evaluating Korean Instruction-Following
+          Abilities in Large Language Models
+        </h1>
+        <p class="paper-authors">
+          <strong>Dongjun Kim</strong>, Chanhee Park, Chanjun Park, Heuiseok Lim
+        </p>
+        <div class="paper-links">
+          <a
+            href="https://arxiv.org/abs/2510.15558"
+            target="_blank"
+            rel="noopener noreferrer"
+            >arXiv ↗</a
+          >
+          <a
+            href="https://huggingface.co/datasets/junkim100/KITE"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Dataset ↗</a
+          >
+          <a
+            href="https://github.com/junkim100/KITE"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Code ↗</a
+          >
+        </div>
 
-      <div style="margin-top: 1rem">
-        <h3 style="margin-bottom: 0.5rem; color: #000000">Abstract</h3>
-        <div
-          class="publication-abstract"
-          style="display: block; margin-top: 0.5rem"
-        >
-          <p style="color: #334155">
+        <figure class="paper-figure">
+          <img
+            alt="KITE benchmark overview"
+            src="./images/kite.webp"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+
+        <section class="paper-abstract">
+          <h2 class="paper-section-label">Abstract</h2>
+          <p>
             The instruction-following capabilities of large language models
             (LLMs) are pivotal for numerous applications, from conversational
             agents to complex reasoning systems. However, current evaluations
-            predominantly focus on English models, neglecting the linguistic and
-            cultural nuances of other languages. Specifically, Korean, with its
-            distinct syntax, rich morphological features, honorific system, and
-            dual numbering systems, lacks a dedicated benchmark for assessing
-            open-ended instruction-following capabilities. To address this gap,
-            we introduce the Korean Instruction-following Task Evaluation
-            (KITE), a comprehensive benchmark designed to evaluate both general
-            and Korean-specific instructions. Unlike existing Korean benchmarks
-            that focus mainly on factual knowledge or multiple-choice testing,
-            KITE directly targets diverse, open-ended instruction-following
-            tasks. Our evaluation pipeline combines automated metrics with human
-            assessments, revealing performance disparities across models and
-            providing deeper insights into their strengths and weaknesses. By
-            publicly releasing the KITE
+            predominantly focus on English models, neglecting the linguistic
+            and cultural nuances of other languages. Specifically, Korean, with
+            its distinct syntax, rich morphological features, honorific system,
+            and dual numbering systems, lacks a dedicated benchmark for
+            assessing open-ended instruction-following capabilities. To address
+            this gap, we introduce the Korean Instruction-following Task
+            Evaluation (KITE), a comprehensive benchmark designed to evaluate
+            both general and Korean-specific instructions. Unlike existing
+            Korean benchmarks that focus mainly on factual knowledge or
+            multiple-choice testing, KITE directly targets diverse, open-ended
+            instruction-following tasks. Our evaluation pipeline combines
+            automated metrics with human assessments, revealing performance
+            disparities across models and providing deeper insights into their
+            strengths and weaknesses. By publicly releasing the KITE
             <a
               href="https://huggingface.co/datasets/junkim100/KITE"
               target="_blank"
@@ -91,7 +118,87 @@
             linguistically inclusive LLM development and inspire similar
             endeavors for other underrepresented languages.
           </p>
-        </div>
+        </section>
+
+        <section class="paper-case">
+          <h2 class="paper-section-label">At a Glance</h2>
+          <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          Instruction-following evaluation is English-centric;
+                          Korean, with honorifics, rich morphology, and dual
+                          numbering systems, lacked an open-ended benchmark
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Measure both general and Korean-specific instruction
+                          following on diverse open-ended tasks, fairly and
+                          reproducibly
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Tasks and prompts target
+                              <strong>Korean-specific phenomena</strong>
+                              (honorific shifts, morphology, dual numerals)
+                              alongside general instructions
+                            </li>
+                            <li>
+                              <strong>Open-ended generation</strong> rather than
+                              multiple choice
+                            </li>
+                            <li>
+                              Evaluation pipeline combines automated metrics
+                              with human assessment
+                            </li>
+                            <li>Full public release of dataset and code</li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Reveals performance disparities across models with
+                              per-ability insight into strengths and weaknesses
+                            </li>
+                            <li>
+                              Released on Hugging Face and GitHub; used as a
+                              reference benchmark for Korean LLM comparison
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              First author: designed and built the benchmark
+                              (tasks, prompts, scoring)
+                            </li>
+                            <li>
+                              Ran large-scale automated and human evaluations;
+                              led the analysis
+                            </li>
+                            <li>Released and maintains the public artifacts</li>
+                          </ul>
+                        </dd>
+                      </dl>
+        </section>
+
+        <nav class="paper-nav" aria-label="More papers">
+          <a class="paper-nav-link prev" href="mma-asia.html"
+            ><span class="paper-nav-label">← Previous paper</span
+            ><span class="paper-nav-title">MMA-ASIA</span></a
+          >
+          <a class="paper-nav-link next" href="ate.html"
+            ><span class="paper-nav-label">Next paper →</span
+            ><span class="paper-nav-title">Enhancing Automatic Term Extraction</span></a
+          >
+        </nav>
       </div>
     </main>
   </body>

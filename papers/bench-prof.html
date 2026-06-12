@@ -3,64 +3,203 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Benchmark Profiling — Dongjun Kim</title>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light" || t === "dark")
+            document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <title>Benchmark Profiling · Dongjun Kim</title>
+    <meta name="description" content="Decomposes benchmark scores into the cognitive abilities they actually measure." />
+    <link rel="canonical" href="https://junkim100.github.io/papers/bench-prof.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://junkim100.github.io/papers/bench-prof.html" />
+    <meta property="og:title" content="Benchmark Profiling: Mechanistic Diagnosis of LLM Benchmarks" />
+    <meta property="og:description" content="Decomposes benchmark scores into the cognitive abilities they actually measure." />
+    <meta property="og:image" content="https://junkim100.github.io/og-image.png" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Benchmark Profiling: Mechanistic Diagnosis of LLM Benchmarks" />
+    <meta property="twitter:description" content="Decomposes benchmark scores into the cognitive abilities they actually measure." />
+    <meta property="twitter:image" content="https://junkim100.github.io/og-image.png" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
-    <main class="container paper-main">
-      <a href="../index.html#publications" class="project-link"
-        >← Back to Publications</a
-      >
-      <h1 class="section-title page-title">
-        Benchmark Profiling: Mechanistic Diagnosis of LLM Benchmarks
-      </h1>
-      <p class="publication-authors">
-        <strong>Dongjun Kim</strong>, Gyuho Shim, Yong Chan Chun, Minhyuk Kim,
-        Chanjun Park, Heuiseok Lim
-      </p>
-      <p class="publication-venue">
-        EMNLP 2025 Main —
-        <a
-          href="https://arxiv.org/abs/2510.01232"
-          target="_blank"
-          rel="noopener noreferrer"
-          >arXiv</a
+    <main class="paper-page">
+      <div class="paper-container">
+        <a href="../index.html#publications" class="paper-back"
+          >← Back to publications</a
         >
-        —
-        <a
-          href="https://github.com/junkim100/Benchmark-Profiling"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Code</a
-        >
-      </p>
 
-      <figure class="pub-figure-placeholder">
-        <img
-          alt="Benchmark Profiling paper figure"
-          src="./images/bench-prof.png"
-          loading="lazy"
-          decoding="async"
-        />
-      </figure>
+        <p class="paper-kicker">
+          <span class="chip">EMNLP 2025 · Main</span>
+          <span class="chip chip-accent">Oral</span>
+          <span class="chip chip-accent">First author</span>
+        </p>
+        <h1 class="paper-title">
+          Benchmark Profiling: Mechanistic Diagnosis of LLM Benchmarks
+        </h1>
+        <p class="paper-authors">
+          <strong>Dongjun Kim</strong>, Gyuho Shim, Yong Chan Chun, Minhyuk Kim,
+          Chanjun Park, Heuiseok Lim
+        </p>
+        <div class="paper-links">
+          <a
+            href="https://arxiv.org/abs/2510.01232"
+            target="_blank"
+            rel="noopener noreferrer"
+            >arXiv ↗</a
+          >
+          <a
+            href="https://github.com/junkim100/Benchmark-Profiling"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Code ↗</a
+          >
+        </div>
 
-      <div style="margin-top: 1rem">
-        <h3 style="margin-bottom: 0.5rem; color: #000000">Abstract</h3>
-        <div
-          class="publication-abstract"
-          style="display: block; margin-top: 0.5rem"
-        >
+        <figure class="paper-figure">
+          <img
+            alt="Benchmark Profiling framework"
+            src="./images/bench-prof.webp"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+
+        <section class="paper-abstract">
+          <h2 class="paper-section-label">Abstract</h2>
           <p>
             Large Language Models are commonly judged by scores on benchmarks
-            that often mask the mixture of abilities actually required. We
-            introduce BENCHMARK PROFILING, a diagnostic framework that
-            decomposes benchmark performance into cognitively grounded abilities
-            via gradient-based importance and targeted parameter ablation,
-            computing an Ability Impact Score (AIS). The analysis explains why
-            performance gains don’t always translate to user-perceived
-            competence and supports benchmark auditing and interpretability.
+            that often mask the mixture of abilities a task actually requires.
+            We introduce Benchmark Profiling, a diagnostic framework that
+            decomposes benchmark performance into ten cognitively grounded
+            abilities. The method combines gradient-based importance scoring
+            with targeted parameter ablation to compute an Ability Impact Score
+            (AIS): how much each ability contributes to a model's performance
+            on a given benchmark. Profiling three instruction-tuned models
+            across ten widely used benchmarks yields four key findings: (i)
+            most benchmarks draw on several abilities rather than one, (ii)
+            datasets with similar labels rely on distinct ability mixtures,
+            (iii) code-generation benchmarks reward broad multi-skill
+            improvement and show only modest gains from narrow domain-specific
+            fine-tuning, and (iv) abilities irrelevant to a task can negatively
+            interfere with performance. The analysis explains why performance
+            gains do not always translate into user-perceived competence, and
+            supports benchmark auditing and interpretability.
           </p>
-        </div>
+        </section>
+
+        <section class="paper-case">
+          <h2 class="paper-section-label">At a Glance</h2>
+          <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          Benchmark scores are read as evidence of specific
+                          capabilities, yet a single number masks the mixture of
+                          abilities a task actually requires, and gains often
+                          fail to match user-perceived competence
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Establish a framework that systematically diagnoses
+                          and quantifies which cognitive abilities each
+                          benchmark actually measures
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Define
+                              <strong>10 cognitively grounded abilities</strong>
+                              with ability-specific diagnostic datasets
+                            </li>
+                            <li>
+                              Locate ability-relevant parameters via
+                              <strong>gradient-based importance</strong>
+                            </li>
+                            <li>
+                              Apply targeted <strong>MLP weight ablation</strong>
+                              and compare original vs. ablated performance to
+                              compute an
+                              <strong>Ability Impact Score (AIS)</strong>
+                            </li>
+                            <li>
+                              Profile three instruction-tuned models across ten
+                              widely used benchmarks
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Most benchmarks tap a
+                              <strong>mixture of abilities</strong>, not the
+                              single skill on their label
+                            </li>
+                            <li>
+                              Similarly labeled datasets rely on distinct
+                              ability mixes
+                            </li>
+                            <li>
+                              Code generation rewards broad multi-skill
+                              improvement; narrow fine-tuning yields modest
+                              gains
+                            </li>
+                            <li>
+                              Task-irrelevant abilities can interfere and hurt
+                              performance
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              First author: led the methodology and overall
+                              study design
+                            </li>
+                            <li>
+                              Built the diagnostic datasets and the
+                              gradient-importance / ablation pipelines as
+                              reproducible tooling
+                            </li>
+                            <li>
+                              Automated large-scale experiment sweeps; designed
+                              and ran the human-expert evaluation
+                            </li>
+                            <li>
+                              Led analysis, writing, and the open-source release
+                            </li>
+                          </ul>
+                        </dd>
+                      </dl>
+        </section>
+
+        <nav class="paper-nav" aria-label="More papers">
+          <a class="paper-nav-link prev" href="coding-spot.html"
+            ><span class="paper-nav-label">← Previous paper</span
+            ><span class="paper-nav-title">Exploring Coding Spot</span></a
+          >
+          <a class="paper-nav-link next" href="koleg.html"
+            ><span class="paper-nav-label">Next paper →</span
+            ><span class="paper-nav-title">KoLEG</span></a
+          >
+        </nav>
       </div>
     </main>
   </body>

@@ -3,53 +3,86 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MMA-ASIA — Dongjun Kim</title>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light" || t === "dark")
+            document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <title>MMA-ASIA · Dongjun Kim</title>
+    <meta name="description" content="A tri-modal benchmark of cultural awareness across 8 Asian countries and 10 languages." />
+    <link rel="canonical" href="https://junkim100.github.io/papers/mma-asia.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://junkim100.github.io/papers/mma-asia.html" />
+    <meta property="og:title" content="MMA-ASIA: A Multilingual and Multimodal Alignment Framework for Culturally-Grounded Evaluation" />
+    <meta property="og:description" content="A tri-modal benchmark of cultural awareness across 8 Asian countries and 10 languages." />
+    <meta property="og:image" content="https://junkim100.github.io/og-image.png" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="MMA-ASIA: A Multilingual and Multimodal Alignment Framework for Culturally-Grounded Evaluation" />
+    <meta property="twitter:description" content="A tri-modal benchmark of cultural awareness across 8 Asian countries and 10 languages." />
+    <meta property="twitter:image" content="https://junkim100.github.io/og-image.png" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
-    <main class="container paper-main">
-      <a href="../index.html#publications" class="project-link"
-        >← Back to Publications</a
-      >
-
-      <h1 class="section-title page-title">
-        MMA-ASIA: A Multilingual and Multimodal Alignment Framework for
-        Culturally-Grounded Evaluation
-      </h1>
-
-      <p class="publication-authors">
-        Weihua Zheng, ..., <strong>Dongjun Kim</strong>, ...
-      </p>
-      <p class="publication-venue">
-        arXiv, 2024 —
-        <a
-          href="https://arxiv.org/abs/2510.08608"
-          target="_blank"
-          rel="noopener noreferrer"
-          >arXiv</a
+    <main class="paper-page">
+      <div class="paper-container">
+        <a href="../index.html#publications" class="paper-back"
+          >← Back to publications</a
         >
-      </p>
 
-      <figure class="pub-figure-placeholder">
-        <img
-          alt="MMA-Asia paper figure"
-          src="./images/mma-asia.png"
-          loading="lazy"
-          decoding="async"
-        />
-      </figure>
+        <p class="paper-kicker">
+          <span class="chip">arXiv · 2025</span>
+          <span class="chip chip-muted">Under review · ICLR 2026</span>
+        </p>
+        <h1 class="paper-title">
+          MMA-ASIA: A Multilingual and Multimodal Alignment Framework for
+          Culturally-Grounded Evaluation
+        </h1>
+        <p class="paper-authors">
+          Weihua Zheng, Zhengyuan Liu, Tanmoy Chakraborty, Weiwen Xu, Xiaoxue
+          Gao, Bryan Chen Zhengyu Tan, Bowei Zou, Chang Liu, Yujia Hu, Xing Xie,
+          Xiaoyuan Yi, Jing Yao, Chaojun Wang, Long Li, Rui Liu, Huiyao Liu,
+          Koji Inoue, Ryuichi Sumida, Tatsuya Kawahara, Fan Xu, Lingyu Ye, Wei
+          Tian, <strong>Dongjun Kim</strong>, Jimin Jung, Jaehyung Seo, Nadya
+          Yuki Wangsajaya, Pham Minh Duc, Ojasva Saxena, Palash Nandi, Xiyan
+          Tao, Wiwik Karlina, Tuan Luong, Keertana Arun Vasan, Roy Ka-Wei Lee,
+          Nancy F. Chen
+        </p>
+        <div class="paper-links">
+          <a
+            href="https://arxiv.org/abs/2510.08608"
+            target="_blank"
+            rel="noopener noreferrer"
+            >arXiv ↗</a
+          >
+        </div>
 
-      <div style="margin-top: 1rem">
-        <h3 style="margin-bottom: 0.5rem; color: #000000">Abstract</h3>
-        <div
-          class="publication-abstract"
-          style="display: block; margin-top: 0.5rem"
-        >
+        <figure class="paper-figure">
+          <img
+            alt="MMA-ASIA benchmark overview"
+            src="./images/mma-asia.webp"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+
+        <section class="paper-abstract">
+          <h2 class="paper-section-label">Abstract</h2>
           <p>
             Large language models (LLMs) are now used worldwide, yet their
             multimodal understanding and reasoning often degrade outside
             Western, high-resource settings. We propose MMA-ASIA, a
-            comprehensive framework to evaluate LLMs’ cultural awareness with a
+            comprehensive framework to evaluate LLMs' cultural awareness with a
             focus on Asian contexts. MMA-ASIA centers on a human-curated,
             multilingual, and multimodally aligned multiple-choice benchmark
             covering 8 Asian countries and 10 languages, comprising 27,000
@@ -58,20 +91,108 @@
             knowledge, this is the first dataset aligned at the input level
             across three modalities: text, image (visual question answering),
             and speech. This enables direct tests of cross-modal transfer.
-            Building on this benchmark, we propose a five-dimensional evaluation
-            protocol that measures – (i) cultural-awareness disparities across
-            countries, (ii) cross-lingual consistency, (iii) cross-modal
-            consistency, (iv) cultural knowledge generalization, and (v)
-            grounding validity. To ensure rigorous assessment, a Cultural
-            Awareness Grounding Validation Module detects “shortcut learning” by
-            checking whether the requisite cultural knowledge supports correct
-            answers. Finally, through comparative model analysis, attention
-            tracing, and an innovative Vision-ablated Prefix Replay (VPR)
-            method, we probe why models diverge across languages and modalities,
-            offering actionable insights for building culturally reliable
-            multimodal LLMs.
+            Building on this benchmark, we propose a five-dimensional
+            evaluation protocol that measures: (i) cultural-awareness
+            disparities across countries, (ii) cross-lingual consistency, (iii)
+            cross-modal consistency, (iv) cultural knowledge generalization, and
+            (v) grounding validity. To ensure rigorous assessment, a Cultural
+            Awareness Grounding Validation Module detects "shortcut learning"
+            by checking whether the requisite cultural knowledge supports
+            correct answers. Finally, through comparative model analysis,
+            attention tracing, and an innovative Vision-ablated Prefix Replay
+            (VPR) method, we probe why models diverge across languages and
+            modalities, offering actionable insights for building culturally
+            reliable multimodal LLMs.
           </p>
-        </div>
+        </section>
+
+        <section class="paper-case">
+          <h2 class="paper-section-label">At a Glance</h2>
+          <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          Multimodal understanding and reasoning often degrade
+                          outside Western, high-resource settings, and
+                          culture-aware evaluation has lagged behind
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Quantify cultural awareness across Asian languages and
+                          modalities, and verify that models answer for the
+                          right reasons
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Human-curated benchmark across
+                              <strong
+                                >8 Asian countries, 10 languages, 27,000
+                                questions</strong
+                              >; 79% require multi-step cultural reasoning
+                            </li>
+                            <li>
+                              First dataset input-aligned across
+                              <strong>text, image, and speech</strong>, enabling
+                              direct cross-modal transfer tests
+                            </li>
+                            <li>
+                              Five-dimensional protocol: country disparities,
+                              cross-lingual and cross-modal consistency,
+                              generalization, grounding validity
+                            </li>
+                            <li>
+                              A grounding validation module detects shortcut
+                              learning;
+                              <strong>Vision-ablated Prefix Replay (VPR)</strong>
+                              probes modality divergence
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Reveals cultural-awareness gaps across countries
+                              and languages
+                            </li>
+                            <li>
+                              Demonstrates cross-modal inconsistency and
+                              shortcut-learning risks in current models
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Led the Korean subset: taxonomy design, image
+                              collection, and QA authoring guidelines
+                            </li>
+                            <li>
+                              Evaluated diverse VLMs and calibrated
+                              quality-control criteria
+                            </li>
+                            <li>Contributed analysis and writing</li>
+                          </ul>
+                        </dd>
+                      </dl>
+        </section>
+
+        <nav class="paper-nav" aria-label="More papers">
+          <a class="paper-nav-link prev" href="koleg.html"
+            ><span class="paper-nav-label">← Previous paper</span
+            ><span class="paper-nav-title">KoLEG</span></a
+          >
+          <a class="paper-nav-link next" href="kite.html"
+            ><span class="paper-nav-label">Next paper →</span
+            ><span class="paper-nav-title">KITE</span></a
+          >
+        </nav>
       </div>
     </main>
   </body>

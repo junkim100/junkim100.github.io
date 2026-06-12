@@ -3,47 +3,76 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LangSAE Editing — Dongjun Kim</title>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light" || t === "dark")
+            document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <title>LangSAE Editing · Dongjun Kim</title>
+    <meta name="description" content="Removes language identity from embeddings at inference time to improve cross-lingual retrieval." />
+    <link rel="canonical" href="https://junkim100.github.io/papers/langsae.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://junkim100.github.io/papers/langsae.html" />
+    <meta property="og:title" content="LangSAE Editing: Improving Multilingual Information Retrieval via Post-hoc Language Identity Removal" />
+    <meta property="og:description" content="Removes language identity from embeddings at inference time to improve cross-lingual retrieval." />
+    <meta property="og:image" content="https://junkim100.github.io/og-image.png" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="LangSAE Editing: Improving Multilingual Information Retrieval via Post-hoc Language Identity Removal" />
+    <meta property="twitter:description" content="Removes language identity from embeddings at inference time to improve cross-lingual retrieval." />
+    <meta property="twitter:image" content="https://junkim100.github.io/og-image.png" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
-    <main class="container paper-main">
-      <a href="../index.html#publications" class="project-link"
-        >← Back to Publications</a
-      >
-      <h1 class="section-title page-title">
-        LangSAE Editing: Improving Multilingual Information Retrieval via
-        Post-hoc Language Identity Removal
-      </h1>
-      <p class="publication-authors">
-        <strong>Dongjun Kim</strong>, Jeongho Yoon, Chanjun Park, Heuiseok Lim
-      </p>
-      <p class="publication-venue">
-        arXiv Preprint, 2026 —
-        <a
-          href="https://arxiv.org/abs/2601.04768"
-          target="_blank"
-          rel="noopener noreferrer"
-          >arXiv</a
+    <main class="paper-page">
+      <div class="paper-container">
+        <a href="../index.html#publications" class="paper-back"
+          >← Back to publications</a
         >
-      </p>
 
-      <figure class="pub-figure-placeholder">
-        <img
-          alt="LangSAE Editing paper figure"
-          src="./images/langsae.png"
-          loading="lazy"
-          decoding="async"
-        />
-      </figure>
+        <p class="paper-kicker">
+          <span class="chip">ACL 2026 · Main</span>
+          <span class="chip chip-accent">Oral</span>
+          <span class="chip chip-accent">First author</span>
+        </p>
+        <h1 class="paper-title">
+          LangSAE Editing: Improving Multilingual Information Retrieval via
+          Post-hoc Language Identity Removal
+        </h1>
+        <p class="paper-authors">
+          <strong>Dongjun Kim</strong>, Jeongho Yoon, Chanjun Park, Heuiseok Lim
+        </p>
+        <div class="paper-links">
+          <a
+            href="https://arxiv.org/abs/2601.04768"
+            target="_blank"
+            rel="noopener noreferrer"
+            >arXiv ↗</a
+          >
+        </div>
 
-      <div style="margin-top: 1rem">
-        <h3 style="margin-bottom: 0.5rem; color: #000000">Abstract</h3>
-        <div
-          class="publication-abstract"
-          style="display: block; margin-top: 0.5rem"
-        >
-          <p style="color: #334155">
+        <figure class="paper-figure">
+          <img
+            alt="LangSAE Editing method overview"
+            src="./images/langsae.webp"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+
+        <section class="paper-abstract">
+          <h2 class="paper-section-label">Abstract</h2>
+          <p>
             Multilingual retrieval systems face a persistent challenge: dense
             embeddings encode language signals that can overshadow relevant
             cross-language evidence. We introduce a sparse autoencoder approach
@@ -55,7 +84,88 @@
             consistent retrieval improvements, with particularly strong gains
             for languages that use different writing systems.
           </p>
-        </div>
+        </section>
+
+        <section class="paper-case">
+          <h2 class="paper-section-label">At a Glance</h2>
+          <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          In multilingual retrieval, dense embeddings also
+                          encode language signals that can overshadow relevant
+                          cross-language evidence
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Remove language signals at inference time to improve
+                          cross-language retrieval, without retraining the base
+                          model or re-encoding text
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Decompose embeddings into latent units with a
+                              <strong>sparse autoencoder</strong>
+                            </li>
+                            <li>
+                              Identify
+                              <strong>language-associated latent units</strong>
+                              via cross-language activation statistics
+                            </li>
+                            <li>
+                              <strong>Post-hoc editing</strong> removes those
+                              signals at inference while preserving the original
+                              embedding dimensions
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Consistent retrieval improvements across multiple
+                              languages
+                            </li>
+                            <li>
+                              Strongest gains across different writing systems
+                            </li>
+                            <li>
+                              Drops into existing systems with no retraining or
+                              re-encoding required
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              First author: led the methodology and overall
+                              study design
+                            </li>
+                            <li>
+                              Implemented the SAE-based language-latent
+                              identification and removal pipeline
+                            </li>
+                            <li>
+                              Designed the multilingual retrieval experiments;
+                              led analysis and writing
+                            </li>
+                          </ul>
+                        </dd>
+                      </dl>
+        </section>
+
+        <nav class="paper-nav" aria-label="More papers">
+          <a class="paper-nav-link next" href="coding-spot.html"
+            ><span class="paper-nav-label">Next paper →</span
+            ><span class="paper-nav-title">Exploring Coding Spot</span></a
+          >
+        </nav>
       </div>
     </main>
   </body>

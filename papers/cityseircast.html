@@ -3,48 +3,75 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CitySEIRCast — Dongjun Kim</title>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light" || t === "dark")
+            document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <title>CitySEIRCast · Dongjun Kim</title>
+    <meta name="description" content="An agent-based city digital twin for high-resolution pandemic forecasting." />
+    <link rel="canonical" href="https://junkim100.github.io/papers/cityseircast.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://junkim100.github.io/papers/cityseircast.html" />
+    <meta property="og:title" content="CitySEIRCast: An Agent-Based City Digital Twin for Pandemic Analysis and Simulation" />
+    <meta property="og:description" content="An agent-based city digital twin for high-resolution pandemic forecasting." />
+    <meta property="og:image" content="https://junkim100.github.io/og-image.png" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="CitySEIRCast: An Agent-Based City Digital Twin for Pandemic Analysis and Simulation" />
+    <meta property="twitter:description" content="An agent-based city digital twin for high-resolution pandemic forecasting." />
+    <meta property="twitter:image" content="https://junkim100.github.io/og-image.png" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
-    <main class="container paper-main">
-      <a href="../index.html#publications" class="project-link"
-        >← Back to Publications</a
-      >
-      <h1 class="section-title page-title">
-        CitySEIRCast: an agent-based city digital twin for pandemic analysis and
-        simulation
-      </h1>
-      <p class="publication-authors">
-        Shakir Bilal, Wajdi Zaatour, Yilian Alonso Otano, Arindam Saha, Ken
-        Newcomb, Soo Kim, <strong>Dongjun Kim</strong>, Raveena Ginjala, Derek
-        Groen, Edwin Michael
-      </p>
-      <p class="publication-venue">
-        Complex & Intelligent Systems, 2024 —
-        <a
-          href="https://link.springer.com/article/10.1007/s40747-024-01683-x"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Springer</a
+    <main class="paper-page">
+      <div class="paper-container">
+        <a href="../index.html#publications" class="paper-back"
+          >← Back to publications</a
         >
-      </p>
 
-      <figure class="pub-figure-placeholder">
-        <img
-          alt="CitySEIRCast paper figure"
-          src="./images/cityseircast.png"
-          loading="lazy"
-          decoding="async"
-        />
-      </figure>
+        <p class="paper-kicker">
+          <span class="chip">Complex &amp; Intelligent Systems · 2024</span>
+        </p>
+        <h1 class="paper-title">
+          CitySEIRCast: An Agent-Based City Digital Twin for Pandemic Analysis
+          and Simulation
+        </h1>
+        <p class="paper-authors">
+          Shakir Bilal, Wajdi Zaatour, Yilian Alonso Otano, Arindam Saha, Ken
+          Newcomb, Soo Kim, <strong>Dongjun Kim</strong>, Raveena Ginjala, Derek
+          Groen, Edwin Michael
+        </p>
+        <div class="paper-links">
+          <a
+            href="https://link.springer.com/article/10.1007/s40747-024-01683-x"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Springer ↗</a
+          >
+        </div>
 
-      <div style="margin-top: 1rem">
-        <h3 style="margin-bottom: 0.5rem; color: #000000">Abstract</h3>
-        <div
-          class="publication-abstract"
-          style="display: block; margin-top: 0.5rem"
-        >
+        <figure class="paper-figure">
+          <img
+            alt="CitySEIRCast digital twin"
+            src="./images/cityseircast.webp"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+
+        <section class="paper-abstract">
+          <h2 class="paper-section-label">Abstract</h2>
           <p>
             The COVID-19 pandemic has dramatically highlighted the importance of
             developing simulation systems for quickly characterizing and
@@ -73,7 +100,86 @@
             impacts of implemented interventions, inclusive of the effects of
             population behavioral response to fluctuations in case incidence.
           </p>
-        </div>
+        </section>
+
+        <section class="paper-case">
+          <h2 class="paper-section-label">At a Glance</h2>
+          <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          City-scale epidemic forecasting must handle
+                          population/spatial heterogeneity and early-data
+                          scarcity, calling for high-resolution digital-twin
+                          simulation
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Couple an agent-based transmission model with
+                          real-world city data pipelines to deliver timely,
+                          high-resolution forecasts
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Build a <strong>city digital twin</strong> from
+                              navigation and social data, coupled with a modular
+                              <strong>agent-based SEIR</strong> model
+                            </li>
+                            <li>
+                              Automate pipelines for scalable execution on
+                              hybrid cloud/HPC
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Realistic city-level simulations with
+                              high-resolution spatiotemporal forecasts
+                            </li>
+                            <li>
+                              Actionable for identifying vulnerable
+                              groups/hotspots and evaluating policy scenarios
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Analyzed and cleaned county-provided COVID data
+                              (validation, missing-data handling, metadata
+                              curation)
+                            </li>
+                            <li>
+                              Set up the HPC environment (Slurm, modules,
+                              containers) and large-scale batch pipelines
+                            </li>
+                            <li>
+                              Optimized Python/C++ simulation code; implemented
+                              the agent-based SEIR application end to end
+                            </li>
+                            <li>
+                              Deployed on Azure with containers; configured
+                              monitoring and logging
+                            </li>
+                          </ul>
+                        </dd>
+                      </dl>
+        </section>
+
+        <nav class="paper-nav" aria-label="More papers">
+          <a class="paper-nav-link prev" href="korean-biases.html"
+            ><span class="paper-nav-label">← Previous paper</span
+            ><span class="paper-nav-title">Biases in LLMs in Korean Social Context</span></a
+          >
+        </nav>
       </div>
     </main>
   </body>
