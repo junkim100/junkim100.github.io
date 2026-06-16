@@ -12,16 +12,16 @@
         } catch (e) {}
       })();
     </script>
-    <title>MMA-ASIA · Dongjun Kim</title>
+    <title>MMAC · Dongjun Kim</title>
     <meta name="description" content="A tri-modal benchmark of cultural awareness across 8 Asian countries and 10 languages." />
     <link rel="canonical" href="https://junkim100.github.io/papers/mma-asia.html" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://junkim100.github.io/papers/mma-asia.html" />
-    <meta property="og:title" content="MMA-ASIA: A Multilingual and Multimodal Alignment Framework for Culturally-Grounded Evaluation" />
+    <meta property="og:title" content="MMAC: A Multilingual, Multimodal Alignment Framework for Cultural Grounding Evaluation" />
     <meta property="og:description" content="A tri-modal benchmark of cultural awareness across 8 Asian countries and 10 languages." />
     <meta property="og:image" content="https://junkim100.github.io/og-image.png" />
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content="MMA-ASIA: A Multilingual and Multimodal Alignment Framework for Culturally-Grounded Evaluation" />
+    <meta property="twitter:title" content="MMAC: A Multilingual, Multimodal Alignment Framework for Cultural Grounding Evaluation" />
     <meta property="twitter:description" content="A tri-modal benchmark of cultural awareness across 8 Asian countries and 10 languages." />
     <meta property="twitter:image" content="https://junkim100.github.io/og-image.png" />
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
@@ -42,11 +42,11 @@
 
         <p class="paper-kicker">
           <span class="chip">arXiv · 2025</span>
-          <span class="chip chip-muted">Under review · ICLR 2026</span>
+          <span class="chip">ACL 2026 · Main</span>
         </p>
         <h1 class="paper-title">
-          MMA-ASIA: A Multilingual and Multimodal Alignment Framework for
-          Culturally-Grounded Evaluation
+          MMAC: A Multilingual, Multimodal Alignment Framework for Cultural
+          Grounding Evaluation
         </h1>
         <p class="paper-authors">
           Weihua Zheng, Zhengyuan Liu, Tanmoy Chakraborty, Weiwen Xu, Xiaoxue
@@ -65,11 +65,17 @@
             rel="noopener noreferrer"
             >arXiv ↗</a
           >
+          <a
+            href="https://huggingface.co/datasets/ZWHTXY/MMAC-Bench"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Dataset ↗</a
+          >
         </div>
 
         <figure class="paper-figure">
           <img
-            alt="MMA-ASIA benchmark overview"
+            alt="MMAC benchmark overview"
             src="./images/mma-asia.webp"
             loading="lazy"
             decoding="async"
@@ -79,30 +85,27 @@
         <section class="paper-abstract">
           <h2 class="paper-section-label">Abstract</h2>
           <p>
-            Large language models (LLMs) are now used worldwide, yet their
-            multimodal understanding and reasoning often degrade outside
-            Western, high-resource settings. We propose MMA-ASIA, a
-            comprehensive framework to evaluate LLMs' cultural awareness with a
-            focus on Asian contexts. MMA-ASIA centers on a human-curated,
-            multilingual, and multimodally aligned multiple-choice benchmark
-            covering 8 Asian countries and 10 languages, comprising 27,000
-            questions; over 79% require multi-step reasoning grounded in
-            cultural context, moving beyond simple memorization. To our
-            knowledge, this is the first dataset aligned at the input level
-            across three modalities: text, image (visual question answering),
-            and speech. This enables direct tests of cross-modal transfer.
-            Building on this benchmark, we propose a five-dimensional
-            evaluation protocol that measures: (i) cultural-awareness
-            disparities across countries, (ii) cross-lingual consistency, (iii)
-            cross-modal consistency, (iv) cultural knowledge generalization, and
-            (v) grounding validity. To ensure rigorous assessment, a Cultural
-            Awareness Grounding Validation Module detects "shortcut learning"
-            by checking whether the requisite cultural knowledge supports
-            correct answers. Finally, through comparative model analysis,
-            attention tracing, and an innovative Vision-ablated Prefix Replay
-            (VPR) method, we probe why models diverge across languages and
-            modalities, offering actionable insights for building culturally
-            reliable multimodal LLMs.
+            The global deployment of Large Language Models (LLMs) underscores
+            the urgent need to evaluate their cultural alignment. However,
+            assessing genuine "cultural awareness" across modalities (text,
+            vision, speech) and languages remains a significant challenge. To
+            comprehensively investigate this domain, we propose MMAC, a
+            systematic framework that encompasses a tri-modally aligned cultural
+            benchmark creation pipeline and a five-dimensional evaluation
+            protocol to assess cross-country awareness disparities, evaluate
+            cross-lingual and cross-modal consistency, and verify cultural
+            knowledge generalization and grounding validity. Given the
+            prevailing Western cultural bias in current models, we focus on 8
+            Asian countries as our dataset foundation to more acutely reveal
+            potential cultural deficiencies in LLMs. Our dataset, MMAC-bench,
+            features 27,000 human-curated questions across 10 languages.
+            Crucially, it is the first dataset aligned at the input level across
+            text, image, and speech, enabling direct cross-modal transfer tests.
+            Each question consists of multiple-choice options accompanied by
+            open-ended generated explanations, where 79% require multi-step
+            reasoning grounded in cultural context, moving beyond simple
+            memorization. We probe the causes of modal divergence, offering
+            insights into fostering culturally robust MLLMs.
           </p>
         </section>
 
