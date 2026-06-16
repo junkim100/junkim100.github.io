@@ -1131,7 +1131,7 @@ body.menu-open .menu-toggle .bar:nth-child(3) {
   transform: rotate(45deg);
 }
 .project-bullets strong {
-  color: var(--paper);
+  color: #f5f3ec;
   font-weight: 600;
 }
 
