@@ -1134,6 +1134,29 @@ body.menu-open .menu-toggle .bar:nth-child(3) {
   color: #f5f3ec;
   font-weight: 600;
 }
+.project-bullets li.project-links {
+  padding-left: 0;
+  margin-top: 0.5rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid #36332b;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.3rem;
+}
+.project-bullets li.project-links::before {
+  display: none;
+}
+.project-bullets li.project-links a {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #cdc9bc;
+}
+.project-bullets li.project-links a:hover {
+  color: var(--paper);
+}
 
 /* ============================================================
    Experience
