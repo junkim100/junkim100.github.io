@@ -345,7 +345,7 @@
 
           <div class="hero-stats">
             <div class="stat">
-              <div class="stat-value">10</div>
+              <div class="stat-value">11</div>
               <div class="stat-label">Publications</div>
             </div>
             <div class="stat">
@@ -1505,10 +1505,82 @@
               </div>
             </article>
 
-            <!-- 09 · Korean Biases -->
-            <article class="pub" id="pub-korean-biases">
+            <!-- 09 · VAETKI Technical Report -->
+            <article class="pub" id="pub-vaetki">
               <div class="pub-head">
                 <span class="pub-no">09</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-vaetki"
+                    >
+                      VAETKI Technical Report
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">A Korean-sovereign LLM series at 100B / 20B / 7B scales built on a Mixture-of-Experts architecture with Multi-Latent Attention.</p>
+                  <p class="pub-authors">NC-AI Consortium</p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">Technical Report · 2026</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-vaetki">
+                <div class="pub-body-inner">
+                  <div class="pub-detail pub-detail-solo">
+                    <div>
+                      <dl class="case">
+                        <dt>Abstract</dt>
+                        <dd>
+                          This report introduces VAETKI, a series of large
+                          language models developed at 100B, 20B, and 7B scales
+                          to secure national data sovereignty and promote
+                          industrial AI Transformation (AX). The models utilize a
+                          decoder-only Mixture-of-Experts (MoE) architecture,
+                          integrating Multi-Latent Attention (MLA) with
+                          Local-Global Interleaving. This configuration achieves
+                          an 83% reduction in KV cache size and a 40% gain in
+                          training efficiency compared to conventional MLA. Our
+                          pre-training corpus involves a curated 5-trillion-token
+                          subset selected through a seven-stage refinement
+                          pipeline from a total of 20 trillion tokens. We further
+                          implemented a three-stage post-training
+                          pipeline&mdash;consisting of Reasoning-centric SFT,
+                          High-Quality SFT, and DPO&mdash;trained on 8 million
+                          instruction-tuning triplets. This effort was
+                          complemented by 17.6 billion tokens of specialized
+                          datasets for multilingual, cultural, and reasoning
+                          domains. Evaluation results on VAETKI-100B-A10B show
+                          significant performance on Korean benchmarks like CLIcK
+                          and KoBALT, alongside robust instruction-following
+                          capabilities as measured by IFEval. The results
+                          demonstrate that the VAETKI series provides a
+                          specialized foundation for high-performance AI
+                          applications optimized for the Korean context.
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a
+                          href="https://github.com/wbl-ncai/VAETKI/blob/releases/v1.0.0/VAETKI_Technical_Report.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >Technical Report ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 10 · Korean Biases -->
+            <article class="pub" id="pub-korean-biases">
+              <div class="pub-head">
+                <span class="pub-no">10</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1618,10 +1690,10 @@
               </div>
             </article>
 
-            <!-- 10 · CitySEIRCast -->
+            <!-- 11 · CitySEIRCast -->
             <article class="pub" id="pub-cityseircast">
               <div class="pub-head">
-                <span class="pub-no">10</span>
+                <span class="pub-no">11</span>
                 <div>
                   <h3 class="pub-title">
                     <button

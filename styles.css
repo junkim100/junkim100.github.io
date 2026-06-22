@@ -926,6 +926,10 @@ body.menu-open .menu-toggle .bar:nth-child(3) {
   padding: 0.5rem 0.25rem 2.25rem 4.5rem;
 }
 
+.pub-detail-solo {
+  grid-template-columns: 1fr;
+}
+
 .pub-figure {
   align-self: start;
   position: sticky;
