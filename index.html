@@ -713,10 +713,216 @@
               </div>
             </article>
 
-            <!-- 03 · Benchmark Profiling -->
-            <article class="pub" id="pub-bench-prof">
+            <!-- 03 · MMA-ASIA -->
+            <article class="pub" id="pub-mma-asia">
               <div class="pub-head">
                 <span class="pub-no">03</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-mma-asia"
+                    >
+                      MMAC: A Multilingual, Multimodal Alignment Framework
+                      for Cultural Grounding Evaluation
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">A tri-modal benchmark of cultural awareness across 8 Asian countries and 10 languages.</p>
+                  <p class="pub-authors">
+                    Weihua Zheng, Zhengyuan Liu, et al., incl.
+                    <strong>Dongjun Kim</strong> (35 authors)
+                  </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">ACL 2026 · Main</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-mma-asia">
+                <div class="pub-body-inner">
+                  <div class="pub-detail">
+                    <figure class="pub-figure">
+                      <img
+                        src="papers/images/mma-asia.webp"
+                        alt="MMAC benchmark overview"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </figure>
+                    <div>
+                      <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          Multimodal understanding and reasoning often degrade
+                          outside Western, high-resource settings, and
+                          culture-aware evaluation has lagged behind
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Quantify cultural awareness across Asian languages and
+                          modalities, and verify that models answer for the
+                          right reasons
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Human-curated benchmark across
+                              <strong
+                                >8 Asian countries, 10 languages, 27,000
+                                questions</strong
+                              >; 79% require multi-step cultural reasoning
+                            </li>
+                            <li>
+                              First dataset input-aligned across
+                              <strong>text, image, and speech</strong>, enabling
+                              direct cross-modal transfer tests
+                            </li>
+                            <li>
+                              Five-dimensional protocol: country disparities,
+                              cross-lingual and cross-modal consistency,
+                              generalization, grounding validity
+                            </li>
+                            <li>
+                              A grounding validation module detects shortcut
+                              learning;
+                              <strong>Vision-ablated Prefix Replay (VPR)</strong>
+                              probes modality divergence
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Reveals cultural-awareness gaps across countries
+                              and languages
+                            </li>
+                            <li>
+                              Demonstrates cross-modal inconsistency and
+                              shortcut-learning risks in current models
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Led the Korean subset: taxonomy design, image
+                              collection, and QA authoring guidelines
+                            </li>
+                            <li>
+                              Evaluated diverse VLMs and calibrated
+                              quality-control criteria
+                            </li>
+                            <li>Contributed analysis and writing</li>
+                          </ul>
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a href="papers/mma-asia.html">Paper page →</a>
+                        <a
+                          href="https://arxiv.org/abs/2510.08608"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >arXiv ↗</a
+                        >
+                        <a
+                          href="https://huggingface.co/datasets/ZWHTXY/MMAC-Bench"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >Dataset ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 04 · VAETKI Technical Report -->
+            <article class="pub" id="pub-vaetki">
+              <div class="pub-head">
+                <span class="pub-no">04</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-vaetki"
+                    >
+                      VAETKI Technical Report
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">A Korean-sovereign LLM series at 100B / 20B / 7B scales built on a Mixture-of-Experts architecture with Multi-Latent Attention.</p>
+                  <p class="pub-authors">NC-AI Consortium</p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">Technical Report · 2026</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-vaetki">
+                <div class="pub-body-inner">
+                  <div class="pub-detail pub-detail-solo">
+                    <div>
+                      <dl class="case">
+                        <dt>Abstract</dt>
+                        <dd>
+                          This report introduces VAETKI, a series of large
+                          language models developed at 100B, 20B, and 7B scales
+                          to secure national data sovereignty and promote
+                          industrial AI Transformation (AX). The models utilize a
+                          decoder-only Mixture-of-Experts (MoE) architecture,
+                          integrating Multi-Latent Attention (MLA) with
+                          Local-Global Interleaving. This configuration achieves
+                          an 83% reduction in KV cache size and a 40% gain in
+                          training efficiency compared to conventional MLA. Our
+                          pre-training corpus involves a curated 5-trillion-token
+                          subset selected through a seven-stage refinement
+                          pipeline from a total of 20 trillion tokens. We further
+                          implemented a three-stage post-training
+                          pipeline&mdash;consisting of Reasoning-centric SFT,
+                          High-Quality SFT, and DPO&mdash;trained on 8 million
+                          instruction-tuning triplets. This effort was
+                          complemented by 17.6 billion tokens of specialized
+                          datasets for multilingual, cultural, and reasoning
+                          domains. Evaluation results on VAETKI-100B-A10B show
+                          significant performance on Korean benchmarks like CLIcK
+                          and KoBALT, alongside robust instruction-following
+                          capabilities as measured by IFEval. The results
+                          demonstrate that the VAETKI series provides a
+                          specialized foundation for high-performance AI
+                          applications optimized for the Korean context.
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a
+                          href="https://github.com/wbl-ncai/VAETKI/blob/releases/v1.0.0/VAETKI_Technical_Report.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >Technical Report ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 05 · Benchmark Profiling -->
+            <article class="pub" id="pub-bench-prof">
+              <div class="pub-head">
+                <span class="pub-no">05</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -861,10 +1067,10 @@
               </div>
             </article>
 
-            <!-- 04 · KoLEG -->
+            <!-- 06 · KoLEG -->
             <article class="pub" id="pub-koleg">
               <div class="pub-head">
-                <span class="pub-no">04</span>
+                <span class="pub-no">06</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -981,273 +1187,6 @@
                         >
                         <a
                           href="https://github.com/ekgus9/KoLEG"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          >Code ↗</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <!-- 05 · MMA-ASIA -->
-            <article class="pub" id="pub-mma-asia">
-              <div class="pub-head">
-                <span class="pub-no">05</span>
-                <div>
-                  <h3 class="pub-title">
-                    <button
-                      class="pub-trigger"
-                      aria-expanded="false"
-                      aria-controls="pub-body-mma-asia"
-                    >
-                      MMAC: A Multilingual, Multimodal Alignment Framework
-                      for Cultural Grounding Evaluation
-                    </button>
-                  </h3>
-                  <p class="pub-tagline">A tri-modal benchmark of cultural awareness across 8 Asian countries and 10 languages.</p>
-                  <p class="pub-authors">
-                    Weihua Zheng, Zhengyuan Liu, et al., incl.
-                    <strong>Dongjun Kim</strong> (35 authors)
-                  </p>
-                  <div class="pub-meta-inline">
-                    <span class="chip">ACL 2026 · Main</span>
-                  </div>
-                </div>
-                <div class="pub-side">
-                  <span class="pub-toggle-icon" aria-hidden="true"></span>
-                </div>
-              </div>
-              <div class="pub-body" id="pub-body-mma-asia">
-                <div class="pub-body-inner">
-                  <div class="pub-detail">
-                    <figure class="pub-figure">
-                      <img
-                        src="papers/images/mma-asia.webp"
-                        alt="MMAC benchmark overview"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </figure>
-                    <div>
-                      <dl class="case">
-                        <dt>Background</dt>
-                        <dd>
-                          Multimodal understanding and reasoning often degrade
-                          outside Western, high-resource settings, and
-                          culture-aware evaluation has lagged behind
-                        </dd>
-
-                        <dt>Problem</dt>
-                        <dd>
-                          Quantify cultural awareness across Asian languages and
-                          modalities, and verify that models answer for the
-                          right reasons
-                        </dd>
-
-                        <dt>Method</dt>
-                        <dd>
-                          <ul>
-                            <li>
-                              Human-curated benchmark across
-                              <strong
-                                >8 Asian countries, 10 languages, 27,000
-                                questions</strong
-                              >; 79% require multi-step cultural reasoning
-                            </li>
-                            <li>
-                              First dataset input-aligned across
-                              <strong>text, image, and speech</strong>, enabling
-                              direct cross-modal transfer tests
-                            </li>
-                            <li>
-                              Five-dimensional protocol: country disparities,
-                              cross-lingual and cross-modal consistency,
-                              generalization, grounding validity
-                            </li>
-                            <li>
-                              A grounding validation module detects shortcut
-                              learning;
-                              <strong>Vision-ablated Prefix Replay (VPR)</strong>
-                              probes modality divergence
-                            </li>
-                          </ul>
-                        </dd>
-
-                        <dt>Results</dt>
-                        <dd>
-                          <ul>
-                            <li>
-                              Reveals cultural-awareness gaps across countries
-                              and languages
-                            </li>
-                            <li>
-                              Demonstrates cross-modal inconsistency and
-                              shortcut-learning risks in current models
-                            </li>
-                          </ul>
-                        </dd>
-
-                        <dt>Role</dt>
-                        <dd>
-                          <ul>
-                            <li>
-                              Led the Korean subset: taxonomy design, image
-                              collection, and QA authoring guidelines
-                            </li>
-                            <li>
-                              Evaluated diverse VLMs and calibrated
-                              quality-control criteria
-                            </li>
-                            <li>Contributed analysis and writing</li>
-                          </ul>
-                        </dd>
-                      </dl>
-                      <div class="pub-links">
-                        <a href="papers/mma-asia.html">Paper page →</a>
-                        <a
-                          href="https://arxiv.org/abs/2510.08608"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          >arXiv ↗</a
-                        >
-                        <a
-                          href="https://huggingface.co/datasets/ZWHTXY/MMAC-Bench"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          >Dataset ↗</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <!-- 06 · KITE -->
-            <article class="pub" id="pub-kite">
-              <div class="pub-head">
-                <span class="pub-no">06</span>
-                <div>
-                  <h3 class="pub-title">
-                    <button
-                      class="pub-trigger"
-                      aria-expanded="false"
-                      aria-controls="pub-body-kite"
-                    >
-                      KITE: A Benchmark for Evaluating Korean
-                      Instruction-Following Abilities in Large Language Models
-                    </button>
-                  </h3>
-                  <p class="pub-tagline">The first open-ended benchmark for Korean instruction following.</p>
-                  <p class="pub-authors">
-                    <strong>Dongjun Kim</strong>, Chanhee Park, Chanjun Park,
-                    Heuiseok Lim
-                  </p>
-                  <div class="pub-meta-inline">
-                    <span class="chip">arXiv · 2025</span>
-                    <span class="chip chip-muted">Under review · EMNLP 2026 Industry</span>
-                  </div>
-                </div>
-                <div class="pub-side">
-                  <span class="pub-toggle-icon" aria-hidden="true"></span>
-                </div>
-              </div>
-              <div class="pub-body" id="pub-body-kite">
-                <div class="pub-body-inner">
-                  <div class="pub-detail">
-                    <figure class="pub-figure">
-                      <img
-                        src="papers/images/kite.webp"
-                        alt="KITE benchmark overview"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </figure>
-                    <div>
-                      <dl class="case">
-                        <dt>Background</dt>
-                        <dd>
-                          Instruction-following evaluation is English-centric;
-                          Korean, with honorifics, rich morphology, and dual
-                          numbering systems, lacked an open-ended benchmark
-                        </dd>
-
-                        <dt>Problem</dt>
-                        <dd>
-                          Measure both general and Korean-specific instruction
-                          following on diverse open-ended tasks, fairly and
-                          reproducibly
-                        </dd>
-
-                        <dt>Method</dt>
-                        <dd>
-                          <ul>
-                            <li>
-                              Tasks and prompts target
-                              <strong>Korean-specific phenomena</strong>
-                              (honorific shifts, morphology, dual numerals)
-                              alongside general instructions
-                            </li>
-                            <li>
-                              <strong>Open-ended generation</strong> rather than
-                              multiple choice
-                            </li>
-                            <li>
-                              Evaluation pipeline combines automated metrics
-                              with human assessment
-                            </li>
-                            <li>Full public release of dataset and code</li>
-                          </ul>
-                        </dd>
-
-                        <dt>Results</dt>
-                        <dd>
-                          <ul>
-                            <li>
-                              Reveals performance disparities across models with
-                              per-ability insight into strengths and weaknesses
-                            </li>
-                            <li>
-                              Released on Hugging Face and GitHub; used as a
-                              reference benchmark for Korean LLM comparison
-                            </li>
-                          </ul>
-                        </dd>
-
-                        <dt>Role</dt>
-                        <dd>
-                          <ul>
-                            <li>
-                              First author: designed and built the benchmark
-                              (tasks, prompts, scoring)
-                            </li>
-                            <li>
-                              Ran large-scale automated and human evaluations;
-                              led the analysis
-                            </li>
-                            <li>Released and maintains the public artifacts</li>
-                          </ul>
-                        </dd>
-                      </dl>
-                      <div class="pub-links">
-                        <a href="papers/kite.html">Paper page →</a>
-                        <a
-                          href="https://arxiv.org/abs/2510.15558"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          >arXiv ↗</a
-                        >
-                        <a
-                          href="https://huggingface.co/datasets/junkim100/KITE"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          >Dataset ↗</a
-                        >
-                        <a
-                          href="https://github.com/junkim100/KITE"
                           target="_blank"
                           rel="noopener noreferrer"
                           >Code ↗</a
@@ -1384,10 +1323,143 @@
               </div>
             </article>
 
-            <!-- 08 · SIL -->
-            <article class="pub" id="pub-sil">
+            <!-- 08 · KITE -->
+            <article class="pub" id="pub-kite">
               <div class="pub-head">
                 <span class="pub-no">08</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-kite"
+                    >
+                      KITE: A Benchmark for Evaluating Korean
+                      Instruction-Following Abilities in Large Language Models
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">The first open-ended benchmark for Korean instruction following.</p>
+                  <p class="pub-authors">
+                    <strong>Dongjun Kim</strong>, Chanhee Park, Chanjun Park,
+                    Heuiseok Lim
+                  </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">arXiv · 2025</span>
+                    <span class="chip chip-muted">Under review · EMNLP 2026 Industry</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-kite">
+                <div class="pub-body-inner">
+                  <div class="pub-detail">
+                    <figure class="pub-figure">
+                      <img
+                        src="papers/images/kite.webp"
+                        alt="KITE benchmark overview"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </figure>
+                    <div>
+                      <dl class="case">
+                        <dt>Background</dt>
+                        <dd>
+                          Instruction-following evaluation is English-centric;
+                          Korean, with honorifics, rich morphology, and dual
+                          numbering systems, lacked an open-ended benchmark
+                        </dd>
+
+                        <dt>Problem</dt>
+                        <dd>
+                          Measure both general and Korean-specific instruction
+                          following on diverse open-ended tasks, fairly and
+                          reproducibly
+                        </dd>
+
+                        <dt>Method</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Tasks and prompts target
+                              <strong>Korean-specific phenomena</strong>
+                              (honorific shifts, morphology, dual numerals)
+                              alongside general instructions
+                            </li>
+                            <li>
+                              <strong>Open-ended generation</strong> rather than
+                              multiple choice
+                            </li>
+                            <li>
+                              Evaluation pipeline combines automated metrics
+                              with human assessment
+                            </li>
+                            <li>Full public release of dataset and code</li>
+                          </ul>
+                        </dd>
+
+                        <dt>Results</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              Reveals performance disparities across models with
+                              per-ability insight into strengths and weaknesses
+                            </li>
+                            <li>
+                              Released on Hugging Face and GitHub; used as a
+                              reference benchmark for Korean LLM comparison
+                            </li>
+                          </ul>
+                        </dd>
+
+                        <dt>Role</dt>
+                        <dd>
+                          <ul>
+                            <li>
+                              First author: designed and built the benchmark
+                              (tasks, prompts, scoring)
+                            </li>
+                            <li>
+                              Ran large-scale automated and human evaluations;
+                              led the analysis
+                            </li>
+                            <li>Released and maintains the public artifacts</li>
+                          </ul>
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a href="papers/kite.html">Paper page →</a>
+                        <a
+                          href="https://arxiv.org/abs/2510.15558"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >arXiv ↗</a
+                        >
+                        <a
+                          href="https://huggingface.co/datasets/junkim100/KITE"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >Dataset ↗</a
+                        >
+                        <a
+                          href="https://github.com/junkim100/KITE"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >Code ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 09 · SIL -->
+            <article class="pub" id="pub-sil">
+              <div class="pub-head">
+                <span class="pub-no">09</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1497,78 +1569,6 @@
                           target="_blank"
                           rel="noopener noreferrer"
                           >arXiv ↗</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <!-- 09 · VAETKI Technical Report -->
-            <article class="pub" id="pub-vaetki">
-              <div class="pub-head">
-                <span class="pub-no">09</span>
-                <div>
-                  <h3 class="pub-title">
-                    <button
-                      class="pub-trigger"
-                      aria-expanded="false"
-                      aria-controls="pub-body-vaetki"
-                    >
-                      VAETKI Technical Report
-                    </button>
-                  </h3>
-                  <p class="pub-tagline">A Korean-sovereign LLM series at 100B / 20B / 7B scales built on a Mixture-of-Experts architecture with Multi-Latent Attention.</p>
-                  <p class="pub-authors">NC-AI Consortium</p>
-                  <div class="pub-meta-inline">
-                    <span class="chip">Technical Report · 2026</span>
-                  </div>
-                </div>
-                <div class="pub-side">
-                  <span class="pub-toggle-icon" aria-hidden="true"></span>
-                </div>
-              </div>
-              <div class="pub-body" id="pub-body-vaetki">
-                <div class="pub-body-inner">
-                  <div class="pub-detail pub-detail-solo">
-                    <div>
-                      <dl class="case">
-                        <dt>Abstract</dt>
-                        <dd>
-                          This report introduces VAETKI, a series of large
-                          language models developed at 100B, 20B, and 7B scales
-                          to secure national data sovereignty and promote
-                          industrial AI Transformation (AX). The models utilize a
-                          decoder-only Mixture-of-Experts (MoE) architecture,
-                          integrating Multi-Latent Attention (MLA) with
-                          Local-Global Interleaving. This configuration achieves
-                          an 83% reduction in KV cache size and a 40% gain in
-                          training efficiency compared to conventional MLA. Our
-                          pre-training corpus involves a curated 5-trillion-token
-                          subset selected through a seven-stage refinement
-                          pipeline from a total of 20 trillion tokens. We further
-                          implemented a three-stage post-training
-                          pipeline&mdash;consisting of Reasoning-centric SFT,
-                          High-Quality SFT, and DPO&mdash;trained on 8 million
-                          instruction-tuning triplets. This effort was
-                          complemented by 17.6 billion tokens of specialized
-                          datasets for multilingual, cultural, and reasoning
-                          domains. Evaluation results on VAETKI-100B-A10B show
-                          significant performance on Korean benchmarks like CLIcK
-                          and KoBALT, alongside robust instruction-following
-                          capabilities as measured by IFEval. The results
-                          demonstrate that the VAETKI series provides a
-                          specialized foundation for high-performance AI
-                          applications optimized for the Korean context.
-                        </dd>
-                      </dl>
-                      <div class="pub-links">
-                        <a
-                          href="https://github.com/wbl-ncai/VAETKI/blob/releases/v1.0.0/VAETKI_Technical_Report.pdf"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          >Technical Report ↗</a
                         >
                       </div>
                     </div>
