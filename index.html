@@ -345,7 +345,7 @@
 
           <div class="hero-stats">
             <div class="stat">
-              <div class="stat-value">11</div>
+              <div class="stat-value">12</div>
               <div class="stat-label">Publications</div>
             </div>
             <div class="stat">
@@ -847,10 +847,64 @@
               </div>
             </article>
 
-            <!-- 04 · VAETKI Technical Report -->
-            <article class="pub" id="pub-vaetki">
+            <!-- 04 · Solar Open 2 Technical Report -->
+            <article class="pub" id="pub-solar-open-2">
               <div class="pub-head">
                 <span class="pub-no">04</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-solar-open-2"
+                    >
+                      Solar Open 2 Technical Report
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">A 250B-A15B Mixture-of-Experts open model with a 1M-token context window, built for long-horizon agentic tasks.</p>
+                  <p class="pub-authors">Upstage Solar Team, incl. <strong>Dongjun Kim</strong></p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">Technical Report · 2026</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-solar-open-2">
+                <div class="pub-body-inner">
+                  <div class="pub-detail pub-detail-solo">
+                    <div>
+                      <dl class="case">
+                        <dt>Abstract</dt>
+                        <dd>
+                          We present Solar Open 2, a 250B-A15B Mixture-of-Experts language model built for long-horizon agentic tasks, scaled up from Solar Open 1 (Solar Open 100B). To hold entire agent trajectories in a single context, Solar Open 2 reaches a 1M-token window through a hybrid attention stack that interleaves one softmax layer among every three linear-attention layers, using no positional encoding and a gated delta rule extended to negative eigenvalues. To train at this scale under a fixed compute budget, we make training efficient in two ways: a stronger starting point, and higher-value data. For the starting point, we initialize Solar Open 2 from Solar Open 1, transferring the 5.69B-parameter shared skeleton that survives the architectural change and learning everything else through full pre-training. For the data, we curate for value per token: quality- and rarity-aware data curation and mixture-ratio optimization refine a 20T pool into a 10T mixture that, at equal token budget, outperforms the Solar Open 1 recipe. To build its agent skills, we train twelve domain specialists across purpose-built scenarios, then consolidate them into a single model by Multi-teacher On-Policy Distillation (MOPD). Against comparably sized open-weight models on English benchmarks, Solar Open 2 leads on MMLU-Pro, LiveCodeBench, and the APEX-Agents agentic suite, and stays competitive with the strongest (DeepSeek-V4-Flash and MiMo-V2.5) elsewhere. On Korean benchmarks, Solar Open 2 records the highest average of any model compared, including fast-tier closed APIs, and on Ko-GDPval, an in-house Korean officework-agent benchmark, it is competitive with DeepSeek-V4-Pro (1.6T) at less than a sixth of its size.
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a
+                          href="https://arxiv.org/abs/2607.20062"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >arXiv ↗</a
+                        >
+                        <a
+                          href="https://huggingface.co/upstage/Solar-Open2-250B"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >HuggingFace ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 05 · VAETKI Technical Report -->
+            <article class="pub" id="pub-vaetki">
+              <div class="pub-head">
+                <span class="pub-no">05</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -919,10 +973,10 @@
               </div>
             </article>
 
-            <!-- 05 · Benchmark Profiling -->
+            <!-- 06 · Benchmark Profiling -->
             <article class="pub" id="pub-bench-prof">
               <div class="pub-head">
-                <span class="pub-no">05</span>
+                <span class="pub-no">06</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1067,10 +1121,10 @@
               </div>
             </article>
 
-            <!-- 06 · KoLEG -->
+            <!-- 07 · KoLEG -->
             <article class="pub" id="pub-koleg">
               <div class="pub-head">
-                <span class="pub-no">06</span>
+                <span class="pub-no">07</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1198,10 +1252,10 @@
               </div>
             </article>
 
-            <!-- 07 · ATE -->
+            <!-- 08 · ATE -->
             <article class="pub" id="pub-ate">
               <div class="pub-head">
-                <span class="pub-no">07</span>
+                <span class="pub-no">08</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1323,10 +1377,10 @@
               </div>
             </article>
 
-            <!-- 08 · KITE -->
+            <!-- 09 · KITE -->
             <article class="pub" id="pub-kite">
               <div class="pub-head">
-                <span class="pub-no">08</span>
+                <span class="pub-no">09</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1456,10 +1510,10 @@
               </div>
             </article>
 
-            <!-- 09 · SIL -->
+            <!-- 10 · SIL -->
             <article class="pub" id="pub-sil">
               <div class="pub-head">
-                <span class="pub-no">09</span>
+                <span class="pub-no">10</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1577,10 +1631,10 @@
               </div>
             </article>
 
-            <!-- 10 · Korean Biases -->
+            <!-- 11 · Korean Biases -->
             <article class="pub" id="pub-korean-biases">
               <div class="pub-head">
-                <span class="pub-no">10</span>
+                <span class="pub-no">11</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1690,10 +1744,10 @@
               </div>
             </article>
 
-            <!-- 11 · CitySEIRCast -->
+            <!-- 12 · CitySEIRCast -->
             <article class="pub" id="pub-cityseircast">
               <div class="pub-head">
-                <span class="pub-no">11</span>
+                <span class="pub-no">12</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1830,9 +1884,17 @@
           <div class="projects-grid">
             <!-- P-01 · Solar Open 2 -->
             <article class="project-card">
+              <a
+                class="project-card-link"
+                href="https://huggingface.co/upstage/Solar-Open2-250B"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Solar Open 2 on HuggingFace"
+              ></a>
               <div class="project-no">
                 <span>P-01 · 2026 –</span>
                 <span class="project-tags">
+                  <span class="chip">AAII 37</span>
                   <span class="chip t-eval">Evaluation</span>
                   <span class="chip t-infra">Infrastructure</span>
                 </span>
@@ -1850,41 +1912,41 @@
                   href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;mId=214&amp;mPid=208&amp;bbsSeqNo=88&amp;nttSeqNo=3175891"
                   target="_blank"
                   rel="noopener noreferrer"
-                  >MSIT national project</a
+                  >Independent AI Foundation Model</a
                 >
               </p>
               <ul class="project-bullets">
                 <li>
-                  Member of the Evaluation Team for
-                  <strong>Solar Open 2</strong>, Upstage's frontier open model
-                  for Korea's Independent AI Foundation Model project.
+                  Member of the Evaluation Team for <strong>Solar Open 2</strong>, Upstage's frontier open model: a <strong>250B-A15B MoE</strong> with a <strong>1M-token context window</strong> for long-horizon agentic tasks, released July 2026 (AAII 37, highest Korean-benchmark average of any model compared).
                 </li>
                 <li>
-                  Develop the team's registry-based
-                  <strong>LLM evaluation framework</strong>: 50+ benchmarks
-                  across reasoning, math, coding, agentic, and Korean-specific
-                  domains, managed as declarative specs.
+                  Ran <strong>large-scale evaluations</strong> across 50+ benchmarks spanning reasoning, math, coding, agentic, and Korean-specific domains, feeding <strong>training and data decisions</strong> between checkpoints.
                 </li>
                 <li>
-                  Orchestrate large-scale evaluation runs end to end:
-                  <strong>vLLM/SGLang serving</strong> on Slurm and Backend.AI
-                  clusters, provider batch-API pipelines, and LLM-as-judge
-                  protocols.
+                  Made evaluation results <strong>fully reproducible</strong> — the same configuration gives the same result no matter who runs it or when.
                 </li>
                 <li>
-                  Track checkpoint-over-checkpoint progress with automated
-                  reporting and dashboards that feed
-                  <strong>training and data decisions</strong>.
+                  Cut full-suite evaluation time from <strong>days to hours</strong> by finding and removing serving and pipeline bottlenecks.
                 </li>
               </ul>
             </article>
 
             <!-- P-02 · Solar Pro 4 -->
             <article class="project-card">
+              <a
+                class="project-card-link"
+                href="https://www.upstage.ai/blog/en/solar-pro-4"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Solar Pro 4 announcement"
+              ></a>
               <div class="project-no">
                 <span>P-02 · 2026 –</span>
                 <span class="project-tags">
+                  <span class="chip">AAII 42</span>
                   <span class="chip t-eval">Evaluation</span>
+                  <span class="chip t-agents">Long-Horizon Agents</span>
+                  <span class="chip t-infra">Infrastructure</span>
                 </span>
               </div>
               <h3 class="project-title">Solar Pro 4</h3>
@@ -1899,19 +1961,13 @@
               </p>
               <ul class="project-bullets">
                 <li>
-                  Evaluating <strong>Solar Pro 4</strong>, Upstage's flagship
-                  frontier model, across the full benchmark suite: reasoning,
-                  coding, agentic, and Korean-specific domains.
+                  Evaluated <strong>Solar Pro 4</strong>, Upstage's flagship frontier reasoning model for long-horizon agentic workflows: <strong>524K-token context window</strong>, released August 2026 (<strong>AAII 42</strong>, a 27-point jump over Solar Pro 3).
                 </li>
                 <li>
-                  Tracking frontier-model parity against external indices and
-                  prior Solar generations, with regression analysis between
-                  checkpoints.
+                  Tracked progress against <strong>frontier models</strong> and prior Solar generations across the full benchmark suite — with a focus on <strong>agentic long-horizon benchmarks</strong> — analyzing <strong>regressions between checkpoints</strong> to guide training.
                 </li>
                 <li>
-                  Runs on the same evaluation stack as Solar Open 2:
-                  registry-driven benchmark specs, multi-node serving, and
-                  automated reporting.
+                  Built and ran the <strong>evaluation infrastructure</strong> behind it — the same reproducible, high-throughput stack developed for Solar Open 2.
                 </li>
               </ul>
             </article>
