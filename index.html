@@ -26,6 +26,7 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Dongjun Kim" />
     <meta property="og:url" content="https://junkim100.github.io" />
     <meta property="og:title" content="Dongjun Kim · AI Research Engineer" />
     <meta
@@ -36,20 +37,26 @@
       property="og:image"
       content="https://junkim100.github.io/og-image.png"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Dongjun Kim · AI Research Engineer"
+    />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://junkim100.github.io" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://junkim100.github.io" />
     <meta
-      property="twitter:title"
+      name="twitter:title"
       content="Dongjun Kim · AI Research Engineer"
     />
     <meta
-      property="twitter:description"
+      name="twitter:description"
       content="AI Research Engineer at Upstage. LLM evaluation, mechanistic interpretability, and AI safety."
     />
     <meta
-      property="twitter:image"
+      name="twitter:image"
       content="https://junkim100.github.io/og-image.png"
     />
 
@@ -94,7 +101,13 @@
           "Natural Language Processing"
         ],
         "url": "https://junkim100.github.io",
-        "email": "junkim100@gmail.com"
+        "image": "https://junkim100.github.io/profile_photo.jpg",
+        "email": "junkim100@gmail.com",
+        "sameAs": [
+          "https://github.com/junkim100",
+          "https://www.linkedin.com/in/junkim100/",
+          "https://scholar.google.com/citations?user=ZE8__uoAAAAJ"
+        ]
       }
     </script>
   </head>
@@ -399,18 +412,18 @@
             <li class="highlight-item">
               <a href="#projects">
                 <span class="highlight-no">01</span>
-                <span class="highlight-title">Solar Open 2</span>
-                <span class="highlight-meta">Upstage · Frontier open model</span>
+                <span class="highlight-title">Solar Pro 4</span>
+                <span class="highlight-meta"
+                  >Upstage · Flagship frontier model</span
+                >
                 <span class="highlight-arrow">→</span>
               </a>
             </li>
             <li class="highlight-item">
               <a href="#projects">
                 <span class="highlight-no">02</span>
-                <span class="highlight-title">Solar Pro 4</span>
-                <span class="highlight-meta"
-                  >Upstage · Flagship frontier model</span
-                >
+                <span class="highlight-title">Solar Open 2</span>
+                <span class="highlight-meta">Upstage · Frontier open model</span>
                 <span class="highlight-arrow">→</span>
               </a>
             </li>
@@ -1882,6 +1895,46 @@
           </div>
 
           <div class="projects-grid">
+            <!-- Solar Pro 4 -->
+            <article class="project-card">
+              <a
+                class="project-card-link"
+                href="https://www.upstage.ai/blog/en/solar-pro-4"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Solar Pro 4 announcement"
+              ></a>
+              <div class="project-no">
+                <span>2026</span>
+                <span class="project-tags">
+                  <span class="chip t-eval">Evaluation</span>
+                  <span class="chip t-infra">Infrastructure</span>
+                  <span class="chip t-agents">Long-Horizon Agents</span>
+                </span>
+              </div>
+              <h3 class="project-title">Solar Pro 4</h3>
+              <p class="project-subtitle">
+                <a
+                  href="https://www.upstage.ai/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Upstage</a
+                >
+                · Evaluation Team
+              </p>
+              <ul class="project-bullets">
+                <li>
+                  Evaluated <strong>Solar Pro 4</strong>, Upstage's flagship frontier reasoning model for long-horizon agentic workflows: <strong>524K-token context window</strong>, released August 2026 (<strong>AAII 42</strong>, a 27-point jump over Solar Pro 3).
+                </li>
+                <li>
+                  Tracked progress against <strong>frontier models</strong> and prior Solar generations across the full benchmark suite, with a focus on <strong>agentic long-horizon benchmarks</strong>, analyzing <strong>regressions between checkpoints</strong> to guide training.
+                </li>
+                <li>
+                  Built and ran the <strong>evaluation infrastructure</strong> behind it: the same reproducible, high-throughput stack developed for Solar Open 2.
+                </li>
+              </ul>
+            </article>
+
             <!-- Solar Open 2 -->
             <article class="project-card">
               <a
@@ -1926,46 +1979,6 @@
                 </li>
                 <li>
                   Cut full-suite evaluation time from <strong>days to hours</strong> by finding and removing serving and pipeline bottlenecks.
-                </li>
-              </ul>
-            </article>
-
-            <!-- Solar Pro 4 -->
-            <article class="project-card">
-              <a
-                class="project-card-link"
-                href="https://www.upstage.ai/blog/en/solar-pro-4"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Solar Pro 4 announcement"
-              ></a>
-              <div class="project-no">
-                <span>2026</span>
-                <span class="project-tags">
-                  <span class="chip t-eval">Evaluation</span>
-                  <span class="chip t-infra">Infrastructure</span>
-                  <span class="chip t-agents">Long-Horizon Agents</span>
-                </span>
-              </div>
-              <h3 class="project-title">Solar Pro 4</h3>
-              <p class="project-subtitle">
-                <a
-                  href="https://www.upstage.ai/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Upstage</a
-                >
-                · Evaluation Team
-              </p>
-              <ul class="project-bullets">
-                <li>
-                  Evaluated <strong>Solar Pro 4</strong>, Upstage's flagship frontier reasoning model for long-horizon agentic workflows: <strong>524K-token context window</strong>, released August 2026 (<strong>AAII 42</strong>, a 27-point jump over Solar Pro 3).
-                </li>
-                <li>
-                  Tracked progress against <strong>frontier models</strong> and prior Solar generations across the full benchmark suite, with a focus on <strong>agentic long-horizon benchmarks</strong>, analyzing <strong>regressions between checkpoints</strong> to guide training.
-                </li>
-                <li>
-                  Built and ran the <strong>evaluation infrastructure</strong> behind it: the same reproducible, high-throughput stack developed for Solar Open 2.
                 </li>
               </ul>
             </article>

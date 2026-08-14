@@ -7,15 +7,16 @@
   document.addEventListener("DOMContentLoaded", () => {
     const btn = document.querySelector(".theme-toggle");
     if (!btn) return;
+    const root = document.documentElement;
+    const isDark = () =>
+      root.getAttribute("data-theme") === "dark" ||
+      (!root.getAttribute("data-theme") &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+    btn.setAttribute("aria-pressed", String(isDark()));
     btn.addEventListener("click", () => {
-      const root = document.documentElement;
-      const systemDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      const current =
-        root.getAttribute("data-theme") || (systemDark ? "dark" : "light");
-      const next = current === "dark" ? "light" : "dark";
+      const next = isDark() ? "light" : "dark";
       root.setAttribute("data-theme", next);
+      btn.setAttribute("aria-pressed", String(next === "dark"));
       try {
         localStorage.setItem("theme", next);
       } catch (_) {}
@@ -82,15 +83,22 @@
       });
     });
 
-    // Deep link: #pub-xxx opens that entry
-    if (location.hash) {
-      const target = document.querySelector(location.hash);
+    // Deep link: #pub-xxx opens that entry (on load and on later hash changes)
+    function openFromHash() {
+      let id = location.hash.slice(1);
+      if (!id) return;
+      try {
+        id = decodeURIComponent(id);
+      } catch (_) {}
+      const target = document.getElementById(id);
       if (target && target.classList.contains("pub")) {
         target.classList.add("open");
         const trigger = target.querySelector(".pub-trigger");
         if (trigger) trigger.setAttribute("aria-expanded", "true");
       }
     }
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
   });
 })();
 
@@ -241,16 +249,14 @@
       }
     }
 
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (!ticking) {
-          ticking = true;
-          requestAnimationFrame(update);
-        }
-      },
-      { passive: true }
-    );
+    function schedule() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule, { passive: true });
     update();
 
     // Active section highlighting

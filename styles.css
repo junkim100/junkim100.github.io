@@ -464,6 +464,7 @@ body.menu-open .menu-overlay .overlay-link:nth-child(2) { transition-delay: 0.1s
 body.menu-open .menu-overlay .overlay-link:nth-child(3) { transition-delay: 0.15s; }
 body.menu-open .menu-overlay .overlay-link:nth-child(4) { transition-delay: 0.2s; }
 body.menu-open .menu-overlay .overlay-link:nth-child(5) { transition-delay: 0.25s; }
+body.menu-open .menu-overlay .overlay-link:nth-child(6) { transition-delay: 0.3s; }
 body.menu-open .menu-toggle .bar:nth-child(1) {
   transform: translateY(6.5px) rotate(45deg);
 }
@@ -805,18 +806,15 @@ body.menu-open .menu-toggle .bar:nth-child(3) {
 }
 .pub-no {
   padding-top: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
 }
 .pub-side {
   padding-top: 0.25rem;
 }
 .pub-head:hover {
   background: var(--surface);
-}
-
-.pub-no {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--muted);
 }
 
 /* Venue / status chips under the title */
