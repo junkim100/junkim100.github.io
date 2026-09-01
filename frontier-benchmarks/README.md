@@ -24,3 +24,15 @@ python3 -m venv .venv
 The compiler accepts `--check` to verify that committed artifacts are current without rewriting them. The tests include a byte-for-byte double-build check.
 
 The included catalog is deliberately synthetic and score-free. It proves the contract and compiler behavior but is not the curated six-lab corpus.
+
+## Static interface
+
+`index.html`, `definitions.html`, `styles.css`, `core.mjs`, and `app.mjs` consume only `public/observatory.json`. Serve the repository root over HTTP and open `/frontier-benchmarks/`; no build step or runtime service is required.
+
+Focused interface-contract checks use a deterministic six-lab fixture without changing the generated production artifact:
+
+```sh
+node tests/ui/test-ui.mjs
+```
+
+For browser checks on localhost only, append `?fixture=ui`. The interface then imports `tests/ui/fixture.mjs`, which covers six lab lines, dense release collisions, aliases, categories, incomplete coverage, quarantine, and long text.
