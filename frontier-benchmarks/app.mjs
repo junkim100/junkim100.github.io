@@ -197,7 +197,7 @@ function renderTimeline(preserveScroll = false) {
       .sort((a, b) => a.publication_date.localeCompare(b.publication_date) || a.name.localeCompare(b.name));
     const releaseRows = collisionRows(
       labReleases.map((release) => (datePosition(release.publication_date, start, end) / 100) * trackWidth),
-      200,
+      300,
     );
     const rowCount = releaseRows.length ? Math.max(...releaseRows) + 1 : 1;
     const lane = element("div", {
