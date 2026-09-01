@@ -228,7 +228,7 @@ function renderTimeline(preserveScroll = false) {
           type: "button",
           text: `+${shownOccurrences.length - 3} more`,
           "aria-label": `Open all ${shownOccurrences.length} matching occurrences for ${release.name}`,
-          onclick: () => openReleaseDialog(release, node),
+          onclick: (event) => openReleaseDialog(release, event.currentTarget),
         }));
       }
       point.append(stack);

@@ -74,6 +74,7 @@ assert.match(appSource, /showModal\(\)/, "click and tap details use a native mod
 assert.match(appSource, /addEventListener\("focus"/, "keyboard focus has release preview parity");
 assert.match(appSource, /addEventListener\("mouseenter"/, "hover has release preview parity");
 assert.match(appSource, /history\.replaceState/, "timeline state is serialized in the URL");
+assert.match(appSource, /onclick:\s*\(event\)\s*=>\s*openReleaseDialog\(release,\s*event\.currentTarget\)/, "overflow dialog tracks its actual trigger for focus return");
 assert.match(appSource, /No qualifying benchmark occurrence was found/, "zero-occurrence release semantics are explicit");
 assert.match(appSource, /Generated ledger request failed/, "network error state is implemented");
 assert.match(cssSource, /prefers-reduced-motion: reduce/);
