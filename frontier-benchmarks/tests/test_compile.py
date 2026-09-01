@@ -156,8 +156,10 @@ class CompilerTests(unittest.TestCase):
 
     def test_no_score_guard_rejects_fields_and_value_shapes(self) -> None:
         forbidden_key = "benchmark_" + "".join(("sco", "re"))
+        forbidden_result_key = "benchmark_" + "".join(("res", "ult"))
         examples = [
             {forbidden_key: "redacted"},
+            {forbidden_result_key: "redacted"},
             {"summary": str(7 * 10) + "%"},
             {"summary": "win " + "rate: " + str(4)},
             {"summary": "accur" + "acy " + str(8)},
@@ -168,6 +170,11 @@ class CompilerTests(unittest.TestCase):
             {"summary": "compet" + "itor row"},
             {"summary": str(4) + "." + str(2)},
             {"summary": str(3) + "/" + str(4)},
+            {"summary": str(4)},
+            {"summary": "rating " + str(4) + "." + str(2)},
+            {"summary": "result was " + str(4) + "." + str(2)},
+            {"summary": "achieved " + str(4) + "." + str(2)},
+            {"summary": str(4) + "." + str(2) + " points"},
         ]
         for example in examples:
             with self.subTest(example=example):
@@ -182,6 +189,21 @@ class CompilerTests(unittest.TestCase):
                 "model_id": "alpha_2_5",
                 "name": "Alpha 2.5",
                 "algorithm": {"omission_count": 2},
+            },
+            ("test",),
+        )
+
+    def test_no_score_guard_allows_qwen_benchmark_versions_in_evidence_text(self) -> None:
+        compiler.assert_no_score_like(
+            {
+                "benchmark": {
+                    "name": "MMBench EN 1.1 dev",
+                    "aliases": ["Terminal Bench 2.1"],
+                },
+                "locator": {
+                    "value": "Figure under Qwen2.5 performance; benchmark label AlignBench 1.1",
+                },
+                "summary": "The official Qwen release reporting names AlpacaEval 2.0 for the released Qwen model.",
             },
             ("test",),
         )

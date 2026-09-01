@@ -40,18 +40,27 @@ REQUIRED_DEFINITIONS = {
     "quarantined",
 }
 FORBIDDEN_KEY = re.compile(
-    r"(?:^|_)(?:scores?|rank(?:ing)?s?|win_rates?|accurac(?:y|ies)|performance|elo|pass_at|competitor_rows?)(?:$|_)",
+    r"(?:^|_)(?:scores?|results?|ratings?|points?|rank(?:ing)?s?|win_rates?|accurac(?:y|ies)|performance|elo|pass_at|competitor_rows?)(?:$|_)",
     re.IGNORECASE,
+)
+AMBIGUOUS_BARE_NUMERIC_TEXT = (
+    re.compile(r"^\s*[-+]?\d+(?:\.\d+)?\s*$"),
+    re.compile(r"^\s*[-+]?\d+\s*/\s*\d+\s*$"),
 )
 FORBIDDEN_TEXT = [
     re.compile(r"\b\d+(?:\.\d+)?\s*%"),
-    re.compile(r"\b(?:win\s*rate|accuracy|performance|elo|score|ranking?)\s*(?:of|is|was|[:=])?\s*[-+]?\d", re.IGNORECASE),
+    re.compile(
+        r"\b(?:win\s*rate|accuracy|performance|elo|score|ranking?|ratings?|results?)"
+        r"\s*(?:of|is|was|value|[:=])?\s*[-+]?\d",
+        re.IGNORECASE,
+    ),
     re.compile(r"\bpass\s*(?:@|[-_ ]at[-_ ])\s*\d", re.IGNORECASE),
     re.compile(r"(?:^|\s)#\s*\d+\b"),
     re.compile(r"\b(?:ranked?|ranking)\s+(?:first|second|third|\d+)", re.IGNORECASE),
     re.compile(r"\b(?:competitor|competing model)\s+(?:row|result|value)s?\b", re.IGNORECASE),
-    re.compile(r"\b\d+\.\d+\b"),
-    re.compile(r"\b\d+\s*/\s*\d+\b"),
+    re.compile(r"\b(?:achieved|attained|earned|obtained|scored|yielded)\s+[-+]?\d", re.IGNORECASE),
+    re.compile(r"\b[-+]?\d+(?:\.\d+)?\s+(?:points?|rating)\b", re.IGNORECASE),
+    *AMBIGUOUS_BARE_NUMERIC_TEXT,
 ]
 SAFE_NUMERIC_KEYS = {"omission_count", "consecutive_reviewed_omissions"}
 SAFE_STRUCTURAL_TEXT_KEYS = {
@@ -377,7 +386,7 @@ def assert_no_score_like(value: Any, path: Tuple[str, ...] = ()) -> None:
                 or leaf.endswith("_ids")
                 or parent in {"aliases", "official_domains"}
             )
-            if structural_text and pattern in FORBIDDEN_TEXT[-2:]:
+            if structural_text and pattern in AMBIGUOUS_BARE_NUMERIC_TEXT:
                 continue
             if pattern.search(value):
                 raise ValidationError(f"forbidden score-like text at {'.'.join(path)}")
