@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A bounded, source-linked ledger of benchmark reporting for frontier model releases." />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f3ec" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#161410" />
+    <link rel="canonical" href="https://junkim100.github.io/frontier-benchmarks/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script>
+      try {
+        const storedTheme = localStorage.getItem("theme");
+        if (storedTheme === "light" || storedTheme === "dark") document.documentElement.dataset.theme = storedTheme;
+      } catch (_) {}
+    </script>
+    <title>Frontier Benchmark Observatory</title>
+  </head>
+  <body data-page="observatory">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="wordmark" href="../">Dongjun Kim<span aria-hidden="true">.</span></a>
+      <nav aria-label="Observatory">
+        <a href="#timeline">Timeline</a>
+        <a href="#ledger">Ledger</a>
+        <a href="#history">History</a>
+        <a href="#evidence">Evidence</a>
+        <a href="#methodology">Methodology</a>
+        <a href="./definitions.html">Definitions</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+        <span aria-hidden="true">◐</span>
+      </button>
+    </header>
+
+    <main id="main">
+      <section class="hero page-shell" aria-labelledby="page-title">
+        <p class="kicker">Public reporting research ledger · static at 2026-09-01</p>
+        <h1 id="page-title">Frontier Benchmark <em>Observatory</em></h1>
+        <p class="hero-intro">Trace which benchmarks six frontier AI labs name in reviewed first-party materials, when those references appear, and the exact evidence behind each occurrence.</p>
+        <div class="boundary-note" role="note">
+          <strong>Read this as a bounded reporting review, not a leaderboard.</strong>
+          <span>An omission means only that a benchmark was not found in the reviewed first-party source bundle. It does not establish whether a lab ran an evaluation privately or elsewhere.</span>
+        </div>
+        <dl class="corpus-stats" aria-label="Corpus summary">
+          <div><dt>Window</dt><dd id="stat-window">2024-01-01 to 2026-09-01, inclusive</dd></div>
+          <div><dt>Labs</dt><dd id="stat-labs">Loading</dd></div>
+          <div><dt>Releases</dt><dd id="stat-releases">Loading</dd></div>
+          <div><dt>Evidence records</dt><dd id="stat-occurrences">Loading</dd></div>
+        </dl>
+        <div class="download-row" aria-label="Data downloads">
+          <a class="button primary" href="./public/observatory.json" download>Download JSON</a>
+          <a class="button" href="./public/observatory.csv" download>Download CSV</a>
+          <a class="text-link" href="#complete-table">Skip visualization and use complete table ↓</a>
+        </div>
+      </section>
+
+      <div class="page-shell state-panel" id="load-state" role="status" aria-live="polite" aria-busy="true">
+        <span class="state-mark" aria-hidden="true"></span>
+        <p>Loading the validated generated ledger…</p>
+      </div>
+
+      <section class="section page-shell" id="timeline" aria-labelledby="timeline-title">
+        <div class="section-heading">
+          <div><p class="kicker">Continuous time · every included release</p><h2 id="timeline-title">Reporting timeline</h2></div>
+          <p>Pan horizontally or adjust the range. Every release remains available as a named node.</p>
+        </div>
+        <form class="filter-panel" id="filters" aria-label="Timeline filters">
+          <div class="field field-search">
+            <label for="benchmark-filter">Benchmark, alias, or category</label>
+            <input id="benchmark-filter" name="q" type="search" autocomplete="off" list="benchmark-options" placeholder="Example: coding or an alias" />
+            <datalist id="benchmark-options"></datalist>
+          </div>
+          <div class="field">
+            <label for="category-filter">Category</label>
+            <select id="category-filter" name="category"><option value="">All categories</option></select>
+          </div>
+          <div class="field">
+            <label for="from-date">From, inclusive</label>
+            <input id="from-date" name="from" type="date" />
+          </div>
+          <div class="field">
+            <label for="to-date">To, inclusive</label>
+            <input id="to-date" name="to" type="date" />
+          </div>
+          <div class="filter-actions">
+            <button class="button primary" type="submit">Apply</button>
+            <button class="button" id="reset-filters" type="button">Reset</button>
+          </div>
+        </form>
+        <div class="timeline-tools" aria-label="Timeline display controls">
+          <p id="filter-summary" role="status" aria-live="polite">Loading timeline.</p>
+          <div>
+            <button class="icon-button" id="zoom-out" type="button" aria-label="Show more time">−</button>
+            <span id="zoom-label" aria-live="polite">Standard scale</span>
+            <button class="icon-button" id="zoom-in" type="button" aria-label="Show less time in more detail">+</button>
+          </div>
+        </div>
+        <div class="timeline-frame" id="timeline-frame" tabindex="0" aria-label="Scrollable continuous timeline. Use horizontal scrolling to inspect dates." aria-describedby="timeline-help">
+          <p class="visually-hidden" id="timeline-help">Each row is one lab. Focus a named release node for its preview, then activate it to open all evidence occurrences.</p>
+          <div id="timeline-chart"></div>
+        </div>
+        <div class="inspector" id="release-inspector" aria-live="polite">
+          <p class="kicker">Release preview</p>
+          <p>Hover or focus a named node to preview it. Activate the node for complete evidence details.</p>
+        </div>
+        <div class="empty-state" id="timeline-empty" hidden>
+          <h3>No benchmark matches this filter</h3>
+          <p>All release nodes remain visible. Clear the benchmark or category filter to restore labels.</p>
+        </div>
+      </section>
+
+      <section class="section page-shell" id="ledger" aria-labelledby="ledger-title">
+        <div class="section-heading">
+          <div><p class="kicker">Complete release denominator</p><h2 id="ledger-title">Release ledger</h2></div>
+          <p>Every included release appears here, including releases with no qualifying benchmark occurrence in reviewed reporting.</p>
+        </div>
+        <div class="table-wrap" tabindex="0">
+          <table>
+            <caption>Every included model release and source-review coverage state</caption>
+            <thead><tr><th scope="col">Date</th><th scope="col">Lab</th><th scope="col">Release</th><th scope="col">Lineage</th><th scope="col">Class</th><th scope="col">Coverage</th><th scope="col">Named occurrences</th></tr></thead>
+            <tbody id="ledger-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section page-shell" id="history" aria-labelledby="history-title">
+        <div class="section-heading">
+          <div><p class="kicker">Chronological reporting sequence</p><h2 id="history-title">Benchmark history</h2></div>
+          <p>Transitions are lineage-scoped and describe reviewed public reporting only.</p>
+        </div>
+        <div class="field history-picker"><label for="history-benchmark">Benchmark</label><select id="history-benchmark"></select></div>
+        <div id="history-content"></div>
+      </section>
+
+      <section class="section page-shell" id="evidence" aria-labelledby="evidence-title">
+        <div class="section-heading">
+          <div><p class="kicker">First-party provenance</p><h2 id="evidence-title">Source and evidence detail</h2></div>
+          <p>Open a record for its source revision, exact locator, narrow evidence summary, setup disclosure, and review state.</p>
+        </div>
+        <div class="evidence-list" id="evidence-list"></div>
+      </section>
+
+      <section class="section page-shell" id="methodology" aria-labelledby="methodology-title">
+        <div class="section-heading">
+          <div><p class="kicker">Boundaries before interpretation</p><h2 id="methodology-title">Methodology and coverage</h2></div>
+        </div>
+        <div class="method-grid">
+          <article><h3>Bounded discovery</h3><p>The corpus reviews named official launch and news indexes, required archive pages, and directly linked first-party technical materials. The window begins 2024-01-01 and ends 2026-09-01, inclusive. Mutable indexes can be incomplete.</p></article>
+          <article><h3>What an omission means</h3><p>“Not reported,” “dormant,” and “outdated” refer only to comparable sequences in reviewed public reporting. They do not establish that an evaluation was not run, discontinued, or unavailable privately.</p></article>
+          <article><h3>Included releases</h3><p>Text and vision-language foundation models, reasoning and coding variants, previews, instruct variants, dated checkpoints, and dated point revisions are in scope. Modality-specific generators, robotics, and embedding-only releases are out of scope.</p></article>
+          <article><h3>Evidence policy</h3><p>Occurrences require a first-party source, revision state, precise locator, narrow paraphrase, explicit setup disclosures, and review state. Entries copied from comparison tables and third-party materials are excluded.</p></article>
+        </div>
+        <div class="coverage-panel">
+          <h3>Public coverage and quarantine</h3>
+          <p>Quarantined candidates are withheld from verified occurrences until a concrete evidence gap can be resolved. Counts do not predict what missing material would show.</p>
+          <div id="coverage-summary"></div>
+        </div>
+        <p class="definitions-callout"><a href="./definitions.html">Read canonical reporting-status definitions, algorithms, examples, cautions, and version →</a></p>
+      </section>
+
+      <section class="section page-shell" id="complete-table" aria-labelledby="complete-title">
+        <div class="section-heading">
+          <div><p class="kicker">Progressive-enhancement fallback</p><h2 id="complete-title">Complete occurrence table</h2></div>
+          <p>All verified occurrence records represented by the interactive views, available without pointer input.</p>
+        </div>
+        <div class="table-wrap" tabindex="0">
+          <table>
+            <caption>Complete benchmark occurrence table with source links and review states</caption>
+            <thead><tr><th scope="col">Date</th><th scope="col">Lab</th><th scope="col">Release</th><th scope="col">Benchmark</th><th scope="col">Category</th><th scope="col">State</th><th scope="col">Source</th></tr></thead>
+            <tbody id="occurrence-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <noscript><section class="page-shell noscript"><h2>JavaScript is unavailable</h2><p>The interactive timeline cannot initialize, but the validated artifacts remain available as <a href="./public/observatory.json">JSON</a> and <a href="./public/observatory.csv">CSV</a>. Methodology and definitions remain readable.</p><p><a href="./definitions.html">Open Definitions</a></p></section></noscript>
+    </main>
+
+    <footer class="site-footer page-shell"><p>Frontier Benchmark Observatory · bounded first-party reporting review</p><p><a href="../">Portfolio home</a> · <a href="./definitions.html">Definitions</a> · <a href="#main">Back to top ↑</a></p></footer>
+
+    <dialog id="detail-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-head"><div><p class="kicker">Complete release detail</p><h2 id="dialog-title">Release</h2></div><button class="icon-button" id="close-dialog" type="button" aria-label="Close details">×</button></div>
+      <div id="dialog-content"></div>
+    </dialog>
+    <script type="module" src="./app.mjs"></script>
+  </body>
+</html>

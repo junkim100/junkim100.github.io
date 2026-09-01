@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Canonical reporting-status definitions for Frontier Benchmark Observatory." />
+    <link rel="canonical" href="https://junkim100.github.io/frontier-benchmarks/definitions.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script>
+      try {
+        const storedTheme = localStorage.getItem("theme");
+        if (storedTheme === "light" || storedTheme === "dark") document.documentElement.dataset.theme = storedTheme;
+      } catch (_) {}
+    </script>
+    <title>Definitions · Frontier Benchmark Observatory</title>
+  </head>
+  <body data-page="definitions">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="wordmark" href="./">Frontier Benchmark Observatory<span aria-hidden="true">.</span></a>
+      <nav aria-label="Definitions"><a href="./">Timeline</a><a href="./#methodology">Methodology</a><a aria-current="page" href="./definitions.html">Definitions</a></nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span aria-hidden="true">◐</span></button>
+    </header>
+    <main id="main">
+      <section class="hero page-shell compact-hero">
+        <p class="kicker">Canonical language · generated data contract</p>
+        <h1>Reporting-status <em>definitions</em></h1>
+        <p class="hero-intro">These terms describe a bounded sequence of reviewed public reporting. They never claim private evaluation activity, benchmark quality, or objective obsolescence.</p>
+        <p class="version-line">Definitions version <strong id="definitions-version">Loading</strong></p>
+      </section>
+      <div class="page-shell state-panel" id="load-state" role="status" aria-live="polite" aria-busy="true"><span class="state-mark" aria-hidden="true"></span><p>Loading canonical definitions…</p></div>
+      <section class="section page-shell" aria-labelledby="definitions-title">
+        <div class="section-heading"><div><p class="kicker">Terms and derivation rules</p><h2 id="definitions-title">Canonical definitions</h2></div><p>Content below is read from the same generated artifact used by validation and the Observatory interface.</p></div>
+        <div class="definition-list" id="definition-list"></div>
+      </section>
+      <section class="section page-shell" aria-labelledby="guardrails-title">
+        <div class="section-heading"><div><p class="kicker">Interpretation guardrails</p><h2 id="guardrails-title">How to read these states</h2></div></div>
+        <div class="method-grid">
+          <article><h3>Comparable successors only</h3><p>Omission counts advance only within a documented lineage with matching modality and use class. Unrelated releases never advance the sequence.</p></article>
+          <article><h3>Uncertainty pauses derivation</h3><p>When source coverage, lineage identity, successor order, or comparability is uncertain, the ledger uses an insufficient-evidence or quarantine state instead of advancing an omission count.</p></article>
+          <article><h3>Public reporting only</h3><p>A benchmark can be absent from reviewed public materials while still being used elsewhere. None of these labels describes undisclosed evaluation practice.</p></article>
+        </div>
+      </section>
+      <noscript><section class="page-shell noscript"><h2>JavaScript is unavailable</h2><p>Canonical definitions are stored in the <a href="./public/observatory.json">generated JSON artifact</a>. Return to the <a href="./">Observatory</a> for methodology and data downloads.</p></section></noscript>
+    </main>
+    <footer class="site-footer page-shell"><p><a href="./">← Back to the Observatory</a></p></footer>
+    <script type="module" src="./app.mjs"></script>
+  </body>
+</html>
