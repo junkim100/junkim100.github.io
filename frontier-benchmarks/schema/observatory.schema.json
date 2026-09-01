@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://junkim100.github.io/frontier-benchmarks/schema/observatory.schema.json",
+  "title": "Frontier Benchmark Observatory canonical catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "corpus", "labs", "categories", "lineages", "models", "release_candidates", "releases", "benchmarks", "sources", "coverage", "quarantine", "occurrences"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0.0"},
+    "corpus": {"$ref": "#/$defs/corpus"},
+    "labs": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/lab"}},
+    "categories": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/category"}},
+    "lineages": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/lineage"}},
+    "models": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/model"}},
+    "release_candidates": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/candidate"}},
+    "releases": {"type": "array", "items": {"$ref": "#/$defs/release"}},
+    "benchmarks": {"type": "array", "items": {"$ref": "#/$defs/benchmark"}},
+    "sources": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source"}},
+    "coverage": {"type": "array", "items": {"$ref": "#/$defs/coverage"}},
+    "quarantine": {"type": "array", "items": {"$ref": "#/$defs/quarantine"}},
+    "occurrences": {"type": "array", "items": {"$ref": "#/$defs/occurrence"}}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"},
+    "date": {"type": "string", "format": "date"},
+    "nonempty": {"type": "string", "minLength": 1},
+    "corpus": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "title", "publication_window", "retrieval_date"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "title": {"$ref": "#/$defs/nonempty"},
+        "publication_window": {"type": "object", "additionalProperties": false, "required": ["start", "end"], "properties": {"start": {"$ref": "#/$defs/date"}, "end": {"$ref": "#/$defs/date"}}},
+        "retrieval_date": {"$ref": "#/$defs/date"}
+      }
+    },
+    "lab": {
+      "type": "object", "additionalProperties": false, "required": ["id", "name", "official_domains"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "name": {"$ref": "#/$defs/nonempty"}, "official_domains": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z0-9.-]+$"}}}
+    },
+    "category": {
+      "type": "object", "additionalProperties": false, "required": ["id", "name", "aliases"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "name": {"$ref": "#/$defs/nonempty"}, "aliases": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/nonempty"}}}
+    },
+    "lineage": {
+      "type": "object", "additionalProperties": false, "required": ["id", "lab_id", "name", "modality_class", "use_class"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "lab_id": {"$ref": "#/$defs/id"}, "name": {"$ref": "#/$defs/nonempty"}, "modality_class": {"enum": ["text", "vision_language"]}, "use_class": {"enum": ["general", "reasoning", "coding", "instruct"]}}
+    },
+    "model": {
+      "type": "object", "additionalProperties": false, "required": ["id", "lab_id", "lineage_id", "name"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "lab_id": {"$ref": "#/$defs/id"}, "lineage_id": {"$ref": "#/$defs/id"}, "name": {"$ref": "#/$defs/nonempty"}}
+    },
+    "candidate": {
+      "type": "object", "additionalProperties": false, "required": ["id", "lab_id", "publication_date", "title", "source_id", "disposition"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "lab_id": {"$ref": "#/$defs/id"}, "publication_date": {"$ref": "#/$defs/date"}, "title": {"$ref": "#/$defs/nonempty"}, "source_id": {"$ref": "#/$defs/id"}, "disposition": {"enum": ["included", "excluded", "duplicate_or_alias", "quarantined"]}, "canonical_candidate_id": {"$ref": "#/$defs/id"}, "reason_code": {"$ref": "#/$defs/id"}},
+      "allOf": [
+        {"if": {"properties": {"disposition": {"const": "duplicate_or_alias"}}}, "then": {"required": ["canonical_candidate_id"], "not": {"required": ["reason_code"]}}},
+        {"if": {"properties": {"disposition": {"enum": ["excluded", "quarantined"]}}}, "then": {"required": ["reason_code"], "not": {"required": ["canonical_candidate_id"]}}},
+        {"if": {"properties": {"disposition": {"const": "included"}}}, "then": {"not": {"anyOf": [{"required": ["reason_code"]}, {"required": ["canonical_candidate_id"]}]}}}
+      ]
+    },
+    "release": {
+      "type": "object", "additionalProperties": false, "required": ["id", "candidate_id", "lab_id", "model_id", "lineage_id", "name", "publication_date", "modality_class", "use_class", "coverage_id"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "candidate_id": {"$ref": "#/$defs/id"}, "lab_id": {"$ref": "#/$defs/id"}, "model_id": {"$ref": "#/$defs/id"}, "lineage_id": {"$ref": "#/$defs/id"}, "name": {"$ref": "#/$defs/nonempty"}, "publication_date": {"$ref": "#/$defs/date"}, "modality_class": {"enum": ["text", "vision_language"]}, "use_class": {"enum": ["general", "reasoning", "coding", "instruct"]}, "coverage_id": {"$ref": "#/$defs/id"}}
+    },
+    "benchmark": {
+      "type": "object", "additionalProperties": false, "required": ["id", "name", "aliases", "category_id"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "name": {"$ref": "#/$defs/nonempty"}, "aliases": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/nonempty"}}, "category_id": {"$ref": "#/$defs/id"}}
+    },
+    "revision": {
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["id", "identifier"], "properties": {"id": {"$ref": "#/$defs/id"}, "identifier": {"$ref": "#/$defs/nonempty"}}},
+        {"type": "object", "additionalProperties": false, "required": ["id", "unavailable_reason", "retrieval_date"], "properties": {"id": {"$ref": "#/$defs/id"}, "unavailable_reason": {"$ref": "#/$defs/id"}, "retrieval_date": {"$ref": "#/$defs/date"}}}
+      ]
+    },
+    "source": {
+      "type": "object", "additionalProperties": false, "required": ["id", "lab_id", "url", "source_type", "publication_date", "revision"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "lab_id": {"$ref": "#/$defs/id"}, "url": {"type": "string", "format": "uri", "pattern": "^https://"}, "source_type": {"enum": ["launch_page", "technical_report", "system_card", "model_card", "official_repository", "official_hugging_face_card"]}, "publication_date": {"$ref": "#/$defs/date"}, "revision": {"$ref": "#/$defs/revision"}}
+    },
+    "coverage": {
+      "type": "object", "additionalProperties": false, "required": ["id", "release_id", "lab_id", "review_status", "reviewed_source_ids", "review_date"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "release_id": {"$ref": "#/$defs/id"}, "lab_id": {"$ref": "#/$defs/id"}, "review_status": {"enum": ["complete", "incomplete"]}, "reviewed_source_ids": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}}, "review_date": {"$ref": "#/$defs/date"}}
+    },
+    "quarantine": {
+      "type": "object", "additionalProperties": false, "required": ["id", "candidate_id", "lab_id", "reason_code", "evidence_gap", "source_id"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "candidate_id": {"$ref": "#/$defs/id"}, "lab_id": {"$ref": "#/$defs/id"}, "reason_code": {"$ref": "#/$defs/id"}, "evidence_gap": {"$ref": "#/$defs/nonempty"}, "source_id": {"$ref": "#/$defs/id"}}
+    },
+    "disclosure": {
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["status"], "properties": {"status": {"const": "not_disclosed"}}},
+        {"type": "object", "additionalProperties": false, "required": ["status", "value"], "properties": {"status": {"const": "disclosed"}, "value": {"$ref": "#/$defs/nonempty"}}}
+      ]
+    },
+    "setup": {
+      "type": "object", "additionalProperties": false, "required": ["prompting", "shot_configuration", "tool_use", "evaluation_harness", "sample_selection"],
+      "properties": {"prompting": {"$ref": "#/$defs/disclosure"}, "shot_configuration": {"$ref": "#/$defs/disclosure"}, "tool_use": {"$ref": "#/$defs/disclosure"}, "evaluation_harness": {"$ref": "#/$defs/disclosure"}, "sample_selection": {"$ref": "#/$defs/disclosure"}}
+    },
+    "occurrence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "lab_id", "release_id", "model_id", "lineage_id", "benchmark_id", "source_id", "source_revision_id", "source_type", "publication_date", "locator", "summary", "evaluation_setup", "review_status"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "lab_id": {"$ref": "#/$defs/id"}, "release_id": {"$ref": "#/$defs/id"}, "model_id": {"$ref": "#/$defs/id"}, "lineage_id": {"$ref": "#/$defs/id"}, "benchmark_id": {"$ref": "#/$defs/id"}, "source_id": {"$ref": "#/$defs/id"}, "source_revision_id": {"$ref": "#/$defs/id"}, "source_type": {"enum": ["launch_page", "technical_report", "system_card", "model_card", "official_repository", "official_hugging_face_card"]}, "publication_date": {"$ref": "#/$defs/date"},
+        "locator": {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"enum": ["page", "section", "table", "figure", "row", "heading", "anchor", "repository_path"]}, "value": {"$ref": "#/$defs/nonempty"}}},
+        "summary": {"$ref": "#/$defs/nonempty"}, "evaluation_setup": {"$ref": "#/$defs/setup"}, "review_status": {"enum": ["verified", "needs_review"]}
+      }
+    }
+  }
+}

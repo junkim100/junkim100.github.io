@@ -1,0 +1,1140 @@
+{
+  "benchmarks": [
+    {
+      "aliases": [
+        "programming tasks"
+      ],
+      "category_id": "coding",
+      "id": "code_tasks",
+      "name": "Code Tasks",
+      "provenance": {
+        "record_ids": [
+          "code_tasks"
+        ],
+        "record_type": "benchmarks",
+        "source_file": "data/catalog.yaml"
+      }
+    },
+    {
+      "aliases": [
+        "RS suite"
+      ],
+      "category_id": "reasoning",
+      "id": "reasoning_suite",
+      "name": "Reasoning Suite",
+      "provenance": {
+        "record_ids": [
+          "reasoning_suite"
+        ],
+        "record_type": "benchmarks",
+        "source_file": "data/catalog.yaml"
+      }
+    }
+  ],
+  "canonical_definitions": [
+    {
+      "algorithm": {
+        "comparable_scope": "same_lineage_modality_and_use_class",
+        "kind": "present_after_immediately_prior_presence",
+        "omission_count": 0
+      },
+      "cautions": [
+        "Continuity describes public reporting only."
+      ],
+      "description": "The benchmark is present in reviewed public reporting for this release and the immediately preceding comparable reviewed release also reported it.",
+      "examples": [
+        "Consecutive comparable releases both name the benchmark in reviewed reporting."
+      ],
+      "id": "continued",
+      "label": "Continued",
+      "provenance": {
+        "record_ids": [
+          "continued"
+        ],
+        "record_type": "definition",
+        "source_file": "data/definitions.yaml"
+      },
+      "version": "1.0.0"
+    },
+    {
+      "algorithm": {
+        "comparable_scope": "same_lineage_modality_and_use_class",
+        "kind": "consecutive_reviewed_omissions",
+        "omission_count": 1
+      },
+      "cautions": [
+        "Dormant is not a claim about private evaluation or benchmark quality."
+      ],
+      "description": "The first consecutive comparable reviewed successor omission after a qualifying occurrence.",
+      "examples": [
+        "One fully reviewed comparable successor omits the benchmark."
+      ],
+      "id": "dormant_in_public_reporting",
+      "label": "Dormant in public reporting",
+      "provenance": {
+        "record_ids": [
+          "dormant_in_public_reporting"
+        ],
+        "record_type": "definition",
+        "source_file": "data/definitions.yaml"
+      },
+      "version": "1.0.0"
+    },
+    {
+      "algorithm": {
+        "comparable_scope": "same_lineage_modality_and_use_class",
+        "kind": "present_without_prior_occurrence",
+        "omission_count": 0
+      },
+      "cautions": [
+        "This does not establish the first internal use of the benchmark."
+      ],
+      "description": "The benchmark is present in reviewed public reporting for this release and has no earlier qualifying occurrence in the same comparable lineage.",
+      "examples": [
+        "A benchmark first appears in the reviewed evidence for a lineage release."
+      ],
+      "id": "first_reported",
+      "label": "First reported",
+      "provenance": {
+        "record_ids": [
+          "first_reported"
+        ],
+        "record_type": "definition",
+        "source_file": "data/definitions.yaml"
+      },
+      "version": "1.0.0"
+    },
+    {
+      "algorithm": {
+        "comparable_scope": "same_lineage_modality_and_use_class",
+        "kind": "coverage_or_comparability_uncertain",
+        "omission_count": 0
+      },
+      "cautions": [
+        "The system must not advance dormant or outdated while evidence is insufficient."
+      ],
+      "description": "Source coverage, successor order, lineage identity, or comparability is not strong enough to derive an omission status.",
+      "examples": [
+        "A release has incomplete source review, so omission counting pauses."
+      ],
+      "id": "insufficient_evidence",
+      "label": "Insufficient evidence",
+      "provenance": {
+        "record_ids": [
+          "insufficient_evidence"
+        ],
+        "record_type": "definition",
+        "source_file": "data/definitions.yaml"
+      },
+      "version": "1.0.0"
+    },
+    {
+      "algorithm": {
+        "comparable_scope": "same_lineage_modality_and_use_class",
+        "kind": "absent_after_prior_presence",
+        "omission_count": 1
+      },
+      "cautions": [
+        "Absence from reviewed public reporting is not evidence that an evaluation was not run."
+      ],
+      "description": "A comparable successor with complete source review does not name a benchmark previously reported in that lineage.",
+      "examples": [
+        "The next comparable reviewed release omits a previously reported benchmark."
+      ],
+      "id": "not_reported_in_reviewed_successor",
+      "label": "Not reported in reviewed successor",
+      "provenance": {
+        "record_ids": [
+          "not_reported_in_reviewed_successor"
+        ],
+        "record_type": "definition",
+        "source_file": "data/definitions.yaml"
+      },
+      "version": "1.0.0"
+    },
+    {
+      "algorithm": {
+        "comparable_scope": "same_lineage_modality_and_use_class",
+        "kind": "consecutive_reviewed_omissions",
+        "omission_count": 2
+      },
+      "cautions": [
+        "Outdated describes a public-reporting sequence and does not mean objectively obsolete."
+      ],
+      "description": "The second and each later consecutive comparable reviewed successor omission after a qualifying occurrence.",
+      "examples": [
+        "Two consecutive fully reviewed comparable successors omit the benchmark."
+      ],
+      "id": "outdated_in_public_reporting",
+      "label": "Outdated in public reporting",
+      "provenance": {
+        "record_ids": [
+          "outdated_in_public_reporting"
+        ],
+        "record_type": "definition",
+        "source_file": "data/definitions.yaml"
+      },
+      "version": "1.0.0"
+    },
+    {
+      "algorithm": {
+        "comparable_scope": "same_lineage_modality_and_use_class",
+        "kind": "evidence_gap_requires_exclusion",
+        "omission_count": 0
+      },
+      "cautions": [
+        "Quarantine records the gap without predicting what missing evidence would show."
+      ],
+      "description": "A candidate or evidence record is withheld from verified occurrences because a concrete evidence gap remains.",
+      "examples": [
+        "Public material does not identify the model precisely enough for a verified occurrence."
+      ],
+      "id": "quarantined",
+      "label": "Quarantined",
+      "provenance": {
+        "record_ids": [
+          "quarantined"
+        ],
+        "record_type": "definition",
+        "source_file": "data/definitions.yaml"
+      },
+      "version": "1.0.0"
+    },
+    {
+      "algorithm": {
+        "comparable_scope": "same_lineage_modality_and_use_class",
+        "kind": "present_after_prior_omission",
+        "omission_count": 0
+      },
+      "cautions": [
+        "Returning does not imply that evaluation use stopped during the omission."
+      ],
+      "description": "The benchmark is present after at least one comparable reviewed successor omitted it from public reporting.",
+      "examples": [
+        "A later comparable release reports a benchmark after an intervening reviewed omission."
+      ],
+      "id": "returning",
+      "label": "Returning",
+      "provenance": {
+        "record_ids": [
+          "returning"
+        ],
+        "record_type": "definition",
+        "source_file": "data/definitions.yaml"
+      },
+      "version": "1.0.0"
+    }
+  ],
+  "categories": [
+    {
+      "aliases": [
+        "code generation"
+      ],
+      "id": "coding",
+      "name": "Coding",
+      "provenance": {
+        "record_ids": [
+          "coding"
+        ],
+        "record_type": "categories",
+        "source_file": "data/catalog.yaml"
+      }
+    },
+    {
+      "aliases": [
+        "general reasoning"
+      ],
+      "id": "reasoning",
+      "name": "Reasoning",
+      "provenance": {
+        "record_ids": [
+          "reasoning"
+        ],
+        "record_type": "categories",
+        "source_file": "data/catalog.yaml"
+      }
+    }
+  ],
+  "corpus": {
+    "id": "synthetic_foundation_fixture",
+    "publication_window": {
+      "end": "2026-09-01",
+      "start": "2024-01-01"
+    },
+    "retrieval_date": "2026-09-01",
+    "title": "Synthetic compiler foundation fixture"
+  },
+  "coverage": [
+    {
+      "id": "coverage_alpha_autumn",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "coverage_alpha_autumn"
+        ],
+        "record_type": "coverage",
+        "source_file": "data/catalog.yaml"
+      },
+      "release_id": "release_alpha_autumn",
+      "review_date": "2026-09-01",
+      "review_status": "complete",
+      "reviewed_source_ids": [
+        "source_alpha_autumn"
+      ]
+    },
+    {
+      "id": "coverage_alpha_seed",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "coverage_alpha_seed"
+        ],
+        "record_type": "coverage",
+        "source_file": "data/catalog.yaml"
+      },
+      "release_id": "release_alpha_seed",
+      "review_date": "2026-09-01",
+      "review_status": "complete",
+      "reviewed_source_ids": [
+        "source_alpha_seed"
+      ]
+    },
+    {
+      "id": "coverage_alpha_spring",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "coverage_alpha_spring"
+        ],
+        "record_type": "coverage",
+        "source_file": "data/catalog.yaml"
+      },
+      "release_id": "release_alpha_spring",
+      "review_date": "2026-09-01",
+      "review_status": "complete",
+      "reviewed_source_ids": [
+        "source_alpha_spring"
+      ]
+    },
+    {
+      "id": "coverage_alpha_summer",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "coverage_alpha_summer"
+        ],
+        "record_type": "coverage",
+        "source_file": "data/catalog.yaml"
+      },
+      "release_id": "release_alpha_summer",
+      "review_date": "2026-09-01",
+      "review_status": "complete",
+      "reviewed_source_ids": [
+        "source_alpha_summer"
+      ]
+    }
+  ],
+  "definitions_version": "1.0.0",
+  "derived_statuses": [
+    {
+      "benchmark_id": "reasoning_suite",
+      "consecutive_reviewed_omissions": 0,
+      "id": "status_release_alpha_seed_reasoning_suite",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "model_id": "alpha_core_base",
+      "occurrence_id": "occurrence_seed_reasoning",
+      "provenance": {
+        "record_ids": [
+          "occurrence_seed_reasoning",
+          "release_alpha_seed"
+        ],
+        "record_type": "derived_status",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-01-10",
+      "release_id": "release_alpha_seed",
+      "status_ids": [
+        "first_reported"
+      ]
+    },
+    {
+      "benchmark_id": "code_tasks",
+      "consecutive_reviewed_omissions": 0,
+      "id": "status_release_alpha_spring_code_tasks",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "model_id": "alpha_core_base",
+      "occurrence_id": "occurrence_spring_code",
+      "provenance": {
+        "record_ids": [
+          "occurrence_spring_code",
+          "release_alpha_spring"
+        ],
+        "record_type": "derived_status",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-04-10",
+      "release_id": "release_alpha_spring",
+      "status_ids": [
+        "first_reported"
+      ]
+    },
+    {
+      "benchmark_id": "reasoning_suite",
+      "consecutive_reviewed_omissions": 1,
+      "id": "status_release_alpha_spring_reasoning_suite",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "model_id": "alpha_core_base",
+      "occurrence_id": null,
+      "provenance": {
+        "record_ids": [
+          "coverage_alpha_spring",
+          "release_alpha_spring"
+        ],
+        "record_type": "derived_status",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-04-10",
+      "release_id": "release_alpha_spring",
+      "status_ids": [
+        "not_reported_in_reviewed_successor",
+        "dormant_in_public_reporting"
+      ]
+    },
+    {
+      "benchmark_id": "code_tasks",
+      "consecutive_reviewed_omissions": 0,
+      "id": "status_release_alpha_summer_code_tasks",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "model_id": "alpha_core_base",
+      "occurrence_id": "occurrence_summer_code",
+      "provenance": {
+        "record_ids": [
+          "occurrence_summer_code",
+          "release_alpha_summer"
+        ],
+        "record_type": "derived_status",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-07-10",
+      "release_id": "release_alpha_summer",
+      "status_ids": [
+        "continued"
+      ]
+    },
+    {
+      "benchmark_id": "reasoning_suite",
+      "consecutive_reviewed_omissions": 2,
+      "id": "status_release_alpha_summer_reasoning_suite",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "model_id": "alpha_core_base",
+      "occurrence_id": null,
+      "provenance": {
+        "record_ids": [
+          "coverage_alpha_summer",
+          "release_alpha_summer"
+        ],
+        "record_type": "derived_status",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-07-10",
+      "release_id": "release_alpha_summer",
+      "status_ids": [
+        "not_reported_in_reviewed_successor",
+        "outdated_in_public_reporting"
+      ]
+    },
+    {
+      "benchmark_id": "code_tasks",
+      "consecutive_reviewed_omissions": 1,
+      "id": "status_release_alpha_autumn_code_tasks",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "model_id": "alpha_core_base",
+      "occurrence_id": null,
+      "provenance": {
+        "record_ids": [
+          "coverage_alpha_autumn",
+          "release_alpha_autumn"
+        ],
+        "record_type": "derived_status",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-10-10",
+      "release_id": "release_alpha_autumn",
+      "status_ids": [
+        "not_reported_in_reviewed_successor",
+        "dormant_in_public_reporting"
+      ]
+    },
+    {
+      "benchmark_id": "reasoning_suite",
+      "consecutive_reviewed_omissions": 0,
+      "id": "status_release_alpha_autumn_reasoning_suite",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "model_id": "alpha_core_base",
+      "occurrence_id": "occurrence_autumn_reasoning",
+      "provenance": {
+        "record_ids": [
+          "occurrence_autumn_reasoning",
+          "release_alpha_autumn"
+        ],
+        "record_type": "derived_status",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-10-10",
+      "release_id": "release_alpha_autumn",
+      "status_ids": [
+        "returning"
+      ]
+    }
+  ],
+  "generated_from": {
+    "catalog": "data/catalog.yaml",
+    "compiler": "scripts/compile.py",
+    "definitions": "data/definitions.yaml"
+  },
+  "labs": [
+    {
+      "id": "alpha_research",
+      "name": "Alpha Research",
+      "official_domains": [
+        "alpha.example"
+      ],
+      "provenance": {
+        "record_ids": [
+          "alpha_research"
+        ],
+        "record_type": "labs",
+        "source_file": "data/catalog.yaml"
+      }
+    }
+  ],
+  "lineages": [
+    {
+      "id": "alpha_core",
+      "lab_id": "alpha_research",
+      "modality_class": "text",
+      "name": "Alpha Core",
+      "provenance": {
+        "record_ids": [
+          "alpha_core"
+        ],
+        "record_type": "lineages",
+        "source_file": "data/catalog.yaml"
+      },
+      "use_class": "general"
+    }
+  ],
+  "models": [
+    {
+      "id": "alpha_core_base",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "name": "Alpha Core Base",
+      "provenance": {
+        "record_ids": [
+          "alpha_core_base"
+        ],
+        "record_type": "models",
+        "source_file": "data/catalog.yaml"
+      }
+    }
+  ],
+  "occurrences": [
+    {
+      "benchmark_id": "reasoning_suite",
+      "evaluation_setup": {
+        "evaluation_harness": {
+          "status": "not_disclosed"
+        },
+        "prompting": {
+          "status": "not_disclosed"
+        },
+        "sample_selection": {
+          "status": "not_disclosed"
+        },
+        "shot_configuration": {
+          "status": "not_disclosed"
+        },
+        "tool_use": {
+          "status": "not_disclosed"
+        }
+      },
+      "id": "occurrence_autumn_reasoning",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "locator": {
+        "kind": "heading",
+        "value": "Evaluation inventory"
+      },
+      "model_id": "alpha_core_base",
+      "provenance": {
+        "record_ids": [
+          "occurrence_autumn_reasoning"
+        ],
+        "record_type": "occurrences",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-10-10",
+      "release_id": "release_alpha_autumn",
+      "review_status": "verified",
+      "source_id": "source_alpha_autumn",
+      "source_revision_id": "revision_alpha_autumn",
+      "source_type": "launch_page",
+      "summary": "The reporting names Reasoning Suite for the released model."
+    },
+    {
+      "benchmark_id": "reasoning_suite",
+      "evaluation_setup": {
+        "evaluation_harness": {
+          "status": "not_disclosed"
+        },
+        "prompting": {
+          "status": "disclosed",
+          "value": "fixed prompt template"
+        },
+        "sample_selection": {
+          "status": "not_disclosed"
+        },
+        "shot_configuration": {
+          "status": "not_disclosed"
+        },
+        "tool_use": {
+          "status": "not_disclosed"
+        }
+      },
+      "id": "occurrence_seed_reasoning",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "locator": {
+        "kind": "section",
+        "value": "Evaluation overview"
+      },
+      "model_id": "alpha_core_base",
+      "provenance": {
+        "record_ids": [
+          "occurrence_seed_reasoning"
+        ],
+        "record_type": "occurrences",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-01-10",
+      "release_id": "release_alpha_seed",
+      "review_status": "verified",
+      "source_id": "source_alpha_seed",
+      "source_revision_id": "revision_alpha_seed",
+      "source_type": "technical_report",
+      "summary": "The reporting names Reasoning Suite for the released model."
+    },
+    {
+      "benchmark_id": "code_tasks",
+      "evaluation_setup": {
+        "evaluation_harness": {
+          "status": "not_disclosed"
+        },
+        "prompting": {
+          "status": "not_disclosed"
+        },
+        "sample_selection": {
+          "status": "not_disclosed"
+        },
+        "shot_configuration": {
+          "status": "not_disclosed"
+        },
+        "tool_use": {
+          "status": "disclosed",
+          "value": "tools disabled"
+        }
+      },
+      "id": "occurrence_spring_code",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "locator": {
+        "kind": "heading",
+        "value": "Evaluation details"
+      },
+      "model_id": "alpha_core_base",
+      "provenance": {
+        "record_ids": [
+          "occurrence_spring_code"
+        ],
+        "record_type": "occurrences",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-04-10",
+      "release_id": "release_alpha_spring",
+      "review_status": "verified",
+      "source_id": "source_alpha_spring",
+      "source_revision_id": "revision_alpha_spring",
+      "source_type": "launch_page",
+      "summary": "The reporting names Code Tasks for the released model."
+    },
+    {
+      "benchmark_id": "code_tasks",
+      "evaluation_setup": {
+        "evaluation_harness": {
+          "status": "disclosed",
+          "value": "internal harness"
+        },
+        "prompting": {
+          "status": "not_disclosed"
+        },
+        "sample_selection": {
+          "status": "not_disclosed"
+        },
+        "shot_configuration": {
+          "status": "not_disclosed"
+        },
+        "tool_use": {
+          "status": "not_disclosed"
+        }
+      },
+      "id": "occurrence_summer_code",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "locator": {
+        "kind": "section",
+        "value": "Evaluation inventory"
+      },
+      "model_id": "alpha_core_base",
+      "provenance": {
+        "record_ids": [
+          "occurrence_summer_code"
+        ],
+        "record_type": "occurrences",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-07-10",
+      "release_id": "release_alpha_summer",
+      "review_status": "verified",
+      "source_id": "source_alpha_summer",
+      "source_revision_id": "revision_alpha_summer",
+      "source_type": "model_card",
+      "summary": "The model card names Code Tasks for the released model."
+    }
+  ],
+  "quarantine": [
+    {
+      "candidate_id": "candidate_alpha_unclear",
+      "evidence_gap": "The reviewed announcement does not identify a model lineage.",
+      "id": "quarantine_alpha_unclear",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "quarantine_alpha_unclear"
+        ],
+        "record_type": "quarantine",
+        "source_file": "data/catalog.yaml"
+      },
+      "reason_code": "insufficient_public_model_identity",
+      "source_id": "source_alpha_unclear"
+    }
+  ],
+  "release_candidates": [
+    {
+      "disposition": "included",
+      "id": "candidate_alpha_autumn",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "candidate_alpha_autumn"
+        ],
+        "record_type": "release_candidates",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-10-10",
+      "source_id": "source_alpha_autumn",
+      "title": "Alpha Core Autumn"
+    },
+    {
+      "canonical_candidate_id": "candidate_alpha_autumn",
+      "disposition": "duplicate_or_alias",
+      "id": "candidate_alpha_companion",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "candidate_alpha_companion"
+        ],
+        "record_type": "release_candidates",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-10-10",
+      "source_id": "source_alpha_autumn",
+      "title": "Alpha Core Autumn companion notice"
+    },
+    {
+      "disposition": "excluded",
+      "id": "candidate_alpha_media",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "candidate_alpha_media"
+        ],
+        "record_type": "release_candidates",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-11-10",
+      "reason_code": "excluded_modality",
+      "source_id": "source_alpha_media",
+      "title": "Alpha Media"
+    },
+    {
+      "disposition": "included",
+      "id": "candidate_alpha_seed",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "candidate_alpha_seed"
+        ],
+        "record_type": "release_candidates",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-01-10",
+      "source_id": "source_alpha_seed",
+      "title": "Alpha Core Seed"
+    },
+    {
+      "disposition": "included",
+      "id": "candidate_alpha_spring",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "candidate_alpha_spring"
+        ],
+        "record_type": "release_candidates",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-04-10",
+      "source_id": "source_alpha_spring",
+      "title": "Alpha Core Spring"
+    },
+    {
+      "disposition": "included",
+      "id": "candidate_alpha_summer",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "candidate_alpha_summer"
+        ],
+        "record_type": "release_candidates",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-07-10",
+      "source_id": "source_alpha_summer",
+      "title": "Alpha Core Summer"
+    },
+    {
+      "disposition": "quarantined",
+      "id": "candidate_alpha_unclear",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "candidate_alpha_unclear"
+        ],
+        "record_type": "release_candidates",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-12-10",
+      "reason_code": "insufficient_public_model_identity",
+      "source_id": "source_alpha_unclear",
+      "title": "Alpha Unclear"
+    }
+  ],
+  "releases": [
+    {
+      "candidate_id": "candidate_alpha_autumn",
+      "coverage_id": "coverage_alpha_autumn",
+      "id": "release_alpha_autumn",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "modality_class": "text",
+      "model_id": "alpha_core_base",
+      "name": "Alpha Core Autumn",
+      "provenance": {
+        "record_ids": [
+          "release_alpha_autumn"
+        ],
+        "record_type": "releases",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-10-10",
+      "use_class": "general"
+    },
+    {
+      "candidate_id": "candidate_alpha_seed",
+      "coverage_id": "coverage_alpha_seed",
+      "id": "release_alpha_seed",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "modality_class": "text",
+      "model_id": "alpha_core_base",
+      "name": "Alpha Core Seed",
+      "provenance": {
+        "record_ids": [
+          "release_alpha_seed"
+        ],
+        "record_type": "releases",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-01-10",
+      "use_class": "general"
+    },
+    {
+      "candidate_id": "candidate_alpha_spring",
+      "coverage_id": "coverage_alpha_spring",
+      "id": "release_alpha_spring",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "modality_class": "text",
+      "model_id": "alpha_core_base",
+      "name": "Alpha Core Spring",
+      "provenance": {
+        "record_ids": [
+          "release_alpha_spring"
+        ],
+        "record_type": "releases",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-04-10",
+      "use_class": "general"
+    },
+    {
+      "candidate_id": "candidate_alpha_summer",
+      "coverage_id": "coverage_alpha_summer",
+      "id": "release_alpha_summer",
+      "lab_id": "alpha_research",
+      "lineage_id": "alpha_core",
+      "modality_class": "text",
+      "model_id": "alpha_core_base",
+      "name": "Alpha Core Summer",
+      "provenance": {
+        "record_ids": [
+          "release_alpha_summer"
+        ],
+        "record_type": "releases",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-07-10",
+      "use_class": "general"
+    }
+  ],
+  "schema_version": "1.0.0",
+  "search_index": [
+    {
+      "kind": "category",
+      "provenance": {
+        "record_ids": [
+          "coding"
+        ],
+        "record_type": "normalized_search_term",
+        "source_file": "data/catalog.yaml"
+      },
+      "record_id": "coding",
+      "term": "code generation"
+    },
+    {
+      "kind": "benchmark",
+      "provenance": {
+        "record_ids": [
+          "code_tasks"
+        ],
+        "record_type": "normalized_search_term",
+        "source_file": "data/catalog.yaml"
+      },
+      "record_id": "code_tasks",
+      "term": "code tasks"
+    },
+    {
+      "kind": "category",
+      "provenance": {
+        "record_ids": [
+          "coding"
+        ],
+        "record_type": "normalized_search_term",
+        "source_file": "data/catalog.yaml"
+      },
+      "record_id": "coding",
+      "term": "coding"
+    },
+    {
+      "kind": "category",
+      "provenance": {
+        "record_ids": [
+          "reasoning"
+        ],
+        "record_type": "normalized_search_term",
+        "source_file": "data/catalog.yaml"
+      },
+      "record_id": "reasoning",
+      "term": "general reasoning"
+    },
+    {
+      "kind": "benchmark",
+      "provenance": {
+        "record_ids": [
+          "code_tasks"
+        ],
+        "record_type": "normalized_search_term",
+        "source_file": "data/catalog.yaml"
+      },
+      "record_id": "code_tasks",
+      "term": "programming tasks"
+    },
+    {
+      "kind": "category",
+      "provenance": {
+        "record_ids": [
+          "reasoning"
+        ],
+        "record_type": "normalized_search_term",
+        "source_file": "data/catalog.yaml"
+      },
+      "record_id": "reasoning",
+      "term": "reasoning"
+    },
+    {
+      "kind": "benchmark",
+      "provenance": {
+        "record_ids": [
+          "reasoning_suite"
+        ],
+        "record_type": "normalized_search_term",
+        "source_file": "data/catalog.yaml"
+      },
+      "record_id": "reasoning_suite",
+      "term": "reasoning suite"
+    },
+    {
+      "kind": "benchmark",
+      "provenance": {
+        "record_ids": [
+          "reasoning_suite"
+        ],
+        "record_type": "normalized_search_term",
+        "source_file": "data/catalog.yaml"
+      },
+      "record_id": "reasoning_suite",
+      "term": "rs suite"
+    }
+  ],
+  "sources": [
+    {
+      "id": "source_alpha_autumn",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "source_alpha_autumn"
+        ],
+        "record_type": "sources",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-10-10",
+      "revision": {
+        "id": "revision_alpha_autumn",
+        "retrieval_date": "2026-09-01",
+        "unavailable_reason": "mutable_web_page"
+      },
+      "source_type": "launch_page",
+      "url": "https://alpha.example/releases/autumn"
+    },
+    {
+      "id": "source_alpha_media",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "source_alpha_media"
+        ],
+        "record_type": "sources",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-11-10",
+      "revision": {
+        "id": "revision_alpha_media",
+        "retrieval_date": "2026-09-01",
+        "unavailable_reason": "mutable_web_page"
+      },
+      "source_type": "launch_page",
+      "url": "https://alpha.example/releases/media"
+    },
+    {
+      "id": "source_alpha_seed",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "source_alpha_seed"
+        ],
+        "record_type": "sources",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-01-10",
+      "revision": {
+        "id": "revision_alpha_seed",
+        "identifier": "revision-seed"
+      },
+      "source_type": "technical_report",
+      "url": "https://alpha.example/releases/seed"
+    },
+    {
+      "id": "source_alpha_spring",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "source_alpha_spring"
+        ],
+        "record_type": "sources",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-04-10",
+      "revision": {
+        "id": "revision_alpha_spring",
+        "retrieval_date": "2026-09-01",
+        "unavailable_reason": "mutable_web_page"
+      },
+      "source_type": "launch_page",
+      "url": "https://alpha.example/releases/spring"
+    },
+    {
+      "id": "source_alpha_summer",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "source_alpha_summer"
+        ],
+        "record_type": "sources",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-07-10",
+      "revision": {
+        "id": "revision_alpha_summer",
+        "identifier": "revision-summer"
+      },
+      "source_type": "model_card",
+      "url": "https://alpha.example/releases/summer"
+    },
+    {
+      "id": "source_alpha_unclear",
+      "lab_id": "alpha_research",
+      "provenance": {
+        "record_ids": [
+          "source_alpha_unclear"
+        ],
+        "record_type": "sources",
+        "source_file": "data/catalog.yaml"
+      },
+      "publication_date": "2025-12-10",
+      "revision": {
+        "id": "revision_alpha_unclear",
+        "retrieval_date": "2026-09-01",
+        "unavailable_reason": "mutable_web_page"
+      },
+      "source_type": "launch_page",
+      "url": "https://alpha.example/releases/unclear"
+    }
+  ]
+}

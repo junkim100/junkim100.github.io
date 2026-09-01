@@ -1,0 +1,32 @@
+statuses:
+  - release_id: release_alpha_seed
+    benchmark_id: reasoning_suite
+    status_ids:
+      - first_reported
+  - release_id: release_alpha_spring
+    benchmark_id: code_tasks
+    status_ids:
+      - first_reported
+  - release_id: release_alpha_spring
+    benchmark_id: reasoning_suite
+    status_ids:
+      - not_reported_in_reviewed_successor
+      - dormant_in_public_reporting
+  - release_id: release_alpha_summer
+    benchmark_id: code_tasks
+    status_ids:
+      - continued
+  - release_id: release_alpha_summer
+    benchmark_id: reasoning_suite
+    status_ids:
+      - not_reported_in_reviewed_successor
+      - outdated_in_public_reporting
+  - release_id: release_alpha_autumn
+    benchmark_id: code_tasks
+    status_ids:
+      - not_reported_in_reviewed_successor
+      - dormant_in_public_reporting
+  - release_id: release_alpha_autumn
+    benchmark_id: reasoning_suite
+    status_ids:
+      - returning

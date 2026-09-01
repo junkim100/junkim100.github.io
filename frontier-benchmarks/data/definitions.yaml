@@ -1,0 +1,99 @@
+schema_version: "1.0.0"
+definitions_version: "1.0.0"
+definitions:
+  - id: first_reported
+    label: First reported
+    version: "1.0.0"
+    algorithm:
+      kind: present_without_prior_occurrence
+      comparable_scope: same_lineage_modality_and_use_class
+      omission_count: 0
+    description: The benchmark is present in reviewed public reporting for this release and has no earlier qualifying occurrence in the same comparable lineage.
+    examples:
+      - A benchmark first appears in the reviewed evidence for a lineage release.
+    cautions:
+      - This does not establish the first internal use of the benchmark.
+  - id: continued
+    label: Continued
+    version: "1.0.0"
+    algorithm:
+      kind: present_after_immediately_prior_presence
+      comparable_scope: same_lineage_modality_and_use_class
+      omission_count: 0
+    description: The benchmark is present in reviewed public reporting for this release and the immediately preceding comparable reviewed release also reported it.
+    examples:
+      - Consecutive comparable releases both name the benchmark in reviewed reporting.
+    cautions:
+      - Continuity describes public reporting only.
+  - id: returning
+    label: Returning
+    version: "1.0.0"
+    algorithm:
+      kind: present_after_prior_omission
+      comparable_scope: same_lineage_modality_and_use_class
+      omission_count: 0
+    description: The benchmark is present after at least one comparable reviewed successor omitted it from public reporting.
+    examples:
+      - A later comparable release reports a benchmark after an intervening reviewed omission.
+    cautions:
+      - Returning does not imply that evaluation use stopped during the omission.
+  - id: not_reported_in_reviewed_successor
+    label: Not reported in reviewed successor
+    version: "1.0.0"
+    algorithm:
+      kind: absent_after_prior_presence
+      comparable_scope: same_lineage_modality_and_use_class
+      omission_count: 1
+    description: A comparable successor with complete source review does not name a benchmark previously reported in that lineage.
+    examples:
+      - The next comparable reviewed release omits a previously reported benchmark.
+    cautions:
+      - Absence from reviewed public reporting is not evidence that an evaluation was not run.
+  - id: dormant_in_public_reporting
+    label: Dormant in public reporting
+    version: "1.0.0"
+    algorithm:
+      kind: consecutive_reviewed_omissions
+      comparable_scope: same_lineage_modality_and_use_class
+      omission_count: 1
+    description: The first consecutive comparable reviewed successor omission after a qualifying occurrence.
+    examples:
+      - One fully reviewed comparable successor omits the benchmark.
+    cautions:
+      - Dormant is not a claim about private evaluation or benchmark quality.
+  - id: outdated_in_public_reporting
+    label: Outdated in public reporting
+    version: "1.0.0"
+    algorithm:
+      kind: consecutive_reviewed_omissions
+      comparable_scope: same_lineage_modality_and_use_class
+      omission_count: 2
+    description: The second and each later consecutive comparable reviewed successor omission after a qualifying occurrence.
+    examples:
+      - Two consecutive fully reviewed comparable successors omit the benchmark.
+    cautions:
+      - Outdated describes a public-reporting sequence and does not mean objectively obsolete.
+  - id: insufficient_evidence
+    label: Insufficient evidence
+    version: "1.0.0"
+    algorithm:
+      kind: coverage_or_comparability_uncertain
+      comparable_scope: same_lineage_modality_and_use_class
+      omission_count: 0
+    description: Source coverage, successor order, lineage identity, or comparability is not strong enough to derive an omission status.
+    examples:
+      - A release has incomplete source review, so omission counting pauses.
+    cautions:
+      - The system must not advance dormant or outdated while evidence is insufficient.
+  - id: quarantined
+    label: Quarantined
+    version: "1.0.0"
+    algorithm:
+      kind: evidence_gap_requires_exclusion
+      comparable_scope: same_lineage_modality_and_use_class
+      omission_count: 0
+    description: A candidate or evidence record is withheld from verified occurrences because a concrete evidence gap remains.
+    examples:
+      - Public material does not identify the model precisely enough for a verified occurrence.
+    cautions:
+      - Quarantine records the gap without predicting what missing evidence would show.

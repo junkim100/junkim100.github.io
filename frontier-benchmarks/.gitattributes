@@ -1,0 +1,2 @@
+# RFC 4180 requires CRLF records; avoid whitespace normalization.
+public/*.csv binary

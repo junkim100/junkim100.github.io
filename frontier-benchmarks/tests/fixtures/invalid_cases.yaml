@@ -1,0 +1,26 @@
+cases:
+  - id: missing_benchmark_reference
+    collection: occurrences
+    record_id: occurrence_seed_reasoning
+    field: benchmark_id
+    replacement: absent_benchmark
+    validator: referential_integrity
+  - id: source_domain_not_allowlisted
+    collection: sources
+    record_id: source_alpha_seed
+    field: url
+    replacement: https://outside.example/releases/seed
+    validator: source_domain_allowlist
+  - id: release_outside_publication_window
+    collection: releases
+    record_id: release_alpha_seed
+    field: publication_date
+    replacement: "2023-12-31"
+    validator: date_window
+  - id: normalized_alias_collision
+    collection: benchmarks
+    record_id: code_tasks
+    field: aliases
+    replacement:
+      - RS-suite
+    validator: search_normalization
