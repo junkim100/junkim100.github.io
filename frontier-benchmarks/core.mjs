@@ -123,6 +123,18 @@ export function datePosition(isoDate, startDate, endDate) {
   return Math.max(0, Math.min(100, ((dateValue(isoDate) - start) / (end - start)) * 100));
 }
 
+export function collisionRows(positions, minimumGap) {
+  if (!Number.isFinite(minimumGap) || minimumGap <= 0) throw new Error("Collision spacing must be a positive number.");
+  const rowEnds = [];
+  return positions.map((position) => {
+    if (!Number.isFinite(position)) throw new Error("Collision positions must be finite numbers.");
+    let row = rowEnds.findIndex((end) => position - end >= minimumGap);
+    if (row === -1) row = rowEnds.length;
+    rowEnds[row] = position;
+    return row;
+  });
+}
+
 export function timelineTicks(startDate, endDate, desired = 8) {
   const start = new Date(dateValue(startDate));
   const end = new Date(dateValue(endDate));

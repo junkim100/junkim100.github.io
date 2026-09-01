@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import {
+  collisionRows,
   indexData,
   matchingBenchmarkIds,
   orderedReleaseOccurrences,
@@ -50,6 +51,8 @@ assert.equal(ticks[0], "2024-01-01");
 assert.ok(ticks.length >= 8, "continuous axis has representative date ticks");
 assert.ok(ticks.some((date) => !date.endsWith("-01-01") && !date.endsWith("-04-01") && !date.endsWith("-07-01") && !date.endsWith("-10-01")), "axis is not grouped into calendar quarters");
 
+assert.deepEqual(collisionRows([0, 12, 24, 225], 200), [0, 1, 2, 0], "dense release positions receive deterministic non-overlapping rows");
+
 const forbiddenKeys = /^(score|scores|ranking|rank|win_rate|percentage|metric_value)$/i;
 function inspect(value, path = "fixture") {
   if (Array.isArray(value)) return value.forEach((item, index) => inspect(item, `${path}[${index}]`));
@@ -74,10 +77,13 @@ assert.match(appSource, /showModal\(\)/, "click and tap details use a native mod
 assert.match(appSource, /addEventListener\("focus"/, "keyboard focus has release preview parity");
 assert.match(appSource, /addEventListener\("mouseenter"/, "hover has release preview parity");
 assert.match(appSource, /history\.replaceState/, "timeline state is serialized in the URL");
+assert.match(appSource, /node\.style\.setProperty\(name,\s*styleValue\)/, "custom timeline layout and non-color cue properties are applied through CSSStyleDeclaration.setProperty");
 assert.match(appSource, /onclick:\s*\(event\)\s*=>\s*openReleaseDialog\(release,\s*event\.currentTarget\)/, "overflow dialog tracks its actual trigger for focus return");
 assert.match(appSource, /No qualifying benchmark occurrence was found/, "zero-occurrence release semantics are explicit");
 assert.match(appSource, /Generated ledger request failed/, "network error state is implemented");
 assert.match(cssSource, /prefers-reduced-motion: reduce/);
+assert.match(cssSource, /\.release-point\s*\{[^}]*pointer-events:\s*none/);
+assert.match(cssSource, /\.release-node,\s*\.overflow-button\s*\{[^}]*pointer-events:\s*auto/);
 assert.match(cssSource, /@media \(max-width: 767px\)/);
 assert.match(cssSource, /@media \(max-width: 390px\)/);
 

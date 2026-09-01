@@ -1,5 +1,6 @@
 import {
   SETUP_FIELDS,
+  collisionRows,
   datePosition,
   disclosureText,
   formatDate,
@@ -28,7 +29,12 @@ function element(tag, options = {}, children = []) {
     if (key === "className") node.className = value;
     else if (key === "text") node.textContent = value;
     else if (key === "dataset") Object.assign(node.dataset, value);
-    else if (key === "style") Object.assign(node.style, value);
+    else if (key === "style") {
+      for (const [name, styleValue] of Object.entries(value)) {
+        if (name.startsWith("--")) node.style.setProperty(name, styleValue);
+        else node.style[name] = styleValue;
+      }
+    }
     else if (key.startsWith("on") && typeof value === "function") node.addEventListener(key.slice(2).toLowerCase(), value);
     else node.setAttribute(key, value);
   }
@@ -165,13 +171,16 @@ function renderTimeline(preserveScroll = false) {
   const matchingIds = matchingBenchmarkIds(indexed, query, categoryId);
   const activeFilter = Boolean(normalize(query) || categoryId);
   const releasesInRange = indexed.data.releases.filter((release) => release.publication_date >= start && release.publication_date <= end);
+  const maximumLabReleaseCount = Math.max(...indexed.data.labs.map((lab) => releasesInRange.filter((release) => release.lab_id === lab.id).length));
+  const canvasWidth = Math.round(Math.max(1120, maximumLabReleaseCount * 72) * timelineZoom);
+  const trackWidth = Math.max(320, canvasWidth - 184);
   const matchingOccurrenceCount = indexed.data.occurrences.filter((occurrence) =>
     occurrence.publication_date >= start && occurrence.publication_date <= end && matchingIds.has(occurrence.benchmark_id),
   ).length;
 
   const canvas = element("div", {
     className: "timeline-canvas",
-    style: { width: "100%", minWidth: `${Math.round(1120 * timelineZoom)}px` },
+    style: { width: "100%", minWidth: `${canvasWidth}px` },
   });
   const axis = element("div", { className: "timeline-axis", "aria-hidden": "true" });
   for (const tick of timelineTicks(start, end, timelineZoom > 1.5 ? 12 : 8)) {
@@ -186,9 +195,18 @@ function renderTimeline(preserveScroll = false) {
     const labReleases = releasesInRange
       .filter((release) => release.lab_id === lab.id)
       .sort((a, b) => a.publication_date.localeCompare(b.publication_date) || a.name.localeCompare(b.name));
+    const releaseRows = collisionRows(
+      labReleases.map((release) => (datePosition(release.publication_date, start, end) / 100) * trackWidth),
+      200,
+    );
+    const rowCount = releaseRows.length ? Math.max(...releaseRows) + 1 : 1;
     const lane = element("div", {
       className: "timeline-lane",
-      style: { "--lab-color": labColors[labIndex % labColors.length], "--lab-shape": labShapes[labIndex % labShapes.length] },
+      style: {
+        "--lab-color": labColors[labIndex % labColors.length],
+        "--lab-shape": labShapes[labIndex % labShapes.length],
+        minHeight: `${8.5 + (rowCount - 1) * 14}rem`,
+      },
     });
     lane.append(element("div", { className: "lab-label" }, [
       element("span", { className: "lab-code", text: `L${labIndex + 1}`, "aria-hidden": "true" }),
@@ -196,6 +214,7 @@ function renderTimeline(preserveScroll = false) {
     ]));
     const track = element("div", { className: "lab-track" });
     labReleases.forEach((release, releaseIndex) => {
+      const collisionRow = releaseRows[releaseIndex];
       const allOccurrences = orderedReleaseOccurrences(indexed, release.id);
       const shownOccurrences = orderedReleaseOccurrences(indexed, release.id, activeFilter ? matchingIds : null);
       const muted = activeFilter && shownOccurrences.length === 0;
@@ -203,7 +222,11 @@ function renderTimeline(preserveScroll = false) {
       const edgeClass = position < 8 ? " edge-start" : position > 92 ? " edge-end" : "";
       const point = element("div", {
         className: `release-point${muted ? " is-muted" : ""}${edgeClass}`,
-        style: { left: `${position}%` },
+        style: {
+          left: `${position}%`,
+          "--release-top": `${0.55 + collisionRow * 14}rem`,
+          "--stack-top": `${4 + collisionRow * 14}rem`,
+        },
       });
       const node = element("button", {
         className: "release-node",
@@ -211,13 +234,12 @@ function renderTimeline(preserveScroll = false) {
         "aria-haspopup": "dialog",
         "aria-expanded": "false",
         "aria-label": `${release.name}, ${formatDate(release.publication_date)}. Open ${allOccurrences.length} evidence occurrence${allOccurrences.length === 1 ? "" : "s"}.`,
-        style: { top: `${0.55 + (releaseIndex % 2) * 1.15}rem` },
       }, [element("span", { text: release.name }), element("span", { className: "release-date", text: formatDate(release.publication_date) })]);
       node.addEventListener("mouseenter", () => previewRelease(release));
       node.addEventListener("focus", () => previewRelease(release));
       node.addEventListener("click", () => openReleaseDialog(release, node));
       point.append(node);
-      const stack = element("div", { className: "benchmark-stack", style: { top: `${4 + (releaseIndex % 2) * 1.15}rem` } });
+      const stack = element("div", { className: "benchmark-stack" });
       shownOccurrences.slice(0, 3).forEach((occurrence) => stack.append(element("span", {
         className: "benchmark-label",
         text: indexed.benchmarks.get(occurrence.benchmark_id).name,
