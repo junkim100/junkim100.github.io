@@ -23,4 +23,4 @@ python3 -m venv .venv
 
 The compiler accepts `--check` to verify that committed artifacts are current without rewriting them. The tests include a byte-for-byte double-build check.
 
-The included catalog is deliberately synthetic and score-free. It proves the contract and compiler behavior but is not the curated six-lab corpus.
+The canonical catalog is the curated score-free six-lab corpus at the `2026-09-01` cutoff. The small synthetic contract catalog used for focused compiler behavior tests lives under `tests/fixtures/`.

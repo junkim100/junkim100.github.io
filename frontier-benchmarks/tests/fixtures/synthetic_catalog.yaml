@@ -1,0 +1,328 @@
+schema_version: "1.0.0"
+corpus:
+  id: synthetic_foundation_fixture
+  title: Synthetic compiler foundation fixture
+  publication_window:
+    start: "2024-01-01"
+    end: "2026-09-01"
+  retrieval_date: "2026-09-01"
+labs:
+  - id: alpha_research
+    name: Alpha Research
+    official_domains:
+      - alpha.example
+categories:
+  - id: reasoning
+    name: Reasoning
+    aliases:
+      - general reasoning
+  - id: coding
+    name: Coding
+    aliases:
+      - code generation
+lineages:
+  - id: alpha_core
+    lab_id: alpha_research
+    name: Alpha Core
+    modality_class: text
+    use_class: general
+models:
+  - id: alpha_core_base
+    lab_id: alpha_research
+    lineage_id: alpha_core
+    name: Alpha Core Base
+release_candidates:
+  - id: candidate_alpha_seed
+    lab_id: alpha_research
+    publication_date: "2025-01-10"
+    title: Alpha Core Seed
+    source_id: source_alpha_seed
+    disposition: included
+  - id: candidate_alpha_spring
+    lab_id: alpha_research
+    publication_date: "2025-04-10"
+    title: Alpha Core Spring
+    source_id: source_alpha_spring
+    disposition: included
+  - id: candidate_alpha_summer
+    lab_id: alpha_research
+    publication_date: "2025-07-10"
+    title: Alpha Core Summer
+    source_id: source_alpha_summer
+    disposition: included
+  - id: candidate_alpha_autumn
+    lab_id: alpha_research
+    publication_date: "2025-10-10"
+    title: Alpha Core Autumn
+    source_id: source_alpha_autumn
+    disposition: included
+  - id: candidate_alpha_companion
+    lab_id: alpha_research
+    publication_date: "2025-10-10"
+    title: Alpha Core Autumn companion notice
+    source_id: source_alpha_autumn
+    disposition: duplicate_or_alias
+    canonical_candidate_id: candidate_alpha_autumn
+  - id: candidate_alpha_media
+    lab_id: alpha_research
+    publication_date: "2025-11-10"
+    title: Alpha Media
+    source_id: source_alpha_media
+    disposition: excluded
+    reason_code: excluded_modality
+  - id: candidate_alpha_unclear
+    lab_id: alpha_research
+    publication_date: "2025-12-10"
+    title: Alpha Unclear
+    source_id: source_alpha_unclear
+    disposition: quarantined
+    reason_code: insufficient_public_model_identity
+releases:
+  - id: release_alpha_seed
+    candidate_id: candidate_alpha_seed
+    lab_id: alpha_research
+    model_id: alpha_core_base
+    lineage_id: alpha_core
+    name: Alpha Core Seed
+    publication_date: "2025-01-10"
+    modality_class: text
+    use_class: general
+    coverage_id: coverage_alpha_seed
+  - id: release_alpha_spring
+    candidate_id: candidate_alpha_spring
+    lab_id: alpha_research
+    model_id: alpha_core_base
+    lineage_id: alpha_core
+    name: Alpha Core Spring
+    publication_date: "2025-04-10"
+    modality_class: text
+    use_class: general
+    coverage_id: coverage_alpha_spring
+  - id: release_alpha_summer
+    candidate_id: candidate_alpha_summer
+    lab_id: alpha_research
+    model_id: alpha_core_base
+    lineage_id: alpha_core
+    name: Alpha Core Summer
+    publication_date: "2025-07-10"
+    modality_class: text
+    use_class: general
+    coverage_id: coverage_alpha_summer
+  - id: release_alpha_autumn
+    candidate_id: candidate_alpha_autumn
+    lab_id: alpha_research
+    model_id: alpha_core_base
+    lineage_id: alpha_core
+    name: Alpha Core Autumn
+    publication_date: "2025-10-10"
+    modality_class: text
+    use_class: general
+    coverage_id: coverage_alpha_autumn
+benchmarks:
+  - id: reasoning_suite
+    name: Reasoning Suite
+    aliases:
+      - RS suite
+    category_id: reasoning
+  - id: code_tasks
+    name: Code Tasks
+    aliases:
+      - programming tasks
+    category_id: coding
+sources:
+  - id: source_alpha_seed
+    lab_id: alpha_research
+    url: https://alpha.example/releases/seed
+    source_type: technical_report
+    publication_date: "2025-01-10"
+    revision:
+      id: revision_alpha_seed
+      identifier: revision-seed
+  - id: source_alpha_spring
+    lab_id: alpha_research
+    url: https://alpha.example/releases/spring
+    source_type: launch_page
+    publication_date: "2025-04-10"
+    revision:
+      id: revision_alpha_spring
+      unavailable_reason: mutable_web_page
+      retrieval_date: "2026-09-01"
+  - id: source_alpha_summer
+    lab_id: alpha_research
+    url: https://alpha.example/releases/summer
+    source_type: model_card
+    publication_date: "2025-07-10"
+    revision:
+      id: revision_alpha_summer
+      identifier: revision-summer
+  - id: source_alpha_autumn
+    lab_id: alpha_research
+    url: https://alpha.example/releases/autumn
+    source_type: launch_page
+    publication_date: "2025-10-10"
+    revision:
+      id: revision_alpha_autumn
+      unavailable_reason: mutable_web_page
+      retrieval_date: "2026-09-01"
+  - id: source_alpha_media
+    lab_id: alpha_research
+    url: https://alpha.example/releases/media
+    source_type: launch_page
+    publication_date: "2025-11-10"
+    revision:
+      id: revision_alpha_media
+      unavailable_reason: mutable_web_page
+      retrieval_date: "2026-09-01"
+  - id: source_alpha_unclear
+    lab_id: alpha_research
+    url: https://alpha.example/releases/unclear
+    source_type: launch_page
+    publication_date: "2025-12-10"
+    revision:
+      id: revision_alpha_unclear
+      unavailable_reason: mutable_web_page
+      retrieval_date: "2026-09-01"
+coverage:
+  - id: coverage_alpha_seed
+    release_id: release_alpha_seed
+    lab_id: alpha_research
+    review_status: complete
+    reviewed_source_ids:
+      - source_alpha_seed
+    review_date: "2026-09-01"
+  - id: coverage_alpha_spring
+    release_id: release_alpha_spring
+    lab_id: alpha_research
+    review_status: complete
+    reviewed_source_ids:
+      - source_alpha_spring
+    review_date: "2026-09-01"
+  - id: coverage_alpha_summer
+    release_id: release_alpha_summer
+    lab_id: alpha_research
+    review_status: complete
+    reviewed_source_ids:
+      - source_alpha_summer
+    review_date: "2026-09-01"
+  - id: coverage_alpha_autumn
+    release_id: release_alpha_autumn
+    lab_id: alpha_research
+    review_status: complete
+    reviewed_source_ids:
+      - source_alpha_autumn
+    review_date: "2026-09-01"
+quarantine:
+  - id: quarantine_alpha_unclear
+    candidate_id: candidate_alpha_unclear
+    lab_id: alpha_research
+    reason_code: insufficient_public_model_identity
+    evidence_gap: The reviewed announcement does not identify a model lineage.
+    source_id: source_alpha_unclear
+occurrences:
+  - id: occurrence_seed_reasoning
+    lab_id: alpha_research
+    release_id: release_alpha_seed
+    model_id: alpha_core_base
+    lineage_id: alpha_core
+    benchmark_id: reasoning_suite
+    source_id: source_alpha_seed
+    source_revision_id: revision_alpha_seed
+    source_type: technical_report
+    publication_date: "2025-01-10"
+    locator:
+      kind: section
+      value: Evaluation overview
+    summary: The reporting names Reasoning Suite for the released model.
+    evaluation_setup:
+      prompting:
+        status: disclosed
+        value: fixed prompt template
+      shot_configuration:
+        status: not_disclosed
+      tool_use:
+        status: not_disclosed
+      evaluation_harness:
+        status: not_disclosed
+      sample_selection:
+        status: not_disclosed
+    review_status: verified
+  - id: occurrence_spring_code
+    lab_id: alpha_research
+    release_id: release_alpha_spring
+    model_id: alpha_core_base
+    lineage_id: alpha_core
+    benchmark_id: code_tasks
+    source_id: source_alpha_spring
+    source_revision_id: revision_alpha_spring
+    source_type: launch_page
+    publication_date: "2025-04-10"
+    locator:
+      kind: heading
+      value: Evaluation details
+    summary: The reporting names Code Tasks for the released model.
+    evaluation_setup:
+      prompting:
+        status: not_disclosed
+      shot_configuration:
+        status: not_disclosed
+      tool_use:
+        status: disclosed
+        value: tools disabled
+      evaluation_harness:
+        status: not_disclosed
+      sample_selection:
+        status: not_disclosed
+    review_status: verified
+  - id: occurrence_summer_code
+    lab_id: alpha_research
+    release_id: release_alpha_summer
+    model_id: alpha_core_base
+    lineage_id: alpha_core
+    benchmark_id: code_tasks
+    source_id: source_alpha_summer
+    source_revision_id: revision_alpha_summer
+    source_type: model_card
+    publication_date: "2025-07-10"
+    locator:
+      kind: section
+      value: Evaluation inventory
+    summary: The model card names Code Tasks for the released model.
+    evaluation_setup:
+      prompting:
+        status: not_disclosed
+      shot_configuration:
+        status: not_disclosed
+      tool_use:
+        status: not_disclosed
+      evaluation_harness:
+        status: disclosed
+        value: internal harness
+      sample_selection:
+        status: not_disclosed
+    review_status: verified
+  - id: occurrence_autumn_reasoning
+    lab_id: alpha_research
+    release_id: release_alpha_autumn
+    model_id: alpha_core_base
+    lineage_id: alpha_core
+    benchmark_id: reasoning_suite
+    source_id: source_alpha_autumn
+    source_revision_id: revision_alpha_autumn
+    source_type: launch_page
+    publication_date: "2025-10-10"
+    locator:
+      kind: heading
+      value: Evaluation inventory
+    summary: The reporting names Reasoning Suite for the released model.
+    evaluation_setup:
+      prompting:
+        status: not_disclosed
+      shot_configuration:
+        status: not_disclosed
+      tool_use:
+        status: not_disclosed
+      evaluation_harness:
+        status: not_disclosed
+      sample_selection:
+        status: not_disclosed
+    review_status: verified

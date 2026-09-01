@@ -24,7 +24,7 @@ SPEC.loader.exec_module(compiler)
 class CompilerTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.catalog = compiler.load_yaml(ROOT / "data" / "catalog.yaml")
+        cls.catalog = compiler.load_yaml(ROOT / "tests" / "fixtures" / "synthetic_catalog.yaml")
         cls.definitions = compiler.load_yaml(ROOT / "data" / "definitions.yaml")
 
     def fresh_catalog(self) -> dict:
@@ -34,7 +34,10 @@ class CompilerTests(unittest.TestCase):
         return copy.deepcopy(self.definitions)
 
     def test_valid_catalog_compiles_and_matches_status_fixture(self) -> None:
-        json_bytes, csv_bytes, document = compiler.compile_catalog()
+        json_bytes, csv_bytes, document = compiler.compile_catalog(
+            ROOT / "tests" / "fixtures" / "synthetic_catalog.yaml",
+            ROOT / "data" / "definitions.yaml",
+        )
         self.assertEqual(json.loads(json_bytes)["definitions_version"], "1.0.0")
         expected = compiler.load_yaml(ROOT / "tests" / "fixtures" / "expected_statuses.yaml")["statuses"]
         actual = [
@@ -90,7 +93,7 @@ class CompilerTests(unittest.TestCase):
     def test_terminal_disposition_reconciliation_rejects_orphan(self) -> None:
         catalog = self.fresh_catalog()
         catalog["releases"] = [item for item in catalog["releases"] if item["id"] != "release_alpha_seed"]
-        with self.assertRaisesRegex(compiler.ValidationError, "exactly one release"):
+        with self.assertRaisesRegex(compiler.ValidationError, "at least one release"):
             compiler.validate_terminal_dispositions(catalog)
 
     def test_definition_consistency_is_executable(self) -> None:

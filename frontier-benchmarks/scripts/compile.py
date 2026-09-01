@@ -301,8 +301,8 @@ def validate_terminal_dispositions(catalog: dict) -> None:
         release_count = len(releases_by_candidate[candidate["id"]])
         quarantine_count = len(quarantine_by_candidate[candidate["id"]])
         disposition = candidate["disposition"]
-        if disposition == "included" and (release_count != 1 or quarantine_count != 0):
-            raise ValidationError(f"included candidate {candidate['id']} must map to exactly one release")
+        if disposition == "included" and (release_count < 1 or quarantine_count != 0):
+            raise ValidationError(f"included candidate {candidate['id']} must map to at least one release")
         if disposition == "quarantined" and (release_count != 0 or quarantine_count != 1):
             raise ValidationError(f"quarantined candidate {candidate['id']} must map to exactly one quarantine record")
         if disposition in {"excluded", "duplicate_or_alias"} and (release_count or quarantine_count):
