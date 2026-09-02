@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
+import { access, readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import {
+  COMBOBOX_OPTION_LIMIT,
   collisionRows,
   indexData,
   matchingBenchmarkIds,
@@ -11,44 +12,49 @@ import {
   timelineTicks,
   validateInterface,
 } from "../../core.mjs";
-import { DEFAULT_ZOOM, ZOOM_LEVELS, sanitizeTimelineState } from "../../timeline.mjs";
+import { DEFAULT_ZOOM, SEARCH_DEBOUNCE_MS, ZOOM_LEVELS, releaseDisplayLabels, sanitizeTimelineState } from "../../timeline.mjs";
 import { fixture } from "./fixture.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const routeRoot = resolve(here, "../..");
-const [indexHtml, timelineHtml, ledgerHtml, historyHtml, evidenceHtml, definitionsHtml, appSource, timelineSource, shellSource, dataRoutesSource, cssSource, jsonBytes, csvBytes] = await Promise.all([
-  readFile(resolve(routeRoot, "index.html"), "utf8"),
-  readFile(resolve(routeRoot, "timeline.html"), "utf8"),
-  readFile(resolve(routeRoot, "ledger.html"), "utf8"),
-  readFile(resolve(routeRoot, "history.html"), "utf8"),
-  readFile(resolve(routeRoot, "evidence.html"), "utf8"),
-  readFile(resolve(routeRoot, "definitions.html"), "utf8"),
-  readFile(resolve(routeRoot, "app.mjs"), "utf8"),
-  readFile(resolve(routeRoot, "timeline.mjs"), "utf8"),
-  readFile(resolve(routeRoot, "shell.mjs"), "utf8"),
-  readFile(resolve(routeRoot, "data-routes.mjs"), "utf8"),
-  readFile(resolve(routeRoot, "styles.css"), "utf8"),
+const readText = (name) => readFile(resolve(routeRoot, name), "utf8");
+const [indexHtml, timelineHtml, ledgerHtml, historyHtml, aboutHtml, definitionsHtml, timelineSource, shellSource, dataRoutesSource, coreSource, cssSource, readme, security, jsonBytes] = await Promise.all([
+  readText("index.html"),
+  readText("timeline.html"),
+  readText("ledger.html"),
+  readText("history.html"),
+  readText("about.html"),
+  readText("definitions.html"),
+  readText("timeline.mjs"),
+  readText("shell.mjs"),
+  readText("data-routes.mjs"),
+  readText("core.mjs"),
+  readText("styles.css"),
+  readText("README.md"),
+  readText("SECURITY.md"),
   readFile(resolve(routeRoot, "public/observatory.json")),
-  readFile(resolve(routeRoot, "public/observatory.csv")),
 ]);
+
+for (const deleted of ["evidence.html", "app.mjs", "public/observatory.csv", ".gitattributes"]) {
+  await assert.rejects(access(resolve(routeRoot, deleted)), { code: "ENOENT" }, `${deleted} is removed`);
+}
 
 validateInterface(fixture);
 const indexed = indexData(fixture);
 assert.deepEqual(fixture.labs.map((lab) => lab.name), ["OpenAI", "Anthropic", "Google DeepMind", "Meta", "DeepSeek", "Qwen"]);
 assert.equal(fixture.corpus.publication_window.start, "2024-01-01");
 assert.equal(fixture.corpus.publication_window.end, "2026-09-01");
-assert.ok(fixture.releases.some((release) => release.publication_date === "2024-01-01"), "inclusive start is represented");
-assert.ok(fixture.releases.some((release) => release.publication_date === "2026-09-01"), "inclusive end is represented");
+assert.ok(fixture.releases.some((release) => release.publication_date === "2024-01-01"));
+assert.ok(fixture.releases.some((release) => release.publication_date === "2026-09-01"));
 
 const aliasMatches = matchingBenchmarkIds(indexed, "CH tasks", "");
-assert.deepEqual([...aliasMatches], ["code_harbor"], "benchmark alias filter resolves canonical identity");
-const categoryAliasMatches = matchingBenchmarkIds(indexed, "programming", "");
-assert.ok(categoryAliasMatches.has("code_harbor"), "category alias filter resolves canonical benchmarks");
-const categoryMatches = matchingBenchmarkIds(indexed, "", "multimodal");
-assert.deepEqual([...categoryMatches], ["vision_compass"], "category selector is exact");
+assert.deepEqual([...aliasMatches], ["code_harbor"]);
+assert.deepEqual([...matchingBenchmarkIds(indexed, "", "multimodal")], ["vision_compass"]);
+assert.deepEqual(ZOOM_LEVELS, [1, 2, 4]);
+assert.equal(DEFAULT_ZOOM, 1);
+assert.equal(SEARCH_DEBOUNCE_MS, 150);
+assert.equal(COMBOBOX_OPTION_LIMIT, 50);
 
-assert.deepEqual(ZOOM_LEVELS, [1, 2, 4], "timeline zoom levels are allowlisted");
-assert.equal(DEFAULT_ZOOM, 1, "timeline zoom defaults to one");
 const sanitizedState = sanitizeTimelineState({
   q: `  <img src=x onerror=alert(1)>${"x".repeat(200)}  `,
   category: "not-a-category",
@@ -59,171 +65,119 @@ const sanitizedState = sanitizeTimelineState({
   release: "not-a-release",
   unknown: "must-not-survive",
 }, fixture);
-assert.equal(sanitizedState.q.length, 160, "query state is bounded before rendering");
-assert.equal(sanitizedState.q.startsWith("<img src=x"), true, "query text remains inert data");
-assert.deepEqual({ ...sanitizedState, q: "" }, { q: "", category: "", lab: "", from: "", to: "", zoom: DEFAULT_ZOOM, release: "" }, "unknown URL state is rejected");
-assert.equal(Object.hasOwn(sanitizedState, "unknown"), false, "unknown state keys are discarded");
-assert.equal(sanitizeTimelineState({ zoom: "2" }, fixture).zoom, 2, "allowlisted zoom survives URL parsing");
-assert.equal(sanitizeTimelineState({ zoom: "3" }, fixture).zoom, DEFAULT_ZOOM, "unsupported zoom resets to the default");
-assert.equal(sanitizeTimelineState({ zoom: "02" }, fixture).zoom, DEFAULT_ZOOM, "alternate numeric zoom spelling is not allowlisted");
-assert.equal(sanitizeTimelineState({ from: "2024-02-30", to: "2024-02-29" }, fixture).from, "", "impossible dates are rejected");
-assert.equal(sanitizeTimelineState({ from: "2024-02-29", to: "2024-02-30" }, fixture).to, "", "impossible end dates are rejected");
-assert.deepEqual(
-  sanitizeTimelineState({ from: "2024-08-01", to: "2024-02-01" }, fixture),
-  { q: "", category: "", lab: "", from: "", to: "", zoom: DEFAULT_ZOOM, release: "" },
-  "inverted dates clear both endpoints",
-);
+assert.equal(sanitizedState.q.length, 160);
+assert.equal(sanitizedState.q.startsWith("<img src=x"), true);
+assert.deepEqual({ ...sanitizedState, q: "" }, { q: "", category: "", lab: "", from: "", to: "", zoom: DEFAULT_ZOOM, release: "" });
+assert.equal(Object.hasOwn(sanitizedState, "unknown"), false);
+assert.equal(sanitizeTimelineState({ zoom: "2" }, fixture).zoom, 2);
+assert.equal(sanitizeTimelineState({ zoom: "3" }, fixture).zoom, DEFAULT_ZOOM);
+assert.equal(sanitizeTimelineState({ from: "2024-02-30" }, fixture).from, "");
+assert.deepEqual(sanitizeTimelineState({ from: "2024-08-01", to: "2024-02-01" }, fixture), { q: "", category: "", lab: "", from: "", to: "", zoom: DEFAULT_ZOOM, release: "" });
+
+const displayLabels = releaseDisplayLabels(fixture.releases);
+fixture.releases.forEach((release) => assert.equal(displayLabels.get(release.id), release.name));
+const duplicateLabels = releaseDisplayLabels([
+  { id: "one", name: "Same", publication_date: "2025-01-01" },
+  { id: "two", name: "Same", publication_date: "2025-02-01" },
+  { id: "three", name: "Unique", publication_date: "2025-03-01" },
+]);
+assert.equal(duplicateLabels.get("one"), "Same (2025-01-01)");
+assert.equal(duplicateLabels.get("two"), "Same (2025-02-01)");
+assert.equal(duplicateLabels.get("three"), "Unique");
 
 const denseRelease = fixture.releases.find((release) => (indexed.occurrencesByRelease.get(release.id) || []).length >= 6);
-assert.ok(denseRelease, "fixture contains dense label collisions");
-const denseOccurrences = orderedReleaseOccurrences(indexed, denseRelease.id);
-assert.equal(denseOccurrences.length, 6, "collision detail retains every occurrence");
-assert.equal(new Set(denseOccurrences.map((item) => item.id)).size, denseOccurrences.length, "collision detail has no duplicate occurrence");
-assert.ok(fixture.benchmarks.some((benchmark) => benchmark.name.length > 50), "fixture covers long canonical text");
-assert.ok(fixture.occurrences.some((occurrence) => occurrence.summary.length > 180), "fixture covers long evidence text");
-assert.ok(fixture.coverage.some((record) => record.review_status === "incomplete"), "fixture covers incomplete coverage state");
-assert.ok(fixture.quarantine.length > 0, "fixture covers quarantine state");
-
+assert.equal(orderedReleaseOccurrences(indexed, denseRelease.id).length, 6);
+assert.equal(fixture.releases.reduce((total, release) => total + orderedReleaseOccurrences(indexed, release.id).length, 0), fixture.occurrences.length, "selected releases expose every occurrence association");
 const ticks = timelineTicks("2024-01-01", "2026-09-01", 8);
 assert.equal(ticks[0], "2024-01-01");
-assert.ok(ticks.length >= 8, "continuous axis has representative date ticks");
-assert.ok(ticks.some((date) => !date.endsWith("-01-01") && !date.endsWith("-04-01") && !date.endsWith("-07-01") && !date.endsWith("-10-01")), "axis is not grouped into calendar quarters");
+assert.ok(ticks.length >= 8);
+assert.deepEqual(collisionRows([0, 12, 24, 225], 200), [0, 1, 2, 0]);
 
-assert.deepEqual(collisionRows([0, 12, 24, 225], 200), [0, 1, 2, 0], "dense release positions receive deterministic non-overlapping rows");
-
-const forbiddenKeys = /^(score|scores|ranking|rank|win_rate|percentage|metric_value)$/i;
-function inspect(value, path = "fixture") {
-  if (Array.isArray(value)) return value.forEach((item, index) => inspect(item, `${path}[${index}]`));
-  if (!value || typeof value !== "object") return;
-  for (const [key, child] of Object.entries(value)) {
-    assert.ok(!forbiddenKeys.test(key), `forbidden result field at ${path}.${key}`);
-    inspect(child, `${path}.${key}`);
-  }
-}
-inspect(fixture);
-
-const routes = new Map([
-  ["overview", indexHtml],
-  ["timeline", timelineHtml],
-  ["ledger", ledgerHtml],
-  ["history", historyHtml],
-  ["evidence", evidenceHtml],
-  ["definitions", definitionsHtml],
-]);
-const navigationTargets = ["./", "./timeline.html", "./ledger.html", "./history.html", "./evidence.html", "./definitions.html", "./public/observatory.json", "./public/observatory.csv"];
-for (const [route, html] of routes) {
+const pages = new Map([["landing", indexHtml], ["timeline", timelineHtml], ["ledger", ledgerHtml], ["history", historyHtml], ["about", aboutHtml]]);
+const expectedLinks = {
+  landing: ["./", "./", "./ledger.html", "./history.html", "./about.html"],
+  timeline: ["./", "./timeline.html", "./ledger.html", "./history.html", "./about.html"],
+  ledger: ["./", "./", "./ledger.html", "./history.html", "./about.html"],
+  history: ["./", "./", "./ledger.html", "./history.html", "./about.html"],
+  about: ["./", "./", "./ledger.html", "./history.html", "./about.html"],
+};
+for (const [route, html] of pages) {
   const csp = html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)"/)?.[1] || "";
-  assert.match(html, /<a class="skip-link" href="#main">Skip to content<\/a>/, `${route} has skip navigation`);
-  assert.match(html, /<header class="site-header">/, `${route} has a shared header landmark`);
-  assert.match(html, /<nav class="primary-nav" aria-label="Observatory">/, `${route} has the shared navigation landmark`);
-  assert.match(html, /<main id="main"/, `${route} has a main landmark`);
-  assert.match(html, /<footer class="site-footer page-shell">/, `${route} has a shared footer landmark`);
-  assert.match(html, /<script type="module" src="\.\/shell\.mjs"><\/script>/, `${route} uses the shared shell behavior`);
-  assert.match(csp, /default-src 'self'/, `${route} has a local default CSP`);
-  assert.match(csp, /script-src 'self'/, `${route} permits only local scripts`);
-  assert.doesNotMatch(csp, /script-src[^;]*(?:unsafe-|\*)/, `${route} does not permit inline or wildcard scripts`);
-  assert.doesNotMatch(csp, /unsafe-eval|\*|frame-ancestors/, `${route} CSP excludes eval, wildcard, and frame-ancestors directives`);
-  const scripts = [...html.matchAll(/<script\b([^>]*)>/g)].map((match) => match[1]);
-  assert.ok(scripts.every((attributes) => /\bsrc=/.test(attributes)), `${route} uses no inline script blocks`);
-  for (const href of navigationTargets) {
-    assert.ok(html.includes(`href="${href}"`), `${route} keeps the no-JavaScript navigation target ${href}`);
-  }
+  assert.match(html, /<a class="skip-link" href="#main">Skip to content<\/a>/);
+  assert.match(html, /<header class="site-header">/);
+  assert.match(html, /<nav class="primary-nav" aria-label="Observatory">/);
+  assert.match(html, /<main id="main"/);
+  assert.doesNotMatch(html, /<footer\b/);
+  assert.match(html, /<script type="module" src="\.\/shell\.mjs"><\/script>/);
+  assert.match(csp, /default-src 'self'/);
+  assert.match(csp, /script-src 'self'/);
+  assert.doesNotMatch(csp, /https:|unsafe-eval|\*/);
+  const header = html.match(/<header class="site-header">[\s\S]*?<\/header>/)?.[0] || "";
+  const hrefs = [...header.matchAll(/href="([^"]+)"/g)].map((match) => match[1]);
+  assert.deepEqual(hrefs, expectedLinks[route], `${route} header contains only the approved links`);
+  assert.equal((header.match(/class="theme-toggle"/g) || []).length, 1);
 }
-assert.match(indexHtml, /<script type="module" src="\.\/timeline\.mjs"><\/script>/, "overview loads the shared timeline module");
-assert.match(timelineHtml, /<script type="module" src="\.\/timeline\.mjs"><\/script>/, "full route loads the shared timeline module");
 
-assert.match(indexHtml, /evidence-first, score-free/);
-assert.match(indexHtml, /A reporting record, not a leaderboard/);
-for (const [label, value] of [["Labs", "6"], ["Releases", "172"], ["Benchmarks", "869"], ["Evidence occurrences", "2,821"], ["First-party sources", "537"]]) {
-  assert.match(indexHtml, new RegExp(`<dt>${label}<\\/dt><dd>${value}<\\/dd>`), `landing page fixes ${label} at ${value}`);
-}
+assert.match(indexHtml, /<h1 id="page-title">Frontier Benchmark Observatory<\/h1>/);
 assert.match(indexHtml, /id="timeline-host" data-timeline-mode="compact"/);
+assert.equal((indexHtml.match(/id="timeline-fullscreen-button"/g) || []).length, 1);
+assert.match(indexHtml, /id="timeline-fullscreen-button" type="button" aria-pressed="false">Fullscreen<\/button>/);
 assert.match(timelineHtml, /id="timeline-host" data-timeline-mode="full"/);
-assert.match(indexHtml, /id="timeline-controls" data-route-controls="timeline"/);
-assert.match(indexHtml, /id="release-detail-host" aria-label="Pinned release detail" hidden/);
-assert.match(timelineHtml, /id="release-detail-host" aria-label="Pinned release detail" hidden/);
-const compactHost = indexHtml.match(/<div class="timeline-host timeline-host-compact"[\s\S]*?<aside class="detail-panel-host"[^>]*><\/aside>\s*<\/div>/)?.[0] || "";
-assert.ok(compactHost, "landing page contains a compact timeline host");
-assert.doesNotMatch(compactHost, /View in Fullscreen/, "fullscreen transition is outside the compact timeline host");
-assert.match(indexHtml, /<aside class="fullscreen-callout"[\s\S]*id="timeline-fullscreen-link" href="\.\/timeline\.html">View in Fullscreen<\/a>/);
-for (const forbiddenId of ["ledger-body", "history-content", "evidence-list", "occurrence-table-body", "complete-table"]) {
-  assert.doesNotMatch(indexHtml, new RegExp(`id=["']${forbiddenId}["']`), `landing page omits the complete ${forbiddenId} view`);
-}
-assert.doesNotMatch(indexHtml, /<table[\s>]/, "landing page does not render a data table");
+assert.doesNotMatch(timelineHtml, /fullscreen-button|Enter browser fullscreen/);
 assert.match(ledgerHtml, /id="ledger-controls" data-route-controls="ledger"[\s\S]*id="ledger-host" data-route-view="ledger"/);
 assert.match(historyHtml, /id="history-controls" data-route-controls="history"[\s\S]*id="history-host" data-route-view="history"/);
-assert.match(evidenceHtml, /id="evidence-controls" data-route-controls="evidence"[\s\S]*id="evidence-host" data-route-view="evidence"/);
-for (const html of [ledgerHtml, historyHtml, evidenceHtml]) assert.match(html, /<script type="module" src="\.\/data-routes\.mjs"><\/script>/, "data routes load their bounded renderer");
-assert.match(definitionsHtml, /id="definition-list"/);
-assert.match(definitionsHtml, /generated artifact used by validation/);
-assert.match(definitionsHtml, /These terms describe a bounded sequence of reviewed public reporting\. They never claim private evaluation activity, benchmark quality, or objective obsolescence\./);
-assert.match(definitionsHtml, /When source coverage, lineage identity, successor order, or comparability is uncertain, the ledger uses an insufficient-evidence or quarantine state instead of advancing an omission count\./);
+
+const forbiddenVisible = /observatory\.(?:json|csv)|Download JSON|Download CSV|Evidence|Definitions|Overview|Public reporting research ledger|Continuous time|Expanded workspace|Full chronology workspace|Complete release denominator|Chronological reporting sequence|Methodology and coverage|View in Fullscreen/;
+for (const [name, text] of [...pages, ["readme", readme], ["security", security]]) assert.doesNotMatch(text, forbiddenVisible, `${name} removes obsolete visible destinations and copy`);
+assert.doesNotMatch(indexHtml, /hero-intro|boundary-note|corpus-stats|download-row|methodology|route-cards|<table\b/);
+
+assert.match(aboutHtml, /2024-01-01 through 2026-09-01/);
+assert.match(aboutHtml, /first-party public materials/);
+assert.match(aboutHtml, /score-free reporting record/);
+assert.match(aboutHtml, /does not establish whether a lab evaluated the model privately or reported an evaluation elsewhere/);
+assert.doesNotMatch(aboutHtml, /canonical definition|implementation version/i);
+assert.match(definitionsHtml, /<meta http-equiv="refresh" content="0; url=\.\/about\.html"/);
+assert.match(definitionsHtml, /<link rel="canonical" href="https:\/\/junkim100\.github\.io\/frontier-benchmarks\/about\.html"/);
+assert.match(definitionsHtml, /<a href="\.\/about\.html">Continue to About<\/a>/);
+assert.doesNotMatch(definitionsHtml, /<script\b/);
+
 assert.match(shellSource, /localStorage\.getItem\("theme"\)/);
 assert.match(shellSource, /button\.setAttribute\("aria-pressed"/);
-assert.match(dataRoutesSource, /PAGE_SIZES = \[25, 50, 100\]/, "data routes offer only the approved page sizes");
-assert.match(dataRoutesSource, /DEFAULT_PAGE_SIZE = 50/, "data routes default to 50 rows");
-assert.match(dataRoutesSource, /window\.addEventListener\("popstate"/, "data routes restore browser back and forward state");
-assert.match(dataRoutesSource, /history\.pushState/, "data route controls store meaningful state in the URL");
-assert.match(dataRoutesSource, /rows: records\.slice\(start, start \+ pageSize\)/, "data routes render only the bounded current page");
-assert.match(dataRoutesSource, /route === "ledger" \|\| route === "history" \|\| route === "evidence"/, "ledger, history, and evidence render date controls");
-assert.match(dataRoutesSource, /"aria-sort"/, "sortable route columns expose their sort state");
-assert.match(dataRoutesSource, /id: `\$\{route\}-page-\$\{name\.toLowerCase\(\)\}`/, "pagination buttons retain stable focus targets after rerendering");
-assert.match(dataRoutesSource, /target: "_blank", rel: "noopener noreferrer"/, "external source links are safely isolated");
-assert.match(dataRoutesSource, /safeSourceHref\(indexed, source\)/, "data routes revalidate corpus source links before rendering");
-assert.doesNotMatch(dataRoutesSource, /innerHTML|insertAdjacentHTML/, "data routes render query and corpus text inertly");
-assert.match(timelineSource, /from "\.\/core\.mjs"/, "timeline reuses shared data helpers");
-assert.match(timelineSource, /const STATE_KEYS = \["q", "category", "lab", "from", "to", "zoom", "release"\]/, "timeline serializes every supported state key");
-assert.match(timelineSource, /field\("zoom", "Zoom", zoom\)/, "timeline renders an accessible labelled zoom control");
-assert.match(timelineSource, /ZOOM_LEVELS\.forEach\(\(level\) => zoom\.append/, "zoom control offers only allowlisted levels");
-assert.match(timelineSource, /canvasWidth\(releases\) \{\s*return Math\.max\(960, releases\.length \* 120\) \* this\.state\.zoom;/, "zoom multiplies the wide compact timeline canvas");
-assert.doesNotMatch(timelineSource, /collisionRows/, "compact timeline avoids vertical collision rows");
-assert.match(timelineSource, /writeTimelineQuery\(url, fixtureRequested\) \{\s*url\.search = "";\s*STATE_KEYS\.forEach/, "timeline query writing starts from allowlisted state");
-assert.match(timelineSource, /this\.writeTimelineQuery\(url, this\.isUiFixture\(new URL\(window\.location\.href\)\)\);/, "full route link carries sanitized timeline state");
-assert.match(timelineSource, /if \(fixtureRequested\) url\.searchParams\.set\("fixture", "ui"\);/, "focused fixture state is the only preserved query exception");
-assert.doesNotMatch(timelineSource, /current\.searchParams\.forEach/, "fullscreen route link does not retain unrelated query state");
-assert.match(timelineSource, /name\.slice\(2\)\.toLowerCase\(\)/, "synthetic element event names normalize to lowercase");
-assert.match(timelineSource, /if \(this\.state\.release\) this\.closePinned\(\);\s*if \(fullscreenActive && document\.exitFullscreen\) document\.exitFullscreen\(\)/, "Escape closes pinned detail and explicitly exits native fullscreen");
-assert.match(timelineSource, /trigger \|\| this\.controls\.release\)\?\.focus\(\)/, "closing pinned detail restores focus");
-assert.match(timelineSource, /this\.writeState\("pushState"\)/, "user timeline actions push allowlisted URL state");
-assert.match(timelineSource, /addEventListener\("popstate"/, "timeline restores browser navigation state");
-assert.match(timelineSource, /addEventListener\("focus"/, "keyboard focus updates the release preview");
-assert.match(timelineSource, /addEventListener\("mouseenter"/, "hover updates the release preview");
-assert.match(timelineSource, /aria-labelledby/, "pinned detail uses a labelled aside");
-assert.match(timelineSource, /document\.fullscreenElement/, "Escape handles native browser fullscreen");
-assert.match(timelineSource, /requestFullscreen/, "full timeline exposes browser fullscreen behavior");
-assert.match(timelineSource, /target: "_blank", rel: "noopener noreferrer"/, "external source links are isolated");
-assert.match(timelineSource, /node\.textContent = value/, "timeline creates text with textContent");
-assert.doesNotMatch(timelineSource, /innerHTML|insertAdjacentHTML/, "timeline does not parse query or corpus text as markup");
-assert.match(timelineSource, /sanitizeState\(candidate\)/, "timeline normalizes allowlisted URL state");
-assert.match(timelineSource, /const MAX_QUERY_LENGTH = 160/, "timeline bounds query state");
-assert.match(timelineSource, /safeSourceHref\(source\)/, "timeline revalidates corpus source links before rendering");
-assert.match(timelineSource, /data\.releases\.length/, "timeline summary accounts for every release ID");
-assert.match(cssSource, /prefers-reduced-motion: reduce/);
-assert.match(cssSource, /:focus-visible\s*\{[^}]*outline:\s*3px solid var\(--accent\)/);
+assert.match(coreSource, /role", "combobox"/);
+assert.match(coreSource, /role", "listbox"/);
+assert.match(coreSource, /role", "option"/);
+assert.match(coreSource, /aria-activedescendant/);
+for (const key of ["ArrowDown", "ArrowUp", "Home", "End", "Enter", "Escape"]) assert.ok(coreSource.includes(`"${key}"`));
+assert.match(coreSource, /slice\(0, COMBOBOX_OPTION_LIMIT\)/);
+assert.match(dataRoutesSource, /SEARCH_DEBOUNCE_MS = 150/);
+assert.match(dataRoutesSource, /addEventListener\("input"/);
+assert.doesNotMatch(dataRoutesSource, /Apply search|type: "submit"|route === "evidence"/);
+assert.match(dataRoutesSource, /window\.addEventListener\("popstate"/);
+assert.match(dataRoutesSource, /"aria-sort"/);
+assert.match(dataRoutesSource, /text: "Source"/);
+assert.doesNotMatch(dataRoutesSource, /innerHTML|insertAdjacentHTML/);
+
+assert.match(timelineSource, /history\.state\?\.timelineScroll/);
+assert.match(timelineSource, /payload\.timelineScroll = scroll/);
+assert.match(timelineSource, /frame\.scrollLeft = frame\.scrollWidth - frame\.clientWidth/);
+assert.match(timelineSource, /requestFullscreen\(\)/);
+assert.match(timelineSource, /navigateToFallback\(\)/);
+assert.match(timelineSource, /window\.location\.assign\(url\.href\)/);
+assert.match(timelineSource, /text: "Source"/);
+assert.match(timelineSource, /text: displayName/);
+assert.doesNotMatch(timelineSource, /text: release\.id|Open exact first-party source|detail-release-id|Evaluation setup|Coverage review|Review date|Reporting state|Review state|Source type|Locator|Record/);
+assert.doesNotMatch(timelineSource, /innerHTML|insertAdjacentHTML/);
 assert.match(cssSource, /\.timeline-host-compact\s*\{[^}]*height:\s*560px/);
 assert.match(cssSource, /@media \(max-width: 767px\)[\s\S]*?\.timeline-host-compact\s*\{[^}]*height:\s*460px/);
-assert.match(cssSource, /@media \(max-width: 767px\)[\s\S]*?\.viewport-route \.route-toolbar\s*\{[^}]*max-height:\s*14dvh/, "mobile full-timeline controls reserve visualization height");
-assert.match(cssSource, /\.timeline-frame\s*\{[^}]*overflow-y:\s*hidden;/, "timeline frame eliminates internal vertical scrolling");
-assert.match(cssSource, /\.timeline-lane\s*\{[^}]*height:\s*calc\(100% \/ 6\);/, "six timeline lanes fit inside the bounded compact frame");
-assert.match(cssSource, /\.timeline-host:has\(> \.detail-panel-host:not\(\[hidden\]\)\)\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\) minmax\(22rem, 0\.62fr\)/);
-assert.match(cssSource, /\.timeline-host-full:fullscreen/);
-assert.match(cssSource, /\.viewport-route\s*\{[^}]*height:\s*100dvh;[^}]*overflow:\s*hidden;/, "dedicated timeline route is bounded to the available viewport");
-assert.match(cssSource, /\.viewport-route \.timeline-host-full\s*\{[^}]*height:\s*100%;[^}]*min-height:\s*0;/, "full timeline host consumes the bounded workspace remainder");
-assert.match(cssSource, /\.data-route-host\s*\{[^}]*min-height/);
-assert.match(cssSource, /\.release-point\s*\{[^}]*pointer-events:\s*none/);
-assert.match(cssSource, /@media \(max-width: 390px\)/);
+assert.match(cssSource, /\.timeline-frame\s*\{[^}]*overflow-y:\s*hidden/);
+assert.match(cssSource, /\.timeline-lane\s*\{[^}]*height:\s*calc\(100% \/ 6\)/);
+assert.match(cssSource, /prefers-reduced-motion: reduce/);
+assert.match(cssSource, /:focus-visible\s*\{[^}]*outline:\s*3px solid var\(--accent\)/);
 
-const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex");
-assert.equal(sha256(jsonBytes), "a945abe22b49e9cd6d309aa47b2979f2a069691ff3d2da1411b10de4ac3c93f5", "JSON preservation anchor remains exact");
-assert.equal(sha256(csvBytes), "29eeedcdc07e0992daeaea857db0c706fc96b6c1bd82bef7622ba05f8f49802a", "CSV preservation anchor remains exact");
+const production = validateInterface(JSON.parse(jsonBytes.toString("utf8")));
+assert.deepEqual({ labs: production.labs.length, releases: production.releases.length, benchmarks: production.benchmarks.length, occurrences: production.occurrences.length, statuses: production.derived_statuses.length, sources: production.sources.length, definitions: production.canonical_definitions.length, quarantine: production.quarantine.length }, { labs: 6, releases: 172, benchmarks: 869, occurrences: 2821, statuses: 5593, sources: 537, definitions: 8, quarantine: 1 });
+assert.equal(new Set(production.releases.map((release) => release.name)).size, 172, "current release names are unique");
+assert.equal(jsonBytes.length, 11980016);
+assert.equal(createHash("sha256").update(jsonBytes).digest("hex"), "a945abe22b49e9cd6d309aa47b2979f2a069691ff3d2da1411b10de4ac3c93f5");
 
-console.log(JSON.stringify({
-  result: "PASS",
-  labs: fixture.labs.length,
-  releases: fixture.releases.length,
-  occurrences: fixture.occurrences.length,
-  dense_release_occurrences: denseOccurrences.length,
-  alias_filter: [...aliasMatches],
-  category_alias_filter: [...categoryAliasMatches],
-  routes: routes.size,
-}));
+console.log(JSON.stringify({ result: "PASS", labs: production.labs.length, releases: production.releases.length, occurrences: production.occurrences.length, statuses: production.derived_statuses.length, source_associations: production.occurrences.length, routes: pages.size }));

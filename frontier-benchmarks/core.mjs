@@ -179,3 +179,143 @@ export function validateInterface(data) {
   }
   return data;
 }
+
+export const COMBOBOX_OPTION_LIMIT = 50;
+
+export function createSearchableCombobox({
+  id,
+  label,
+  value = "",
+  options,
+  emptyLabel,
+  placeholder = "Type to search",
+  onChange,
+}) {
+  const field = document.createElement("div");
+  field.className = "field combobox-field";
+  const labelNode = document.createElement("label");
+  labelNode.htmlFor = id;
+  labelNode.textContent = label;
+  const shell = document.createElement("div");
+  shell.className = "combobox";
+  const input = document.createElement("input");
+  const listbox = document.createElement("ul");
+  const clear = document.createElement("button");
+  const listboxId = `${id}-listbox`;
+  let selectedValue = options.some((option) => option.value === value) ? value : "";
+  let visibleOptions = [];
+  let activeIndex = -1;
+
+  input.id = id;
+  input.type = "text";
+  input.autocomplete = "off";
+  input.placeholder = placeholder;
+  input.setAttribute("role", "combobox");
+  input.setAttribute("aria-autocomplete", "list");
+  input.setAttribute("aria-controls", listboxId);
+  input.setAttribute("aria-expanded", "false");
+  listbox.id = listboxId;
+  listbox.className = "combobox-listbox";
+  listbox.setAttribute("role", "listbox");
+  listbox.hidden = true;
+  clear.type = "button";
+  clear.id = `${id}-clear`;
+  clear.className = "combobox-clear";
+  clear.textContent = "×";
+  clear.setAttribute("aria-label", `Clear ${label}`);
+
+  const optionLabel = (candidate) => candidate.value === "" ? emptyLabel : candidate.label;
+  const selectedLabel = () => optionLabel(options.find((option) => option.value === selectedValue) || { value: "", label: "" });
+  const close = () => {
+    listbox.hidden = true;
+    input.setAttribute("aria-expanded", "false");
+    input.removeAttribute("aria-activedescendant");
+    activeIndex = -1;
+  };
+  const setActive = (nextIndex) => {
+    if (!visibleOptions.length) return;
+    activeIndex = Math.max(0, Math.min(nextIndex, visibleOptions.length - 1));
+    const optionNodes = [...listbox.querySelectorAll('[role="option"]')];
+    optionNodes.forEach((node, index) => {
+      node.setAttribute("aria-selected", String(index === activeIndex));
+      if (index === activeIndex) {
+        input.setAttribute("aria-activedescendant", node.id);
+        node.scrollIntoView({ block: "nearest" });
+      }
+    });
+  };
+  const select = (option) => {
+    selectedValue = option.value;
+    input.value = optionLabel(option);
+    close();
+    onChange(option.value);
+  };
+  const renderOptions = (query = "") => {
+    const needle = normalize(query);
+    visibleOptions = options
+      .filter((option) => !needle || normalize(`${option.label} ${option.searchText || ""}`).includes(needle))
+      .slice(0, COMBOBOX_OPTION_LIMIT);
+    listbox.replaceChildren();
+    visibleOptions.forEach((option, index) => {
+      const item = document.createElement("li");
+      item.id = `${listboxId}-option-${index}`;
+      item.dataset.value = option.value;
+      item.setAttribute("role", "option");
+      item.setAttribute("aria-selected", String(option.value === selectedValue));
+      item.textContent = optionLabel(option);
+      item.addEventListener("mousedown", (event) => event.preventDefault());
+      item.addEventListener("click", () => select(option));
+      listbox.append(item);
+    });
+    listbox.hidden = false;
+    input.setAttribute("aria-expanded", "true");
+    activeIndex = visibleOptions.findIndex((option) => option.value === selectedValue);
+    if (activeIndex >= 0) setActive(activeIndex);
+    else input.removeAttribute("aria-activedescendant");
+  };
+  const setValue = (nextValue) => {
+    selectedValue = options.some((option) => option.value === nextValue) ? nextValue : "";
+    input.value = selectedLabel();
+  };
+
+  input.addEventListener("click", () => renderOptions(""));
+  input.addEventListener("input", () => renderOptions(input.value));
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      event.stopPropagation();
+      input.value = selectedLabel();
+      close();
+      return;
+    }
+    if (!["ArrowDown", "ArrowUp", "Home", "End", "Enter"].includes(event.key)) return;
+    if (event.key === "Enter" && !listbox.hidden && activeIndex >= 0) {
+      event.preventDefault();
+      select(visibleOptions[activeIndex]);
+      return;
+    }
+    if (event.key === "Enter") return;
+    event.preventDefault();
+    if (listbox.hidden) renderOptions("");
+    if (event.key === "Home") setActive(0);
+    else if (event.key === "End") setActive(visibleOptions.length - 1);
+    else if (event.key === "ArrowDown") setActive(activeIndex + 1);
+    else setActive(activeIndex < 0 ? visibleOptions.length - 1 : activeIndex - 1);
+  });
+  input.addEventListener("blur", () => {
+    input.value = selectedLabel();
+    close();
+  });
+  clear.addEventListener("click", () => {
+    if (!selectedValue && !input.value) return;
+    selectedValue = "";
+    input.value = "";
+    close();
+    onChange("");
+    requestAnimationFrame(() => input.focus());
+  });
+  setValue(selectedValue);
+  shell.append(input, clear, listbox);
+  field.append(labelNode, shell);
+  return { element: field, input, setValue, close };
+}

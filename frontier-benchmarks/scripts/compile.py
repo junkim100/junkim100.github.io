@@ -5,9 +5,7 @@ from __future__ import annotations
 
 import argparse
 import copy
-import csv
 import hashlib
-import io
 import json
 import re
 import sys
@@ -27,7 +25,6 @@ DEFINITIONS_PATH = ROOT / "data" / "definitions.yaml"
 CATALOG_SCHEMA_PATH = ROOT / "schema" / "observatory.schema.json"
 DEFINITIONS_SCHEMA_PATH = ROOT / "schema" / "definitions.schema.json"
 PUBLIC_JSON_PATH = ROOT / "public" / "observatory.json"
-PUBLIC_CSV_PATH = ROOT / "public" / "observatory.csv"
 
 REQUIRED_DEFINITIONS = {
     "first_reported",
@@ -68,27 +65,6 @@ SAFE_STRUCTURAL_TEXT_KEYS = {
     "title", "publication_date", "retrieval_date", "review_date", "url", "source_revision",
     "row_id", "record_id", "record_ids", "provenance_record_ids",
 }
-CSV_FIELDS = [
-    "row_type",
-    "row_id",
-    "lab_id",
-    "lineage_id",
-    "model_id",
-    "release_id",
-    "publication_date",
-    "benchmark_id",
-    "source_id",
-    "source_type",
-    "source_url",
-    "source_revision",
-    "locator",
-    "summary",
-    "evaluation_setup",
-    "derived_status_ids",
-    "provenance_file",
-    "provenance_record_type",
-    "provenance_record_ids",
-]
 
 
 class ValidationError(ValueError):
@@ -533,68 +509,6 @@ def canonical_json_bytes(document: dict) -> bytes:
     return (json.dumps(document, ensure_ascii=False, sort_keys=True, indent=2) + "\n").encode("utf-8")
 
 
-def _revision_text(source: dict) -> str:
-    revision = source["revision"]
-    if "identifier" in revision:
-        return revision["identifier"]
-    return f"unavailable:{revision['unavailable_reason']}@{revision['retrieval_date']}"
-
-
-def build_csv_bytes(catalog: dict, document: dict) -> bytes:
-    sources = records_by_id(catalog, "sources")
-    occurrences = records_by_id(catalog, "occurrences")
-    rows = []
-    for release in sorted(catalog["releases"], key=lambda item: (item["publication_date"], item["id"])):
-        candidate = next(item for item in catalog["release_candidates"] if item["id"] == release["candidate_id"])
-        source = sources[candidate["source_id"]]
-        rows.append({
-            "row_type": "release", "row_id": release["id"], "lab_id": release["lab_id"],
-            "lineage_id": release["lineage_id"], "model_id": release["model_id"], "release_id": release["id"],
-            "publication_date": release["publication_date"], "benchmark_id": "", "source_id": source["id"],
-            "source_type": source["source_type"], "source_url": source["url"], "source_revision": _revision_text(source),
-            "locator": "", "summary": "", "evaluation_setup": "", "derived_status_ids": "",
-            "provenance_file": "data/catalog.yaml", "provenance_record_type": "release",
-            "provenance_record_ids": release["id"],
-        })
-    for occurrence in sorted(catalog["occurrences"], key=lambda item: (item["publication_date"], item["id"])):
-        source = sources[occurrence["source_id"]]
-        rows.append({
-            "row_type": "occurrence", "row_id": occurrence["id"], "lab_id": occurrence["lab_id"],
-            "lineage_id": occurrence["lineage_id"], "model_id": occurrence["model_id"], "release_id": occurrence["release_id"],
-            "publication_date": occurrence["publication_date"], "benchmark_id": occurrence["benchmark_id"],
-            "source_id": source["id"], "source_type": source["source_type"], "source_url": source["url"],
-            "source_revision": _revision_text(source), "locator": json.dumps(occurrence["locator"], sort_keys=True, separators=(",", ":")),
-            "summary": occurrence["summary"], "evaluation_setup": json.dumps(occurrence["evaluation_setup"], sort_keys=True, separators=(",", ":")),
-            "derived_status_ids": "", "provenance_file": "data/catalog.yaml", "provenance_record_type": "occurrence",
-            "provenance_record_ids": occurrence["id"],
-        })
-    for status in document["derived_statuses"]:
-        occurrence = occurrences.get(status["occurrence_id"]) if status["occurrence_id"] else None
-        source = sources[occurrence["source_id"]] if occurrence else None
-        rows.append({
-            "row_type": "derived_status", "row_id": status["id"], "lab_id": status["lab_id"],
-            "lineage_id": status["lineage_id"], "model_id": status["model_id"], "release_id": status["release_id"],
-            "publication_date": status["publication_date"], "benchmark_id": status["benchmark_id"],
-            "source_id": source["id"] if source else "", "source_type": source["source_type"] if source else "",
-            "source_url": source["url"] if source else "", "source_revision": _revision_text(source) if source else "",
-            "locator": "", "summary": "", "evaluation_setup": "", "derived_status_ids": "|".join(status["status_ids"]),
-            "provenance_file": status["provenance"]["source_file"], "provenance_record_type": status["provenance"]["record_type"],
-            "provenance_record_ids": "|".join(status["provenance"]["record_ids"]),
-        })
-    rows.sort(key=lambda row: (row["publication_date"], row["row_type"], row["row_id"]))
-    stream = io.StringIO(newline="")
-    writer = csv.DictWriter(stream, fieldnames=CSV_FIELDS, lineterminator="\r\n", quoting=csv.QUOTE_MINIMAL)
-    writer.writeheader()
-    writer.writerows(rows)
-    return stream.getvalue().encode("utf-8")
-
-
-def validate_csv_provenance(payload: bytes) -> None:
-    rows = list(csv.DictReader(io.StringIO(payload.decode("utf-8"), newline="")))
-    for index, row in enumerate(rows, start=2):
-        if not row["provenance_file"] or not row["provenance_record_type"] or not row["provenance_record_ids"]:
-            raise ValidationError(f"generated CSV row {index} lacks provenance")
-    assert_no_score_like(rows, ("generated_csv",))
 
 
 def validate_score_free_repository_payloads(root: Path = ROOT) -> None:
@@ -612,8 +526,6 @@ def validate_score_free_repository_payloads(root: Path = ROOT) -> None:
             payload: Any = load_yaml(path)
         elif suffix == ".json":
             payload = load_json(path)
-        elif suffix == ".csv":
-            payload = list(csv.DictReader(io.StringIO(path.read_text(encoding="utf-8"), newline="")))
         elif suffix in {".html", ".md", ".txt"}:
             payload = path.read_text(encoding="utf-8")
         else:
@@ -634,7 +546,7 @@ def validate_all(catalog: dict, definitions: dict) -> None:
     assert_no_score_like(definitions, ("definitions",))
 
 
-def compile_catalog(catalog_path: Path = CATALOG_PATH, definitions_path: Path = DEFINITIONS_PATH) -> Tuple[bytes, bytes, dict]:
+def compile_catalog(catalog_path: Path = CATALOG_PATH, definitions_path: Path = DEFINITIONS_PATH) -> Tuple[bytes, dict]:
     catalog = load_yaml(catalog_path)
     definitions = load_yaml(definitions_path)
     validate_all(catalog, definitions)
@@ -642,10 +554,7 @@ def compile_catalog(catalog_path: Path = CATALOG_PATH, definitions_path: Path = 
     validate_derived_status_reproduction(catalog, document["derived_statuses"])
     validate_generated_provenance(document)
     assert_no_score_like(document, ("generated_json",))
-    json_bytes = canonical_json_bytes(document)
-    csv_bytes = build_csv_bytes(catalog, document)
-    validate_csv_provenance(csv_bytes)
-    return json_bytes, csv_bytes, document
+    return canonical_json_bytes(document), document
 
 
 def _sha256(payload: bytes) -> str:
@@ -660,10 +569,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--check", action="store_true", help="fail if committed generated files differ")
     args = parser.parse_args(argv)
     try:
-        json_bytes, csv_bytes, _ = compile_catalog(args.catalog, args.definitions)
+        json_bytes, _ = compile_catalog(args.catalog, args.definitions)
         targets = {
             args.output_dir / PUBLIC_JSON_PATH.name: json_bytes,
-            args.output_dir / PUBLIC_CSV_PATH.name: csv_bytes,
         }
         if args.check:
             stale = [str(path) for path, payload in targets.items() if not path.exists() or path.read_bytes() != payload]
@@ -674,7 +582,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             for path, payload in targets.items():
                 path.write_bytes(payload)
         print(f"observatory.json sha256={_sha256(json_bytes)} bytes={len(json_bytes)}")
-        print(f"observatory.csv sha256={_sha256(csv_bytes)} bytes={len(csv_bytes)}")
         return 0
     except ValidationError as exc:
         print(f"validation error: {exc}", file=sys.stderr)

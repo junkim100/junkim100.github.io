@@ -3,28 +3,24 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.gstatic.com; form-action 'self'; img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com" />
-    <meta name="description" content="The complete included-release denominator for Frontier Benchmark Observatory." />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self'; form-action 'self'; img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'" />
+    <meta name="description" content="The complete release ledger for Frontier Benchmark Observatory." />
     <link rel="canonical" href="https://junkim100.github.io/frontier-benchmarks/ledger.html" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
-    <title>Release Ledger · Frontier Benchmark Observatory</title>
+    <title>Release Ledger | Frontier Benchmark Observatory</title>
   </head>
   <body data-page="ledger">
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
-      <a class="wordmark" href="./" aria-label="Frontier Benchmark Observatory overview">Benchmark Observatory<span aria-hidden="true">.</span></a>
-      <nav class="primary-nav" aria-label="Observatory"><ul><li><a href="./">Overview</a></li><li><a href="./timeline.html">Timeline</a></li><li><a aria-current="page" href="./ledger.html">Ledger</a></li><li><a href="./history.html">History</a></li><li><a href="./evidence.html">Evidence</a></li><li><a href="./definitions.html">Definitions</a></li><li><a href="./public/observatory.json" download>JSON</a></li><li><a href="./public/observatory.csv" download>CSV</a></li></ul></nav>
-      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span aria-hidden="true">◐</span></button>
+      <a class="wordmark" href="./" aria-label="Frontier Benchmark Observatory">Observatory</a>
+      <nav class="primary-nav" aria-label="Observatory"><ul><li><a href="./">Timeline</a></li><li><a aria-current="page" href="./ledger.html">Ledger</a></li><li><a href="./history.html">History</a></li><li><a href="./about.html">About</a></li></ul></nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">Theme</button>
     </header>
     <main id="main" class="route-main">
-      <section class="route-intro page-shell" aria-labelledby="page-title"><div><p class="kicker">Complete release denominator</p><h1 id="page-title">Release <em>ledger</em></h1></div><p>Every included release belongs here, including releases with no qualifying benchmark occurrence in reviewed public reporting.</p></section>
-      <section class="section page-shell route-data-section" aria-label="Release ledger records"><div class="route-toolbar" id="ledger-controls" data-route-controls="ledger"><p class="route-status" id="ledger-status" role="status" aria-live="polite">Ledger controls and result summary load here.</p></div><div class="data-route-host" id="ledger-host" data-route-view="ledger" aria-live="polite"><p class="route-pending">The paginated release ledger loads here.</p></div></section>
-      <noscript><section class="page-shell noscript"><h2>JavaScript is unavailable</h2><p>The interactive ledger requires JavaScript. Download the complete validated <a href="./public/observatory.json">JSON</a> or <a href="./public/observatory.csv">CSV</a>, and read the <a href="./definitions.html">canonical definitions</a>.</p></section></noscript>
+      <section class="route-intro page-shell" aria-labelledby="page-title"><h1 id="page-title">Release ledger</h1><p>Every included release, including releases with no benchmark occurrence in the reviewed public materials.</p></section>
+      <section class="page-shell route-data-section" aria-label="Release ledger records"><div class="route-toolbar" id="ledger-controls" data-route-controls="ledger"><p class="route-status" id="ledger-status" role="status" aria-live="polite">Ledger controls load here.</p></div><div class="data-route-host" id="ledger-host" data-route-view="ledger" aria-live="polite"><p class="route-pending">The release ledger loads here.</p></div></section>
+      <noscript><section class="page-shell noscript"><h2>JavaScript is unavailable</h2><p>The interactive ledger requires JavaScript. Timeline, History, and About remain available from the navigation.</p></section></noscript>
     </main>
-    <footer class="site-footer page-shell"><p>Frontier Benchmark Observatory · release ledger</p><p><a href="./">Overview</a> · <a href="#main">Back to top ↑</a></p></footer>
     <script type="module" src="./shell.mjs"></script>
     <script type="module" src="./data-routes.mjs"></script>
   </body>

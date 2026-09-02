@@ -3,31 +3,27 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.gstatic.com; form-action 'self'; img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com" />
-    <meta name="description" content="A full-viewport chronology of benchmark reporting across frontier model releases." />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self'; form-action 'self'; img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'" />
+    <meta name="description" content="A viewport-bounded chronology of benchmark reporting across frontier model releases." />
     <link rel="canonical" href="https://junkim100.github.io/frontier-benchmarks/timeline.html" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
-    <title>Timeline · Frontier Benchmark Observatory</title>
+    <title>Timeline | Frontier Benchmark Observatory</title>
   </head>
   <body data-page="timeline" class="viewport-route">
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
-      <a class="wordmark" href="./" aria-label="Frontier Benchmark Observatory overview">Benchmark Observatory<span aria-hidden="true">.</span></a>
-      <nav class="primary-nav" aria-label="Observatory"><ul><li><a href="./">Overview</a></li><li><a aria-current="page" href="./timeline.html">Timeline</a></li><li><a href="./ledger.html">Ledger</a></li><li><a href="./history.html">History</a></li><li><a href="./evidence.html">Evidence</a></li><li><a href="./definitions.html">Definitions</a></li><li><a href="./public/observatory.json" download>JSON</a></li><li><a href="./public/observatory.csv" download>CSV</a></li></ul></nav>
-      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span aria-hidden="true">◐</span></button>
+      <a class="wordmark" href="./" aria-label="Frontier Benchmark Observatory">Observatory</a>
+      <nav class="primary-nav" aria-label="Observatory"><ul><li><a aria-current="page" href="./timeline.html">Timeline</a></li><li><a href="./ledger.html">Ledger</a></li><li><a href="./history.html">History</a></li><li><a href="./about.html">About</a></li></ul></nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">Theme</button>
     </header>
-    <main id="main" class="route-main timeline-route-main">
-      <section class="route-intro page-shell" aria-labelledby="page-title"><div><p class="kicker">Full chronology workspace</p><h1 id="page-title">Reporting <em>timeline</em></h1></div><p>Filter and inspect every included release across six labeled lab lines. An omission describes reviewed public reporting only.</p></section>
-      <section class="timeline-workspace page-shell" aria-label="Full release timeline workspace">
+    <main id="main" class="timeline-route-main">
+      <section class="timeline-workspace page-shell" aria-label="Release timeline workspace">
+        <h1 class="route-title">Timeline</h1>
         <div class="route-toolbar" id="timeline-controls" data-route-controls="timeline"><p class="route-status" id="timeline-status" role="status" aria-live="polite">Timeline controls load here.</p></div>
-        <div class="timeline-host timeline-host-full" id="timeline-host" data-timeline-mode="full" aria-label="Full release timeline"><div class="timeline-mount" id="timeline-chart" aria-live="polite"><p class="timeline-pending">The complete timeline loads here.</p></div><aside class="detail-panel-host" id="release-detail-host" aria-label="Pinned release detail" hidden></aside></div>
+        <div class="timeline-host timeline-host-full" id="timeline-host" data-timeline-mode="full" role="region" aria-label="Release timeline"><div class="timeline-mount" id="timeline-chart" aria-live="polite"><p class="timeline-pending">The release timeline loads here.</p></div><aside class="detail-panel-host" id="release-detail-host" aria-label="Pinned release detail" hidden></aside></div>
       </section>
-      <noscript><section class="page-shell noscript"><h2>JavaScript is unavailable</h2><p>The interactive timeline requires JavaScript. Use the <a href="./ledger.html">release ledger</a>, <a href="./definitions.html">definitions</a>, or download the validated <a href="./public/observatory.json">JSON</a> and <a href="./public/observatory.csv">CSV</a>.</p></section></noscript>
+      <noscript><section class="page-shell noscript"><h2>JavaScript is unavailable</h2><p>The interactive timeline requires JavaScript. Return to the Ledger, History, or About page from the navigation.</p></section></noscript>
     </main>
-    <footer class="site-footer page-shell"><p>Frontier Benchmark Observatory · timeline</p><p><a href="./">Overview</a> · <a href="#main">Back to top ↑</a></p></footer>
     <script type="module" src="./shell.mjs"></script>
     <script type="module" src="./timeline.mjs"></script>
   </body>

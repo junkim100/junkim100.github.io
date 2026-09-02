@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
+import json
 from collections import Counter, defaultdict
 from pathlib import Path
 import unittest
@@ -17,6 +19,8 @@ class CorpusReconciliationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.catalog = compiler.load_yaml(ROOT / "data" / "catalog.yaml")
+        cls.public_bytes = (ROOT / "public" / "observatory.json").read_bytes()
+        cls.document = json.loads(cls.public_bytes)
 
     def test_exact_six_lab_release_and_occurrence_counts(self) -> None:
         expected_releases = {
@@ -78,6 +82,40 @@ class CorpusReconciliationTests(unittest.TestCase):
         self.assertEqual(len(zero_occurrence), 24)
         self.assertEqual(len(self.catalog["benchmarks"]), 869)
         self.assertEqual(len(self.catalog["categories"]), 106)
+
+    def test_generated_corpus_counts_unions_and_references_are_exact(self) -> None:
+        expected_counts = {
+            "labs": 6,
+            "releases": 172,
+            "benchmarks": 869,
+            "occurrences": 2821,
+            "derived_statuses": 5593,
+            "sources": 537,
+            "canonical_definitions": 8,
+            "quarantine": 1,
+        }
+        self.assertEqual({key: len(self.document[key]) for key in expected_counts}, expected_counts)
+        self.assertEqual(len(self.public_bytes), 11_980_016)
+        self.assertEqual(hashlib.sha256(self.public_bytes).hexdigest(), "a945abe22b49e9cd6d309aa47b2979f2a069691ff3d2da1411b10de4ac3c93f5")
+        ids = {
+            key: {record["id"] for record in self.document[key]}
+            for key in ("labs", "releases", "benchmarks", "occurrences", "derived_statuses", "sources", "canonical_definitions")
+        }
+        self.assertEqual(len(ids["releases"]), 172)
+        self.assertEqual(len(ids["derived_statuses"]), 5593)
+        for occurrence in self.document["occurrences"]:
+            self.assertIn(occurrence["lab_id"], ids["labs"])
+            self.assertIn(occurrence["release_id"], ids["releases"])
+            self.assertIn(occurrence["benchmark_id"], ids["benchmarks"])
+            self.assertIn(occurrence["source_id"], ids["sources"])
+        for status in self.document["derived_statuses"]:
+            self.assertIn(status["lab_id"], ids["labs"])
+            self.assertIn(status["release_id"], ids["releases"])
+            self.assertIn(status["benchmark_id"], ids["benchmarks"])
+            self.assertTrue(set(status["status_ids"]) <= ids["canonical_definitions"])
+            if status["occurrence_id"]:
+                self.assertIn(status["occurrence_id"], ids["occurrences"])
+        compiler.assert_no_score_like(self.document, ("public_json",))
 
     def test_private_raw_packages_are_not_repository_payloads(self) -> None:
         forbidden_suffixes = {".xz", ".tar", ".tgz"}

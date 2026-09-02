@@ -1,9 +1,7 @@
 from __future__ import annotations
 
 import copy
-import csv
 import importlib.util
-import io
 import json
 import subprocess
 import sys
@@ -34,7 +32,7 @@ class CompilerTests(unittest.TestCase):
         return copy.deepcopy(self.definitions)
 
     def test_valid_catalog_compiles_and_matches_status_fixture(self) -> None:
-        json_bytes, csv_bytes, document = compiler.compile_catalog(
+        json_bytes, document = compiler.compile_catalog(
             ROOT / "tests" / "fixtures" / "synthetic_catalog.yaml",
             ROOT / "data" / "definitions.yaml",
         )
@@ -49,14 +47,11 @@ class CompilerTests(unittest.TestCase):
             for row in document["derived_statuses"]
         ]
         self.assertEqual(actual, expected)
-        self.assertTrue(csv_bytes.endswith(b"\r\n"))
-        self.assertNotIn(b"\n", csv_bytes.replace(b"\r\n", b""))
 
     def test_two_clean_compilations_are_byte_identical(self) -> None:
-        first_json, first_csv, _ = compiler.compile_catalog()
-        second_json, second_csv, _ = compiler.compile_catalog()
+        first_json, _ = compiler.compile_catalog()
+        second_json, _ = compiler.compile_catalog()
         self.assertEqual(first_json, second_json)
-        self.assertEqual(first_csv, second_csv)
 
     def test_committed_artifacts_are_current(self) -> None:
         result = subprocess.run(
@@ -67,6 +62,30 @@ class CompilerTests(unittest.TestCase):
             text=True,
         )
         self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_check_and_write_use_only_json_artifact(self) -> None:
+        json_bytes, _ = compiler.compile_catalog()
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            (output / "observatory.json").write_bytes(json_bytes)
+            check_result = subprocess.run(
+                [sys.executable, str(ROOT / "scripts" / "compile.py"), "--check", "--output-dir", str(output)],
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(check_result.returncode, 0, check_result.stderr)
+            generated = output / "generated"
+            write_result = subprocess.run(
+                [sys.executable, str(ROOT / "scripts" / "compile.py"), "--output-dir", str(generated)],
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(write_result.returncode, 0, write_result.stderr)
+            self.assertEqual([path.name for path in generated.iterdir()], ["observatory.json"])
 
     def test_json_schema_rejects_incomplete_setup_disclosure(self) -> None:
         catalog = self.fresh_catalog()
@@ -159,13 +178,9 @@ class CompilerTests(unittest.TestCase):
         with self.assertRaisesRegex(compiler.ValidationError, "cannot be reproduced"):
             compiler.validate_derived_status_reproduction(self.catalog, tampered)
 
-    def test_every_generated_json_and_csv_row_has_provenance(self) -> None:
-        _, csv_bytes, document = compiler.compile_catalog()
+    def test_every_generated_json_row_has_provenance(self) -> None:
+        _, document = compiler.compile_catalog()
         compiler.validate_generated_provenance(document)
-        compiler.validate_csv_provenance(csv_bytes)
-        rows = list(csv.DictReader(io.StringIO(csv_bytes.decode("utf-8"), newline="")))
-        self.assertGreater(len(rows), 0)
-        self.assertTrue(all(row["provenance_record_ids"] for row in rows))
 
     def test_no_score_guard_rejects_fields_and_value_shapes(self) -> None:
         forbidden_key = "benchmark_" + "".join(("sco", "re"))
@@ -234,7 +249,6 @@ class CompilerTests(unittest.TestCase):
         for path in sorted((ROOT / "tests" / "fixtures").glob("*.yaml")):
             compiler.assert_no_score_like(compiler.load_yaml(path), ("fixture", path.name))
         compiler.assert_no_score_like(json.loads((ROOT / "public" / "observatory.json").read_text(encoding="utf-8")), ("public_json",))
-        compiler.validate_csv_provenance((ROOT / "public" / "observatory.csv").read_bytes())
         compiler.validate_score_free_repository_payloads()
 
 
