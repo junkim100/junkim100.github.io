@@ -49,20 +49,6 @@ function replaceChildren(target, children = []) {
   return target;
 }
 
-function setupTheme() {
-  const button = $(".theme-toggle");
-  if (!button) return;
-  const isDark = () => document.documentElement.dataset.theme === "dark" ||
-    (!document.documentElement.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches);
-  button.setAttribute("aria-pressed", String(isDark()));
-  button.addEventListener("click", () => {
-    const next = isDark() ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
-    button.setAttribute("aria-pressed", String(next === "dark"));
-    try { localStorage.setItem("theme", next); } catch (_) {}
-  });
-}
-
 function setLoadState(message, type = "loading") {
   const panel = $("#load-state");
   if (!panel) return;
@@ -485,7 +471,6 @@ function renderObservatory(data) {
 }
 
 async function initialize() {
-  setupTheme();
   setLoadState("Loading the validated generated ledger…");
   try {
     const data = await loadData();

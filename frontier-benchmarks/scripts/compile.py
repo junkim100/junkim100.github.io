@@ -184,7 +184,12 @@ def validate_date_windows(catalog: dict) -> None:
 def validate_source_domains(catalog: dict) -> None:
     labs = records_by_id(catalog, "labs")
     for source in catalog["sources"]:
-        host = (urlparse(source["url"]).hostname or "").lower().rstrip(".")
+        parsed = urlparse(source["url"])
+        if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
+            raise ValidationError(
+                f"source {source['id']} must use an absolute HTTPS URL without userinfo"
+            )
+        host = parsed.hostname.lower().rstrip(".")
         allowed = labs[source["lab_id"]]["official_domains"] if source["lab_id"] in labs else []
         if not any(host == domain or host.endswith("." + domain) for domain in allowed):
             raise ValidationError(

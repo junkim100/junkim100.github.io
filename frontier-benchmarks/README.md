@@ -27,7 +27,15 @@ The canonical catalog is the curated score-free six-lab corpus at the `2026-09-0
 
 ## Static interface
 
-`index.html`, `definitions.html`, `styles.css`, `core.mjs`, and `app.mjs` consume only `public/observatory.json`. Serve the repository root over HTTP and open `/frontier-benchmarks/`; no build step or runtime service is required.
+The static interface uses a shared responsive shell and direct, no-JavaScript-safe routes:
+
+- `index.html` is the concise overview and compact-timeline host.
+- `timeline.html` is the full timeline workspace.
+- `ledger.html`, `history.html`, and `evidence.html` are bounded data-view hosts.
+- `definitions.html` remains the canonical definitions destination.
+- `public/observatory.json` and `public/observatory.csv` remain the stable generated downloads.
+
+`shell.mjs` owns shared theme behavior. `timeline.mjs` is the shared compact and full-route chronology controller: it loads the generated corpus, renders all six lanes and release IDs without occurrence-label expansion, previews a hovered or focused release, pins full release and occurrence context, synchronizes `q`, `category`, `lab`, `from`, `to`, and `release` URL state, and provides the full route browser-fullscreen control. `styles.css` provides shared shell, timeline-host, toolbar, and data-route hooks. `core.mjs` contains pure data helpers and `app.mjs` currently renders canonical definitions and retains the established Observatory render helpers for route-specific modules to reuse or replace. Serve the repository root over HTTP and open `/frontier-benchmarks/`; no build step or runtime service is required.
 
 Focused interface-contract checks use a deterministic six-lab fixture without changing the generated production artifact:
 
@@ -36,3 +44,5 @@ node tests/ui/test-ui.mjs
 ```
 
 For browser checks on localhost only, append `?fixture=ui`. The interface then imports `tests/ui/fixture.mjs`, which covers six lab lines, dense release collisions, aliases, categories, incomplete coverage, quarantine, and long text.
+
+The compact timeline host is fixed to 560px at viewport widths of 768px and above, and 460px below that breakpoint. The full route uses the available viewport. Timeline state preserves unrelated query values such as `fixture=ui`, so fixture checks can use the same filters and pinned release state.

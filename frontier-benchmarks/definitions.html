@@ -3,25 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.gstatic.com; form-action 'self'; frame-ancestors 'none'; img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com" />
     <meta name="description" content="Canonical reporting-status definitions for Frontier Benchmark Observatory." />
     <link rel="canonical" href="https://junkim100.github.io/frontier-benchmarks/definitions.html" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
-    <script>
-      try {
-        const storedTheme = localStorage.getItem("theme");
-        if (storedTheme === "light" || storedTheme === "dark") document.documentElement.dataset.theme = storedTheme;
-      } catch (_) {}
-    </script>
     <title>Definitions · Frontier Benchmark Observatory</title>
   </head>
   <body data-page="definitions">
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
-      <a class="wordmark" href="./">Frontier Benchmark Observatory<span aria-hidden="true">.</span></a>
-      <nav aria-label="Definitions"><a href="./">Timeline</a><a href="./#methodology">Methodology</a><a aria-current="page" href="./definitions.html">Definitions</a></nav>
+      <a class="wordmark" href="./" aria-label="Frontier Benchmark Observatory overview">Benchmark Observatory<span aria-hidden="true">.</span></a>
+      <nav class="primary-nav" aria-label="Observatory"><ul><li><a href="./">Overview</a></li><li><a href="./timeline.html">Timeline</a></li><li><a href="./ledger.html">Ledger</a></li><li><a href="./history.html">History</a></li><li><a href="./evidence.html">Evidence</a></li><li><a aria-current="page" href="./definitions.html">Definitions</a></li><li><a href="./public/observatory.json" download>JSON</a></li><li><a href="./public/observatory.csv" download>CSV</a></li></ul></nav>
       <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span aria-hidden="true">◐</span></button>
     </header>
     <main id="main">
@@ -46,7 +41,8 @@
       </section>
       <noscript><section class="page-shell noscript"><h2>JavaScript is unavailable</h2><p>Canonical definitions are stored in the <a href="./public/observatory.json">generated JSON artifact</a>. Return to the <a href="./">Observatory</a> for methodology and data downloads.</p></section></noscript>
     </main>
-    <footer class="site-footer page-shell"><p><a href="./">← Back to the Observatory</a></p></footer>
+    <footer class="site-footer page-shell"><p>Frontier Benchmark Observatory · canonical definitions</p><p><a href="./">Overview</a> · <a href="#main">Back to top ↑</a></p></footer>
+    <script type="module" src="./shell.mjs"></script>
     <script type="module" src="./app.mjs"></script>
   </body>
 </html>

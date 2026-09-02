@@ -11,6 +11,12 @@ cases:
     field: url
     replacement: https://outside.example/releases/seed
     validator: source_domain_allowlist
+  - id: source_requires_https
+    collection: sources
+    record_id: source_alpha_seed
+    field: url
+    replacement: http://alpha.example/releases/seed
+    validator: source_domain_allowlist
   - id: release_outside_publication_window
     collection: releases
     record_id: release_alpha_seed

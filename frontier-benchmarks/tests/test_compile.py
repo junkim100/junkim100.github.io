@@ -90,6 +90,16 @@ class CompilerTests(unittest.TestCase):
                 with self.assertRaises(compiler.ValidationError):
                     validators[case["validator"]](catalog)
 
+    def test_source_urls_must_be_https_without_userinfo(self) -> None:
+        catalog = self.fresh_catalog()
+        source = next(item for item in catalog["sources"] if item["id"] == "source_alpha_seed")
+        source["url"] = "http://alpha.example/releases/seed"
+        with self.assertRaisesRegex(compiler.ValidationError, "absolute HTTPS URL"):
+            compiler.validate_source_domains(catalog)
+        source["url"] = "https://reader@alpha.example/releases/seed"
+        with self.assertRaisesRegex(compiler.ValidationError, "without userinfo"):
+            compiler.validate_source_domains(catalog)
+
     def test_terminal_disposition_reconciliation_rejects_orphan(self) -> None:
         catalog = self.fresh_catalog()
         catalog["releases"] = [item for item in catalog["releases"] if item["id"] != "release_alpha_seed"]
