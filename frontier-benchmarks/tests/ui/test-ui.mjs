@@ -115,10 +115,21 @@ for (const [route, html] of pages) {
   const header = html.match(/<header class="site-header">[\s\S]*?<\/header>/)?.[0] || "";
   const hrefs = [...header.matchAll(/href="([^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(hrefs, expectedLinks[route], `${route} header contains only the approved links`);
-  assert.equal((header.match(/class="theme-toggle"/g) || []).length, 1);
+  const themeToggle = header.match(/<button class="theme-toggle"[\s\S]*?<\/button>/)?.[0] || "";
+  assert.match(themeToggle, /^<button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span class="theme-toggle-icon" aria-hidden="true">◐<\/span><\/button>$/);
+  assert.doesNotMatch(themeToggle, />Theme</, `${route} theme toggle omits visible Theme text`);
 }
 
 assert.match(indexHtml, /<h1 id="page-title">Frontier Benchmark Observatory<\/h1>/);
+assert.match(ledgerHtml, /<h1 id="page-title">Release Ledger<\/h1>/);
+assert.match(historyHtml, /<h1 id="page-title">Benchmark History<\/h1>/);
+for (const [name, contract] of [
+  ["landing heading", /\.landing-timeline > h1\s*\{[^}]*font:\s*400 clamp\(1\.5rem, 6vw, 6\.5rem\)\/0\.9 var\(--display\)[^}]*white-space:\s*nowrap/],
+  ["Ledger and History headings", /\.route-intro h1\s*\{[^}]*font-size:\s*clamp\(2\.6rem, 6vw, 5\.5rem\)[^}]*white-space:\s*nowrap/],
+  ["360px Ledger and History headings", /@media \(max-width: 390px\)[\s\S]*?\.route-intro h1\s*\{[^}]*font-size:\s*1\.75rem/],
+]) assert.match(cssSource, contract, `${name} stays on one line at 360, 768, 1280, and 1920 CSS px`);
+assert.match(cssSource, /\.theme-toggle\s*\{[^}]*width:\s*2\.4rem[^}]*height:\s*2\.4rem/);
+assert.match(cssSource, /\.theme-toggle-icon\s*\{[^}]*font-size:\s*1rem/);
 assert.match(indexHtml, /id="timeline-host" data-timeline-mode="compact"/);
 assert.equal((indexHtml.match(/id="timeline-fullscreen-button"/g) || []).length, 1);
 assert.match(indexHtml, /id="timeline-fullscreen-button" type="button" aria-pressed="false">Fullscreen<\/button>/);
