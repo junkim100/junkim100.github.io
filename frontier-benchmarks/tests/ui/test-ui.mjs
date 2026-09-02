@@ -202,6 +202,7 @@ assert.match(cssSource, /prefers-reduced-motion: reduce/);
 assert.match(cssSource, /:focus-visible\s*\{[^}]*outline:\s*3px solid var\(--accent\)/);
 assert.match(cssSource, /\.timeline-host-compact\s*\{[^}]*height:\s*560px/);
 assert.match(cssSource, /@media \(max-width: 767px\)[\s\S]*?\.timeline-host-compact\s*\{[^}]*height:\s*460px/);
+assert.match(cssSource, /@media \(max-width: 767px\)[\s\S]*?\.viewport-route \.route-toolbar\s*\{[^}]*max-height:\s*14dvh/, "mobile full-timeline controls reserve visualization height");
 assert.match(cssSource, /\.timeline-frame\s*\{[^}]*overflow-y:\s*hidden;/, "timeline frame eliminates internal vertical scrolling");
 assert.match(cssSource, /\.timeline-lane\s*\{[^}]*height:\s*calc\(100% \/ 6\);/, "six timeline lanes fit inside the bounded compact frame");
 assert.match(cssSource, /\.timeline-host:has\(> \.detail-panel-host:not\(\[hidden\]\)\)\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\) minmax\(22rem, 0\.62fr\)/);

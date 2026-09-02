@@ -308,6 +308,7 @@ dialog::backdrop { background: rgb(0 0 0 / 0.58); }
   .lab-track { left: 7.5rem; }
   .benchmark-stack { max-width: 9rem; }
   .timeline-host-compact { height: 460px; }
+  .viewport-route .route-toolbar { max-height: 14dvh; }
   .timeline-host:has(> .detail-panel-host:not([hidden])) { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) minmax(13rem, 42%); }
   .timeline-host-full { height: calc(100dvh - 19rem); min-height: 32rem; }
   .detail-panel-host { border-top: 1px solid var(--line); border-left: 0; }
