@@ -70,6 +70,14 @@ assert.deepEqual(
   stateFor("evidence", { from: "1900-01-01", to: "9999-01-01" }),
   parseRouteState("evidence"),
 );
+const ledgerDate = production.releases.find((release) => release.publication_date > production.corpus.publication_window.start && release.publication_date < production.corpus.publication_window.end).publication_date;
+const ledgerDateState = stateFor("ledger", { from: ledgerDate, to: ledgerDate });
+assert.deepEqual(
+  { from: ledgerDateState.from, to: ledgerDateState.to },
+  { from: ledgerDate, to: ledgerDate },
+  "ledger retains valid date bounds",
+);
+assert.match(canonicalSearch("ledger", ledgerDateState), new RegExp(`from=${ledgerDate}&to=${ledgerDate}`), "ledger date bounds remain reload-addressable");
 
 const evidenceUrlState = stateFor("evidence", {
   benchmark: evidenceOccurrence.benchmark_id,
@@ -91,6 +99,7 @@ assert.equal(recordsForRoute("evidence", indexed, parseRouteState("evidence")).l
 assert.equal(recordsForRoute("evidence", indexed, parseRouteState("evidence", "?view=occurrences")).length, 2821);
 assertFiltered(matchingRecords("ledger", { lab: production.releases[0].lab_id }), (record) => record.labId === production.releases[0].lab_id);
 assertFiltered(matchingRecords("ledger", { status: production.coverage[0].review_status }), (record) => record.statusIds.includes(production.coverage[0].review_status));
+assertFiltered(matchingRecords("ledger", { from: ledgerDate, to: ledgerDate }), (record) => record.publicationDate === ledgerDate);
 assertFiltered(matchingRecords("history", { benchmark: historyStatus.benchmark_id }), (record) => record.benchmarkId === historyStatus.benchmark_id);
 assertFiltered(matchingRecords("history", { lab: historyStatus.lab_id }), (record) => record.labId === historyStatus.lab_id);
 assertFiltered(matchingRecords("history", { status: historyStatus.status_ids[0] }), (record) => record.statusIds.includes(historyStatus.status_ids[0]));

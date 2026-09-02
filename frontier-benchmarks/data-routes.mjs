@@ -148,8 +148,8 @@ export function sanitizeRouteState(route, state, indexed) {
     category: route === "evidence" ? value(routeValue(state.category), indexed.categories) : "",
     release: route === "evidence" ? value(routeValue(state.release), indexed.releases) : "",
     sourceType: route === "evidence" ? value(routeValue(state.sourceType), validSourceTypes) : "",
-    from: route === "history" || route === "evidence" ? from : "",
-    to: route === "history" || route === "evidence" ? to : "",
+    from: route === "ledger" || route === "history" || route === "evidence" ? from : "",
+    to: route === "ledger" || route === "history" || route === "evidence" ? to : "",
   };
 }
 
@@ -164,8 +164,8 @@ export function canonicalSearch(route, state) {
   const params = new URLSearchParams();
   const config = ROUTES[route];
   if (state.query) params.set("q", state.query);
-  if (route === "history" || route === "evidence") {
-    if (state.benchmark) params.set("benchmark", state.benchmark);
+  if (route === "ledger" || route === "history" || route === "evidence") {
+    if ((route === "history" || route === "evidence") && state.benchmark) params.set("benchmark", state.benchmark);
     if (state.from) params.set("from", state.from);
     if (state.to) params.set("to", state.to);
   }
@@ -346,10 +346,10 @@ export function recordsForRoute(route, indexed, state) {
 }
 
 function headersFor(route, view) {
-  if (route === "ledger") return ["Date", "Lab", "Release", "Coverage", "Occurrences"];
-  if (route === "history") return ["Date", "Lab", "Benchmark", "Release", "Reporting status"];
-  if (view === "sources") return ["Date", "Lab", "Source type", "Revision", "Occurrences"];
-  return ["Date", "Lab", "Benchmark", "Release", "Locator", "Review state"];
+  if (route === "ledger") return [["Date", "date"], ["Lab", "lab"], ["Release", "name"], ["Coverage", "coverage"], ["Occurrences", ""]];
+  if (route === "history") return [["Date", "date"], ["Lab", "lab"], ["Benchmark", "benchmark"], ["Release", "release"], ["Reporting status", "status"]];
+  if (view === "sources") return [["Date", "date"], ["Lab", "lab"], ["Source type", "source"], ["Revision", ""], ["Occurrences", ""]];
+  return [["Date", "date"], ["Lab", "lab"], ["Benchmark", "benchmark"], ["Release", "release"], ["Locator", "source"], ["Review state", ""]];
 }
 
 function selectField(name, label, value, options, onChange) {
@@ -421,7 +421,7 @@ function renderControls(route, state, indexed, rerender) {
   } else {
     form.append(selectField("status", route === "ledger" ? "Coverage" : "Status", state.status, [["", "All states"], ...statusOptions], change("status")));
   }
-  if (route === "history" || route === "evidence") {
+  if (route === "ledger" || route === "history" || route === "evidence") {
     const { start, end } = indexed.data.corpus.publication_window;
     form.append(dateField("from", "From", state.from, start, end, change("from")));
     form.append(dateField("to", "To", state.to, start, end, change("to")));
@@ -450,7 +450,11 @@ function renderTable(route, view, page, records, state, rerender) {
   const table = element("table");
   table.append(element("caption", { text: `Current page of ${label}. ${records.length} matching records remain reachable through pagination.` }));
   const head = element("thead");
-  head.append(element("tr", {}, headersFor(route, view).map((header) => element("th", { scope: "col", text: header }))));
+  head.append(element("tr", {}, headersFor(route, view).map(([labelText, sort]) => element("th", {
+    scope: "col",
+    text: labelText,
+    "aria-sort": sort ? (state.sort === sort ? (state.direction === "asc" ? "ascending" : "descending") : "none") : null,
+  }))));
   const body = element("tbody");
   for (const record of page.rows) {
     const row = element("tr", { "data-record-id": record.id });
@@ -465,13 +469,13 @@ function renderTable(route, view, page, records, state, rerender) {
   }
   table.append(head, body);
   const navigation = element("nav", { className: "route-pagination", "aria-label": `${label} pagination` });
-  const makeButton = (text, target, disabled, ariaLabel) => element("button", { type: "button", text, disabled, "aria-label": ariaLabel, onclick: () => rerender(updateRoute(route, state, { page: target })) });
+  const makeButton = (name, text, target, disabled, ariaLabel) => element("button", { id: `${route}-page-${name.toLowerCase()}`, type: "button", text, disabled, "aria-label": ariaLabel, onclick: () => rerender(updateRoute(route, state, { page: target })) });
   navigation.append(
-    makeButton("First", 1, page.currentPage === 1, "First page"),
-    makeButton("Previous", page.currentPage - 1, page.currentPage === 1, "Previous page"),
+    makeButton("First", "First", 1, page.currentPage === 1, "First page"),
+    makeButton("Previous", "Previous", page.currentPage - 1, page.currentPage === 1, "Previous page"),
     element("span", { className: "pagination-summary", "aria-hidden": "true", text: `Page ${page.currentPage} of ${page.totalPages}` }),
-    makeButton("Next", page.currentPage + 1, page.currentPage === page.totalPages, "Next page"),
-    makeButton("Last", page.totalPages, page.currentPage === page.totalPages, "Last page"),
+    makeButton("Next", "Next", page.currentPage + 1, page.currentPage === page.totalPages, "Next page"),
+    makeButton("Last", "Last", page.totalPages, page.currentPage === page.totalPages, "Last page"),
   );
   host.replaceChildren(element("div", { className: "table-wrap" }, table), navigation);
 }

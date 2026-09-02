@@ -1,6 +1,5 @@
 import {
   SETUP_FIELDS,
-  collisionRows,
   datePosition,
   disclosureText,
   formatDate,
@@ -275,7 +274,7 @@ class Timeline {
   }
 
   canvasWidth(releases) {
-    return Math.max(960, releases.length * 24) * this.state.zoom;
+    return Math.max(960, releases.length * 120) * this.state.zoom;
   }
 
   chart(releases) {
@@ -311,18 +310,15 @@ class Timeline {
   lane(lab, index, releases) {
     const laneReleases = releases.filter((release) => release.lab_id === lab.id);
     const positions = laneReleases.map((release) => datePosition(release.publication_date, this.indexed.data.corpus.publication_window.start, this.indexed.data.corpus.publication_window.end));
-    const canvasWidth = this.canvasWidth(releases);
-    const rows = collisionRows(positions.map((position) => position * canvasWidth / 100), 104);
-    const height = Math.max(7, 3.25 + ((Math.max(-1, ...rows) + 1) * 2.55));
-    const lane = element("section", { className: "timeline-lane", style: { "min-height": `${height}rem`, "--lab-color": LAB_COLORS[index % LAB_COLORS.length], "--lab-shape": LAB_SHAPES[index % LAB_SHAPES.length] } });
+    const lane = element("section", { className: "timeline-lane", style: { "--lab-color": LAB_COLORS[index % LAB_COLORS.length], "--lab-shape": LAB_SHAPES[index % LAB_SHAPES.length] } });
     lane.append(element("h3", { className: "lab-label" }, [element("span", { className: "lab-code", text: lab.name.slice(0, 2).toUpperCase() }), element("span", { text: lab.name })]));
     const track = element("div", { className: "lab-track" });
-    laneReleases.forEach((release, releaseIndex) => track.append(this.releasePoint(release, positions[releaseIndex], rows[releaseIndex])));
+    laneReleases.forEach((release, releaseIndex) => track.append(this.releasePoint(release, positions[releaseIndex])));
     lane.append(track);
     return lane;
   }
 
-  releasePoint(release, position, row) {
+  releasePoint(release, position) {
     const button = element("button", {
       className: "release-node",
       type: "button",
@@ -341,7 +337,7 @@ class Timeline {
       this.updateState({ release: release.id }, true);
     });
     const edge = position < 7 ? " edge-start" : position > 93 ? " edge-end" : "";
-    return element("div", { className: `release-point${edge}`, style: { left: `${position}%`, "--release-top": `${0.55 + (row * 2.55)}rem` } }, [button]);
+    return element("div", { className: `release-point${edge}`, style: { left: `${position}%`, "--release-top": "0.25rem" } }, [button]);
   }
 
   previewRelease(release) {
