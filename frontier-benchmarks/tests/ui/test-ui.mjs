@@ -11,7 +11,7 @@ import {
   timelineTicks,
   validateInterface,
 } from "../../core.mjs";
-import { sanitizeTimelineState } from "../../timeline.mjs";
+import { DEFAULT_ZOOM, ZOOM_LEVELS, sanitizeTimelineState } from "../../timeline.mjs";
 import { fixture } from "./fixture.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -47,17 +47,32 @@ assert.ok(categoryAliasMatches.has("code_harbor"), "category alias filter resolv
 const categoryMatches = matchingBenchmarkIds(indexed, "", "multimodal");
 assert.deepEqual([...categoryMatches], ["vision_compass"], "category selector is exact");
 
+assert.deepEqual(ZOOM_LEVELS, [1, 2, 4], "timeline zoom levels are allowlisted");
+assert.equal(DEFAULT_ZOOM, 1, "timeline zoom defaults to one");
 const sanitizedState = sanitizeTimelineState({
   q: `  <img src=x onerror=alert(1)>${"x".repeat(200)}  `,
   category: "not-a-category",
   lab: "not-a-lab",
   from: "2099-01-01",
   to: "1900-01-01",
+  zoom: "not-a-zoom",
   release: "not-a-release",
+  unknown: "must-not-survive",
 }, fixture);
 assert.equal(sanitizedState.q.length, 160, "query state is bounded before rendering");
 assert.equal(sanitizedState.q.startsWith("<img src=x"), true, "query text remains inert data");
-assert.deepEqual({ ...sanitizedState, q: "" }, { q: "", category: "", lab: "", from: "", to: "", release: "" }, "unknown URL state is rejected");
+assert.deepEqual({ ...sanitizedState, q: "" }, { q: "", category: "", lab: "", from: "", to: "", zoom: DEFAULT_ZOOM, release: "" }, "unknown URL state is rejected");
+assert.equal(Object.hasOwn(sanitizedState, "unknown"), false, "unknown state keys are discarded");
+assert.equal(sanitizeTimelineState({ zoom: "2" }, fixture).zoom, 2, "allowlisted zoom survives URL parsing");
+assert.equal(sanitizeTimelineState({ zoom: "3" }, fixture).zoom, DEFAULT_ZOOM, "unsupported zoom resets to the default");
+assert.equal(sanitizeTimelineState({ zoom: "02" }, fixture).zoom, DEFAULT_ZOOM, "alternate numeric zoom spelling is not allowlisted");
+assert.equal(sanitizeTimelineState({ from: "2024-02-30", to: "2024-02-29" }, fixture).from, "", "impossible dates are rejected");
+assert.equal(sanitizeTimelineState({ from: "2024-02-29", to: "2024-02-30" }, fixture).to, "", "impossible end dates are rejected");
+assert.deepEqual(
+  sanitizeTimelineState({ from: "2024-08-01", to: "2024-02-01" }, fixture),
+  { q: "", category: "", lab: "", from: "", to: "", zoom: DEFAULT_ZOOM, release: "" },
+  "inverted dates clear both endpoints",
+);
 
 const denseRelease = fixture.releases.find((release) => (indexed.occurrencesByRelease.get(release.id) || []).length >= 6);
 assert.ok(denseRelease, "fixture contains dense label collisions");
@@ -107,7 +122,7 @@ for (const [route, html] of routes) {
   assert.match(csp, /default-src 'self'/, `${route} has a local default CSP`);
   assert.match(csp, /script-src 'self'/, `${route} permits only local scripts`);
   assert.doesNotMatch(csp, /script-src[^;]*(?:unsafe-|\*)/, `${route} does not permit inline or wildcard scripts`);
-  assert.doesNotMatch(csp, /unsafe-eval|\*/, `${route} CSP excludes eval and wildcard sources`);
+  assert.doesNotMatch(csp, /unsafe-eval|\*|frame-ancestors/, `${route} CSP excludes eval, wildcard, and frame-ancestors directives`);
   const scripts = [...html.matchAll(/<script\b([^>]*)>/g)].map((match) => match[1]);
   assert.ok(scripts.every((attributes) => /\bsrc=/.test(attributes)), `${route} uses no inline script blocks`);
   for (const href of navigationTargets) {
@@ -154,14 +169,24 @@ assert.match(dataRoutesSource, /target: "_blank", rel: "noopener noreferrer"/, "
 assert.match(dataRoutesSource, /safeSourceHref\(indexed, source\)/, "data routes revalidate corpus source links before rendering");
 assert.doesNotMatch(dataRoutesSource, /innerHTML|insertAdjacentHTML/, "data routes render query and corpus text inertly");
 assert.match(timelineSource, /from "\.\/core\.mjs"/, "timeline reuses shared data helpers");
-assert.match(timelineSource, /const STATE_KEYS = \["q", "category", "lab", "from", "to", "release"\]/, "timeline serializes every supported state key");
+assert.match(timelineSource, /const STATE_KEYS = \["q", "category", "lab", "from", "to", "zoom", "release"\]/, "timeline serializes every supported state key");
+assert.match(timelineSource, /field\("zoom", "Zoom", zoom\)/, "timeline renders an accessible labelled zoom control");
+assert.match(timelineSource, /ZOOM_LEVELS\.forEach\(\(level\) => zoom\.append/, "zoom control offers only allowlisted levels");
+assert.match(timelineSource, /canvasWidth\(releases\) \{\s*return Math\.max\(960, releases\.length \* 24\) \* this\.state\.zoom;/, "zoom multiplies the timeline canvas width");
+assert.equal((timelineSource.match(/const canvasWidth = this\.canvasWidth\(releases\);/g) || []).length, 2, "chart and lane collision calculations share zoomed canvas width");
+assert.match(timelineSource, /writeTimelineQuery\(url, fixtureRequested\) \{\s*url\.search = "";\s*STATE_KEYS\.forEach/, "timeline query writing starts from allowlisted state");
+assert.match(timelineSource, /this\.writeTimelineQuery\(url, this\.isUiFixture\(new URL\(window\.location\.href\)\)\);/, "full route link carries sanitized timeline state");
+assert.match(timelineSource, /if \(fixtureRequested\) url\.searchParams\.set\("fixture", "ui"\);/, "focused fixture state is the only preserved query exception");
+assert.doesNotMatch(timelineSource, /current\.searchParams\.forEach/, "fullscreen route link does not retain unrelated query state");
+assert.match(timelineSource, /name\.slice\(2\)\.toLowerCase\(\)/, "synthetic element event names normalize to lowercase");
+assert.match(timelineSource, /if \(this\.state\.release\) this\.closePinned\(\);\s*if \(fullscreenActive && document\.exitFullscreen\) document\.exitFullscreen\(\)/, "Escape closes pinned detail and explicitly exits native fullscreen");
+assert.match(timelineSource, /trigger \|\| this\.controls\.release\)\?\.focus\(\)/, "closing pinned detail restores focus");
 assert.match(timelineSource, /this\.writeState\("pushState"\)/, "user timeline actions push allowlisted URL state");
 assert.match(timelineSource, /addEventListener\("popstate"/, "timeline restores browser navigation state");
-assert.match(timelineSource, /current\.searchParams\.forEach/, "fullscreen route link retains unrelated query state");
 assert.match(timelineSource, /addEventListener\("focus"/, "keyboard focus updates the release preview");
 assert.match(timelineSource, /addEventListener\("mouseenter"/, "hover updates the release preview");
 assert.match(timelineSource, /aria-labelledby/, "pinned detail uses a labelled aside");
-assert.match(timelineSource, /document\.fullscreenElement/, "Escape respects native browser fullscreen");
+assert.match(timelineSource, /document\.fullscreenElement/, "Escape handles native browser fullscreen");
 assert.match(timelineSource, /requestFullscreen/, "full timeline exposes browser fullscreen behavior");
 assert.match(timelineSource, /target: "_blank", rel: "noopener noreferrer"/, "external source links are isolated");
 assert.match(timelineSource, /node\.textContent = value/, "timeline creates text with textContent");
@@ -176,6 +201,8 @@ assert.match(cssSource, /\.timeline-host-compact\s*\{[^}]*height:\s*560px/);
 assert.match(cssSource, /@media \(max-width: 767px\)[\s\S]*?\.timeline-host-compact\s*\{[^}]*height:\s*460px/);
 assert.match(cssSource, /\.timeline-host:has\(> \.detail-panel-host:not\(\[hidden\]\)\)\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\) minmax\(22rem, 0\.62fr\)/);
 assert.match(cssSource, /\.timeline-host-full:fullscreen/);
+assert.match(cssSource, /\.viewport-route\s*\{[^}]*height:\s*100dvh;[^}]*overflow:\s*hidden;/, "dedicated timeline route is bounded to the available viewport");
+assert.match(cssSource, /\.viewport-route \.timeline-host-full\s*\{[^}]*height:\s*100%;[^}]*min-height:\s*0;/, "full timeline host consumes the bounded workspace remainder");
 assert.match(cssSource, /\.data-route-host\s*\{[^}]*min-height/);
 assert.match(cssSource, /\.release-point\s*\{[^}]*pointer-events:\s*none/);
 assert.match(cssSource, /@media \(max-width: 390px\)/);

@@ -15,26 +15,37 @@ import {
 
 const LAB_COLORS = ["#2948d7", "#9a3f19", "#18755b", "#7c3ea2", "#9b6511", "#b02458"];
 const LAB_SHAPES = ["50%", "2px", "35% 65% 35% 65%", "0 50% 50% 50%", "20%", "50% 10% 50% 10%"];
-const STATE_KEYS = ["q", "category", "lab", "from", "to", "release"];
+const STATE_KEYS = ["q", "category", "lab", "from", "to", "zoom", "release"];
 const MAX_QUERY_LENGTH = 160;
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+export const ZOOM_LEVELS = Object.freeze([1, 2, 4]);
+export const DEFAULT_ZOOM = ZOOM_LEVELS[0];
+
+const isIsoDate = (value) => {
+  if (typeof value !== "string" || !ISO_DATE.test(value)) return false;
+  const [year, month, day] = value.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day;
+};
 
 export function sanitizeTimelineState(candidate, data) {
   const allowedCategories = new Set(data.categories.map((item) => item.id));
   const allowedLabs = new Set(data.labs.map((item) => item.id));
   const allowedReleases = new Set(data.releases.map((item) => item.id));
-  const isDateInWindow = (value) => ISO_DATE.test(value)
+  const isDateInWindow = (value) => isIsoDate(value)
     && value >= data.corpus.publication_window.start
     && value <= data.corpus.publication_window.end;
   let from = isDateInWindow(candidate.from || "") ? candidate.from : "";
   let to = isDateInWindow(candidate.to || "") ? candidate.to : "";
   if (from && to && from > to) [from, to] = ["", ""];
+  const zoom = String(candidate.zoom || "");
   return {
     q: String(candidate.q || "").trim().slice(0, MAX_QUERY_LENGTH),
     category: allowedCategories.has(candidate.category) ? candidate.category : "",
     lab: allowedLabs.has(candidate.lab) ? candidate.lab : "",
     from,
     to,
+    zoom: ZOOM_LEVELS.map(String).includes(zoom) ? Number(zoom) : DEFAULT_ZOOM,
     release: allowedReleases.has(candidate.release) ? candidate.release : "",
   };
 }
@@ -46,7 +57,7 @@ const element = (tag, options = {}, children = []) => {
     if (name === "className") node.className = value;
     else if (name === "text") node.textContent = value;
     else if (name === "style") Object.entries(value).forEach(([property, propertyValue]) => node.style.setProperty(property, propertyValue));
-    else if (name.startsWith("on")) node.addEventListener(name.slice(2), value);
+    else if (name.startsWith("on")) node.addEventListener(name.slice(2).toLowerCase(), value);
     else node.setAttribute(name, value);
   }
   for (const child of Array.isArray(children) ? children : [children]) {
@@ -78,24 +89,32 @@ class Timeline {
     return Object.fromEntries(STATE_KEYS.map((key) => [key, params.get(key) || ""]));
   }
 
+  isUiFixture(url) {
+    return url.searchParams.get("fixture") === "ui" && ["localhost", "127.0.0.1"].includes(url.hostname);
+  }
+
   sanitizeState(candidate) {
     if (!this.indexed) return candidate;
     return sanitizeTimelineState(candidate, this.indexed.data);
   }
 
+  writeTimelineQuery(url, fixtureRequested) {
+    url.search = "";
+    STATE_KEYS.forEach((key) => {
+      const value = this.state[key];
+      if (value && (key !== "zoom" || value !== DEFAULT_ZOOM)) url.searchParams.set(key, value);
+    });
+    if (fixtureRequested) url.searchParams.set("fixture", "ui");
+  }
+
   writeState(method) {
     const url = new URL(window.location.href);
-    STATE_KEYS.forEach((key) => {
-      if (this.state[key]) url.searchParams.set(key, this.state[key]);
-      else url.searchParams.delete(key);
-    });
+    this.writeTimelineQuery(url, this.isUiFixture(url));
     window.history[method]({}, "", `${url.pathname}${url.search}${url.hash}`);
   }
 
   async loadData() {
-    const fixtureRequested = new URLSearchParams(window.location.search).get("fixture") === "ui"
-      && ["localhost", "127.0.0.1"].includes(window.location.hostname);
-    if (fixtureRequested) {
+    if (this.isUiFixture(new URL(window.location.href))) {
       return (await import("./tests/ui/fixture.mjs")).fixture;
     }
     const response = await fetch("./public/observatory.json");
@@ -157,6 +176,8 @@ class Timeline {
     [...data.releases].sort((left, right) => left.publication_date.localeCompare(right.publication_date) || left.name.localeCompare(right.name, "en")).forEach((item) => {
       release.append(element("option", { value: item.id, text: `${item.name} · ${formatDate(item.publication_date)}` }));
     });
+    const zoom = element("select");
+    ZOOM_LEVELS.forEach((level) => zoom.append(element("option", { value: level, text: `${level}×` })));
     const reset = element("button", { className: "button", type: "button", text: "Reset filters" });
     reset.addEventListener("click", () => this.updateState(Object.fromEntries(STATE_KEYS.map((key) => [key, ""]))));
     const fields = [
@@ -165,6 +186,7 @@ class Timeline {
       field("lab", "Lab", lab),
       field("from", "From", from),
       field("to", "To", to),
+      field("zoom", "Zoom", zoom),
       field("release", "Pinned release", release),
     ];
     for (const [key, control] of Object.entries(this.controls)) {
@@ -228,8 +250,7 @@ class Timeline {
   syncFullLink() {
     if (!this.fullLink) return;
     const url = new URL("./timeline.html", window.location.href);
-    const current = new URL(window.location.href);
-    current.searchParams.forEach((value, key) => url.searchParams.set(key, value));
+    this.writeTimelineQuery(url, this.isUiFixture(new URL(window.location.href)));
     this.fullLink.href = `${url.pathname.split("/").pop()}${url.search}`;
   }
 
@@ -253,6 +274,10 @@ class Timeline {
     this.syncFullLink();
   }
 
+  canvasWidth(releases) {
+    return Math.max(960, releases.length * 24) * this.state.zoom;
+  }
+
   chart(releases) {
     const data = this.indexed.data;
     const summary = element("p", {
@@ -267,7 +292,7 @@ class Timeline {
     this.preview = preview;
     const frame = element("div", { className: "timeline-frame", tabindex: "0", "aria-label": "Scrollable release timeline" });
     const canvas = element("div", { className: "timeline-canvas" });
-    const canvasWidth = Math.max(960, releases.length * 24);
+    const canvasWidth = this.canvasWidth(releases);
     canvas.style.setProperty("min-width", `${canvasWidth}px`);
     canvas.append(this.axis(data.corpus.publication_window.start, data.corpus.publication_window.end));
     data.labs.forEach((lab, index) => canvas.append(this.lane(lab, index, releases)));
@@ -286,7 +311,7 @@ class Timeline {
   lane(lab, index, releases) {
     const laneReleases = releases.filter((release) => release.lab_id === lab.id);
     const positions = laneReleases.map((release) => datePosition(release.publication_date, this.indexed.data.corpus.publication_window.start, this.indexed.data.corpus.publication_window.end));
-    const canvasWidth = Math.max(960, releases.length * 24);
+    const canvasWidth = this.canvasWidth(releases);
     const rows = collisionRows(positions.map((position) => position * canvasWidth / 100), 104);
     const height = Math.max(7, 3.25 + ((Math.max(-1, ...rows) + 1) * 2.55));
     const lane = element("section", { className: "timeline-lane", style: { "min-height": `${height}rem`, "--lab-color": LAB_COLORS[index % LAB_COLORS.length], "--lab-shape": LAB_SHAPES[index % LAB_SHAPES.length] } });
@@ -424,9 +449,12 @@ class Timeline {
 
   setupEscape() {
     document.addEventListener("keydown", (event) => {
-      if (event.key !== "Escape" || document.fullscreenElement || !this.state.release) return;
+      if (event.key !== "Escape") return;
+      const fullscreenActive = Boolean(document.fullscreenElement);
+      if (!this.state.release && !fullscreenActive) return;
       event.preventDefault();
-      this.closePinned();
+      if (this.state.release) this.closePinned();
+      if (fullscreenActive && document.exitFullscreen) document.exitFullscreen().catch(() => {});
     });
   }
 }

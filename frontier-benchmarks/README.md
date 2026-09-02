@@ -35,7 +35,15 @@ The static interface uses a shared responsive shell and direct, no-JavaScript-sa
 - `definitions.html` remains the canonical definitions destination.
 - `public/observatory.json` and `public/observatory.csv` remain the stable generated downloads.
 
-`shell.mjs` owns shared theme behavior. `timeline.mjs` is the shared compact and full-route chronology controller: it loads the generated corpus, renders all six lanes and release IDs without occurrence-label expansion, previews a hovered or focused release, pins full release and occurrence context, synchronizes `q`, `category`, `lab`, `from`, `to`, and `release` URL state, and provides the full route browser-fullscreen control. `styles.css` provides shared shell, timeline-host, toolbar, and data-route hooks. `core.mjs` contains pure data helpers and `app.mjs` currently renders canonical definitions and retains the established Observatory render helpers for route-specific modules to reuse or replace. Serve the repository root over HTTP and open `/frontier-benchmarks/`; no build step or runtime service is required.
+`shell.mjs` owns shared theme behavior. `timeline.mjs` is the shared compact and full-route chronology controller: it loads the generated corpus, renders all six lanes and release IDs without occurrence-label expansion, previews a hovered or focused release, pins full release and occurrence context, synchronizes `q`, `category`, `lab`, `from`, `to`, `zoom`, and `release` URL state, and provides the full route browser-fullscreen control. `styles.css` provides shared shell, timeline-host, toolbar, and data-route hooks. `core.mjs` contains pure data helpers and `app.mjs` currently renders canonical definitions and retains the established Observatory render helpers for route-specific modules to reuse or replace. Serve the repository root over HTTP and open `/frontier-benchmarks/`; no build step or runtime service is required.
+
+## Durable view state
+
+Timeline state accepts known category, lab, and release identifiers; corpus-window `from` and `to` dates in start-before-end order; zoom levels `1`, `2`, or `4`; and a text-only query bounded to 160 characters. The default shows all releases at zoom `1` with no pinned release.
+
+Ledger state includes query, lab, coverage status, sort, direction, page, and page size. History adds benchmark and date filters. Evidence adds benchmark, category, release, source-type, date, and `sources` or `occurrences` view state. Data-route queries are bounded to 200 characters, page sizes are restricted to 25, 50, or 100, and the default is the complete unfiltered route at 50 rows per page. The Evidence default is the first-party `sources` view.
+
+Unknown identifiers, unsupported views, invalid sort or direction values, impossible or out-of-window dates, inverted date ranges, invalid pages, and unsupported page sizes are removed from the canonical URL and fall back to those unfiltered defaults. A valid free-text query that happens to match no records remains a valid zero-result view rather than being reset.
 
 Focused interface-contract checks use a deterministic six-lab fixture without changing the generated production artifact:
 
