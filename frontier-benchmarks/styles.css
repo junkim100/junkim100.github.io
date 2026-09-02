@@ -85,6 +85,13 @@ h1, h2 { font-family: var(--display); font-weight: 400; letter-spacing: -0.025em
 .landing-workspace > .route-toolbar, .landing-workspace > .timeline-host { grid-column: 1 / -1; }
 .fullscreen-action { justify-self: end; }
 
+.landing-context { display: grid; grid-template-columns: minmax(14rem, 0.9fr) minmax(18rem, 1.35fr) auto; gap: 0.75rem 2rem; align-items: end; padding-top: 1rem; padding-bottom: 1.25rem; border-top: 1px solid var(--line); }
+.landing-context h2 { margin: 0 0 0.25rem; color: var(--muted); font: 600 0.64rem/1.4 var(--mono); letter-spacing: 0.055em; text-transform: uppercase; }
+.landing-context p { margin: 0; color: var(--ink-soft); font-size: 0.78rem; }
+.landing-context-copy p { max-width: 46ch; color: var(--ink); }
+.landing-context-nav ul { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.35rem 1rem; margin: 0; padding: 0; list-style: none; }
+.landing-context-nav a { font: 600 0.66rem/1.4 var(--mono); text-underline-offset: 0.24em; white-space: nowrap; }
+
 .route-toolbar { min-height: 3.8rem; padding: 0.65rem 0.75rem; border: 1px solid var(--line); background: var(--surface); }
 .route-status { margin: 0; color: var(--muted); font: 0.68rem/1.5 var(--mono); }
 .timeline-filter-panel, .route-filter-panel { display: grid; grid-template-columns: minmax(13rem, 1.7fr) repeat(6, minmax(7rem, 1fr)) auto; gap: 0.6rem; align-items: end; }
@@ -212,6 +219,8 @@ tbody tr:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); 
   .timeline-filter-panel .field:first-child, .route-filter-panel .field-search { grid-column: 1 / -1; }
   .viewport-route .route-toolbar { max-height: 24dvh; }
   .route-intro, .about-main section { grid-template-columns: 1fr; }
+  .landing-context { grid-template-columns: 1fr; gap: 0.65rem; padding-top: 0.85rem; padding-bottom: 1rem; }
+  .landing-context-nav ul { justify-content: flex-start; }
   .route-pagination { justify-content: stretch; }
   .route-pagination button { flex: 1; }
   .pagination-summary { flex-basis: 100%; margin-right: 0; text-align: center; }
