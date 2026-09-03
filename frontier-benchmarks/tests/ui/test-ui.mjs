@@ -136,6 +136,51 @@ const rankingCatalog = [
   { id: "alias_tokens", name: "Alias Tokens", aliases: ["Beta Phalanx"] },
 ];
 assert.deepEqual(rankBenchmarks(rankingCatalog, "pha be").map(({ id }) => id), ["exact", "alias_exact", "prefix", "tokens", "alias_tokens", "substring"], "exact, alias, prefix, all-token-prefix, and contiguous substring tiers are deterministic");
+const provenanceRankingCases = [
+  {
+    label: "exact",
+    query: "omega exact",
+    catalog: [
+      { id: "canonical_z", name: "Omega Exact", aliases: [] },
+      { id: "canonical_a", name: "Omega Exact", aliases: [] },
+      { id: "alias", name: "A Alias Holder", aliases: ["Omega Exact"] },
+    ],
+    expected: ["canonical_a", "canonical_z", "alias"],
+  },
+  {
+    label: "name prefix",
+    query: "omega pre",
+    catalog: [
+      { id: "canonical_z", name: "Omega Prefix Zulu", aliases: [] },
+      { id: "canonical_a", name: "Omega Prefix Alpha", aliases: [] },
+      { id: "alias", name: "A Alias Holder", aliases: ["Omega Prefix Alias"] },
+    ],
+    expected: ["canonical_a", "canonical_z", "alias"],
+  },
+  {
+    label: "token prefix",
+    query: "ome can",
+    catalog: [
+      { id: "canonical_z", name: "Omega Canonical Zulu", aliases: [] },
+      { id: "canonical_a", name: "Canonical Omega Alpha", aliases: [] },
+      { id: "alias", name: "A Alias Holder", aliases: ["Omega Canonical Alias"] },
+    ],
+    expected: ["canonical_a", "canonical_z", "alias"],
+  },
+  {
+    label: "substring",
+    query: "mega beta",
+    catalog: [
+      { id: "canonical_z", name: "Omega Beta Zulu", aliases: [] },
+      { id: "canonical_a", name: "Omega Beta Alpha", aliases: [] },
+      { id: "alias", name: "A Alias Holder", aliases: ["Omega Beta Alias"] },
+    ],
+    expected: ["canonical_a", "canonical_z", "alias"],
+  },
+];
+for (const { label, query, catalog, expected } of provenanceRankingCases) {
+  assert.deepEqual(rankBenchmarks(catalog, query).map(({ id }) => id), expected, `canonical-name provenance wins within the ${label} class before stable canonical name and ID tie-breaks`);
+}
 const pages = new Map([["landing", indexHtml], ["timeline", timelineHtml], ["ledger", ledgerHtml], ["history", historyHtml], ["about", aboutHtml]]);
 const expectedLinks = {
   landing: ["./", "./", "./timeline.html", "./ledger.html", "./history.html", "./about.html"],
@@ -248,7 +293,8 @@ assert.match(cssSource, /\.timeline-frame\s*\{[^}]*overflow-y:\s*hidden/);
 assert.match(cssSource, /\.timeline-lane\s*\{[^}]*height:\s*calc\(100% \/ 6\)/);
 assert.match(cssSource, /prefers-reduced-motion: reduce/);
 assert.match(cssSource, /:focus-visible\s*\{[^}]*outline:\s*3px solid var\(--accent\)/);
-assert.match(cssSource, /\.trends-chip button\s*\{[^}]*width:\s*2\.75rem/);
+assert.match(cssSource, /\.trends-chip button\s*\{[^}]*width:\s*2\.75rem[^}]*min-height:\s*2\.75rem/);
+assert.match(cssSource, /\.detail-close\s*\{[^}]*width:\s*2\.75rem[^}]*min-height:\s*2\.75rem/);
 assert.match(cssSource, /\.trends-options \[role="option"\]\s*\{[^}]*min-height:\s*2\.75rem/);
 assert.match(cssSource, /\.trends-marker\s*\{[^}]*min-height:\s*2\.75rem/);
 

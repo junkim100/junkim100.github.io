@@ -148,13 +148,20 @@ try {
         const markers = [...document.querySelectorAll(".trends-marker")];
         if (!input || !lane || markers.length !== 18) return null;
         const chipButton = document.querySelector(".trends-chip button");
+        chipButton.scrollIntoView({ behavior: "instant", block: "center", inline: "nearest" });
+        const chipBounds = chipButton.getBoundingClientRect();
         const markerBounds = markers.map((marker) => marker.getBoundingClientRect());
         return {
           overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
           lanes: document.querySelectorAll(".trends-lane").length,
           markers: markers.length,
           occurrenceIds: new Set(markers.map((marker) => marker.dataset.occurrenceId)).size,
-          chipTarget: chipButton.getBoundingClientRect().width,
+          chipTarget: {
+            width: chipBounds.width,
+            height: chipBounds.height,
+            insideViewport: chipBounds.left >= 0 && chipBounds.top >= 0 && chipBounds.right <= innerWidth && chipBounds.bottom <= innerHeight,
+            centerHit: document.elementFromPoint(chipBounds.left + chipBounds.width / 2, chipBounds.top + chipBounds.height / 2)?.closest("button") === chipButton,
+          },
           inputTarget: input.getBoundingClientRect().height,
           minMarkerTarget: Math.min(...markerBounds.map((bounds) => bounds.height)),
           laneLabelWidth: lane.querySelector(".trends-lane-label").getBoundingClientRect().width,
@@ -165,11 +172,61 @@ try {
     }, `Terminal-Bench 2.0 trends at ${width}px`, 20000);
     assert.ok(geometry.overflow <= 0, `the ${width}px landing has no document-level horizontal overflow`);
     assert.deepEqual({ lanes: geometry.lanes, markers: geometry.markers, occurrenceIds: geometry.occurrenceIds }, { lanes: 1, markers: 18, occurrenceIds: 18 }, `the ${width}px default lane preserves all Terminal-Bench 2.0 occurrences`);
-    assert.ok(geometry.chipTarget >= 44 && geometry.inputTarget >= 44 && geometry.minMarkerTarget >= 44, `the ${width}px trend controls meet 44px touch targets`);
+    assert.ok(geometry.chipTarget.width >= 44 && geometry.chipTarget.height >= 44, `the ${width}px selected-chip remove control is at least 44x44 CSS px`);
+    assert.equal(geometry.chipTarget.insideViewport && geometry.chipTarget.centerHit, true, `the ${width}px selected-chip remove control is unclipped and not overlapped: ${JSON.stringify(geometry.chipTarget)}`);
+    assert.ok(geometry.inputTarget >= 44 && geometry.minMarkerTarget >= 44, `the ${width}px picker and marker controls meet 44px touch targets`);
     assert.ok(geometry.laneLabelWidth >= 120, `the ${width}px lane label remains legible`);
     assert.equal(geometry.frameScrollable, true, `the ${width}px internal trend frame remains reachable`);
-    trendViewports.push(`${width}x${height}:18/1/no-overflow`);
+    await command("Runtime.evaluate", { expression: `document.querySelector(".trends-marker").click()` });
+    const closeTarget = await waitFor(async () => {
+      const result = await command("Runtime.evaluate", { expression: `(() => {
+        const panel = document.querySelector("#trends-detail:not([hidden])");
+        const close = panel?.querySelector(".detail-close");
+        if (!close || document.activeElement !== close) return null;
+        close.scrollIntoView({ behavior: "instant", block: "center", inline: "nearest" });
+        const bounds = close.getBoundingClientRect();
+        const panelBounds = panel.getBoundingClientRect();
+        return {
+          width: bounds.width,
+          height: bounds.height,
+          insideViewport: bounds.left >= 0 && bounds.top >= 0 && bounds.right <= innerWidth && bounds.bottom <= innerHeight,
+          insidePanel: bounds.left >= panelBounds.left && bounds.top >= panelBounds.top && bounds.right <= panelBounds.right && bounds.bottom <= panelBounds.bottom,
+          centerHit: document.elementFromPoint(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2)?.closest("button") === close,
+        };
+      })()`, returnByValue: true });
+      return result.result.value;
+    }, `focused trend detail close control at ${width}px`);
+    assert.ok(closeTarget.width >= 44 && closeTarget.height >= 44, `the ${width}px detail close control is at least 44x44 CSS px`);
+    assert.equal(closeTarget.insideViewport && closeTarget.insidePanel && closeTarget.centerHit, true, `the ${width}px detail close control is unclipped and not overlapped: ${JSON.stringify(closeTarget)}`);
+    trendViewports.push({ viewport: `${width}x${height}`, markers: geometry.markers, lanes: geometry.lanes, overflow: geometry.overflow, chipTarget: geometry.chipTarget, closeTarget });
   }
+
+  const themeControlState = await command("Runtime.evaluate", { expression: `(() => {
+    const root = document.documentElement;
+    const toggle = document.querySelector(".theme-toggle");
+    const beforePaper = getComputedStyle(root).getPropertyValue("--paper").trim();
+    const beforePressed = toggle.getAttribute("aria-pressed");
+    const before = { theme: root.dataset.theme || (beforePressed === "true" ? "dark" : "light"), pressed: beforePressed };
+    toggle.click();
+    const chip = document.querySelector(".trends-chip button").getBoundingClientRect();
+    const close = document.querySelector(".detail-close").getBoundingClientRect();
+    const after = { theme: root.dataset.theme, pressed: toggle.getAttribute("aria-pressed") };
+    const colorsChanged = getComputedStyle(root).getPropertyValue("--paper").trim() !== beforePaper;
+    toggle.click();
+    return {
+      before,
+      after,
+      restored: { theme: root.dataset.theme, pressed: toggle.getAttribute("aria-pressed") },
+      colorsChanged,
+      chip: { width: chip.width, height: chip.height },
+      close: { width: close.width, height: close.height },
+    };
+  })()`, returnByValue: true });
+  const themeControls = themeControlState.result.value;
+  assert.notEqual(themeControls.after.theme, themeControls.before.theme, "theme toggle changes the explicit theme");
+  assert.notEqual(themeControls.after.pressed, themeControls.before.pressed, "theme toggle changes its pressed state");
+  assert.deepEqual(themeControls.restored, themeControls.before, "a second theme toggle restores the original theme state");
+  assert.deepEqual({ colorsChanged: themeControls.colorsChanged, chip: themeControls.chip, close: themeControls.close }, { colorsChanged: true, chip: { width: 44, height: 44 }, close: { width: 44, height: 44 } }, "theme switching preserves both corrected touch targets");
 
   await command("Emulation.setDeviceMetricsOverride", { width: 768, height: 900, deviceScaleFactor: 1, mobile: false });
   await command("Page.navigate", { url: `http://127.0.0.1:${serverPort}/frontier-benchmarks/index.html?q=discard&lab=discard&benchmark=benchmark_terminal_bench_2_1&benchmark=unknown&benchmark=benchmark_terminal_bench` });
@@ -351,7 +408,7 @@ try {
   assert.deepEqual(historySearch, { query: "legitimate-zero-result-query", empty: true }, "history search updates without a submit action");
 
   assert.deepEqual(browserErrors, [], "trends, Releases, and data-route browser coverage has no runtime, console, network, or HTTP errors");
-  console.log(JSON.stringify({ result: "PASS", browserErrors: browserErrors.length, pickerOptions: pickerContract.optionCount, terminalMarkers: terminalMarkerCount, detailSources: trendDetail.sources.length, focusRestored: restoredFocus, historyAutoSearch: historySearch.empty, releaseViewports: geometries.map((geometry) => `${geometry.viewport}:172/6/bounded/latest`), trendViewports }));
+  console.log(JSON.stringify({ result: "PASS", browserErrors: browserErrors.length, pickerOptions: pickerContract.optionCount, terminalMarkers: terminalMarkerCount, detailSources: trendDetail.sources.length, focusRestored: restoredFocus, historyAutoSearch: historySearch.empty, themeControlState: themeControlState.result.value, releaseViewports: geometries.map((geometry) => `${geometry.viewport}:172/6/bounded/latest`), trendViewports }));
   socket.close();
 } finally {
   if (browser) {

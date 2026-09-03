@@ -36,23 +36,23 @@ const compareBenchmarkIds = (records, leftId, rightId) => {
   return String(leftId).localeCompare(String(rightId), "en");
 };
 
-/** Returns matching benchmark records ordered by match class, canonical name, then ID. */
+/** Returns matching records ordered by match class, canonical-name provenance, canonical name, then ID. */
 export function rankBenchmarks(benchmarks = [], query = "") {
   const needle = normalize(query);
   return benchmarks
     .map((benchmark) => {
-      if (!needle) return { benchmark, rank: 0, alias: false };
+      if (!needle) return { benchmark, rank: 0, provenanceRank: 0 };
       const canonicalRank = matchClass(benchmark.name, needle);
       const aliasRank = Math.min(...(benchmark.aliases || []).map((alias) => matchClass(alias, needle)).filter((rank) => rank >= 0));
       if (canonicalRank < 0 && !Number.isFinite(aliasRank)) return null;
       if (canonicalRank >= 0 && (!Number.isFinite(aliasRank) || canonicalRank <= aliasRank)) {
-        return { benchmark, rank: canonicalRank, alias: false };
+        return { benchmark, rank: canonicalRank, provenanceRank: 0 };
       }
-      return { benchmark, rank: aliasRank, alias: true };
+      return { benchmark, rank: aliasRank, provenanceRank: 1 };
     })
     .filter(Boolean)
     .sort((left, right) => left.rank - right.rank
-      || Number(left.alias) - Number(right.alias)
+      || left.provenanceRank - right.provenanceRank
       || stableCompare(left.benchmark.name, right.benchmark.name)
       || stableCompare(left.benchmark.id, right.benchmark.id))
     .map(({ benchmark }) => benchmark);
