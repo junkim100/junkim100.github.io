@@ -125,6 +125,7 @@ assert.match(ledgerHtml, /<h1 id="page-title">Release Ledger<\/h1>/);
 assert.match(historyHtml, /<h1 id="page-title">Benchmark History<\/h1>/);
 for (const [name, contract] of [
   ["landing heading", /\.landing-timeline > h1\s*\{[^}]*font:\s*400 clamp\(1\.5rem, 6vw, 6\.5rem\)\/0\.9 var\(--display\)[^}]*white-space:\s*nowrap/],
+  ["360px and 390px landing heading", /@media \(max-width: 480px\)[\s\S]*?\.landing-timeline > h1\s*\{[^}]*font-size:\s*1\.25rem/],
   ["Ledger and History headings", /\.route-intro h1\s*\{[^}]*font-size:\s*clamp\(2\.6rem, 6vw, 5\.5rem\)[^}]*white-space:\s*nowrap/],
   ["360px Ledger and History headings", /@media \(max-width: 390px\)[\s\S]*?\.route-intro h1\s*\{[^}]*font-size:\s*1\.75rem/],
 ]) assert.match(cssSource, contract, `${name} stays on one line at 360, 768, 1280, and 1920 CSS px`);
@@ -133,19 +134,24 @@ assert.match(cssSource, /\.theme-toggle-icon\s*\{[^}]*font-size:\s*1rem/);
 assert.match(indexHtml, /id="timeline-host" data-timeline-mode="compact"/);
 assert.equal((indexHtml.match(/id="timeline-fullscreen-button"/g) || []).length, 1);
 assert.match(indexHtml, /id="timeline-fullscreen-button" type="button" aria-pressed="false">Fullscreen<\/button>/);
-assert.match(indexHtml, /<h1 id="page-title">Frontier Benchmark Observatory<\/h1>\s*<div class="landing-intro">[\s\S]*<div class="timeline-workspace landing-workspace" id="timeline-workspace"/);
-assert.match(indexHtml, /This evidence-first, score-free record tracks benchmark mentions in reviewed first-party public release materials from six frontier labs\./);
-assert.match(indexHtml, /Absence from this record does not establish whether a lab evaluated a model privately or reported an evaluation elsewhere\./);
-assert.doesNotMatch(indexHtml, /landing-context|context-title|landing-context-nav/);
-assert.match(cssSource, /\.landing-intro\s*\{[^}]*max-width:\s*72ch[^}]*margin:\s*0 0 0\.8rem[^}]*font-size:\s*0\.82rem/);
+assert.match(indexHtml, /<h1 id="page-title">Frontier Benchmark Observatory<\/h1>\s*<div class="landing-overview">[\s\S]*<div class="timeline-workspace landing-workspace" id="timeline-workspace"/);
+assert.match(indexHtml, /<p class="landing-lead">An evidence-first, score-free record of which benchmarks six frontier AI labs name in reviewed first-party release materials, when those references appear, and the source behind each occurrence\.<\/p>/);
+assert.match(indexHtml, /<aside class="landing-boundary" aria-labelledby="landing-boundary-title">\s*<h2 id="landing-boundary-title">A reporting record, not a leaderboard\.<\/h2>\s*<p>An omission means only that a benchmark was not found in the reviewed first-party source bundle\. It does not establish whether a lab ran an evaluation privately or elsewhere\.<\/p>/);
+assert.match(indexHtml, /<dl class="landing-corpus-stats" aria-label="Fixed corpus counts">[\s\S]*<dt>Window<\/dt><dd>2024-01-01 to 2026-09-01<\/dd>[\s\S]*<dt>Labs<\/dt><dd>6<\/dd>[\s\S]*<dt>Releases<\/dt><dd>172<\/dd>[\s\S]*<dt>Benchmarks<\/dt><dd>869<\/dd>[\s\S]*<dt>Evidence occurrences<\/dt><dd>2,821<\/dd>[\s\S]*<dt>First-party sources<\/dt><dd>537<\/dd>/);
+assert.doesNotMatch(indexHtml, /landing-intro|hero-intro|boundary-note|class="corpus-stats"|download-row|methodology|route-cards|<table\b/);
+assert.match(cssSource, /\.landing-overview\s*\{[^}]*margin:\s*0 0 0\.8rem/);
+assert.match(cssSource, /\.landing-boundary\s*\{[^}]*display:\s*grid[^}]*grid-template-columns:\s*minmax\(14rem,\s*0\.7fr\)\s*minmax\(18rem,\s*1\.3fr\)[^}]*border:\s*1px solid var\(--line-strong\)[^}]*background:\s*var\(--surface\)/);
+assert.match(cssSource, /\.landing-corpus-stats\s*\{[^}]*display:\s*grid[^}]*grid-template-columns:\s*repeat\(6,\s*minmax\(0,\s*1fr\)\)[^}]*background:\s*var\(--line\)/);
+assert.match(cssSource, /@media \(max-width: 767px\)[\s\S]*?\.landing-boundary\s*\{[^}]*grid-template-columns:\s*1fr[\s\S]*?\.landing-corpus-stats\s*\{[^}]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/);
+assert.match(cssSource, /@media \(max-width: 390px\)[\s\S]*?\.landing-corpus-stats\s*\{[^}]*grid-template-columns:\s*1fr/);
 assert.match(timelineHtml, /id="timeline-host" data-timeline-mode="full"/);
 assert.doesNotMatch(timelineHtml, /fullscreen-button|Enter browser fullscreen/);
 assert.match(ledgerHtml, /id="ledger-controls" data-route-controls="ledger"[\s\S]*id="ledger-host" data-route-view="ledger"/);
 assert.match(historyHtml, /id="history-controls" data-route-controls="history"[\s\S]*id="history-host" data-route-view="history"/);
 
-const forbiddenVisible = /observatory\.(?:json|csv)|Download JSON|Download CSV|Evidence|Definitions|Overview|Public reporting research ledger|Continuous time|Expanded workspace|Full chronology workspace|Complete release denominator|Chronological reporting sequence|Methodology and coverage|View in Fullscreen/;
+const forbiddenVisible = /observatory\.(?:json|csv)|Download JSON|Download CSV|Definitions|Overview|Public reporting research ledger|Continuous time|Expanded workspace|Full chronology workspace|Complete release denominator|Chronological reporting sequence|Methodology and coverage|View in Fullscreen/;
 for (const [name, text] of [...pages, ["readme", readme], ["security", security]]) assert.doesNotMatch(text, forbiddenVisible, `${name} removes obsolete visible destinations and copy`);
-assert.doesNotMatch(indexHtml, /hero-intro|boundary-note|corpus-stats|download-row|methodology|route-cards|<table\b/);
+assert.doesNotMatch(indexHtml, /href="\.\/evidence\.html"|href="\.\/definitions\.html"|download|methodology|route-cards|<table\b/);
 
 assert.match(aboutHtml, /2024-01-01 through 2026-09-01/);
 assert.match(aboutHtml, /first-party public materials/);
