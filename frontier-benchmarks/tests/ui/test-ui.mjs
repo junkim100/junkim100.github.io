@@ -8,17 +8,29 @@ import {
   collisionRows,
   indexData,
   matchingBenchmarkIds,
+  normalize,
   orderedReleaseOccurrences,
   timelineTicks,
   validateInterface,
 } from "../../core.mjs";
 import { DEFAULT_ZOOM, SEARCH_DEBOUNCE_MS, ZOOM_LEVELS, releaseDisplayLabels, sanitizeTimelineState } from "../../timeline.mjs";
+import {
+  DEFAULT_BENCHMARK_ID,
+  MAX_SELECTIONS,
+  laneOccurrences,
+  parseBenchmarkState,
+  rankBenchmarks,
+  releaseMatches,
+  sanitizeBenchmarkIds,
+  serializeBenchmarkState,
+  transitionBenchmarkSelection,
+} from "../../trends.mjs";
 import { fixture } from "./fixture.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const routeRoot = resolve(here, "../..");
 const readText = (name) => readFile(resolve(routeRoot, name), "utf8");
-const [indexHtml, timelineHtml, ledgerHtml, historyHtml, aboutHtml, definitionsHtml, timelineSource, shellSource, dataRoutesSource, coreSource, cssSource, readme, security, jsonBytes] = await Promise.all([
+const [indexHtml, timelineHtml, ledgerHtml, historyHtml, aboutHtml, definitionsHtml, timelineSource, trendsSource, shellSource, dataRoutesSource, coreSource, cssSource, readme, security, jsonBytes] = await Promise.all([
   readText("index.html"),
   readText("timeline.html"),
   readText("ledger.html"),
@@ -26,6 +38,7 @@ const [indexHtml, timelineHtml, ledgerHtml, historyHtml, aboutHtml, definitionsH
   readText("about.html"),
   readText("definitions.html"),
   readText("timeline.mjs"),
+  readText("trends.mjs"),
   readText("shell.mjs"),
   readText("data-routes.mjs"),
   readText("core.mjs"),
@@ -93,13 +106,43 @@ assert.equal(ticks[0], "2024-01-01");
 assert.ok(ticks.length >= 8);
 assert.deepEqual(collisionRows([0, 12, 24, 225], 200), [0, 1, 2, 0]);
 
+const benchmarkCatalog = [
+  { id: "zulu", name: "Zulu", aliases: [] },
+  { id: "alpha", name: "Álpha-Test", aliases: [] },
+  { id: "beta", name: "Beta", aliases: [] },
+  { id: "charlie", name: "Charlie", aliases: [] },
+  { id: "delta", name: "Delta", aliases: [] },
+  { id: "echo", name: "Echo", aliases: [] },
+  { id: "foxtrot", name: "Foxtrot", aliases: [] },
+];
+assert.deepEqual(sanitizeBenchmarkIds(["zulu", "alpha", "unknown", "zulu", "beta", "charlie", "delta", "echo", "foxtrot"], benchmarkCatalog), ["alpha", "beta", "charlie", "delta", "echo", "zulu"], "selection sanitation deduplicates, drops invalid IDs, caps at six, and canonicalizes by name");
+assert.deepEqual(sanitizeBenchmarkIds(["zulu_id", "alpha_id"], [{ id: "alpha_id", name: "A-B" }, { id: "zulu_id", name: "A B" }]), ["alpha_id", "zulu_id"], "normalized canonical-name collisions break ties by canonical ID");
+assert.deepEqual(parseBenchmarkState("?q=discard&benchmark=zulu&benchmark=alpha&benchmark=unknown&lab=discard", benchmarkCatalog), ["alpha", "zulu"], "only repeated canonical benchmark state survives parsing");
+assert.equal(serializeBenchmarkState(["alpha", "zulu"]), "?benchmark=alpha&benchmark=zulu");
+assert.deepEqual(parseBenchmarkState("?benchmark=unknown", benchmarkCatalog, "beta"), ["beta"], "malformed state falls back deterministically");
+assert.equal(MAX_SELECTIONS, 6);
+assert.equal(DEFAULT_BENCHMARK_ID, "benchmark_terminal_bench_2_0");
+assert.deepEqual(transitionBenchmarkSelection(["alpha"], "alpha", benchmarkCatalog), { ids: ["alpha"], outcome: "final" }, "the final benchmark cannot be removed");
+assert.deepEqual(transitionBenchmarkSelection(["alpha", "beta"], "alpha", benchmarkCatalog), { ids: ["beta"], outcome: "removed" }, "an already-selected benchmark toggles off when another remains");
+assert.deepEqual(transitionBenchmarkSelection(["zulu"], "alpha", benchmarkCatalog), { ids: ["alpha", "zulu"], outcome: "added" }, "added selections are canonicalized");
+assert.deepEqual(transitionBenchmarkSelection(["alpha", "beta", "charlie", "delta", "echo", "foxtrot"], "zulu", benchmarkCatalog), { ids: ["alpha", "beta", "charlie", "delta", "echo", "foxtrot"], outcome: "limit" }, "the six-selection cap does not mutate state");
+assert.equal(normalize("  Café—TEST__v2  "), "cafe test v2", "NFKD, case, punctuation, hyphen, and whitespace normalization is shared");
+const rankingCatalog = [
+  { id: "exact", name: "Pha Be", aliases: [] },
+  { id: "alias_exact", name: "Zulu Alias", aliases: ["Pha Be"] },
+  { id: "prefix", name: "Pha Be Plus", aliases: [] },
+  { id: "tokens", name: "Beta Phalanx", aliases: [] },
+  { id: "substring", name: "Alpha Beta", aliases: [] },
+  { id: "alias_tokens", name: "Alias Tokens", aliases: ["Beta Phalanx"] },
+];
+assert.deepEqual(rankBenchmarks(rankingCatalog, "pha be").map(({ id }) => id), ["exact", "alias_exact", "prefix", "tokens", "alias_tokens", "substring"], "exact, alias, prefix, all-token-prefix, and contiguous substring tiers are deterministic");
 const pages = new Map([["landing", indexHtml], ["timeline", timelineHtml], ["ledger", ledgerHtml], ["history", historyHtml], ["about", aboutHtml]]);
 const expectedLinks = {
-  landing: ["./", "./", "./ledger.html", "./history.html", "./about.html"],
-  timeline: ["./", "./timeline.html", "./ledger.html", "./history.html", "./about.html"],
-  ledger: ["./", "./", "./ledger.html", "./history.html", "./about.html"],
-  history: ["./", "./", "./ledger.html", "./history.html", "./about.html"],
-  about: ["./", "./", "./ledger.html", "./history.html", "./about.html"],
+  landing: ["./", "./", "./timeline.html", "./ledger.html", "./history.html", "./about.html"],
+  timeline: ["./", "./", "./timeline.html", "./ledger.html", "./history.html", "./about.html"],
+  ledger: ["./", "./", "./timeline.html", "./ledger.html", "./history.html", "./about.html"],
+  history: ["./", "./", "./timeline.html", "./ledger.html", "./history.html", "./about.html"],
+  about: ["./", "./", "./timeline.html", "./ledger.html", "./history.html", "./about.html"],
 };
 for (const [route, html] of pages) {
   const csp = html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)"/)?.[1] || "";
@@ -115,6 +158,7 @@ for (const [route, html] of pages) {
   const header = html.match(/<header class="site-header">[\s\S]*?<\/header>/)?.[0] || "";
   const hrefs = [...header.matchAll(/href="([^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(hrefs, expectedLinks[route], `${route} header contains only the approved links`);
+  assert.match(header, /<nav class="primary-nav" aria-label="Observatory"><ul><li><a[^>]*>Trends<\/a><\/li><li><a[^>]*>Releases<\/a><\/li><li><a[^>]*>Ledger<\/a><\/li><li><a[^>]*>History<\/a><\/li><li><a[^>]*>About<\/a><\/li><\/ul><\/nav>/);
   const themeToggle = header.match(/<button class="theme-toggle"[\s\S]*?<\/button>/)?.[0] || "";
   assert.match(themeToggle, /^<button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span class="theme-toggle-icon" aria-hidden="true">◐<\/span><\/button>$/);
   assert.doesNotMatch(themeToggle, />Theme</, `${route} theme toggle omits visible Theme text`);
@@ -131,10 +175,12 @@ for (const [name, contract] of [
 ]) assert.match(cssSource, contract, `${name} stays on one line at 360, 768, 1280, and 1920 CSS px`);
 assert.match(cssSource, /\.theme-toggle\s*\{[^}]*width:\s*2\.4rem[^}]*height:\s*2\.4rem/);
 assert.match(cssSource, /\.theme-toggle-icon\s*\{[^}]*font-size:\s*1rem/);
-assert.match(indexHtml, /id="timeline-host" data-timeline-mode="compact"/);
-assert.equal((indexHtml.match(/id="timeline-fullscreen-button"/g) || []).length, 1);
-assert.match(indexHtml, /id="timeline-fullscreen-button" type="button" aria-pressed="false">Fullscreen<\/button>/);
-assert.match(indexHtml, /<h1 id="page-title">Frontier Benchmark Observatory<\/h1>\s*<div class="landing-overview">[\s\S]*<div class="timeline-workspace landing-workspace" id="timeline-workspace"/);
+assert.match(indexHtml, /id="trends-picker"/);
+assert.match(indexHtml, /id="trends-chart" role="region" aria-label="Benchmark trends chart"/);
+assert.match(indexHtml, /<script type="module" src="\.\/trends\.mjs"><\/script>/);
+assert.match(timelineHtml, /<title>Releases \| Frontier Benchmark Observatory<\/title>/);
+assert.match(timelineHtml, /<h1 class="route-title">Releases<\/h1>/);
+assert.match(indexHtml, /<h1 id="page-title">Frontier Benchmark Observatory<\/h1>\s*<div class="landing-overview">[\s\S]*<section class="trends-workspace"/);
 assert.match(indexHtml, /<p class="landing-lead">An evidence-first, score-free record of which benchmarks six frontier AI labs name in reviewed first-party release materials, when those references appear, and the source behind each occurrence\.<\/p>/);
 assert.match(indexHtml, /<aside class="landing-boundary" aria-labelledby="landing-boundary-title">\s*<h2 id="landing-boundary-title">A reporting record, not a leaderboard\.<\/h2>\s*<p>An omission means only that a benchmark was not found in the reviewed first-party source bundle\. It does not establish whether a lab ran an evaluation privately or elsewhere\.<\/p>/);
 assert.match(indexHtml, /<dl class="landing-corpus-stats" aria-label="Fixed corpus counts">[\s\S]*<dt>Window<\/dt><dd>2024-01-01 to 2026-09-01<\/dd>[\s\S]*<dt>Labs<\/dt><dd>6<\/dd>[\s\S]*<dt>Releases<\/dt><dd>172<\/dd>[\s\S]*<dt>Benchmarks<\/dt><dd>869<\/dd>[\s\S]*<dt>Evidence occurrences<\/dt><dd>2,821<\/dd>[\s\S]*<dt>First-party sources<\/dt><dd>537<\/dd>/);
@@ -189,15 +235,42 @@ assert.match(timelineSource, /text: "Source"/);
 assert.match(timelineSource, /text: displayName/);
 assert.doesNotMatch(timelineSource, /text: release\.id|Open exact first-party source|detail-release-id|Evaluation setup|Coverage review|Review date|Reporting state|Review state|Source type|Locator|Record/);
 assert.doesNotMatch(timelineSource, /innerHTML|insertAdjacentHTML/);
+for (const key of ["ArrowDown", "ArrowUp", "Home", "End", "Enter", "Escape", "Backspace"]) assert.ok(trendsSource.includes(`"${key}"`), `Trends handles ${key}`);
+assert.match(trendsSource, /addEventListener\("blur"/);
+assert.match(trendsSource, /aria-live/);
+assert.match(trendsSource, /aria-multiselectable/);
+assert.match(trendsSource, /data-occurrence-id/);
+assert.match(trendsSource, /this\.indexed\.models\.get/);
+assert.doesNotMatch(trendsSource, /innerHTML|insertAdjacentHTML/);
 assert.match(cssSource, /\.timeline-host-compact\s*\{[^}]*height:\s*560px/);
 assert.match(cssSource, /@media \(max-width: 767px\)[\s\S]*?\.timeline-host-compact\s*\{[^}]*height:\s*460px/);
 assert.match(cssSource, /\.timeline-frame\s*\{[^}]*overflow-y:\s*hidden/);
 assert.match(cssSource, /\.timeline-lane\s*\{[^}]*height:\s*calc\(100% \/ 6\)/);
 assert.match(cssSource, /prefers-reduced-motion: reduce/);
 assert.match(cssSource, /:focus-visible\s*\{[^}]*outline:\s*3px solid var\(--accent\)/);
+assert.match(cssSource, /\.trends-chip button\s*\{[^}]*width:\s*2\.75rem/);
+assert.match(cssSource, /\.trends-options \[role="option"\]\s*\{[^}]*min-height:\s*2\.75rem/);
+assert.match(cssSource, /\.trends-marker\s*\{[^}]*min-height:\s*2\.75rem/);
 
 const production = validateInterface(JSON.parse(jsonBytes.toString("utf8")));
+const productionIndex = indexData(production);
 assert.deepEqual({ labs: production.labs.length, releases: production.releases.length, benchmarks: production.benchmarks.length, occurrences: production.occurrences.length, statuses: production.derived_statuses.length, sources: production.sources.length, definitions: production.canonical_definitions.length, quarantine: production.quarantine.length }, { labs: 6, releases: 172, benchmarks: 869, occurrences: 2821, statuses: 5593, sources: 537, definitions: 8, quarantine: 1 });
+assert.equal(rankBenchmarks(production.benchmarks, "").length, 869, "an empty query exposes the complete canonical benchmark denominator");
+const terminalCounts = new Map(["benchmark_terminal_bench", "benchmark_terminal_bench_2_0", "benchmark_terminal_bench_2_1"].map((id) => [id, production.occurrences.filter((occurrence) => occurrence.benchmark_id === id).length]));
+assert.deepEqual(Object.fromEntries(terminalCounts), { benchmark_terminal_bench: 15, benchmark_terminal_bench_2_0: 18, benchmark_terminal_bench_2_1: 8 });
+assert.equal(production.benchmarks.some((benchmark) => ["benchmark_terminal_bench_3_0", "benchmark_terminal_bench_4_0"].includes(benchmark.id) || ["terminal bench 3 0", "terminal bench 4 0"].includes(normalize(benchmark.name))), false, "canonical Terminal-Bench 3.0 and 4.0 IDs and names are absent");
+const selectedTerminalIds = [...terminalCounts.keys()];
+const terminalMatches = releaseMatches(productionIndex, selectedTerminalIds);
+const expectedTerminalReleaseIds = new Set(production.occurrences.filter((occurrence) => selectedTerminalIds.includes(occurrence.benchmark_id)).map((occurrence) => occurrence.release_id));
+assert.deepEqual(new Set(terminalMatches.map(({ release }) => release.id)), expectedTerminalReleaseIds, "trend release inclusion is the exact OR union of selected occurrences");
+for (const benchmarkId of selectedTerminalIds) {
+  const expectedOccurrences = production.occurrences.filter((occurrence) => occurrence.benchmark_id === benchmarkId).map((occurrence) => occurrence.id).sort();
+  assert.deepEqual(laneOccurrences(terminalMatches, benchmarkId).map(({ occurrence }) => occurrence.id).sort(), expectedOccurrences, `${benchmarkId} lane preserves every exact occurrence without collision loss`);
+}
+const duplicatedOccurrence = { ...fixture.occurrences[0], id: `${fixture.occurrences[0].id}_duplicate` };
+const collisionData = { ...fixture, occurrences: [...fixture.occurrences, duplicatedOccurrence] };
+const collisionMatches = releaseMatches(indexData(collisionData), [duplicatedOccurrence.benchmark_id]);
+assert.equal(laneOccurrences(collisionMatches, duplicatedOccurrence.benchmark_id).filter(({ match }) => match.release.id === duplicatedOccurrence.release_id).length, 2, "same release, benchmark, and date occurrences remain separately represented");
 assert.equal(new Set(production.releases.map((release) => release.name)).size, 172, "current release names are unique");
 assert.equal(jsonBytes.length, 11980016);
 assert.equal(createHash("sha256").update(jsonBytes).digest("hex"), "a945abe22b49e9cd6d309aa47b2979f2a069691ff3d2da1411b10de4ac3c93f5");

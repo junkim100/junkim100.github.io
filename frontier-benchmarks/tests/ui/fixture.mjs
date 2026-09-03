@@ -132,6 +132,8 @@ labSpecs.forEach(([labId, labName, domain], labIndex) => {
   });
 });
 
+benchmarks.push({ id: "zero_occurrence_fixture", name: "Zero Occurrence Fixture", category_id: "knowledge", aliases: ["no reviewed occurrences"] });
+
 const canonical_definitions = [
   ["first_reported", "First reported", "present_without_prior_occurrence", 0, "Present in reviewed public reporting with no earlier qualifying occurrence in the comparable lineage."],
   ["continued", "Continued", "present_after_immediately_prior_presence", 0, "Present in consecutive comparable reviewed releases."],

@@ -28,15 +28,19 @@ The compiler accepts `--check` to verify that the committed generated artifact i
 
 ## Static interface
 
-- `index.html` is the timeline-first landing page and in-place fullscreen workspace.
-- `timeline.html` is the viewport-bounded fallback timeline route.
+- `index.html` is the Benchmark Trends landing page. It retains the fixed corpus overview and renders publication-date lanes for 1 to 6 selected canonical benchmarks.
+- `timeline.html` is the viewport-bounded Releases chronology.
 - `ledger.html` and `history.html` are paginated data views.
 - `about.html` states the review window, first-party source boundary, score-free purpose, and absence caveat.
 - `definitions.html` is a compatibility redirect to About.
 
-`shell.mjs` owns shared theme behavior. `timeline.mjs` renders the six-lane chronology, keeps every release focusable, restores horizontal position through history state, and exposes every selected release occurrence through allowlisted Source links. `data-routes.mjs` renders the Ledger and History tables. `core.mjs` contains shared data and searchable-combobox helpers.
+`shell.mjs` owns shared theme behavior. `trends.mjs` owns the benchmark picker, URL selection state, release matching, benchmark lanes, shared release highlighting, and allowlisted Source links. `timeline.mjs` renders the six-lab release chronology, keeps every release focusable, restores horizontal position through history state, and exposes every selected release occurrence through allowlisted Source links. `data-routes.mjs` renders the Ledger and History tables. `core.mjs` contains shared data and searchable-combobox helpers.
 
 ## Durable view state
+
+Benchmark Trends state uses one repeated `benchmark` query parameter for each ordered selection, for example `?benchmark=benchmark_swe_bench_verified&benchmark=benchmark_terminal_bench_2_0`. Unknown and duplicate identifiers are removed, selections are limited to six, and order is canonicalized by normalized benchmark name and canonical ID. A state with no valid identifier uses Terminal-Bench 2.0 when it exists, otherwise the first canonical benchmark. The search query remains local to the picker and is never written to the URL. Local UI fixture mode preserves `fixture=ui` only on localhost or `127.0.0.1`.
+
+The pure Trends helpers have stable return shapes: `rankBenchmarks` returns ordered benchmark records; `sanitizeBenchmarkIds` and `parseBenchmarkState` return canonical identifier arrays; `serializeBenchmarkState` returns a leading-question-mark query string; `transitionBenchmarkSelection` returns an identifier array and transition outcome; `releaseMatches` returns publication-ordered `{ release, benchmarkIds, occurrences }` records; and `laneOccurrences` returns every exact occurrence for one selected benchmark lane.
 
 Timeline state accepts known category, lab, and release identifiers; corpus-window `from` and `to` dates in start-before-end order; zoom levels `1`, `2`, or `4`; and search text bounded to 160 characters. A default visit starts at the latest release. Explicit date, zoom, selected release, or restored horizontal history state takes precedence.
 
