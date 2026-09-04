@@ -407,8 +407,111 @@ try {
   }, "debounced history search");
   assert.deepEqual(historySearch, { query: "legitimate-zero-result-query", empty: true }, "history search updates without a submit action");
 
+  const dayDiff = (left, right) => Math.abs((Date.parse(`${left}T00:00:00Z`) - Date.parse(`${right}T00:00:00Z`)) / 86400000);
+  const js = async (expression) => {
+    const payload = await command("Runtime.evaluate", { expression, returnByValue: true, awaitPromise: true });
+    return payload.result?.value;
+  };
+  const captureCenter = (selector) => js(`(() => {
+    const frame = document.querySelector(${JSON.stringify(selector)});
+    if (!frame || !frame.scrollWidth) return null;
+    const start = Date.parse("2024-01-01T00:00:00Z");
+    const end = Date.parse("2026-09-01T00:00:00Z");
+    const percent = ((frame.scrollLeft + frame.clientWidth / 2) / frame.scrollWidth) * 100;
+    return {
+      date: new Date(start + (percent / 100) * (end - start)).toISOString().slice(0, 10),
+      scrollLeft: frame.scrollLeft,
+      maxScroll: frame.scrollWidth - frame.clientWidth,
+      chips: document.querySelectorAll(".trends-chip").length,
+      zoom: document.querySelector("#trends-zoom, #timeline-zoom")?.value || "",
+      search: location.search,
+    };
+  })()`);
+  const waitPreserved = async (selector, predicate, expectedDate, label) => {
+    const restored = await waitFor(async () => {
+      const info = await captureCenter(selector);
+      return info && predicate(info) && info.scrollLeft > 1 && dayDiff(expectedDate, info.date) <= 2 ? info : null;
+    }, label, 20000);
+    let last = restored;
+    for (let i = 0; i < 8; i += 1) {
+      await sleep(50);
+      const next = await captureCenter(selector);
+      if (next && predicate(next) && next.scrollLeft === last.scrollLeft && next.date === last.date && dayDiff(expectedDate, next.date) <= 2) return next;
+      last = next;
+    }
+    return last;
+  };
+
+  await command("Emulation.setDeviceMetricsOverride", { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
+  await command("Page.navigate", { url: `http://127.0.0.1:${serverPort}/frontier-benchmarks/index.html?benchmark=benchmark_terminal_bench_2_0` });
+  await waitFor(async () => {
+    const info = await captureCenter(".trends-frame");
+    return info && info.chips === 1 && Math.abs(info.scrollLeft - info.maxScroll) <= 1 ? info : null;
+  }, "1280 trends newest", 20000);
+  await js(`(() => { const frame = document.querySelector(".trends-frame"); frame.scrollLeft = Math.max(0, frame.scrollWidth * 0.4 - frame.clientWidth / 2); })()`);
+  await sleep(200);
+  const trendsBefore = await captureCenter(".trends-frame");
+  assert.ok(trendsBefore.scrollLeft > 1, "1280 trends pan leaves the newest and oldest edges");
+  await js(`(() => {
+    const input = document.querySelector("#benchmark-picker-input");
+    input.focus();
+    input.value = "Terminal-Bench 2.1";
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+  })()`);
+  await waitFor(async () => js(`document.querySelector('[role="option"][data-benchmark-id="benchmark_terminal_bench_2_1"]')`), "1280 trends Terminal-Bench 2.1 option");
+  await js(`document.querySelector('[role="option"][data-benchmark-id="benchmark_terminal_bench_2_1"]').click()`);
+  const trendsAfterAdd = await waitPreserved(".trends-frame", (info) => info.chips === 2, trendsBefore.date, "1280 trends two chips preserved");
+  assert.ok(dayDiff(trendsBefore.date, trendsAfterAdd.date) <= 2, `1280 trends add preserves center date: ${trendsBefore.date} -> ${trendsAfterAdd.date} (${dayDiff(trendsBefore.date, trendsAfterAdd.date)} days)`);
+  assert.ok(trendsAfterAdd.scrollLeft > 1, "1280 trends add does not jump to the oldest edge");
+  await js(`document.querySelector('.trends-chip button[data-remove-benchmark="benchmark_terminal_bench_2_1"]').click()`);
+  const trendsAfterRemove = await waitPreserved(".trends-frame", (info) => info.chips === 1, trendsBefore.date, "1280 trends one chip preserved");
+  assert.ok(dayDiff(trendsBefore.date, trendsAfterRemove.date) <= 2, `1280 trends remove preserves center date: ${trendsBefore.date} -> ${trendsAfterRemove.date} (${dayDiff(trendsBefore.date, trendsAfterRemove.date)} days)`);
+  await js(`(() => { const zoom = document.querySelector("#trends-zoom"); zoom.value = "4"; zoom.dispatchEvent(new Event("change", { bubbles: true })); })()`);
+  const trendsAfterZoom = await waitPreserved(".trends-frame", (info) => info.zoom === "4", trendsBefore.date, "1280 trends zoom 4 preserved");
+  assert.ok(dayDiff(trendsBefore.date, trendsAfterZoom.date) <= 2, `1280 trends zoom preserves center date: ${trendsBefore.date} -> ${trendsAfterZoom.date} (${dayDiff(trendsBefore.date, trendsAfterZoom.date)} days)`);
+  await js(`[...document.querySelectorAll("button")].find((button) => button.textContent === "Reset").click()`);
+  const trendsAfterReset = await waitFor(async () => {
+    const info = await captureCenter(".trends-frame");
+    return info && info.chips === 1 && info.zoom === "1" && Math.abs(info.scrollLeft - info.maxScroll) <= 1 ? info : null;
+  }, "1280 trends reset newest");
+  assert.ok(Math.abs(trendsAfterReset.scrollLeft - trendsAfterReset.maxScroll) <= 1, "1280 trends Reset returns to newest");
+
+  await command("Page.navigate", { url: `http://127.0.0.1:${serverPort}/frontier-benchmarks/timeline.html` });
+  await waitFor(async () => {
+    const info = await js(`(() => {
+      const frame = document.querySelector(".timeline-frame");
+      if (!frame || document.querySelectorAll(".release-node").length !== 172) return null;
+      const maxScroll = frame.scrollWidth - frame.clientWidth;
+      if (Math.abs(frame.scrollLeft - maxScroll) > 1) return null;
+      return { scrollLeft: frame.scrollLeft, maxScroll };
+    })()`);
+    return info;
+  }, "1280 releases newest", 20000);
+  await js(`(() => { const frame = document.querySelector(".timeline-frame"); frame.scrollLeft = Math.max(0, frame.scrollWidth * 0.45 - frame.clientWidth / 2); })()`);
+  await sleep(200);
+  const releasesBefore = await captureCenter(".timeline-frame");
+  assert.ok(releasesBefore.scrollLeft > 1, "1280 releases pan leaves the newest and oldest edges");
+  await js(`(() => { const zoom = document.querySelector("#timeline-zoom"); zoom.value = "2"; zoom.dispatchEvent(new Event("change", { bubbles: true })); })()`);
+  const releasesAfterZoom = await waitPreserved(".timeline-frame", (info) => info.zoom === "2", releasesBefore.date, "1280 releases zoom 2 preserved");
+  assert.ok(dayDiff(releasesBefore.date, releasesAfterZoom.date) <= 2, `1280 releases zoom preserves center date: ${releasesBefore.date} -> ${releasesAfterZoom.date} (${dayDiff(releasesBefore.date, releasesAfterZoom.date)} days)`);
+  assert.ok(releasesAfterZoom.scrollLeft > 1, "1280 releases zoom does not jump to the oldest edge");
+  await js(`[...document.querySelectorAll("button")].find((button) => button.textContent === "Reset").click()`);
+  const releasesAfterReset = await waitFor(async () => {
+    const info = await captureCenter(".timeline-frame");
+    return info && info.zoom === "1" && Math.abs(info.scrollLeft - info.maxScroll) <= 1 ? info : null;
+  }, "1280 releases reset newest");
+  assert.ok(Math.abs(releasesAfterReset.scrollLeft - releasesAfterReset.maxScroll) <= 1, "1280 releases Reset returns to newest");
+
+  await js(`(() => { const frame = document.querySelector(".timeline-frame"); frame.scrollLeft = Math.max(0, frame.scrollWidth * 0.45 - frame.clientWidth / 2); })()`);
+  await sleep(200);
+  const releasesBeforeResize = await captureCenter(".timeline-frame");
+  await command("Emulation.setDeviceMetricsOverride", { width: 1100, height: 900, deviceScaleFactor: 1, mobile: false });
+  await js(`window.dispatchEvent(new Event("resize"))`);
+  const releasesAfterResize = await waitPreserved(".timeline-frame", (info) => Boolean(info?.date), releasesBeforeResize.date, "releases resize preserved");
+  assert.ok(dayDiff(releasesBeforeResize.date, releasesAfterResize.date) <= 2, `releases resize preserves center date: ${releasesBeforeResize.date} -> ${releasesAfterResize.date} (${dayDiff(releasesBeforeResize.date, releasesAfterResize.date)} days)`);
+
   assert.deepEqual(browserErrors, [], "trends, Releases, and data-route browser coverage has no runtime, console, network, or HTTP errors");
-  console.log(JSON.stringify({ result: "PASS", browserErrors: browserErrors.length, pickerOptions: pickerContract.optionCount, terminalMarkers: terminalMarkerCount, detailSources: trendDetail.sources.length, focusRestored: restoredFocus, historyAutoSearch: historySearch.empty, themeControlState: themeControlState.result.value, releaseViewports: geometries.map((geometry) => `${geometry.viewport}:172/6/bounded/latest`), trendViewports }));
+  console.log(JSON.stringify({ result: "PASS", browserErrors: browserErrors.length, pickerOptions: pickerContract.optionCount, terminalMarkers: terminalMarkerCount, detailSources: trendDetail.sources.length, focusRestored: restoredFocus, historyAutoSearch: historySearch.empty, themeControlState: themeControlState.result.value, releaseViewports: geometries.map((geometry) => `${geometry.viewport}:172/6/bounded/latest`), trendViewports, centerDate: { viewport: "1280x900", trendsAdd: { before: trendsBefore.date, after: trendsAfterAdd.date, drift: dayDiff(trendsBefore.date, trendsAfterAdd.date) }, trendsRemove: { after: trendsAfterRemove.date, drift: dayDiff(trendsBefore.date, trendsAfterRemove.date) }, trendsZoom: { after: trendsAfterZoom.date, drift: dayDiff(trendsBefore.date, trendsAfterZoom.date) }, trendsResetNewest: Math.abs(trendsAfterReset.scrollLeft - trendsAfterReset.maxScroll) <= 1, releasesZoom: { before: releasesBefore.date, after: releasesAfterZoom.date, drift: dayDiff(releasesBefore.date, releasesAfterZoom.date) }, releasesResetNewest: Math.abs(releasesAfterReset.scrollLeft - releasesAfterReset.maxScroll) <= 1, releasesResize: { before: releasesBeforeResize.date, after: releasesAfterResize.date, drift: dayDiff(releasesBeforeResize.date, releasesAfterResize.date) } } }));
   socket.close();
 } finally {
   if (browser) {

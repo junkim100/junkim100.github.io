@@ -245,6 +245,9 @@ class Trends {
     this.hoveredReleaseId = "";
     this.focusedReleaseId = "";
     this.markersByRelease = new Map();
+    this.centerDate = "";
+    this.restoringViewport = false;
+    this.restoreGeneration = 0;
   }
 
   isUiFixture(url = new URL(window.location.href)) {
@@ -285,8 +288,9 @@ class Trends {
   }
 
   captureViewportDate() {
+    if (this.restoringViewport) return this.centerDate;
     const frame = this.currentFrame();
-    if (!frame || !this.indexed) return this.centerDate;
+    if (!frame || !this.indexed || !frame.scrollWidth) return this.centerDate;
     const { start, end } = this.corpusWindow();
     this.centerDate = captureCenterDate(frame, start, end);
     return this.centerDate;
@@ -294,14 +298,36 @@ class Trends {
 
   restoreViewport(options = {}) {
     const frame = this.currentFrame();
-    if (!frame || !this.indexed) return;
+    if (!frame || !this.indexed) {
+      this.restoringViewport = false;
+      return;
+    }
     const { start, end } = this.corpusWindow();
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      if (options.newest) scrollToNewest(frame);
-      else restoreCenterDate(frame, this.centerDate || end, start, end);
-      this.centerDate = captureCenterDate(frame, start, end);
+    const newest = Boolean(options.newest);
+    const intendedDate = options.centerDate || this.centerDate;
+    this.restoringViewport = true;
+    if (this.scrollFramePending) {
+      cancelAnimationFrame(this.scrollFramePending);
+      this.scrollFramePending = null;
+    }
+    const generation = ++this.restoreGeneration;
+    const apply = (attempts = 0) => {
+      if (generation !== this.restoreGeneration) return;
+      if (!frame.isConnected) {
+        this.restoringViewport = false;
+        return;
+      }
+      if ((!frame.scrollWidth || !frame.clientWidth) && attempts < 30) {
+        requestAnimationFrame(() => apply(attempts + 1));
+        return;
+      }
+      if (newest) scrollToNewest(frame);
+      else restoreCenterDate(frame, intendedDate || end, start, end);
+      this.centerDate = captureCenterDate(frame, start, end) || intendedDate;
+      this.restoringViewport = false;
       window.history.replaceState(this.historyPayload(this.centerDate), "", this.historyTarget(this.canonicalUrl()));
-    }));
+    };
+    apply();
   }
 
   replaceCanonicalUrl() {
@@ -312,11 +338,11 @@ class Trends {
   }
 
   pushSelection(ids, message, newest = false) {
-    this.captureViewportDate();
+    const centerDate = this.captureViewportDate();
     this.selectedIds = sanitizeBenchmarkIds(ids, this.indexed.data.benchmarks, DEFAULT_BENCHMARK_ID);
     const url = this.canonicalUrl();
-    window.history.pushState(this.historyPayload(), "", this.historyTarget(url));
-    this.render(message, { newest });
+    window.history.pushState(this.historyPayload(centerDate), "", this.historyTarget(url));
+    this.render(message, { newest, centerDate });
   }
 
   async initialize() {
@@ -329,7 +355,7 @@ class Trends {
       this.centerDate = window.history.state?.trendsCenterDate || "";
       this.replaceCanonicalUrl();
       this.renderPicker();
-      this.render("", { newest: !this.centerDate });
+      this.render("", { newest: !this.centerDate, centerDate: this.centerDate });
       window.addEventListener("popstate", (event) => {
         const restored = parseTrendsState(window.location.search, this.indexed.data.benchmarks, this.indexed.data, DEFAULT_BENCHMARK_ID);
         this.selectedIds = restored.ids;
@@ -337,11 +363,10 @@ class Trends {
         this.centerDate = event.state?.trendsCenterDate || this.centerDate;
         this.replaceCanonicalUrl();
         this.syncFilterControls();
-        this.render("Selection restored from browser history.");
+        this.render("Selection restored from browser history.", { centerDate: this.centerDate });
       });
       window.addEventListener("resize", () => {
-        this.captureViewportDate();
-        this.restoreViewport();
+        this.restoreViewport({ centerDate: this.centerDate });
       });
       document.addEventListener("keydown", (event) => {
         if (event.defaultPrevented || event.key !== "Escape" || !this.pinnedReleaseId) return;
@@ -440,11 +465,11 @@ class Trends {
   }
 
   updateFilters(changes) {
-    this.captureViewportDate();
+    const centerDate = this.captureViewportDate();
     this.filters = sanitizeTrendsFilters({ ...this.filters, ...changes }, this.indexed.data);
-    window.history.pushState(this.historyPayload(), "", this.historyTarget(this.canonicalUrl()));
+    window.history.pushState(this.historyPayload(centerDate), "", this.historyTarget(this.canonicalUrl()));
     this.syncFilterControls();
-    this.render("Filters updated.");
+    this.render("Filters updated.", { centerDate });
   }
 
   resetView() {
@@ -467,6 +492,7 @@ class Trends {
   }
 
   render(message = "", options = {}) {
+    this.restoringViewport = true;
     this.renderChips();
     this.renderOptions();
     this.renderChart();
@@ -651,9 +677,11 @@ class Trends {
     this.selectedIds.forEach((benchmarkId) => canvas.append(this.renderLane(benchmarkId, matches, start, end, chartWidth)));
     const frame = element("div", { className: "trends-frame", tabindex: "0", role: "region", "aria-label": "Horizontally scrollable benchmark trends chart" }, [canvas]);
     frame.addEventListener("scroll", () => {
+      if (this.restoringViewport) return;
       if (this.scrollFramePending) return;
       this.scrollFramePending = requestAnimationFrame(() => {
         this.scrollFramePending = null;
+        if (this.restoringViewport) return;
         this.captureViewportDate();
         window.history.replaceState(this.historyPayload(this.centerDate), "", this.historyTarget(this.canonicalUrl()));
       });

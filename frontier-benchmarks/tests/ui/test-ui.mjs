@@ -5,6 +5,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   COMBOBOX_OPTION_LIMIT,
+  captureCenterDate,
   collisionRows,
   dateFromPosition,
   datePosition,
@@ -13,6 +14,8 @@ import {
   matchingBenchmarkIds,
   normalize,
   orderedReleaseOccurrences,
+  restoreCenterDate,
+  scrollToNewest,
   timelineTicks,
   validateInterface,
 } from "../../core.mjs";
@@ -276,6 +279,15 @@ assert.doesNotMatch(dataRoutesSource, /innerHTML|insertAdjacentHTML/);
 assert.match(timelineSource, /history\.state\?\.timelineCenterDate/);
 assert.match(timelineSource, /payload\.timelineCenterDate = centerDate/);
 assert.match(timelineSource, /scrollToNewest\(frame\)/);
+assert.match(timelineSource, /this\.restoringViewport = true/);
+assert.match(timelineSource, /if \(this\.restoringViewport\) return/);
+assert.match(timelineSource, /const intendedDate = restoredDate \|\| preserveDate \|\| this\.centerDate/);
+assert.match(trendsSource, /this\.restoringViewport = true/);
+assert.match(trendsSource, /if \(this\.restoringViewport\) return/);
+assert.match(trendsSource, /const intendedDate = options\.centerDate \|\| this\.centerDate/);
+assert.match(trendsSource, /this\.render\(message, \{ newest, centerDate \}\)/);
+assert.match(trendsSource, /this\.render\(\"Filters updated\.\", \{ centerDate \}\)/);
+assert.match(trendsSource, /this\.render\(\"Filters reset\.\", \{ newest: true \}\)/);
 assert.doesNotMatch(timelineSource, /requestFullscreen\(\)/);
 assert.doesNotMatch(timelineSource, /navigateToFallback\(\)/);
 assert.doesNotMatch(timelineSource, /window\.location\.assign\(url\.href\)/);
@@ -315,6 +327,16 @@ assert.deepEqual({ labs: production.labs.length, releases: production.releases.l
 assert.equal(rankBenchmarks(liveCanonicalBenchmarks(production.benchmarks), "").length, 803, "an empty query exposes the live canonical benchmark denominator");
 assert.equal(normalize("HumanEval+"), "humaneval plus");
 assert.equal(dateFromPosition(datePosition("2025-06-15", "2024-01-01", "2026-09-01"), "2024-01-01", "2026-09-01"), "2025-06-15");
+const restoredFrame = { scrollWidth: 4000, clientWidth: 800, scrollLeft: 0 };
+restoreCenterDate(restoredFrame, "2025-01-24", "2024-01-01", "2026-09-01");
+assert.equal(captureCenterDate(restoredFrame, "2024-01-01", "2026-09-01"), "2025-01-24");
+assert.ok(restoredFrame.scrollLeft > 0 && restoredFrame.scrollLeft < restoredFrame.scrollWidth - restoredFrame.clientWidth);
+restoreCenterDate(restoredFrame, "2020-01-01", "2024-01-01", "2026-09-01");
+assert.equal(restoredFrame.scrollLeft, 0);
+restoreCenterDate(restoredFrame, "2029-01-01", "2024-01-01", "2026-09-01");
+assert.equal(restoredFrame.scrollLeft, 3200);
+scrollToNewest(restoredFrame);
+assert.equal(restoredFrame.scrollLeft, 3200);
 const terminalCounts = new Map(["benchmark_terminal_bench", "benchmark_terminal_bench_2_0", "benchmark_terminal_bench_2_1"].map((id) => [id, production.occurrences.filter((occurrence) => occurrence.benchmark_id === id && occurrence.review_status === "verified").length]));
 assert.deepEqual(Object.fromEntries(terminalCounts), { benchmark_terminal_bench: 7, benchmark_terminal_bench_2_0: 21, benchmark_terminal_bench_2_1: 10 });
 assert.equal(production.benchmarks.some((benchmark) => benchmark.id === "benchmark_terminal_bench_3_0"), true, "canonical Terminal-Bench 3.0 is present");

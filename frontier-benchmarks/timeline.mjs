@@ -94,6 +94,8 @@ class Timeline {
     this.activeReleaseId = "";
     this.centerDate = window.history.state?.timelineCenterDate || "";
     this.filtersOpen = false;
+    this.restoringViewport = false;
+    this.restoreGeneration = 0;
   }
 
   readState() {
@@ -136,8 +138,9 @@ class Timeline {
   }
 
   captureViewportDate() {
+    if (this.restoringViewport) return this.centerDate;
     const frame = this.currentFrame();
-    if (!frame || !this.indexed) return this.centerDate;
+    if (!frame || !this.indexed || !frame.scrollWidth) return this.centerDate;
     const { start, end } = this.indexed.data.corpus.publication_window;
     this.centerDate = captureCenterDate(frame, start, end);
     return this.centerDate;
@@ -168,7 +171,6 @@ class Timeline {
         this.render({ restoredDate: this.centerDate, initial: false });
       });
       window.addEventListener("resize", () => {
-        this.captureViewportDate();
         this.restoreHorizontalPosition({ restoredDate: this.centerDate });
       });
     } catch (error) {
@@ -311,19 +313,20 @@ class Timeline {
   }
 
   updateState(changes, focusDetail = false, options = {}) {
-    this.captureViewportDate();
+    const centerDate = this.captureViewportDate();
     const next = { ...this.state, ...changes };
     if (["q", "category", "lab", "from", "to"].some((key) => changes[key] !== undefined)) next.release = "";
     this.state = this.sanitizeState(next);
-    this.writeState("pushState", this.centerDate);
+    this.writeState("pushState", centerDate);
     this.syncControls();
     this.syncFilterDisclosure();
     const explicit = this.explicitTarget(changes, this.state);
-    this.render({ explicit, defaultEnd: options.defaultEnd, preserveDate: this.centerDate });
+    this.render({ explicit, defaultEnd: options.defaultEnd, preserveDate: centerDate });
     if (focusDetail && this.state.release) this.focusClose();
   }
 
   render(scrollOptions = {}) {
+    this.restoringViewport = true;
     const releases = this.releases();
     this.nodeByRelease = new Map();
     replaceChildren(this.mount, [this.chart(releases)]);
@@ -364,9 +367,11 @@ class Timeline {
     });
     frame.append(canvas);
     frame.addEventListener("scroll", () => {
+      if (this.restoringViewport) return;
       if (this.scrollFramePending) return;
       this.scrollFramePending = requestAnimationFrame(() => {
         this.scrollFramePending = null;
+        if (this.restoringViewport) return;
         this.captureViewportDate();
         this.writeState("replaceState", this.centerDate);
       });
@@ -480,17 +485,38 @@ class Timeline {
 
   restoreHorizontalPosition({ restoredDate = null, preserveDate = null, explicit = null, initial = false, defaultEnd = false } = {}) {
     const frame = this.mount.querySelector(".timeline-frame");
-    if (!frame) return;
-    requestAnimationFrame(() => requestAnimationFrame(() => {
+    if (!frame) {
+      this.restoringViewport = false;
+      return;
+    }
+    const intendedDate = restoredDate || preserveDate || this.centerDate;
+    this.restoringViewport = true;
+    if (this.scrollFramePending) {
+      cancelAnimationFrame(this.scrollFramePending);
+      this.scrollFramePending = null;
+    }
+    const generation = ++this.restoreGeneration;
+    const apply = (attempts = 0) => {
+      if (generation !== this.restoreGeneration) return;
+      if (!frame.isConnected) {
+        this.restoringViewport = false;
+        return;
+      }
+      if ((!frame.scrollWidth || !frame.clientWidth) && attempts < 30) {
+        requestAnimationFrame(() => apply(attempts + 1));
+        return;
+      }
       const { start, end } = this.indexed.data.corpus.publication_window;
       const target = explicit || (initial ? this.explicitInitialTarget : null);
       if (target?.type === "release") this.scrollReleaseIntoView(target.value, frame);
       else if (target?.type === "date") this.scrollDateIntoView(target.value, frame);
-      else if (defaultEnd || (initial && !target && !this.centerDate)) scrollToNewest(frame);
-      else restoreCenterDate(frame, restoredDate || preserveDate || this.centerDate || end, start, end);
-      this.centerDate = captureCenterDate(frame, start, end);
+      else if (defaultEnd || (initial && !target && !intendedDate)) scrollToNewest(frame);
+      else restoreCenterDate(frame, intendedDate || end, start, end);
+      this.centerDate = captureCenterDate(frame, start, end) || intendedDate;
+      this.restoringViewport = false;
       this.writeState("replaceState", this.centerDate);
-    }));
+    };
+    apply();
   }
 
   scrollReleaseIntoView(releaseId, frame) {
