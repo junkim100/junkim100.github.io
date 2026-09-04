@@ -54,7 +54,7 @@ try {
   await listen();
   const serverPort = server.address().port;
   const production = JSON.parse(await readFile(resolve(routeRoot, "public/observatory.json"), "utf8"));
-  const capBenchmarkIds = production.benchmarks.slice(0, 7).map((benchmark) => benchmark.id);
+  const capBenchmarkIds = production.benchmarks.filter((benchmark) => !benchmark.identity_status || benchmark.identity_status === "canonical").slice(0, 7).map((benchmark) => benchmark.id);
   profile = await mkdtemp(resolve(tmpdir(), "observatory-chrome-"));
   browser = spawn(chrome, ["--headless=new", "--no-first-run", "--no-default-browser-check", "--disable-gpu", "--remote-debugging-port=0", `--user-data-dir=${profile}`, "about:blank"], { stdio: "ignore" });
   const [debugPort] = (await waitFor(async () => (await readFile(resolve(profile, "DevToolsActivePort"), "utf8")).trim().split("\n"), "Chrome DevTools port"));
@@ -146,7 +146,7 @@ try {
         const input = document.querySelector("#benchmark-picker-input");
         const lane = document.querySelector(".trends-lane");
         const markers = [...document.querySelectorAll(".trends-marker")];
-        if (!input || !lane || markers.length !== 18) return null;
+        if (!input || !lane || markers.length !== 21) return null;
         const chipButton = document.querySelector(".trends-chip button");
         chipButton.scrollIntoView({ behavior: "instant", block: "center", inline: "nearest" });
         const chipBounds = chipButton.getBoundingClientRect();
@@ -171,7 +171,7 @@ try {
       return result.result.value;
     }, `Terminal-Bench 2.0 trends at ${width}px`, 20000);
     assert.ok(geometry.overflow <= 0, `the ${width}px landing has no document-level horizontal overflow`);
-    assert.deepEqual({ lanes: geometry.lanes, markers: geometry.markers, occurrenceIds: geometry.occurrenceIds }, { lanes: 1, markers: 18, occurrenceIds: 18 }, `the ${width}px default lane preserves all Terminal-Bench 2.0 occurrences`);
+    assert.deepEqual({ lanes: geometry.lanes, markers: geometry.markers, occurrenceIds: geometry.occurrenceIds }, { lanes: 1, markers: 21, occurrenceIds: 21 }, `the ${width}px default lane preserves all Terminal-Bench 2.0 occurrences`);
     assert.ok(geometry.chipTarget.width >= 44 && geometry.chipTarget.height >= 44, `the ${width}px selected-chip remove control is at least 44x44 CSS px`);
     assert.equal(geometry.chipTarget.insideViewport && geometry.chipTarget.centerHit, true, `the ${width}px selected-chip remove control is unclipped and not overlapped: ${JSON.stringify(geometry.chipTarget)}`);
     assert.ok(geometry.inputTarget >= 44 && geometry.minMarkerTarget >= 44, `the ${width}px picker and marker controls meet 44px touch targets`);
@@ -256,7 +256,7 @@ try {
     return result.result.value;
   }, "canonical trends picker", 20000);
   assert.equal(pickerContract.search, "?benchmark=benchmark_terminal_bench&benchmark=benchmark_terminal_bench_2_1", "initial state drops obsolete keys and canonicalizes repeated benchmark IDs");
-  assert.deepEqual({ role: pickerContract.role, expanded: pickerContract.expanded, controls: pickerContract.controls, optionCount: pickerContract.optionCount, selectedOptions: pickerContract.selectedOptions, listRole: pickerContract.listRole, multiselect: pickerContract.multiselect, activeVisible: pickerContract.activeVisible }, { role: "combobox", expanded: "true", controls: "benchmark-picker-options", optionCount: 869, selectedOptions: 2, listRole: "listbox", multiselect: "true", activeVisible: true });
+  assert.deepEqual({ role: pickerContract.role, expanded: pickerContract.expanded, controls: pickerContract.controls, optionCount: pickerContract.optionCount, selectedOptions: pickerContract.selectedOptions, listRole: pickerContract.listRole, multiselect: pickerContract.multiselect, activeVisible: pickerContract.activeVisible }, { role: "combobox", expanded: "true", controls: "benchmark-picker-options", optionCount: 803, selectedOptions: 2, listRole: "listbox", multiselect: "true", activeVisible: true });
   assert.match(pickerContract.active, /^benchmark-option-benchmark_/);
   assert.ok(pickerContract.optionTarget >= 44, "picker options meet the minimum touch target");
 
@@ -345,9 +345,9 @@ try {
   await command("Page.navigate", { url: `http://127.0.0.1:${serverPort}/frontier-benchmarks/index.html?benchmark=benchmark_terminal_bench&benchmark=benchmark_terminal_bench_2_0&benchmark=benchmark_terminal_bench_2_1` });
   const terminalMarkerCount = await waitFor(async () => {
     const result = await command("Runtime.evaluate", { expression: `document.querySelectorAll(".trends-marker").length`, returnByValue: true });
-    return result.result.value === 41 ? result.result.value : null;
-  }, "15/18/8 Terminal-Bench marks", 20000);
-  assert.equal(terminalMarkerCount, 41, "three Terminal-Bench lanes expose exact 15/18/8 occurrence marks");
+    return result.result.value === 38 ? result.result.value : null;
+  }, "7/21/10 Terminal-Bench marks", 20000);
+  assert.equal(terminalMarkerCount, 38, "three Terminal-Bench lanes expose exact 7/21/10 occurrence marks");
 
   await command("Page.navigate", { url: `http://127.0.0.1:${serverPort}/frontier-benchmarks/index.html?benchmark=reasoning_atlas&benchmark=code_harbor&fixture=ui` });
   const linkedRelease = await waitFor(async () => {

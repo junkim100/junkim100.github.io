@@ -66,7 +66,7 @@ assert.match(canonicalSearch("ledger", ledgerDateState), new RegExp(`from=${ledg
 const ledgerRecords = recordsForRoute("ledger", indexed);
 const historyRecords = recordsForRoute("history", indexed);
 assert.equal(ledgerRecords.length, 172);
-assert.equal(historyRecords.length, 5593);
+assert.equal(historyRecords.length, 5211);
 assert.deepEqual(new Set(ledgerRecords.map((record) => record.id)), new Set(production.releases.map((release) => release.id)), "ledger default is the exact release ID union");
 assert.deepEqual(new Set(historyRecords.map((record) => record.id)), new Set(production.derived_statuses.map((status) => status.id)), "history default is the exact status ID union");
 
@@ -74,8 +74,8 @@ const occurrences = new Map(production.occurrences.map((occurrence) => [occurren
 const historyById = new Map(historyRecords.map((record) => [record.id, record]));
 const statusesWithOccurrence = production.derived_statuses.filter((status) => status.occurrence_id);
 const linkedHistoryRows = historyRecords.filter((record) => record.sourceHref);
-assert.equal(statusesWithOccurrence.length, 2821);
-assert.equal(linkedHistoryRows.length, 2821, "every history row associated with an occurrence exposes one Source destination");
+assert.equal(statusesWithOccurrence.length, 2571);
+assert.equal(linkedHistoryRows.length, 2571, "every history row associated with an occurrence exposes one Source destination");
 for (const status of statusesWithOccurrence) {
   const occurrence = occurrences.get(status.occurrence_id);
   const source = indexed.sources.get(occurrence.source_id);
@@ -97,6 +97,6 @@ const validSource = production.sources[0];
 assert.match(safeSourceHref(indexed, validSource), /^https:\/\//);
 assert.equal(safeSourceHref(indexed, { ...validSource, url: `https://user@${new URL(validSource.url).hostname}/unsafe` }), null);
 assert.equal(safeSourceHref(indexed, { ...validSource, url: "javascript:alert(1)" }), null);
-assert.deepEqual(Object.fromEntries([172, 5593].map((count) => [count, paginate(Array.from({ length: count }), 9999, 50).totalPages])), { 172: 4, 5593: 112 });
+assert.deepEqual(Object.fromEntries([172, 5211].map((count) => [count, paginate(Array.from({ length: count }), 9999, 50).totalPages])), { 172: 4, 5211: 105 });
 
 console.log(JSON.stringify({ result: "PASS", page_sizes: PAGE_SIZES, default_page_size: DEFAULT_PAGE_SIZE, releases: ledgerRecords.length, statuses: historyRecords.length, source_links: linkedHistoryRows.length }));

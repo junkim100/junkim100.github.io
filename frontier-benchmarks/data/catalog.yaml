@@ -5107,6 +5107,8 @@ benchmarks:
   name: AA Coding Agent Index
   aliases: []
   category_id: category_software_engineering
+  identity_status: merged
+  canonical_benchmark_id: benchmark_artificial_analysis_coding_agent_index
 - id: benchmark_aa_lcr
   name: AA-LCR
   aliases: []
@@ -5127,8 +5129,9 @@ benchmarks:
   - ABC Bench LH
   category_id: category_health_and_science
 - id: benchmark_abc_bench_screening_evasion
-  name: ABC Bench Screening Evasion
-  aliases: []
+  name: "ABC-Bench: Screening Evasion"
+  aliases:
+  - ABC Bench Screening Evasion
   category_id: category_health_and_science
 - id: benchmark_activitynet_qa
   name: ActivityNet-QA
@@ -5195,6 +5198,8 @@ benchmarks:
   name: AI2D Test
   aliases: []
   category_id: category_vision_language_understanding
+  identity_status: merged
+  canonical_benchmark_id: benchmark_ai2d
 - id: benchmark_aider
   name: Aider
   aliases: []
@@ -5232,6 +5237,7 @@ benchmarks:
   name: AIME (year not specified)
   aliases: []
   category_id: category_mathematics_and_science
+  identity_status: quarantined
 - id: benchmark_airs_bench
   name: AIRS-Bench
   aliases: []
@@ -5265,6 +5271,7 @@ benchmarks:
   name: AMC 2022-23
   aliases: []
   category_id: category_mathematics
+  identity_status: quarantined
 - id: benchmark_amc_2023
   name: AMC 2023
   aliases: []
@@ -5424,6 +5431,7 @@ benchmarks:
   name: Arena
   aliases: []
   category_id: category_human_preference
+  identity_status: quarantined
 - id: benchmark_arena_ai_text_leaderboard
   name: Arena.ai Text Leaderboard
   aliases:
@@ -5512,8 +5520,9 @@ benchmarks:
   aliases: []
   category_id: category_multilingual
 - id: benchmark_bench
-  name: Tau-bench
+  name: τ-bench
   aliases:
+  - Tau-bench
   - TAU bench
   - TAU-bench (τ-bench)
   - TAU-retail
@@ -5685,6 +5694,8 @@ benchmarks:
   name: C-SimpleQA
   aliases: []
   category_id: category_factuality
+  identity_status: merged
+  canonical_benchmark_id: benchmark_chinese_simpleqa
 - id: benchmark_capture_the_flag_challenges
   name: Capture-the-Flag Challenges
   aliases: []
@@ -5725,6 +5736,8 @@ benchmarks:
   name: CharadesSTA
   aliases: []
   category_id: category_video_understanding
+  identity_status: merged
+  canonical_benchmark_id: benchmark_charades_sta
 - id: benchmark_chartmimic
   name: ChartMimic
   aliases: []
@@ -5771,8 +5784,9 @@ benchmarks:
   aliases: []
   category_id: category_multimodal_understanding
 - id: benchmark_chinese_simpleqa
-  name: Chinese-SimpleQA
-  aliases: []
+  name: Chinese SimpleQA
+  aliases:
+  - Chinese-SimpleQA
   category_id: category_factuality
 - id: benchmark_chrome_production_commit_scanning_pipeline
   name: Chrome Production Commit Scanning Pipeline
@@ -5962,10 +5976,14 @@ benchmarks:
   name: CRUX-I
   aliases: []
   category_id: category_coding
+  identity_status: merged
+  canonical_benchmark_id: benchmark_cruxeval_i
 - id: benchmark_crux_o
   name: CRUX-O
   aliases: []
   category_id: category_coding
+  identity_status: merged
+  canonical_benchmark_id: benchmark_cruxeval_o
 - id: benchmark_cruxeval
   name: CRUXEval
   aliases: []
@@ -5982,6 +6000,7 @@ benchmarks:
   name: CSimpleQA
   aliases: []
   category_id: category_knowledge_and_reasoning
+  identity_status: quarantined
 - id: benchmark_curated_ctfs
   name: Curated CTFs
   aliases: []
@@ -6087,6 +6106,8 @@ benchmarks:
   name: DeepSWE 1.1
   aliases: []
   category_id: category_coding
+  identity_status: merged
+  canonical_benchmark_id: benchmark_deepswe_v1_1
 - id: benchmark_deepswe_v1_1
   name: DeepSWE v1.1
   aliases: []
@@ -6112,6 +6133,8 @@ benchmarks:
   name: DocVQA Test
   aliases: []
   category_id: category_vision_language_understanding
+  identity_status: merged
+  canonical_benchmark_id: benchmark_docvqa
 - id: benchmark_draco
   name: DRACO
   aliases:
@@ -6175,8 +6198,9 @@ benchmarks:
   aliases: []
   category_id: category_video_understanding
 - id: benchmark_embspatialbench
-  name: EmbSpatialBench
-  aliases: []
+  name: EmbSpatial-Bench
+  aliases:
+  - EmbSpatialBench
   category_id: category_vision_language_understanding
 - id: benchmark_erqa
   name: ERQA
@@ -6224,8 +6248,9 @@ benchmarks:
   aliases: []
   category_id: category_biological_knowledge
 - id: benchmark_finance_agent
-  name: FinanceAgent
+  name: Finance Agent
   aliases:
+  - FinanceAgent
   - Earlier card prints FinanceAgent
   - Finance Agent
   - Later cards print Finance Agent with a space
@@ -6243,8 +6268,9 @@ benchmarks:
   aliases: []
   category_id: category_finance
 - id: benchmark_firefox_147_exploit_evaluation
-  name: Firefox 147 Exploit Evaluation
+  name: Firefox 147
   aliases:
+  - Firefox 147 Exploit Evaluation
   - Firefox
   category_id: category_cybersecurity
 - id: benchmark_firefox_147_exploitation_evaluation
@@ -6252,11 +6278,14 @@ benchmarks:
   aliases:
   - Figure 3.3.3.A calls it the Firefox shell exploitation evaluation
   category_id: category_cybersecurity
+  identity_status: merged
+  canonical_benchmark_id: benchmark_firefox_147_exploit_evaluation
 - id: benchmark_firefox_exploit_evaluation
   name: Firefox Exploit Evaluation
   aliases:
   - Firefox exploits
   category_id: category_cybersecurity
+  identity_status: quarantined
 - id: benchmark_fleurs
   name: FLEURS
   aliases: []
@@ -6294,6 +6323,8 @@ benchmarks:
   name: Frontier Science Research
   aliases: []
   category_id: category_mathematics_and_science
+  identity_status: merged
+  canonical_benchmark_id: benchmark_frontierscience_research
 - id: benchmark_frontierbench
   name: FrontierBench
   aliases:
@@ -6328,8 +6359,9 @@ benchmarks:
   aliases: []
   category_id: category_mathematics_and_science
 - id: benchmark_frontierscience_research
-  name: FrontierScience Research
-  aliases: []
+  name: FrontierScience-Research
+  aliases:
+  - FrontierScience Research
   category_id: category_health_and_science
 - id: benchmark_frontierswe
   name: FrontierSWE
@@ -6390,8 +6422,9 @@ benchmarks:
   aliases: []
   category_id: category_health_and_biology
 - id: benchmark_genebench_pro
-  name: GeneBench Pro
-  aliases: []
+  name: GeneBench-Pro
+  aliases:
+  - GeneBench Pro
   category_id: category_health_and_biology
 - id: benchmark_global_mmlu
   name: Global MMLU
@@ -6401,8 +6434,9 @@ benchmarks:
   - GMMLU
   category_id: category_multilingual
 - id: benchmark_global_mmlu_lite
-  name: Global MMLU-Lite
+  name: Global-MMLU Lite
   aliases:
+  - Global MMLU-Lite
   - Global-MMLU-Lite
   - GMMLU-Lite
   category_id: category_multilingual
@@ -6419,8 +6453,9 @@ benchmarks:
   aliases: []
   category_id: category_general_knowledge
 - id: benchmark_gorilla_api_bench
-  name: Gorilla API-Bench
+  name: APIBench
   aliases:
+  - Gorilla API-Bench
   - API-Bench
   category_id: category_tool_use_and_agents
 - id: benchmark_gpqa
@@ -6511,6 +6546,7 @@ benchmarks:
   name: HallBench
   aliases: []
   category_id: category_general_capability
+  identity_status: quarantined
 - id: benchmark_hallusionbench
   name: HallusionBench
   aliases: []
@@ -6531,6 +6567,7 @@ benchmarks:
   name: HealthBench Pro
   aliases: []
   category_id: category_health_and_science
+  identity_status: quarantined
 - id: benchmark_healthbench_professional
   name: HealthBench Professional
   aliases:
@@ -6541,6 +6578,7 @@ benchmarks:
   aliases:
   - Hebbia’s Finance Benchmark
   category_id: category_professional_tasks
+  identity_status: quarantined
 - id: benchmark_hellaswag
   name: HellaSwag
   aliases: []
@@ -6549,6 +6587,7 @@ benchmarks:
   name: HellaSwag Noise
   aliases: []
   category_id: category_robustness_and_safety
+  identity_status: quarantined
 - id: benchmark_hiddenmath
   name: HiddenMath
   aliases: []
@@ -6578,6 +6617,7 @@ benchmarks:
   name: HLE Calibration
   aliases: []
   category_id: category_robustness_and_safety
+  identity_status: quarantined
 - id: benchmark_hle_verified
   name: HLE-Verified
   aliases: []
@@ -6587,17 +6627,21 @@ benchmarks:
   aliases: []
   category_id: category_agents_and_tool_use
 - id: benchmark_hle_with_tools
-  name: HLE with tools
-  aliases: []
+  name: "Humanity's Last Exam W/ Tools"
+  aliases:
+  - HLE with tools
   category_id: category_agents_and_tool_use
 - id: benchmark_hmmt_2025
   name: HMMT 2025
   aliases: []
   category_id: category_mathematics
+  identity_status: quarantined
 - id: benchmark_hmmt_2026_feb
   name: HMMT 2026 Feb
   aliases: []
   category_id: category_mathematics
+  identity_status: merged
+  canonical_benchmark_id: benchmark_hmmt_february_2026
 - id: benchmark_hmmt_feb_2025
   name: HMMT Feb 2025
   aliases: []
@@ -6606,6 +6650,8 @@ benchmarks:
   name: HMMT February 2025
   aliases: []
   category_id: category_mathematics_and_science
+  identity_status: merged
+  canonical_benchmark_id: benchmark_hmmt_feb_2025
 - id: benchmark_hmmt_february_2026
   name: HMMT February 2026
   aliases: []
@@ -6618,6 +6664,8 @@ benchmarks:
   name: HMMT November 2025
   aliases: []
   category_id: category_mathematics
+  identity_status: merged
+  canonical_benchmark_id: benchmark_hmmt_nov_2025
 - id: benchmark_hpct
   name: HPCT
   aliases: []
@@ -6632,8 +6680,9 @@ benchmarks:
   - HumanEval Python
   category_id: category_coding
 - id: benchmark_humaneval_infilling
-  name: HumanEval-Infilling
-  aliases: []
+  name: HumanEval Infilling Benchmarks
+  aliases:
+  - HumanEval-Infilling
   category_id: category_coding
 - id: benchmark_humaneval_multilingual
   name: HumanEval Multilingual
@@ -6642,13 +6691,15 @@ benchmarks:
   - HumanEval-Mul
   category_id: category_coding
 - id: benchmark_humaneval_plus
-  name: HumanEval Plus
+  name: HumanEval+
   aliases:
+  - HumanEval Plus
   - EvalPlus HumanEval
   category_id: category_coding
 - id: benchmark_hypersim
-  name: HyperSim
-  aliases: []
+  name: Hypersim
+  aliases:
+  - HyperSim
   category_id: category_vision_language_understanding
 - id: benchmark_icpc_wf_2025
   name: ICPC WF 2025
@@ -6680,8 +6731,9 @@ benchmarks:
   aliases: []
   category_id: category_mathematical_reasoning
 - id: benchmark_imoanswerbench
-  name: IMOAnswerBench
-  aliases: []
+  name: IMO-AnswerBench
+  aliases:
+  - IMOAnswerBench
   category_id: category_mathematics
 - id: benchmark_impossible_tasks
   name: Impossible Tasks
@@ -6693,8 +6745,9 @@ benchmarks:
   aliases: []
   category_id: category_robustness_and_safety
 - id: benchmark_incalmo_cyber_ranges
-  name: Incalmo Cyber Ranges
-  aliases: []
+  name: MHBench
+  aliases:
+  - Incalmo Cyber Ranges
   category_id: category_cybersecurity
 - id: benchmark_include
   name: INCLUDE
@@ -6718,6 +6771,8 @@ benchmarks:
   - InfographicsQA
   - InfoQA
   category_id: category_image_understanding
+  identity_status: merged
+  canonical_benchmark_id: benchmark_infographicvqa
 - id: benchmark_infographicvqa
   name: InfographicVQA
   aliases:
@@ -6731,6 +6786,7 @@ benchmarks:
   name: Instruction Hierarchy Conflicts
   aliases: []
   category_id: category_instruction_following
+  identity_status: quarantined
 - id: benchmark_internal_ai_research_evaluation_suite
   name: Internal AI Research Evaluation Suite
   aliases:
@@ -6741,11 +6797,13 @@ benchmarks:
   aliases:
   - AI R&D Suite 1
   category_id: category_ai_research_and_development
+  identity_status: quarantined
 - id: benchmark_internal_ai_research_evaluation_suite_2
   name: Internal AI Research Evaluation Suite 2
   aliases:
   - AI R&D Suite 2
   category_id: category_ai_research_and_development
+  identity_status: quarantined
 - id: benchmark_internal_prompt_injection_evaluations
   name: Internal Prompt Injection Evaluations
   aliases:
@@ -6757,6 +6815,7 @@ benchmarks:
   name: Internal Sycophancy
   aliases: []
   category_id: category_robustness_and_safety
+  identity_status: quarantined
 - id: benchmark_international_chemistry_olympiad_2025
   name: International Chemistry Olympiad 2025
   aliases:
@@ -6770,6 +6829,7 @@ benchmarks:
   name: International Physics Olympiad 2025 Theory
   aliases: []
   category_id: category_mathematical_reasoning
+  identity_status: quarantined
 - id: benchmark_ioi_2025
   name: IOI 2025
   aliases: []
@@ -6787,8 +6847,9 @@ benchmarks:
   aliases: []
   category_id: category_professional_tasks
 - id: benchmark_kernel_bench_l3
-  name: Kernel Bench L3
-  aliases: []
+  name: KernelBench L3
+  aliases:
+  - Kernel Bench L3
   category_id: category_coding
 - id: benchmark_kernel_optimization
   name: Kernel Optimization
@@ -6803,16 +6864,18 @@ benchmarks:
   aliases: []
   category_id: category_ai_research_and_development
 - id: benchmark_kespeech
-  name: Kespeech
-  aliases: []
+  name: KeSpeech
+  aliases:
+  - Kespeech
   category_id: category_audio_and_speech
 - id: benchmark_kmmlu
   name: KMMLU
   aliases: []
   category_id: category_multilingual
 - id: benchmark_korbench
-  name: KoRBench
-  aliases: []
+  name: KOR-Bench
+  aliases:
+  - KoRBench
   category_id: category_general_capability
 - id: benchmark_l_eval
   name: L-Eval
@@ -6845,13 +6908,15 @@ benchmarks:
   - LabBench evaluations
   - LabBench Subset
   category_id: category_biological_laboratory_skills
+  identity_status: quarantined
 - id: benchmark_labbench2
   name: LABBench2
   aliases: []
   category_id: category_health_and_biology
 - id: benchmark_labbench_cloningscenarios
-  name: LabBench CloningScenarios
+  name: LAB-Bench CloningScenarios
   aliases:
+  - LabBench CloningScenarios
   - cloning workflows
   category_id: category_biological_cloning_workflows
 - id: benchmark_labbench_figqa
@@ -6859,14 +6924,18 @@ benchmarks:
   aliases:
   - figure interpretation
   category_id: category_biological_figure_interpretation
+  identity_status: merged
+  canonical_benchmark_id: benchmark_lab_bench_figqa
 - id: benchmark_labbench_protocolqa
-  name: LabBench ProtocolQA
+  name: LAB-Bench ProtocolQA
   aliases:
+  - LabBench ProtocolQA
   - protocol understanding
   category_id: category_biological_protocol_understanding
 - id: benchmark_labbench_seqqa
-  name: LabBench SeqQA
+  name: LAB-Bench SeqQA
   aliases:
+  - LabBench SeqQA
   - DNA/protein sequence manipulation
   category_id: category_biological_sequence_reasoning
 - id: benchmark_labworkbench
@@ -6878,6 +6947,7 @@ benchmarks:
   aliases:
   - SpatialBench
   category_id: category_life_sciences
+  identity_status: quarantined
 - id: benchmark_law_school_admission_test
   name: Law School Admission Test
   aliases:
@@ -6941,6 +7011,7 @@ benchmarks:
   aliases:
   - LiveCodeBench-Base
   category_id: category_coding
+  identity_status: quarantined
 - id: benchmark_livecodebench_pro
   name: LiveCodeBench Pro
   aliases: []
@@ -7014,8 +7085,9 @@ benchmarks:
   aliases: []
   category_id: category_video_understanding
 - id: benchmark_m3exams
-  name: M3Exams
-  aliases: []
+  name: M3Exam
+  aliases:
+  - M3Exams
   category_id: category_multilingual
 - id: benchmark_m_mmlu
   name: M-MMLU
@@ -7054,6 +7126,8 @@ benchmarks:
   - validation
   - Visual question answering
   category_id: category_multimodal_reasoning
+  identity_status: merged
+  canonical_benchmark_id: benchmark_mmmu
 - id: benchmark_massive_multitask_language_understanding
   name: MMLU
   aliases:
@@ -7079,8 +7153,9 @@ benchmarks:
   aliases: []
   category_id: category_mathematics
 - id: benchmark_mathvision
-  name: MathVision
-  aliases: []
+  name: MATH-Vision
+  aliases:
+  - MathVision
   category_id: category_mathematics
 - id: benchmark_mathvista
   name: MathVista
@@ -7088,12 +7163,14 @@ benchmarks:
   - testmini
   category_id: category_mathematics_and_science
 - id: benchmark_mathvista_mini
-  name: MathVista Mini
-  aliases: []
+  name: MathVista testmini
+  aliases:
+  - MathVista Mini
   category_id: category_mathematics
 - id: benchmark_maxife
-  name: MAXIFE
-  aliases: []
+  name: MaXIFE
+  aliases:
+  - MAXIFE
   category_id: category_instruction_following
 - id: benchmark_mbct
   name: MBCT
@@ -7110,16 +7187,18 @@ benchmarks:
   aliases: []
   category_id: category_coding
 - id: benchmark_mbpp_plus
-  name: MBPP Plus
-  aliases: []
+  name: MBPP+
+  aliases:
+  - MBPP Plus
   category_id: category_coding
 - id: benchmark_mceval
   name: McEval
   aliases: []
   category_id: category_coding
 - id: benchmark_mcp_atlas
-  name: Scale MCP-Atlas
+  name: MCP-Atlas
   aliases:
+  - Scale MCP-Atlas
   - MCP Atlas
   - Scale MCP Atlas
   - MCP-Atlas
@@ -7127,8 +7206,9 @@ benchmarks:
   - The section body prints MCP-Atlas
   category_id: category_tool_use
 - id: benchmark_mcp_mark
-  name: MCP-Mark
-  aliases: []
+  name: MCPMark
+  aliases:
+  - MCP-Mark
   category_id: category_agentic_tool_use
 - id: benchmark_mcp_prompt_injection_evaluation
   name: MCP Prompt Injection Evaluation
@@ -7136,6 +7216,7 @@ benchmarks:
   - MCP evaluation
   - Model Context Protocol (MCP) evaluation
   category_id: category_prompt_injection
+  identity_status: quarantined
 - id: benchmark_mcp_universe
   name: MCP-Universe
   aliases: []
@@ -7144,14 +7225,18 @@ benchmarks:
   name: MCPAtlas
   aliases: []
   category_id: category_agentic_tool_use
+  identity_status: merged
+  canonical_benchmark_id: benchmark_mcp_atlas
 - id: benchmark_mcpatlas_public
-  name: MCPAtlas Public
-  aliases: []
+  name: MCP-Atlas Public
+  aliases:
+  - MCPAtlas Public
   category_id: category_agentic_tool_use
 - id: benchmark_mdeval
   name: MdEval
   aliases: []
   category_id: category_coding
+  identity_status: quarantined
 - id: benchmark_medcalc_bench_verified
   name: MedCalc-Bench Verified
   aliases:
@@ -7161,6 +7246,7 @@ benchmarks:
   name: MedChemBench
   aliases: []
   category_id: category_health_and_biology
+  identity_status: quarantined
 - id: benchmark_medmcqa
   name: MedMCQA
   aliases: []
@@ -7177,25 +7263,31 @@ benchmarks:
   name: MedXpertQA Multimodal
   aliases: []
   category_id: category_health_and_science
+  identity_status: merged
+  canonical_benchmark_id: benchmark_medxpertqa_mm
 - id: benchmark_medxpertqa_text
   name: MedXpertQA Text
   aliases: []
   category_id: category_health_and_science
 - id: benchmark_megabench
-  name: MegaBench
-  aliases: []
+  name: MEGA-Bench
+  aliases:
+  - MegaBench
   category_id: category_general_capability
 - id: benchmark_meta_attack_automation_framework
-  name: Meta Attack Automation Framework
-  aliases: []
+  name: Autonomous Offensive Cyber Operations Tests
+  aliases:
+  - Meta Attack Automation Framework
   category_id: category_robustness_and_safety
 - id: benchmark_meta_spear_phishing_benchmark
-  name: Meta Spear Phishing Benchmark
-  aliases: []
+  name: Spear Phishing Capability Tests
+  aliases:
+  - Meta Spear Phishing Benchmark
   category_id: category_robustness_and_safety
 - id: benchmark_metr_data_deduplication
-  name: METR Data Deduplication
+  name: Deduplicate Data
   aliases:
+  - METR Data Deduplication
   - AIRD Data Deduplication
   category_id: category_autonomy_and_software_engineering
 - id: benchmark_mgsm
@@ -7223,6 +7315,7 @@ benchmarks:
   name: MiniMax Multilingual
   aliases: []
   category_id: category_audio_and_speech
+  identity_status: quarantined
 - id: benchmark_mir_1k
   name: MIR-1K
   aliases: []
@@ -7253,20 +7346,23 @@ benchmarks:
   aliases: []
   category_id: category_audio_and_speech
 - id: benchmark_mmbc
-  name: MMBC
-  aliases: []
+  name: MM-BrowseComp
+  aliases:
+  - MMBC
   category_id: category_general_capability
 - id: benchmark_mmbench
   name: MMBench
   aliases: []
   category_id: category_vision_language_understanding
 - id: benchmark_mmbench_1_1
-  name: MMBench 1.1
-  aliases: []
+  name: MMBench v1.1
+  aliases:
+  - MMBench 1.1
   category_id: category_vision_language_understanding
 - id: benchmark_mmbench_en_1_1_dev
-  name: MMBench EN 1.1 dev
-  aliases: []
+  name: MMBench v1.1 EN dev
+  aliases:
+  - MMBench EN 1.1 dev
   category_id: category_vision_language_understanding
 - id: benchmark_mmbench_video
   name: MMBench-Video
@@ -7288,10 +7384,12 @@ benchmarks:
   name: MMLU-multi
   aliases: []
   category_id: category_multilingual
+  identity_status: quarantined
 - id: benchmark_mmlu_multilingual
   name: MMLU Multilingual
   aliases: []
   category_id: category_multilingual
+  identity_status: quarantined
 - id: benchmark_mmlu_pro
   name: MMLU-Pro
   aliases:
@@ -7329,8 +7427,9 @@ benchmarks:
   - The summary table identifies the validation split
   category_id: category_multimodal_understanding
 - id: benchmark_mmmu_pro
-  name: MMMU Pro
+  name: MMMU-Pro
   aliases:
+  - MMMU Pro
   - MMMUPro
   - Described as an improved variant of MMMU
   - MMMU-Pro
@@ -7344,8 +7443,9 @@ benchmarks:
   aliases: []
   category_id: category_image_understanding
 - id: benchmark_mmsearchplus
-  name: MMSearchPlus
-  aliases: []
+  name: MMSearch-Plus
+  aliases:
+  - MMSearchPlus
   category_id: category_knowledge_and_reasoning
 - id: benchmark_mmstar
   name: MMStar
@@ -7360,13 +7460,15 @@ benchmarks:
   aliases: []
   category_id: category_human_preference
 - id: benchmark_mmvet
-  name: MMVet
-  aliases: []
+  name: MM-Vet
+  aliases:
+  - MMVet
   category_id: category_vision_language_understanding
 - id: benchmark_mmvu
   name: MMVU
   aliases: []
   category_id: category_general_capability
+  identity_status: quarantined
 - id: benchmark_mobileworld
   name: MobileWorld
   aliases: []
@@ -7384,8 +7486,9 @@ benchmarks:
   aliases: []
   category_id: category_long_context
 - id: benchmark_ms_coco_captions
-  name: MS-COCO Captions
+  name: Microsoft COCO Captions
   aliases:
+  - MS-COCO Captions
   - COCO Captions
   category_id: category_image_understanding
 - id: benchmark_mt_bench
@@ -7408,19 +7511,24 @@ benchmarks:
   name: MTVQA-Test
   aliases: []
   category_id: category_general_capability
+  identity_status: merged
+  canonical_benchmark_id: benchmark_mtvqa
 - id: benchmark_muirbench
-  name: MUIRBENCH
-  aliases: []
+  name: MuirBench
+  aliases:
+  - MUIRBENCH
   category_id: category_vision_language_understanding
 - id: benchmark_multi_exam
   name: Multi-Exam
   aliases: []
   category_id: category_knowledge_and_reasoning
+  identity_status: quarantined
 - id: benchmark_multi_factual
   name: Multi-factual
   aliases:
   - Multi-factual evaluation
   category_id: category_internal_factuality
+  identity_status: quarantined
 - id: benchmark_multi_if
   name: Multi-IF
   aliases: []
@@ -7429,6 +7537,7 @@ benchmarks:
   name: Multi-Mathematics
   aliases: []
   category_id: category_mathematics
+  identity_status: quarantined
 - id: benchmark_multi_news
   name: Multi-News
   aliases: []
@@ -7437,14 +7546,18 @@ benchmarks:
   name: Multi-task Indic Language Understanding Benchmark
   aliases: []
   category_id: category_multilingual
+  identity_status: merged
+  canonical_benchmark_id: benchmark_milu
 - id: benchmark_multi_translation
   name: Multi-Translation
   aliases: []
   category_id: category_general_capability
+  identity_status: quarantined
 - id: benchmark_multi_understanding
   name: Multi-Understanding
   aliases: []
   category_id: category_general_capability
+  identity_status: quarantined
 - id: benchmark_multichallenge
   name: MultiChallenge
   aliases: []
@@ -7453,6 +7566,8 @@ benchmarks:
   name: MultiIF
   aliases: []
   category_id: category_instruction_following
+  identity_status: merged
+  canonical_benchmark_id: benchmark_multi_if
 - id: benchmark_multiloko
   name: MultiLoKo
   aliases: []
@@ -7485,6 +7600,8 @@ benchmarks:
   name: NaturalQuestions
   aliases: []
   category_id: category_factuality
+  identity_status: merged
+  canonical_benchmark_id: benchmark_natural_questions
 - id: benchmark_needle_in_a_haystack
   name: Needle In A Haystack
   aliases:
@@ -7522,12 +7639,14 @@ benchmarks:
   aliases: []
   category_id: category_ai_research_and_development
 - id: benchmark_nucleobench
-  name: Nucleobench
-  aliases: []
+  name: NucleoBench
+  aliases:
+  - Nucleobench
   category_id: category_health_and_biology
 - id: benchmark_nuscene
-  name: Nuscene
-  aliases: []
+  name: nuScenes
+  aliases:
+  - Nuscene
   category_id: category_general_capability
 - id: benchmark_objectron
   name: Objectron
@@ -7550,8 +7669,9 @@ benchmarks:
   aliases: []
   category_id: category_image_understanding
 - id: benchmark_ocrbenchv2
-  name: OCRBenchV2
-  aliases: []
+  name: OCRBench v2
+  aliases:
+  - OCRBenchV2
   category_id: category_vision_language_understanding
 - id: benchmark_odinw13
   name: ODinW13
@@ -8007,8 +8127,9 @@ benchmarks:
   aliases: []
   category_id: category_professional_tasks
 - id: benchmark_realtoxicity
-  name: RealToxicity
-  aliases: []
+  name: RealToxicityPrompts
+  aliases:
+  - RealToxicity
   category_id: category_safety_and_responsibility
 - id: benchmark_realworldqa
   name: RealWorldQA
@@ -8027,31 +8148,36 @@ benchmarks:
   - One-Hour VideoQA
   category_id: category_long_context_understanding
 - id: benchmark_record_2_bench
-  name: τ2-bench
-  aliases: []
+  name: τ²-bench
+  aliases:
+  - τ2-bench
   category_id: category_agentic_tool_use
 - id: benchmark_record_2_bench_airline_corrected
-  name: τ2-bench Airline Corrected
+  name: τ²-bench Airline (corrected)
   aliases:
+  - τ2-bench Airline Corrected
   - Airline (corrected)
   - Described as correcting task-setup and grading issues in Airline
   category_id: category_tool_use
 - id: benchmark_record_2_bench_airline_original
-  name: τ2-bench Airline Original
+  name: τ²-bench Airline (original)
   aliases:
+  - τ2-bench Airline Original
   - Airline (original)
   - The launch page refers to the airline scenario as τ2-bench
   category_id: category_tool_use
 - id: benchmark_record_2_bench_retail
-  name: Tau2-bench Retail
+  name: τ²-bench Retail
   aliases:
+  - Tau2-bench Retail
   - τ2-bench Retail
   - τ²-bench (Retail)
   - τ²-bench Retail
   category_id: category_tool_use
 - id: benchmark_record_2_bench_telecom
-  name: Tau2-bench Telecom
+  name: τ²-bench Telecom
   aliases:
+  - Tau2-bench Telecom
   - τ2-bench Telecom
   - τ²-bench (Telecom)
   category_id: category_tool_use
@@ -8101,12 +8227,14 @@ benchmarks:
   aliases: []
   category_id: category_reward_hacking
 - id: benchmark_riemannbench
-  name: RiemannBench
-  aliases: []
+  name: Riemann-Bench
+  aliases:
+  - RiemannBench
   category_id: category_mathematical_reasoning
 - id: benchmark_robospatialhome
-  name: RoboSpatialHome
-  aliases: []
+  name: RoboSpatial-Home
+  aliases:
+  - RoboSpatialHome
   category_id: category_vision_language_understanding
 - id: benchmark_rocstories
   name: ROCStories
@@ -8114,8 +8242,9 @@ benchmarks:
   - ROC-stories
   category_id: category_text_quality
 - id: benchmark_rul_muchomusic
-  name: RUL-MuchoMusic
-  aliases: []
+  name: RUL-MuChoMusic
+  aliases:
+  - RUL-MuchoMusic
   category_id: category_audio_and_speech
 - id: benchmark_ruler
   name: RULER
@@ -8150,8 +8279,9 @@ benchmarks:
   aliases: []
   category_id: category_coding
 - id: benchmark_screenspot_pro
-  name: ScreenSpot Pro
+  name: ScreenSpot-Pro
   aliases:
+  - ScreenSpot Pro
   - ScreenSpot-Pro
   category_id: category_multimodal_understanding
 - id: benchmark_seal_0
@@ -8159,8 +8289,9 @@ benchmarks:
   aliases: []
   category_id: category_general_capability
 - id: benchmark_sec_bench_pro
-  name: SEC-Bench Pro
-  aliases: []
+  name: SEC-bench Pro
+  aliases:
+  - SEC-Bench Pro
   category_id: category_cybersecurity
 - id: benchmark_seccodebench
   name: SecCodeBench
@@ -8172,6 +8303,8 @@ benchmarks:
   - Multimodal Virology
   - multiple select variant
   category_id: category_multimodal_virology_knowledge
+  identity_status: merged
+  canonical_benchmark_id: benchmark_vct
 - id: benchmark_secure_code_generation
   name: Secure Code Generation
   aliases: []
@@ -8182,11 +8315,15 @@ benchmarks:
   - DNA Synthesis Screening Evasion evaluation
   - Synthesis Screening Evasion evaluation
   category_id: category_biological_risk
+  identity_status: merged
+  canonical_benchmark_id: benchmark_abc_bench_screening_evasion
 - id: benchmark_securebio_virology_capability_test
   name: SecureBio Virology Capability Test
   aliases:
   - SecureBio Virology Capability Test (VCT)
   category_id: category_biological_risk
+  identity_status: merged
+  canonical_benchmark_id: benchmark_vct
 - id: benchmark_seed_bench
   name: SEED-Bench
   aliases:
@@ -8260,6 +8397,8 @@ benchmarks:
   name: SocialIQA
   aliases: []
   category_id: category_reasoning_and_knowledge
+  identity_status: merged
+  canonical_benchmark_id: benchmark_social_iqa
 - id: benchmark_songformbench_chinese
   name: SongFormBench Chinese
   aliases: []
@@ -8319,8 +8458,9 @@ benchmarks:
   - Subversion Strategy task
   category_id: category_sabotage_capability
 - id: benchmark_sunrgbd
-  name: SUNRGBD
-  aliases: []
+  name: SUN RGB-D
+  aliases:
+  - SUNRGBD
   category_id: category_vision_language_understanding
 - id: benchmark_super_agent_benchmark
   name: Super-Agent Benchmark
@@ -8420,6 +8560,8 @@ benchmarks:
   aliases:
   - Synthesis Screening Evasion Task
   category_id: category_biological_risk
+  identity_status: merged
+  canonical_benchmark_id: benchmark_abc_bench_screening_evasion
 - id: benchmark_synthetic_honeypots
   name: Synthetic Honeypots
   aliases: []
@@ -8436,18 +8578,23 @@ benchmarks:
   name: Tau2-Bench
   aliases: []
   category_id: category_agentic_tool_use
+  identity_status: merged
+  canonical_benchmark_id: benchmark_record_2_bench
 - id: benchmark_tau3_bench
-  name: TAU3-Bench
-  aliases: []
+  name: τ³-bench
+  aliases:
+  - TAU3-Bench
   category_id: category_agents_and_tool_use
 - id: benchmark_tau_bench_airline
-  name: Tau-bench Airline
+  name: τ-bench Airline
   aliases:
+  - Tau-bench Airline
   - Taubench airline
   category_id: category_tool_use
 - id: benchmark_tau_bench_retail
-  name: Tau-bench Retail
+  name: τ-bench Retail
   aliases:
+  - Tau-bench Retail
   - Taubench retail
   category_id: category_tool_use
 - id: benchmark_tau_bench_telecom
@@ -8455,6 +8602,8 @@ benchmarks:
   aliases:
   - τ-Bench Telecom
   category_id: category_tool_use_and_agents
+  identity_status: merged
+  canonical_benchmark_id: benchmark_record_2_bench_telecom
 - id: benchmark_tempcompass
   name: TempCompass
   aliases: []
@@ -8531,6 +8680,8 @@ benchmarks:
   name: Tool-Decathlon
   aliases: []
   category_id: category_agentic_tool_use
+  identity_status: merged
+  canonical_benchmark_id: benchmark_toolathlon
 - id: benchmark_tool_use_prompt_injection_evaluation
   name: Tool-Use Prompt Injection Evaluation
   aliases:
@@ -8611,6 +8762,8 @@ benchmarks:
   name: V*
   aliases: []
   category_id: category_general_capability
+  identity_status: merged
+  canonical_benchmark_id: benchmark_v_bench
 - id: benchmark_v_bench
   name: V* Bench
   aliases: []
@@ -8629,8 +8782,9 @@ benchmarks:
   aliases: []
   category_id: category_multimodal_understanding
 - id: benchmark_vct
-  name: VCT
-  aliases: []
+  name: Virology Capabilities Test (VCT)
+  aliases:
+  - VCT
   category_id: category_health_and_science
 - id: benchmark_vending_bench
   name: Vending-Bench
@@ -8663,8 +8817,9 @@ benchmarks:
   aliases: []
   category_id: category_multimodal_understanding
 - id: benchmark_video_mmmu
-  name: Video MMMU
+  name: Video-MMMU
   aliases:
+  - Video MMMU
   - Video-MMMU
   category_id: category_multimodal_understanding
 - id: benchmark_videodr_w_search
@@ -8679,26 +8834,34 @@ benchmarks:
   name: VideoMME
   aliases: []
   category_id: category_multimodal_understanding
+  identity_status: merged
+  canonical_benchmark_id: benchmark_video_mme
 - id: benchmark_videomme_v2_w_sub
-  name: VideoMME v2 (w/ Sub.)
-  aliases: []
+  name: Video-MME-v2 (with subtitles/audio)
+  aliases:
+  - VideoMME v2 (w/ Sub.)
   category_id: category_video_understanding
 - id: benchmark_videomme_with_audio
-  name: VideoMME with audio
-  aliases: []
+  name: Video-MME with audio
+  aliases:
+  - VideoMME with audio
   category_id: category_video_understanding
 - id: benchmark_videomme_with_subtitles
-  name: VideoMME with subtitles
-  aliases: []
+  name: Video-MME with subtitles
+  aliases:
+  - VideoMME with subtitles
   category_id: category_video_understanding
 - id: benchmark_videomme_without_subtitles
-  name: VideoMME without subtitles
-  aliases: []
+  name: Video-MME without subtitles
+  aliases:
+  - VideoMME without subtitles
   category_id: category_video_understanding
 - id: benchmark_videommmu
   name: VideoMMMU
   aliases: []
   category_id: category_vision_language_understanding
+  identity_status: merged
+  canonical_benchmark_id: benchmark_video_mmmu
 - id: benchmark_visfactor
   name: VisFactor
   aliases: []
@@ -8724,17 +8887,21 @@ benchmarks:
   aliases: []
   category_id: category_video_understanding
 - id: benchmark_vlmsarebiased
-  name: VLMsAreBiased
-  aliases: []
+  name: Vision Language Models Are Biased
+  aliases:
+  - VLMsAreBiased
   category_id: category_general_capability
 - id: benchmark_vlmsareblind
-  name: VlmsAreBlind
-  aliases: []
+  name: Vision Language Models Are Blind
+  aliases:
+  - VlmsAreBlind
   category_id: category_general_capability
 - id: benchmark_vmqa_vct
   name: VMQA/VCT
   aliases: []
   category_id: category_biological_knowledge
+  identity_status: merged
+  canonical_benchmark_id: benchmark_vct
 - id: benchmark_voicebench
   name: VoiceBench
   aliases: []
@@ -8744,8 +8911,9 @@ benchmarks:
   aliases: []
   category_id: category_audio_and_speech
 - id: benchmark_vqav2
-  name: VQAv2
+  name: VQA v2.0
   aliases:
+  - VQAv2
   - VQA v2
   category_id: category_multimodal_understanding
 - id: benchmark_vsi_bench
@@ -8832,6 +9000,8 @@ benchmarks:
   name: WMDP Biology
   aliases: []
   category_id: category_health_and_biology
+  identity_status: merged
+  canonical_benchmark_id: benchmark_wmdp_bio
 - id: benchmark_wmdp_chem
   name: WMDP-Chem
   aliases: []
@@ -8840,6 +9010,8 @@ benchmarks:
   name: WMDP Chemistry
   aliases: []
   category_id: category_health_and_biology
+  identity_status: merged
+  canonical_benchmark_id: benchmark_wmdp_chem
 - id: benchmark_wmdp_cyber
   name: WMDP-Cyber
   aliases: []
@@ -8853,8 +9025,9 @@ benchmarks:
   aliases: []
   category_id: category_multilingual
 - id: benchmark_workspacebench
-  name: WorkSpaceBench
-  aliases: []
+  name: Workspace-Bench
+  aliases:
+  - WorkSpaceBench
   category_id: category_agents_and_tool_use
 - id: benchmark_worldsense
   name: WorldSense
@@ -8906,9 +9079,15 @@ benchmarks:
   aliases: []
   category_id: category_image_understanding
 - id: benchmark_zerobench_sub
-  name: ZEROBench-Sub
-  aliases: []
+  name: ZeroBench subquestions
+  aliases:
+  - ZEROBench-Sub
   category_id: category_general_capability
+- id: benchmark_terminal_bench_3_0
+  name: Terminal-Bench 3.0
+  aliases:
+  - Terminal Bench 3.0
+  category_id: category_coding
 sources:
 - id: source_anthropic_launch_anthropic_20240304_introducing_the_next_generation_of_claude
   lab_id: anthropic
@@ -15155,7 +15334,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240123_introducing_qwen_qwen
   publication_date: '2024-01-23'
   release_id: release_qwen_20240123_introducing_qwen_qwen
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240123_introducing_qwen_qwen
   source_revision_id: revision_qwen_revision_qwen_20240123_introducing_qwen_qwen
   source_type: launch_page
@@ -15207,7 +15386,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15233,7 +15412,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15311,7 +15490,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15337,7 +15516,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15363,7 +15542,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15389,7 +15568,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15415,7 +15594,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15441,7 +15620,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15493,7 +15672,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15519,7 +15698,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15571,7 +15750,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15597,7 +15776,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15623,7 +15802,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15649,7 +15828,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15675,7 +15854,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15701,7 +15880,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15727,7 +15906,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15753,7 +15932,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15806,7 +15985,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -15833,7 +16012,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240125_introducing_qwen_vl_qwen_vl
   publication_date: '2024-01-25'
   release_id: release_qwen_20240125_introducing_qwen_vl_qwen_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_revision_id: revision_qwen_revision_qwen_20240125_introducing_qwen_vl_qwen_vl
   source_type: launch_page
@@ -18851,7 +19030,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240416_code_with_codeqwen1_5_codeqwen1_5
   publication_date: '2024-04-16'
   release_id: release_qwen_20240416_code_with_codeqwen1_5_codeqwen1_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240416_code_with_codeqwen1_5_codeqwen1_5
   source_revision_id: revision_qwen_revision_qwen_20240416_code_with_codeqwen1_5_codeqwen1_5
   source_type: launch_page
@@ -18903,7 +19082,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240416_code_with_codeqwen1_5_codeqwen1_5
   publication_date: '2024-04-16'
   release_id: release_qwen_20240416_code_with_codeqwen1_5_codeqwen1_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240416_code_with_codeqwen1_5_codeqwen1_5
   source_revision_id: revision_qwen_revision_qwen_20240416_code_with_codeqwen1_5_codeqwen1_5
   source_type: launch_page
@@ -19083,7 +19262,7 @@ occurrences:
   model_id: model_meta_model_meta_layerskip_llama
   publication_date: '2024-04-25'
   release_id: release_meta_derived_20241018_layer_skip_llama_checkpoints
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_layerskip
   source_revision_id: revision_meta_revision_paper_layerskip
   source_type: technical_report
@@ -21528,7 +21707,7 @@ occurrences:
   model_id: model_google_deepmind_google_deepmind_gemini_1_5_flash_and_pro_update
   publication_date: '2024-05-14'
   release_id: release_google_deepmind_20240514_gemini_breaks_new_ground_a_faster_model_longer_conte
-  review_status: verified
+  review_status: quarantined
   source_id: source_google_deepmind_support_gemini_1_5_report
   source_revision_id: revision_google_deepmind_revision_support_gemini_1_5_report
   source_type: technical_report
@@ -21702,7 +21881,7 @@ occurrences:
   model_id: model_meta_model_meta_chameleon
   publication_date: '2024-05-16'
   release_id: release_meta_derived_20240618_meta_chameleon
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_chameleon
   source_revision_id: revision_meta_revision_paper_chameleon
   source_type: technical_report
@@ -21732,7 +21911,7 @@ occurrences:
   model_id: model_meta_model_meta_chameleon
   publication_date: '2024-05-16'
   release_id: release_meta_derived_20240618_meta_chameleon
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_chameleon
   source_revision_id: revision_meta_revision_paper_chameleon
   source_type: technical_report
@@ -23515,7 +23694,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3
   publication_date: '2024-07-26'
   release_id: release_meta_20240418_introducing_meta_llama_3_the_most_capable_openly_ava
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_tech_llama_3_eval
   source_revision_id: revision_meta_revision_tech_llama_3_eval
   source_type: official_repository
@@ -23695,7 +23874,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3
   publication_date: '2024-07-26'
   release_id: release_meta_20240418_introducing_meta_llama_3_the_most_capable_openly_ava
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_tech_llama_3_eval
   source_revision_id: revision_meta_revision_tech_llama_3_eval
   source_type: official_repository
@@ -24140,7 +24319,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -24169,7 +24348,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -24198,7 +24377,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -24227,7 +24406,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -24256,7 +24435,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -24372,7 +24551,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -24401,7 +24580,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -24640,7 +24819,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -24670,7 +24849,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -24700,7 +24879,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -24730,7 +24909,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -24819,7 +24998,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -24936,7 +25115,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -25085,7 +25264,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -25175,7 +25354,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -25354,7 +25533,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -25384,7 +25563,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_1
   publication_date: '2024-07-31'
   release_id: release_meta_20240723_introducing_llama_3_1_our_most_capable_models_to_dat
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_llama_3_herd
   source_revision_id: revision_meta_revision_paper_llama_3_herd
   source_type: technical_report
@@ -26117,7 +26296,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240807_introducing_qwen2_math_qwen2_math
   publication_date: '2024-08-07'
   release_id: release_qwen_20240807_introducing_qwen2_math_qwen2_math
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240807_introducing_qwen2_math_qwen2_math
   source_revision_id: revision_qwen_revision_qwen_20240807_introducing_qwen2_math_qwen2_math
   source_type: launch_page
@@ -26587,7 +26766,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240828_qwen2_vl_to_see_the_world_more_clearly_qwen2_vl
   publication_date: '2024-08-28'
   release_id: release_qwen_20240828_qwen2_vl_to_see_the_world_more_clearly_qwen2_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240828_qwen2_vl_to_see_the_world_more_clearly_qwen2_vl
   source_revision_id: revision_qwen_revision_qwen_20240828_qwen2_vl_to_see_the_world_more_clearly_qwen2_vl
   source_type: launch_page
@@ -26952,7 +27131,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240828_qwen2_vl_to_see_the_world_more_clearly_qwen2_vl
   publication_date: '2024-08-28'
   release_id: release_qwen_20240828_qwen2_vl_to_see_the_world_more_clearly_qwen2_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240828_qwen2_vl_to_see_the_world_more_clearly_qwen2_vl
   source_revision_id: revision_qwen_revision_qwen_20240828_qwen2_vl_to_see_the_world_more_clearly_qwen2_vl
   source_type: launch_page
@@ -26979,7 +27158,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240828_qwen2_vl_to_see_the_world_more_clearly_qwen2_vl
   publication_date: '2024-08-28'
   release_id: release_qwen_20240828_qwen2_vl_to_see_the_world_more_clearly_qwen2_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240828_qwen2_vl_to_see_the_world_more_clearly_qwen2_vl
   source_revision_id: revision_qwen_revision_qwen_20240828_qwen2_vl_to_see_the_world_more_clearly_qwen2_vl
   source_type: launch_page
@@ -27292,7 +27471,7 @@ occurrences:
   model_id: model_openai_model_openai_20240912_introducing_openai_o1_preview
   publication_date: '2024-09-12'
   release_id: release_openai_20240912_introducing_openai_o1_preview
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20240912_introducing_openai_o1_preview
   source_revision_id: revision_openai_revision_openai_20240912_introducing_openai_o1_preview
   source_type: launch_page
@@ -27345,7 +27524,7 @@ occurrences:
   model_id: model_openai_model_openai_20240912_openai_o1_mini
   publication_date: '2024-09-12'
   release_id: release_openai_20240912_openai_o1_mini
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20240912_openai_o1_mini
   source_revision_id: revision_openai_revision_openai_20240912_openai_o1_mini
   source_type: launch_page
@@ -27532,7 +27711,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
   publication_date: '2024-09-18'
   release_id: release_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
   source_revision_id: revision_qwen_revision_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
   source_type: launch_page
@@ -27586,7 +27765,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
   publication_date: '2024-09-18'
   release_id: release_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
   source_revision_id: revision_qwen_revision_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
   source_type: launch_page
@@ -27613,7 +27792,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
   publication_date: '2024-09-18'
   release_id: release_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
   source_revision_id: revision_qwen_revision_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
   source_type: launch_page
@@ -27829,7 +28008,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
   publication_date: '2024-09-18'
   release_id: release_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
   source_revision_id: revision_qwen_revision_qwen_20240918_qwen2_5_a_party_of_foundation_models_qwen2_5
   source_type: launch_page
@@ -28097,7 +28276,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
   publication_date: '2024-09-18'
   release_id: release_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
   source_revision_id: revision_qwen_revision_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
   source_type: launch_page
@@ -28123,7 +28302,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
   publication_date: '2024-09-18'
   release_id: release_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
   source_revision_id: revision_qwen_revision_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
   source_type: launch_page
@@ -28149,7 +28328,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
   publication_date: '2024-09-18'
   release_id: release_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
   source_revision_id: revision_qwen_revision_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
   source_type: launch_page
@@ -28305,7 +28484,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
   publication_date: '2024-09-18'
   release_id: release_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
   source_revision_id: revision_qwen_revision_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
   source_type: launch_page
@@ -28435,7 +28614,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
   publication_date: '2024-09-18'
   release_id: release_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
   source_revision_id: revision_qwen_revision_qwen_20240918_qwen2_5_coder_code_more_learn_more_qwen2_5_coder
   source_type: launch_page
@@ -28644,7 +28823,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
   publication_date: '2024-09-18'
   release_id: release_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
   source_revision_id: revision_qwen_revision_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
   source_type: launch_page
@@ -28905,7 +29084,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
   publication_date: '2024-09-18'
   release_id: release_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
   source_revision_id: revision_qwen_revision_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
   source_type: launch_page
@@ -29139,7 +29318,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
   publication_date: '2024-09-18'
   release_id: release_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
   source_revision_id: revision_qwen_revision_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
   source_type: launch_page
@@ -29217,7 +29396,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
   publication_date: '2024-09-18'
   release_id: release_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
   source_revision_id: revision_qwen_revision_qwen_20240918_qwen2_5_llm_extending_the_boundary_of_llms_qwen2_5_llm
   source_type: launch_page
@@ -29686,7 +29865,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20240918_qwen2_5_math_the_world_s_leading_open_sourced_mathem_qwen2_5_math
   publication_date: '2024-09-18'
   release_id: release_qwen_20240918_qwen2_5_math_the_world_s_leading_open_sourced_mathem_qwen2_5_math
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20240918_qwen2_5_math_the_world_s_leading_open_sourced_mathem_qwen2_5_math
   source_revision_id: revision_qwen_revision_qwen_20240918_qwen2_5_math_the_world_s_leading_open_sourced_mathem_qwen2_5_math
   source_type: launch_page
@@ -30204,7 +30383,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_2
   publication_date: '2024-09-30'
   release_id: release_meta_20240925_llama_3_2_revolutionizing_edge_ai_and_vision_with_op
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_tech_llama_3_2_vision_card
   source_revision_id: revision_meta_revision_tech_llama_3_2_vision_card
   source_type: model_card
@@ -30233,7 +30412,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_2
   publication_date: '2024-09-30'
   release_id: release_meta_20240925_llama_3_2_revolutionizing_edge_ai_and_vision_with_op
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_tech_llama_3_2_vision_card
   source_revision_id: revision_meta_revision_tech_llama_3_2_vision_card
   source_type: model_card
@@ -31588,7 +31767,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   publication_date: '2024-11-14'
   release_id: release_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   source_revision_id: revision_qwen_revision_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   source_type: launch_page
@@ -31615,7 +31794,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   publication_date: '2024-11-14'
   release_id: release_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   source_revision_id: revision_qwen_revision_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   source_type: launch_page
@@ -31642,7 +31821,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   publication_date: '2024-11-14'
   release_id: release_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   source_revision_id: revision_qwen_revision_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   source_type: launch_page
@@ -31696,7 +31875,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   publication_date: '2024-11-14'
   release_id: release_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   source_revision_id: revision_qwen_revision_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   source_type: launch_page
@@ -31885,7 +32064,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   publication_date: '2024-11-14'
   release_id: release_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   source_revision_id: revision_qwen_revision_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   source_type: launch_page
@@ -31912,7 +32091,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   publication_date: '2024-11-14'
   release_id: release_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   source_revision_id: revision_qwen_revision_qwen_20241114_extending_the_context_length_to_1m_tokens_qwen2_5_turbo
   source_type: launch_page
@@ -32044,7 +32223,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20241127_qwq_reflect_deeply_on_the_boundaries_of_the_unknown_qwq_32b_preview
   publication_date: '2024-11-27'
   release_id: release_qwen_20241127_qwq_reflect_deeply_on_the_boundaries_of_the_unknown_qwq_32b_preview
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20241127_qwq_reflect_deeply_on_the_boundaries_of_the_unknown_qwq_32b_preview
   source_revision_id: revision_qwen_revision_qwen_20241127_qwq_reflect_deeply_on_the_boundaries_of_the_unknown_qwq_32b_preview
   source_type: launch_page
@@ -32369,7 +32548,7 @@ occurrences:
   model_id: model_openai_model_openai_20240912_introducing_openai_o1_preview
   publication_date: '2024-12-05'
   release_id: release_openai_20240912_introducing_openai_o1_preview
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_https_openai_com_index_openai_o1_system_card
   source_revision_id: revision_openai_revision_https_openai_com_index_openai_o1_system_card
   source_type: system_card
@@ -32912,7 +33091,7 @@ occurrences:
   model_id: model_openai_model_openai_20240912_introducing_openai_o1_preview
   publication_date: '2024-12-05'
   release_id: release_openai_20240912_introducing_openai_o1_preview
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_https_openai_com_index_openai_o1_system_card
   source_revision_id: revision_openai_revision_https_openai_com_index_openai_o1_system_card
   source_type: system_card
@@ -33186,7 +33365,7 @@ occurrences:
   model_id: model_openai_model_openai_20240912_openai_o1_mini
   publication_date: '2024-12-05'
   release_id: release_openai_20240912_openai_o1_mini
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_https_openai_com_index_openai_o1_system_card
   source_revision_id: revision_openai_revision_https_openai_com_index_openai_o1_system_card
   source_type: system_card
@@ -33729,7 +33908,7 @@ occurrences:
   model_id: model_openai_model_openai_20240912_openai_o1_mini
   publication_date: '2024-12-05'
   release_id: release_openai_20240912_openai_o1_mini
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_https_openai_com_index_openai_o1_system_card
   source_revision_id: revision_openai_revision_https_openai_com_index_openai_o1_system_card
   source_type: system_card
@@ -34003,7 +34182,7 @@ occurrences:
   model_id: model_openai_model_openai_20241217_openai_o1_and_new_tools_for_developers
   publication_date: '2024-12-05'
   release_id: release_openai_20241217_openai_o1_and_new_tools_for_developers
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_https_openai_com_index_openai_o1_system_card
   source_revision_id: revision_openai_revision_https_openai_com_index_openai_o1_system_card
   source_type: system_card
@@ -34491,7 +34670,7 @@ occurrences:
   model_id: model_openai_model_openai_20241217_openai_o1_and_new_tools_for_developers
   publication_date: '2024-12-05'
   release_id: release_openai_20241217_openai_o1_and_new_tools_for_developers
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_https_openai_com_index_openai_o1_system_card
   source_revision_id: revision_openai_revision_https_openai_com_index_openai_o1_system_card
   source_type: system_card
@@ -34660,7 +34839,7 @@ occurrences:
   model_id: model_meta_model_meta_large_concept_models
   publication_date: '2024-12-11'
   release_id: release_meta_derived_20241212_meta_large_concept_models
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_lcm
   source_revision_id: revision_meta_revision_paper_lcm
   source_type: technical_report
@@ -34750,7 +34929,7 @@ occurrences:
   model_id: model_meta_model_meta_large_concept_models
   publication_date: '2024-12-11'
   release_id: release_meta_derived_20241212_meta_large_concept_models
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_lcm
   source_revision_id: revision_meta_revision_paper_lcm
   source_type: technical_report
@@ -34780,7 +34959,7 @@ occurrences:
   model_id: model_meta_model_meta_large_concept_models
   publication_date: '2024-12-11'
   release_id: release_meta_derived_20241212_meta_large_concept_models
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_lcm
   source_revision_id: revision_meta_revision_paper_lcm
   source_type: technical_report
@@ -34810,7 +34989,7 @@ occurrences:
   model_id: model_meta_model_meta_large_concept_models
   publication_date: '2024-12-11'
   release_id: release_meta_derived_20241212_meta_large_concept_models
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_lcm
   source_revision_id: revision_meta_revision_paper_lcm
   source_type: technical_report
@@ -35200,7 +35379,7 @@ occurrences:
   model_id: model_meta_model_meta_dynamic_blt
   publication_date: '2024-12-13'
   release_id: release_meta_derived_20241212_meta_dynamic_byte_latent_transformer
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_blt
   source_revision_id: revision_meta_revision_paper_blt
   source_type: technical_report
@@ -39229,7 +39408,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_2
   publication_date: '2025-02-02'
   release_id: release_meta_20240925_llama_3_2_revolutionizing_edge_ai_and_vision_with_op
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_tech_llama_3_2_eval
   source_revision_id: revision_meta_revision_tech_llama_3_2_eval
   source_type: official_repository
@@ -39289,7 +39468,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_2
   publication_date: '2025-02-02'
   release_id: release_meta_20240925_llama_3_2_revolutionizing_edge_ai_and_vision_with_op
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_tech_llama_3_2_eval
   source_revision_id: revision_meta_revision_tech_llama_3_2_eval
   source_type: official_repository
@@ -39319,7 +39498,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_2
   publication_date: '2025-02-02'
   release_id: release_meta_20240925_llama_3_2_revolutionizing_edge_ai_and_vision_with_op
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_tech_llama_3_2_eval
   source_revision_id: revision_meta_revision_tech_llama_3_2_eval
   source_type: official_repository
@@ -39468,7 +39647,7 @@ occurrences:
   model_id: model_meta_model_meta_llama_3_2
   publication_date: '2025-02-02'
   release_id: release_meta_20240925_llama_3_2_revolutionizing_edge_ai_and_vision_with_op
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_tech_llama_3_2_eval
   source_revision_id: revision_meta_revision_tech_llama_3_2_eval
   source_type: official_repository
@@ -40241,7 +40420,7 @@ occurrences:
   model_id: model_openai_model_openai_20250227_introducing_gpt_4_5
   publication_date: '2025-02-27'
   release_id: release_openai_20250227_introducing_gpt_4_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20250227_introducing_gpt_4_5
   source_revision_id: revision_openai_revision_openai_20250227_introducing_gpt_4_5
   source_type: launch_page
@@ -40429,7 +40608,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250305_qwq_32b_embracing_the_power_of_reinforcement_learnin_qwq_32b
   publication_date: '2025-03-05'
   release_id: release_qwen_20250305_qwq_32b_embracing_the_power_of_reinforcement_learnin_qwq_32b
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250305_qwq_32b_embracing_the_power_of_reinforcement_learnin_qwq_32b
   source_revision_id: revision_qwen_revision_qwen_20250305_qwq_32b_embracing_the_power_of_reinforcement_learnin_qwq_32b
   source_type: launch_page
@@ -42368,7 +42547,7 @@ occurrences:
   model_id: model_google_deepmind_google_deepmind_gemini_2_5_pro_experimental
   publication_date: '2025-03-25'
   release_id: release_google_deepmind_20250325_gemini_2_5_our_most_intelligent_ai_model
-  review_status: verified
+  review_status: quarantined
   source_id: source_google_deepmind_source_launch_google_deepmind_20250325_gemini_2_5_our_most_intelligent_ai_model
   source_revision_id: revision_google_deepmind_revision_launch_google_deepmind_20250325_gemini_2_5_our_most_intelligent_ai_model
   source_type: launch_page
@@ -43169,7 +43348,7 @@ occurrences:
   model_id: model_openai_model_openai_20250414_introducing_gpt_4_1_in_the_api
   publication_date: '2025-04-14'
   release_id: release_openai_20250414_introducing_gpt_4_1_in_the_api
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20250414_introducing_gpt_4_1_in_the_api
   source_revision_id: revision_openai_revision_openai_20250414_introducing_gpt_4_1_in_the_api
   source_type: launch_page
@@ -43302,7 +43481,7 @@ occurrences:
   model_id: model_openai_model_openai_20250414_introducing_gpt_4_1_in_the_api
   publication_date: '2025-04-14'
   release_id: release_openai_20250414_introducing_gpt_4_1_in_the_api
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20250414_introducing_gpt_4_1_in_the_api
   source_revision_id: revision_openai_revision_openai_20250414_introducing_gpt_4_1_in_the_api
   source_type: launch_page
@@ -43652,7 +43831,7 @@ occurrences:
   model_id: model_openai_model_openai_20250414_introducing_gpt_4_1_in_the_api
   publication_date: '2025-04-14'
   release_id: release_openai_20250414_introducing_gpt_4_1_in_the_api
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20250414_introducing_gpt_4_1_in_the_api
   source_revision_id: revision_openai_revision_openai_20250414_introducing_gpt_4_1_in_the_api
   source_type: launch_page
@@ -43680,7 +43859,7 @@ occurrences:
   model_id: model_openai_model_openai_20250414_introducing_gpt_4_1_in_the_api
   publication_date: '2025-04-14'
   release_id: release_openai_20250414_introducing_gpt_4_1_in_the_api
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20250414_introducing_gpt_4_1_in_the_api
   source_revision_id: revision_openai_revision_openai_20250414_introducing_gpt_4_1_in_the_api
   source_type: launch_page
@@ -44158,7 +44337,7 @@ occurrences:
   model_id: model_meta_model_meta_plm
   publication_date: '2025-04-17'
   release_id: release_meta_derived_20250417_meta_perception_language_model
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_plm
   source_revision_id: revision_meta_revision_paper_plm
   source_type: technical_report
@@ -44338,7 +44517,7 @@ occurrences:
   model_id: model_meta_model_meta_plm
   publication_date: '2025-04-17'
   release_id: release_meta_derived_20250417_meta_perception_language_model
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_plm
   source_revision_id: revision_meta_revision_paper_plm
   source_type: technical_report
@@ -44968,7 +45147,7 @@ occurrences:
   model_id: model_meta_model_meta_plm
   publication_date: '2025-04-17'
   release_id: release_meta_derived_20250417_meta_perception_language_model
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_paper_plm
   source_revision_id: revision_meta_revision_paper_plm
   source_type: technical_report
@@ -45380,7 +45559,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250428_qwen3_think_deeper_act_faster_qwen3
   publication_date: '2025-04-28'
   release_id: release_qwen_20250428_qwen3_think_deeper_act_faster_qwen3
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250428_qwen3_think_deeper_act_faster_qwen3
   source_revision_id: revision_qwen_revision_qwen_20250428_qwen3_think_deeper_act_faster_qwen3
   source_type: launch_page
@@ -45406,7 +45585,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250428_qwen3_think_deeper_act_faster_qwen3
   publication_date: '2025-04-28'
   release_id: release_qwen_20250428_qwen3_think_deeper_act_faster_qwen3
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250428_qwen3_think_deeper_act_faster_qwen3
   source_revision_id: revision_qwen_revision_qwen_20250428_qwen3_think_deeper_act_faster_qwen3
   source_type: launch_page
@@ -45900,7 +46079,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250428_qwen3_think_deeper_act_faster_qwen3
   publication_date: '2025-04-28'
   release_id: release_qwen_20250428_qwen3_think_deeper_act_faster_qwen3
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250428_qwen3_think_deeper_act_faster_qwen3
   source_revision_id: revision_qwen_revision_qwen_20250428_qwen3_think_deeper_act_faster_qwen3
   source_type: launch_page
@@ -47371,7 +47550,7 @@ occurrences:
   model_id: model_anthropic_model_anthropic_20250805_claude_opus_4_1
   publication_date: '2025-08-05'
   release_id: release_anthropic_20250805_claude_opus_4_1
-  review_status: verified
+  review_status: quarantined
   source_id: source_anthropic_technical_b2b5beba3ed386a58de760e664f5c98b90a6ce1275c7ee66da8beb70e106e0f2
   source_revision_id: revision_anthropic_revision_technical_b2b5beba3ed386a58de760e664f5c98b90a6ce1275c7ee66da8beb70e106e0f2
   source_type: system_card
@@ -48044,7 +48223,7 @@ occurrences:
   model_id: model_openai_model_openai_20250805_introducing_gpt_oss
   publication_date: '2025-08-05'
   release_id: release_openai_20250805_introducing_gpt_oss
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20250805_introducing_gpt_oss
   source_revision_id: revision_openai_revision_openai_20250805_introducing_gpt_oss
   source_type: launch_page
@@ -48962,7 +49141,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250910_qwen3_next_towards_ultimate_training_inference_effic_qwen3_next
   publication_date: '2025-09-10'
   release_id: release_qwen_20250910_qwen3_next_towards_ultimate_training_inference_effic_qwen3_next
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250910_qwen3_next_towards_ultimate_training_inference_effic_qwen3_next
   source_revision_id: revision_qwen_revision_qwen_20250910_qwen3_next_towards_ultimate_training_inference_effic_qwen3_next
   source_type: launch_page
@@ -49196,7 +49375,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250910_qwen3_next_towards_ultimate_training_inference_effic_qwen3_next
   publication_date: '2025-09-10'
   release_id: release_qwen_20250910_qwen3_next_towards_ultimate_training_inference_effic_qwen3_next
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250910_qwen3_next_towards_ultimate_training_inference_effic_qwen3_next
   source_revision_id: revision_qwen_revision_qwen_20250910_qwen3_next_towards_ultimate_training_inference_effic_qwen3_next
   source_type: launch_page
@@ -49566,7 +49745,7 @@ occurrences:
   model_id: model_google_deepmind_google_deepmind_vaultgemma_1b
   publication_date: '2025-09-12'
   release_id: release_google_deepmind_20250912_vaultgemma_the_world_s_most_capable_differentially_p
-  review_status: verified
+  review_status: quarantined
   source_id: source_google_deepmind_support_vaultgemma_report
   source_revision_id: revision_google_deepmind_revision_support_vaultgemma_report
   source_type: technical_report
@@ -49619,7 +49798,7 @@ occurrences:
   model_id: model_openai_model_openai_20250915_introducing_upgrades_to_codex
   publication_date: '2025-09-15'
   release_id: release_openai_20250915_introducing_upgrades_to_codex
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20250915_introducing_upgrades_to_codex
   source_revision_id: revision_openai_revision_openai_20250915_introducing_upgrades_to_codex
   source_type: launch_page
@@ -49645,7 +49824,7 @@ occurrences:
   model_id: model_openai_model_openai_20250915_introducing_upgrades_to_codex
   publication_date: '2025-09-15'
   release_id: release_openai_20250915_introducing_upgrades_to_codex
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20250915_introducing_upgrades_to_codex
   source_revision_id: revision_openai_revision_openai_20250915_introducing_upgrades_to_codex
   source_type: launch_page
@@ -49671,7 +49850,7 @@ occurrences:
   model_id: model_openai_model_openai_20250915_introducing_upgrades_to_codex
   publication_date: '2025-09-15'
   release_id: release_openai_20250915_introducing_upgrades_to_codex
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20250915_introducing_upgrades_to_codex
   source_revision_id: revision_openai_revision_openai_20250915_introducing_upgrades_to_codex
   source_type: launch_page
@@ -49725,7 +49904,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
   publication_date: '2025-09-21'
   release_id: release_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
   source_revision_id: revision_qwen_revision_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
   source_type: launch_page
@@ -49855,7 +50034,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
   publication_date: '2025-09-21'
   release_id: release_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
   source_revision_id: revision_qwen_revision_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
   source_type: launch_page
@@ -49881,7 +50060,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
   publication_date: '2025-09-21'
   release_id: release_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
   source_revision_id: revision_qwen_revision_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
   source_type: launch_page
@@ -50037,7 +50216,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
   publication_date: '2025-09-21'
   release_id: release_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
   source_revision_id: revision_qwen_revision_qwen_20250921_qwen3_omni_natively_omni_modal_foundation_models_qwen3_omni
   source_type: launch_page
@@ -50329,7 +50508,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v3_1_terminus
   publication_date: '2025-09-22'
   release_id: release_deepseek_20250922_deepseek_v3_1_terminus
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_hf_v31_terminus
   source_revision_id: revision_deepseek_revision_source_hf_v31_terminus
   source_type: official_hugging_face_card
@@ -50543,7 +50722,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -50829,7 +51008,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -50959,7 +51138,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -50985,7 +51164,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -51011,7 +51190,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -51115,7 +51294,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -51141,7 +51320,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -51167,7 +51346,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -51193,7 +51372,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -51245,7 +51424,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -51349,7 +51528,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -51375,7 +51554,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -51401,7 +51580,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -51427,7 +51606,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -51531,7 +51710,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -51609,7 +51788,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -51817,7 +51996,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -52051,7 +52230,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -52103,7 +52282,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -52156,7 +52335,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -52234,7 +52413,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -52286,7 +52465,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -52312,7 +52491,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   publication_date: '2025-09-22'
   release_id: release_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_revision_id: revision_qwen_revision_qwen_20250922_qwen3_vl_sharper_vision_deeper_thought_broader_actio_qwen3_vl
   source_type: launch_page
@@ -52338,7 +52517,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250924_qwen3_max_just_scale_it_qwen3_max
   publication_date: '2025-09-24'
   release_id: release_qwen_20250924_qwen3_max_just_scale_it_qwen3_max
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250924_qwen3_max_just_scale_it_qwen3_max
   source_revision_id: revision_qwen_revision_qwen_20250924_qwen3_max_just_scale_it_qwen3_max
   source_type: launch_page
@@ -52390,7 +52569,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250924_qwen3_max_just_scale_it_qwen3_max
   publication_date: '2025-09-24'
   release_id: release_qwen_20250924_qwen3_max_just_scale_it_qwen3_max
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250924_qwen3_max_just_scale_it_qwen3_max
   source_revision_id: revision_qwen_revision_qwen_20250924_qwen3_max_just_scale_it_qwen3_max
   source_type: launch_page
@@ -52416,7 +52595,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20250924_qwen3_max_just_scale_it_qwen3_max
   publication_date: '2025-09-24'
   release_id: release_qwen_20250924_qwen3_max_just_scale_it_qwen3_max
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20250924_qwen3_max_just_scale_it_qwen3_max
   source_revision_id: revision_qwen_revision_qwen_20250924_qwen3_max_just_scale_it_qwen3_max
   source_type: launch_page
@@ -53972,7 +54151,7 @@ occurrences:
   model_id: model_anthropic_model_anthropic_20250929_introducing_claude_sonnet_4_5
   publication_date: '2025-09-29'
   release_id: release_anthropic_20250929_introducing_claude_sonnet_4_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_anthropic_launch_anthropic_20250929_introducing_claude_sonnet_4_5
   source_revision_id: revision_anthropic_revision_launch_anthropic_20250929_introducing_claude_sonnet_4_5
   source_type: launch_page
@@ -54278,7 +54457,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v3_2_exp
   publication_date: '2025-09-29'
   release_id: release_deepseek_20250929_deepseek_v3_2_exp
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_hf_v32_exp
   source_revision_id: revision_deepseek_revision_source_hf_v32_exp
   source_type: official_hugging_face_card
@@ -54675,7 +54854,7 @@ occurrences:
   model_id: model_anthropic_model_anthropic_20251015_introducing_claude_haiku_4_5
   publication_date: '2025-10-15'
   release_id: release_anthropic_20251015_introducing_claude_haiku_4_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_anthropic_technical_1b9ae5f4f66a65c1b37a031179af3dba35959471a3a5d195e4fe700b87558141
   source_revision_id: revision_anthropic_revision_technical_1b9ae5f4f66a65c1b37a031179af3dba35959471a3a5d195e4fe700b87558141
   source_type: system_card
@@ -55367,7 +55546,7 @@ occurrences:
   model_id: model_google_deepmind_google_deepmind_gemini_3_pro
   publication_date: '2025-11-18'
   release_id: release_google_deepmind_20251118_a_new_era_of_intelligence_with_gemini_3
-  review_status: verified
+  review_status: quarantined
   source_id: source_google_deepmind_source_launch_google_deepmind_20251118_a_new_era_of_intelligence_with_gemini_3
   source_revision_id: revision_google_deepmind_revision_launch_google_deepmind_20251118_a_new_era_of_intelligence_with_gemini_3
   source_type: launch_page
@@ -55663,7 +55842,7 @@ occurrences:
   source_revision_id: revision_openai_revision_openai_20251119_building_more_with_gpt_5_1_codex_max
   source_type: launch_page
   summary: The reviewed OpenAI reporting names SWE-Lancer IC SWE for the released OpenAI model identity.
-- benchmark_id: benchmark_terminal_bench
+- benchmark_id: benchmark_terminal_bench_2_0
   evaluation_setup:
     evaluation_harness:
       status: not_disclosed
@@ -55975,7 +56154,7 @@ occurrences:
   model_id: model_anthropic_model_anthropic_20251124_introducing_claude_opus_4_5
   publication_date: '2025-11-24'
   release_id: release_anthropic_20251124_introducing_claude_opus_4_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_anthropic_technical_33be92efcb58f901d9d2c17e61bf277afbd514a1ac70a642f21e918c21ca25a8
   source_revision_id: revision_anthropic_revision_technical_33be92efcb58f901d9d2c17e61bf277afbd514a1ac70a642f21e918c21ca25a8
   source_type: system_card
@@ -57293,7 +57472,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
   publication_date: '2025-12-08'
   release_id: release_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
   source_revision_id: revision_qwen_revision_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
   source_type: launch_page
@@ -57449,7 +57628,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
   publication_date: '2025-12-08'
   release_id: release_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
   source_revision_id: revision_qwen_revision_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
   source_type: launch_page
@@ -57475,7 +57654,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
   publication_date: '2025-12-08'
   release_id: release_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
   source_revision_id: revision_qwen_revision_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
   source_type: launch_page
@@ -57657,7 +57836,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
   publication_date: '2025-12-08'
   release_id: release_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
   source_revision_id: revision_qwen_revision_qwen_20251208_qwen3_omni_flash_2025_12_01_hear_you_see_you_follow_qwen3_omni_flash_20251201
   source_type: launch_page
@@ -58025,7 +58204,7 @@ occurrences:
   model_id: model_openai_model_openai_20251211_introducing_gpt_5_2
   publication_date: '2025-12-11'
   release_id: release_openai_20251211_introducing_gpt_5_2
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20251211_introducing_gpt_5_2
   source_revision_id: revision_openai_revision_openai_20251211_introducing_gpt_5_2
   source_type: launch_page
@@ -58131,7 +58310,7 @@ occurrences:
   model_id: model_openai_model_openai_20251211_introducing_gpt_5_2
   publication_date: '2025-12-11'
   release_id: release_openai_20251211_introducing_gpt_5_2
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20251211_introducing_gpt_5_2
   source_revision_id: revision_openai_revision_openai_20251211_introducing_gpt_5_2
   source_type: launch_page
@@ -58157,7 +58336,7 @@ occurrences:
   model_id: model_openai_model_openai_20251211_introducing_gpt_5_2
   publication_date: '2025-12-11'
   release_id: release_openai_20251211_introducing_gpt_5_2
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20251211_introducing_gpt_5_2
   source_revision_id: revision_openai_revision_openai_20251211_introducing_gpt_5_2
   source_type: launch_page
@@ -58321,7 +58500,7 @@ occurrences:
   model_id: model_openai_model_openai_20251211_introducing_gpt_5_2
   publication_date: '2025-12-11'
   release_id: release_openai_20251211_introducing_gpt_5_2
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20251211_introducing_gpt_5_2
   source_revision_id: revision_openai_revision_openai_20251211_introducing_gpt_5_2
   source_type: launch_page
@@ -58483,7 +58662,7 @@ occurrences:
   model_id: model_google_deepmind_google_deepmind_gemini_3_flash
   publication_date: '2025-12-17'
   release_id: release_google_deepmind_20251217_gemini_3_flash_frontier_intelligence_built_for_speed
-  review_status: verified
+  review_status: quarantined
   source_id: source_google_deepmind_source_launch_google_deepmind_20251217_gemini_3_flash_frontier_intelligence_built_for_speed
   source_revision_id: revision_google_deepmind_revision_launch_google_deepmind_20251217_gemini_3_flash_frontier_intelligence_built_for_speed
   source_type: launch_page
@@ -58589,7 +58768,7 @@ occurrences:
   model_id: model_openai_model_openai_20251218_introducing_gpt_5_2_codex
   publication_date: '2025-12-18'
   release_id: release_openai_20251218_introducing_gpt_5_2_codex
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20251218_introducing_gpt_5_2_codex
   source_revision_id: revision_openai_revision_openai_20251218_introducing_gpt_5_2_codex
   source_type: launch_page
@@ -58622,7 +58801,7 @@ occurrences:
   source_revision_id: revision_openai_revision_openai_20251218_introducing_gpt_5_2_codex
   source_type: launch_page
   summary: The reviewed OpenAI reporting names SWE-Bench Pro for the released OpenAI model identity.
-- benchmark_id: benchmark_terminal_bench
+- benchmark_id: benchmark_terminal_bench_2_0
   evaluation_setup:
     evaluation_harness:
       status: not_disclosed
@@ -58851,7 +59030,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260126_qwen3_max_thinking
   publication_date: '2026-01-26'
   release_id: release_qwen_20260126_qwen3_max_thinking
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260126_qwen3_max_thinking
   source_revision_id: revision_qwen_revision_qwen_20260126_qwen3_max_thinking
   source_type: launch_page
@@ -58877,7 +59056,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260126_qwen3_max_thinking
   publication_date: '2026-01-26'
   release_id: release_qwen_20260126_qwen3_max_thinking
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260126_qwen3_max_thinking
   source_revision_id: revision_qwen_revision_qwen_20260126_qwen3_max_thinking
   source_type: launch_page
@@ -58903,7 +59082,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260126_qwen3_max_thinking
   publication_date: '2026-01-26'
   release_id: release_qwen_20260126_qwen3_max_thinking
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260126_qwen3_max_thinking
   source_revision_id: revision_qwen_revision_qwen_20260126_qwen3_max_thinking
   source_type: launch_page
@@ -59111,7 +59290,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260126_qwen3_max_thinking
   publication_date: '2026-01-26'
   release_id: release_qwen_20260126_qwen3_max_thinking
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260126_qwen3_max_thinking
   source_revision_id: revision_qwen_revision_qwen_20260126_qwen3_max_thinking
   source_type: launch_page
@@ -60189,7 +60368,7 @@ occurrences:
   model_id: model_anthropic_model_anthropic_20260205_introducing_claude_opus_4_6
   publication_date: '2026-02-05'
   release_id: release_anthropic_20260205_introducing_claude_opus_4_6
-  review_status: verified
+  review_status: quarantined
   source_id: source_anthropic_technical_4db67c6b6aea0a87e7f8a784b83fc05a0f1a61a3e87615fe7956e3486b951b3c
   source_revision_id: revision_anthropic_revision_technical_4db67c6b6aea0a87e7f8a784b83fc05a0f1a61a3e87615fe7956e3486b951b3c
   source_type: system_card
@@ -60217,7 +60396,7 @@ occurrences:
   model_id: model_openai_model_openai_20260205_introducing_gpt_5_3_codex
   publication_date: '2026-02-05'
   release_id: release_openai_20260205_introducing_gpt_5_3_codex
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20260205_introducing_gpt_5_3_codex
   source_revision_id: revision_openai_revision_openai_20260205_introducing_gpt_5_3_codex
   source_type: launch_page
@@ -60332,7 +60511,7 @@ occurrences:
   source_revision_id: revision_openai_revision_openai_20260205_introducing_gpt_5_3_codex
   source_type: launch_page
   summary: The reviewed OpenAI reporting names SWE-Lancer IC Diamond for the released OpenAI model identity.
-- benchmark_id: benchmark_terminal_bench
+- benchmark_id: benchmark_terminal_bench_2_0
   evaluation_setup:
     evaluation_harness:
       status: not_disclosed
@@ -60458,7 +60637,7 @@ occurrences:
   model_id: model_google_deepmind_google_deepmind_gemini_3_deep_think
   publication_date: '2026-02-12'
   release_id: release_google_deepmind_20260212_gemini_3_deep_think_advancing_science_research_and_e
-  review_status: verified
+  review_status: quarantined
   source_id: source_google_deepmind_source_launch_google_deepmind_20260212_gemini_3_deep_think_advancing_science_research_and_e
   source_revision_id: revision_google_deepmind_revision_launch_google_deepmind_20260212_gemini_3_deep_think_advancing_science_research_and_e
   source_type: launch_page
@@ -60510,7 +60689,7 @@ occurrences:
   model_id: model_google_deepmind_google_deepmind_gemini_3_deep_think
   publication_date: '2026-02-12'
   release_id: release_google_deepmind_20260212_gemini_3_deep_think_advancing_science_research_and_e
-  review_status: verified
+  review_status: quarantined
   source_id: source_google_deepmind_source_launch_google_deepmind_20260212_gemini_3_deep_think_advancing_science_research_and_e
   source_revision_id: revision_google_deepmind_revision_launch_google_deepmind_20260212_gemini_3_deep_think_advancing_science_research_and_e
   source_type: launch_page
@@ -60569,7 +60748,7 @@ occurrences:
   source_revision_id: revision_openai_revision_openai_20260212_introducing_gpt_5_3_codex_spark
   source_type: launch_page
   summary: The reviewed OpenAI reporting names SWE-Bench Pro for the released OpenAI model identity.
-- benchmark_id: benchmark_terminal_bench
+- benchmark_id: benchmark_terminal_bench_2_0
   evaluation_setup:
     evaluation_harness:
       status: not_disclosed
@@ -60668,7 +60847,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260216_qwen3_5
   publication_date: '2026-02-16'
   release_id: release_qwen_20260216_qwen3_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260216_qwen3_5
   source_revision_id: revision_qwen_revision_qwen_20260216_qwen3_5
   source_type: launch_page
@@ -61293,7 +61472,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260216_qwen3_5
   publication_date: '2026-02-16'
   release_id: release_qwen_20260216_qwen3_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260216_qwen3_5
   source_revision_id: revision_qwen_revision_qwen_20260216_qwen3_5
   source_type: launch_page
@@ -61319,7 +61498,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260216_qwen3_5
   publication_date: '2026-02-16'
   release_id: release_qwen_20260216_qwen3_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260216_qwen3_5
   source_revision_id: revision_qwen_revision_qwen_20260216_qwen3_5
   source_type: launch_page
@@ -61345,7 +61524,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260216_qwen3_5
   publication_date: '2026-02-16'
   release_id: release_qwen_20260216_qwen3_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260216_qwen3_5
   source_revision_id: revision_qwen_revision_qwen_20260216_qwen3_5
   source_type: launch_page
@@ -61814,7 +61993,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260216_qwen3_5
   publication_date: '2026-02-16'
   release_id: release_qwen_20260216_qwen3_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260216_qwen3_5
   source_revision_id: revision_qwen_revision_qwen_20260216_qwen3_5
   source_type: launch_page
@@ -62750,7 +62929,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260216_qwen3_5
   publication_date: '2026-02-16'
   release_id: release_qwen_20260216_qwen3_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260216_qwen3_5
   source_revision_id: revision_qwen_revision_qwen_20260216_qwen3_5
   source_type: launch_page
@@ -62830,7 +63009,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260216_qwen3_5
   publication_date: '2026-02-16'
   release_id: release_qwen_20260216_qwen3_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260216_qwen3_5
   source_revision_id: revision_qwen_revision_qwen_20260216_qwen3_5
   source_type: launch_page
@@ -62857,7 +63036,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260216_qwen3_5
   publication_date: '2026-02-16'
   release_id: release_qwen_20260216_qwen3_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260216_qwen3_5
   source_revision_id: revision_qwen_revision_qwen_20260216_qwen3_5
   source_type: launch_page
@@ -64104,7 +64283,7 @@ occurrences:
   model_id: model_anthropic_model_anthropic_20260217_introducing_claude_sonnet_4_6
   publication_date: '2026-02-17'
   release_id: release_anthropic_20260217_introducing_claude_sonnet_4_6
-  review_status: verified
+  review_status: quarantined
   source_id: source_anthropic_technical_672339ab327e8798578b3559e8489561db5ad25e81b427de4e306393108e90b6
   source_revision_id: revision_anthropic_revision_technical_672339ab327e8798578b3559e8489561db5ad25e81b427de4e306393108e90b6
   source_type: system_card
@@ -64496,7 +64675,7 @@ occurrences:
   model_id: model_openai_model_openai_20260305_introducing_gpt_5_4
   publication_date: '2026-03-05'
   release_id: release_openai_20260305_introducing_gpt_5_4
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20260305_introducing_gpt_5_4
   source_revision_id: revision_openai_revision_openai_20260305_introducing_gpt_5_4
   source_type: launch_page
@@ -65047,7 +65226,7 @@ occurrences:
   source_revision_id: revision_openai_revision_openai_20260317_introducing_gpt_5_4_mini_and_nano
   source_type: launch_page
   summary: The reviewed OpenAI reporting names Tau2-bench Telecom for the released OpenAI model identity.
-- benchmark_id: benchmark_terminal_bench
+- benchmark_id: benchmark_terminal_bench_2_0
   evaluation_setup:
     evaluation_harness:
       status: not_disclosed
@@ -65355,7 +65534,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260330_qwen3_5_omni
   publication_date: '2026-03-30'
   release_id: release_qwen_20260330_qwen3_5_omni
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260330_qwen3_5_omni
   source_revision_id: revision_qwen_revision_qwen_20260330_qwen3_5_omni
   source_type: launch_page
@@ -65563,7 +65742,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260330_qwen3_5_omni
   publication_date: '2026-03-30'
   release_id: release_qwen_20260330_qwen3_5_omni
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260330_qwen3_5_omni
   source_revision_id: revision_qwen_revision_qwen_20260330_qwen3_5_omni
   source_type: launch_page
@@ -65979,7 +66158,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260330_qwen3_5_omni
   publication_date: '2026-03-30'
   release_id: release_qwen_20260330_qwen3_5_omni
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260330_qwen3_5_omni
   source_revision_id: revision_qwen_revision_qwen_20260330_qwen3_5_omni
   source_type: launch_page
@@ -66577,7 +66756,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260330_qwen3_5_omni
   publication_date: '2026-03-30'
   release_id: release_qwen_20260330_qwen3_5_omni
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260330_qwen3_5_omni
   source_revision_id: revision_qwen_revision_qwen_20260330_qwen3_5_omni
   source_type: launch_page
@@ -66760,7 +66939,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260330_qwen3_5_omni
   publication_date: '2026-03-30'
   release_id: release_qwen_20260330_qwen3_5_omni
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260330_qwen3_5_omni
   source_revision_id: revision_qwen_revision_qwen_20260330_qwen3_5_omni
   source_type: launch_page
@@ -67334,7 +67513,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260402_qwen3_6
   publication_date: '2026-04-02'
   release_id: release_qwen_20260402_qwen3_6
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260402_qwen3_6
   source_revision_id: revision_qwen_revision_qwen_20260402_qwen3_6
   source_type: launch_page
@@ -67542,7 +67721,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260402_qwen3_6
   publication_date: '2026-04-02'
   release_id: release_qwen_20260402_qwen3_6
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260402_qwen3_6
   source_revision_id: revision_qwen_revision_qwen_20260402_qwen3_6
   source_type: launch_page
@@ -67568,7 +67747,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260402_qwen3_6
   publication_date: '2026-04-02'
   release_id: release_qwen_20260402_qwen3_6
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260402_qwen3_6
   source_revision_id: revision_qwen_revision_qwen_20260402_qwen3_6
   source_type: launch_page
@@ -67594,7 +67773,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260402_qwen3_6
   publication_date: '2026-04-02'
   release_id: release_qwen_20260402_qwen3_6
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260402_qwen3_6
   source_revision_id: revision_qwen_revision_qwen_20260402_qwen3_6
   source_type: launch_page
@@ -67620,7 +67799,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260402_qwen3_6
   publication_date: '2026-04-02'
   release_id: release_qwen_20260402_qwen3_6
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260402_qwen3_6
   source_revision_id: revision_qwen_revision_qwen_20260402_qwen3_6
   source_type: launch_page
@@ -68713,7 +68892,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260402_qwen3_6
   publication_date: '2026-04-02'
   release_id: release_qwen_20260402_qwen3_6
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260402_qwen3_6
   source_revision_id: revision_qwen_revision_qwen_20260402_qwen3_6
   source_type: launch_page
@@ -68740,7 +68919,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260402_qwen3_6
   publication_date: '2026-04-02'
   release_id: release_qwen_20260402_qwen3_6
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260402_qwen3_6
   source_revision_id: revision_qwen_revision_qwen_20260402_qwen3_6
   source_type: launch_page
@@ -69242,7 +69421,7 @@ occurrences:
   model_id: model_meta_model_meta_muse_spark
   publication_date: '2026-04-08'
   release_id: release_meta_20260408_introducing_muse_spark
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_report_muse_methodology
   source_revision_id: revision_meta_revision_report_muse_methodology
   source_type: technical_report
@@ -69677,7 +69856,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260415_qwen3_6_35b_a3b
   publication_date: '2026-04-15'
   release_id: release_qwen_20260415_qwen3_6_35b_a3b
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260415_qwen3_6_35b_a3b
   source_revision_id: revision_qwen_revision_qwen_20260415_qwen3_6_35b_a3b
   source_type: launch_page
@@ -69833,7 +70012,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260415_qwen3_6_35b_a3b
   publication_date: '2026-04-15'
   release_id: release_qwen_20260415_qwen3_6_35b_a3b
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260415_qwen3_6_35b_a3b
   source_revision_id: revision_qwen_revision_qwen_20260415_qwen3_6_35b_a3b
   source_type: launch_page
@@ -69859,7 +70038,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260415_qwen3_6_35b_a3b
   publication_date: '2026-04-15'
   release_id: release_qwen_20260415_qwen3_6_35b_a3b
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260415_qwen3_6_35b_a3b
   source_revision_id: revision_qwen_revision_qwen_20260415_qwen3_6_35b_a3b
   source_type: launch_page
@@ -69885,7 +70064,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260415_qwen3_6_35b_a3b
   publication_date: '2026-04-15'
   release_id: release_qwen_20260415_qwen3_6_35b_a3b
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260415_qwen3_6_35b_a3b
   source_revision_id: revision_qwen_revision_qwen_20260415_qwen3_6_35b_a3b
   source_type: launch_page
@@ -70093,7 +70272,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260415_qwen3_6_35b_a3b
   publication_date: '2026-04-15'
   release_id: release_qwen_20260415_qwen3_6_35b_a3b
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260415_qwen3_6_35b_a3b
   source_revision_id: revision_qwen_revision_qwen_20260415_qwen3_6_35b_a3b
   source_type: launch_page
@@ -70692,7 +70871,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260415_qwen3_6_35b_a3b
   publication_date: '2026-04-15'
   release_id: release_qwen_20260415_qwen3_6_35b_a3b
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260415_qwen3_6_35b_a3b
   source_revision_id: revision_qwen_revision_qwen_20260415_qwen3_6_35b_a3b
   source_type: launch_page
@@ -70719,7 +70898,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260415_qwen3_6_35b_a3b
   publication_date: '2026-04-15'
   release_id: release_qwen_20260415_qwen3_6_35b_a3b
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260415_qwen3_6_35b_a3b
   source_revision_id: revision_qwen_revision_qwen_20260415_qwen3_6_35b_a3b
   source_type: launch_page
@@ -71174,7 +71353,7 @@ occurrences:
   model_id: model_anthropic_model_anthropic_20260416_introducing_claude_opus_4_7
   publication_date: '2026-04-16'
   release_id: release_anthropic_20260416_introducing_claude_opus_4_7
-  review_status: verified
+  review_status: quarantined
   source_id: source_anthropic_technical_a7729a0e5eb61dc6818f553ae3c27ab774411cd5ab4ed7f414456d74a05c26d2
   source_revision_id: revision_anthropic_revision_technical_a7729a0e5eb61dc6818f553ae3c27ab774411cd5ab4ed7f414456d74a05c26d2
   source_type: system_card
@@ -72262,7 +72441,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260422_qwen3_6_27b
   publication_date: '2026-04-22'
   release_id: release_qwen_20260422_qwen3_6_27b
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260422_qwen3_6_27b
   source_revision_id: revision_qwen_revision_qwen_20260422_qwen3_6_27b
   source_type: launch_page
@@ -72444,7 +72623,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260422_qwen3_6_27b
   publication_date: '2026-04-22'
   release_id: release_qwen_20260422_qwen3_6_27b
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260422_qwen3_6_27b
   source_revision_id: revision_qwen_revision_qwen_20260422_qwen3_6_27b
   source_type: launch_page
@@ -72470,7 +72649,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260422_qwen3_6_27b
   publication_date: '2026-04-22'
   release_id: release_qwen_20260422_qwen3_6_27b
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260422_qwen3_6_27b
   source_revision_id: revision_qwen_revision_qwen_20260422_qwen3_6_27b
   source_type: launch_page
@@ -72496,7 +72675,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260422_qwen3_6_27b
   publication_date: '2026-04-22'
   release_id: release_qwen_20260422_qwen3_6_27b
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260422_qwen3_6_27b
   source_revision_id: revision_qwen_revision_qwen_20260422_qwen3_6_27b
   source_type: launch_page
@@ -72626,7 +72805,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260422_qwen3_6_27b
   publication_date: '2026-04-22'
   release_id: release_qwen_20260422_qwen3_6_27b
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260422_qwen3_6_27b
   source_revision_id: revision_qwen_revision_qwen_20260422_qwen3_6_27b
   source_type: launch_page
@@ -73199,7 +73378,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260422_qwen3_6_27b
   publication_date: '2026-04-22'
   release_id: release_qwen_20260422_qwen3_6_27b
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260422_qwen3_6_27b
   source_revision_id: revision_qwen_revision_qwen_20260422_qwen3_6_27b
   source_type: launch_page
@@ -73357,7 +73536,7 @@ occurrences:
   model_id: model_openai_model_openai_20260423_introducing_gpt_5_5
   publication_date: '2026-04-23'
   release_id: release_openai_20260423_introducing_gpt_5_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20260423_introducing_gpt_5_5
   source_revision_id: revision_openai_revision_openai_20260423_introducing_gpt_5_5
   source_type: launch_page
@@ -73677,7 +73856,7 @@ occurrences:
   model_id: model_openai_model_openai_20260423_introducing_gpt_5_5
   publication_date: '2026-04-23'
   release_id: release_openai_20260423_introducing_gpt_5_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20260423_introducing_gpt_5_5
   source_revision_id: revision_openai_revision_openai_20260423_introducing_gpt_5_5
   source_type: launch_page
@@ -73782,7 +73961,7 @@ occurrences:
   model_id: model_openai_model_openai_20260423_introducing_gpt_5_5
   publication_date: '2026-04-23'
   release_id: release_openai_20260423_introducing_gpt_5_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20260423_introducing_gpt_5_5
   source_revision_id: revision_openai_revision_openai_20260423_introducing_gpt_5_5
   source_type: launch_page
@@ -73898,7 +74077,7 @@ occurrences:
   source_revision_id: revision_openai_revision_openai_20260423_introducing_gpt_5_5
   source_type: launch_page
   summary: The reviewed OpenAI reporting names Tau2-bench Telecom for the released OpenAI model identity.
-- benchmark_id: benchmark_terminal_bench
+- benchmark_id: benchmark_terminal_bench_2_0
   evaluation_setup:
     evaluation_harness:
       status: not_disclosed
@@ -75218,7 +75397,7 @@ occurrences:
   source_revision_id: revision_google_deepmind_revision_launch_google_deepmind_20260519_gemini_3_5_frontier_intelligence_with_action
   source_type: launch_page
   summary: The source names this benchmark in public reporting for the released Google DeepMind model.
-- benchmark_id: benchmark_terminal_bench_2_0
+- benchmark_id: benchmark_terminal_bench_2_1
   evaluation_setup:
     evaluation_harness:
       status: not_disclosed
@@ -75474,7 +75653,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260520_qwen3_7
   publication_date: '2026-05-20'
   release_id: release_qwen_20260520_qwen3_7
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260520_qwen3_7
   source_revision_id: revision_qwen_revision_qwen_20260520_qwen3_7
   source_type: launch_page
@@ -75500,7 +75679,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260520_qwen3_7
   publication_date: '2026-05-20'
   release_id: release_qwen_20260520_qwen3_7
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260520_qwen3_7
   source_revision_id: revision_qwen_revision_qwen_20260520_qwen3_7
   source_type: launch_page
@@ -77367,7 +77546,7 @@ occurrences:
   model_id: model_meta_model_meta_muse_spark
   publication_date: '2026-05-26'
   release_id: release_meta_20260408_introducing_muse_spark
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_report_muse_safety
   source_revision_id: revision_meta_revision_report_muse_safety
   source_type: system_card
@@ -77460,7 +77639,7 @@ occurrences:
   model_id: model_meta_model_meta_muse_spark
   publication_date: '2026-05-26'
   release_id: release_meta_20260408_introducing_muse_spark
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_report_muse_safety
   source_revision_id: revision_meta_revision_report_muse_safety
   source_type: system_card
@@ -77491,7 +77670,7 @@ occurrences:
   model_id: model_meta_model_meta_muse_spark
   publication_date: '2026-05-26'
   release_id: release_meta_20260408_introducing_muse_spark
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_report_muse_safety
   source_revision_id: revision_meta_revision_report_muse_safety
   source_type: system_card
@@ -78057,7 +78236,7 @@ occurrences:
   model_id: model_anthropic_model_anthropic_20260528_introducing_claude_opus_4_8
   publication_date: '2026-05-28'
   release_id: release_anthropic_20260528_introducing_claude_opus_4_8
-  review_status: verified
+  review_status: quarantined
   source_id: source_anthropic_technical_0df5d061b6688c2d5839476620d66960011cb69043185dbed87ed1f68ab76d8f
   source_revision_id: revision_anthropic_revision_technical_0df5d061b6688c2d5839476620d66960011cb69043185dbed87ed1f68ab76d8f
   source_type: system_card
@@ -79677,7 +79856,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260601_qwen3_7_plus
   publication_date: '2026-06-01'
   release_id: release_qwen_20260601_qwen3_7_plus
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260601_qwen3_7_plus
   source_revision_id: revision_qwen_revision_qwen_20260601_qwen3_7_plus
   source_type: launch_page
@@ -80329,7 +80508,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260601_qwen3_7_plus
   publication_date: '2026-06-01'
   release_id: release_qwen_20260601_qwen3_7_plus
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260601_qwen3_7_plus
   source_revision_id: revision_qwen_revision_qwen_20260601_qwen3_7_plus
   source_type: launch_page
@@ -80355,7 +80534,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260601_qwen3_7_plus
   publication_date: '2026-06-01'
   release_id: release_qwen_20260601_qwen3_7_plus
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260601_qwen3_7_plus
   source_revision_id: revision_qwen_revision_qwen_20260601_qwen3_7_plus
   source_type: launch_page
@@ -80962,7 +81141,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260601_qwen3_7_plus
   publication_date: '2026-06-01'
   release_id: release_qwen_20260601_qwen3_7_plus
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260601_qwen3_7_plus
   source_revision_id: revision_qwen_revision_qwen_20260601_qwen3_7_plus
   source_type: launch_page
@@ -81657,7 +81836,7 @@ occurrences:
   model_id: model_anthropic_model_anthropic_20260609_claude_fable_5_and_claude_mythos_5
   publication_date: '2026-06-09'
   release_id: release_anthropic_20260609_claude_fable_5_and_claude_mythos_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_anthropic_technical_f95d413845ad8624f384ba026963f2bad2158f10f2626575bb45e823e3c2e0ca
   source_revision_id: revision_anthropic_revision_technical_f95d413845ad8624f384ba026963f2bad2158f10f2626575bb45e823e3c2e0ca
   source_type: system_card
@@ -82118,7 +82297,7 @@ occurrences:
   model_id: model_anthropic_model_anthropic_20260609_claude_fable_5_and_claude_mythos_5
   publication_date: '2026-06-09'
   release_id: release_anthropic_20260609_claude_fable_5_and_claude_mythos_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_anthropic_launch_anthropic_20260609_claude_fable_5_and_claude_mythos_5
   source_revision_id: revision_anthropic_revision_launch_anthropic_20260609_claude_fable_5_and_claude_mythos_5
   source_type: launch_page
@@ -83046,7 +83225,7 @@ occurrences:
   source_revision_id: revision_openai_revision_openai_20260626_previewing_gpt_5_6_sol_a_next_generation_model
   source_type: launch_page
   summary: The reviewed OpenAI reporting names GeneBench for the released OpenAI model identity.
-- benchmark_id: benchmark_terminal_bench
+- benchmark_id: benchmark_terminal_bench_2_1
   evaluation_setup:
     evaluation_harness:
       status: not_disclosed
@@ -84578,7 +84757,7 @@ occurrences:
   model_id: model_meta_model_meta_muse_spark_1_1
   publication_date: '2026-07-09'
   release_id: release_meta_20260709_introducing_muse_spark_1_1
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_report_muse_1_1
   source_revision_id: revision_meta_revision_report_muse_1_1
   source_type: system_card
@@ -84857,7 +85036,7 @@ occurrences:
   model_id: model_meta_model_meta_muse_spark_1_1
   publication_date: '2026-07-09'
   release_id: release_meta_20260709_introducing_muse_spark_1_1
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_report_muse_1_1
   source_revision_id: revision_meta_revision_report_muse_1_1
   source_type: system_card
@@ -84888,7 +85067,7 @@ occurrences:
   model_id: model_meta_model_meta_muse_spark_1_1
   publication_date: '2026-07-09'
   release_id: release_meta_20260709_introducing_muse_spark_1_1
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_report_muse_1_1
   source_revision_id: revision_meta_revision_report_muse_1_1
   source_type: system_card
@@ -85849,7 +86028,7 @@ occurrences:
   model_id: model_meta_model_meta_muse_spark_1_1
   publication_date: '2026-07-09'
   release_id: release_meta_20260709_introducing_muse_spark_1_1
-  review_status: verified
+  review_status: quarantined
   source_id: source_meta_report_muse_1_1
   source_revision_id: revision_meta_revision_report_muse_1_1
   source_type: system_card
@@ -86304,7 +86483,7 @@ occurrences:
   model_id: model_openai_model_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
   publication_date: '2026-07-09'
   release_id: release_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
   source_revision_id: revision_openai_revision_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
   source_type: launch_page
@@ -86541,7 +86720,7 @@ occurrences:
   model_id: model_openai_model_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
   publication_date: '2026-07-09'
   release_id: release_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
   source_revision_id: revision_openai_revision_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
   source_type: launch_page
@@ -86779,7 +86958,7 @@ occurrences:
   model_id: model_openai_model_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
   publication_date: '2026-07-09'
   release_id: release_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
   source_revision_id: revision_openai_revision_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
   source_type: launch_page
@@ -86832,7 +87011,7 @@ occurrences:
   model_id: model_openai_model_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
   publication_date: '2026-07-09'
   release_id: release_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
-  review_status: verified
+  review_status: quarantined
   source_id: source_openai_source_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
   source_revision_id: revision_openai_revision_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
   source_type: launch_page
@@ -86919,7 +87098,7 @@ occurrences:
   source_revision_id: revision_openai_revision_openai_20260709_gpt_5_6_frontier_intelligence_that_scales_with_your
   source_type: launch_page
   summary: The reviewed OpenAI reporting names SWE-Bench Pro for the released OpenAI model identity.
-- benchmark_id: benchmark_terminal_bench
+- benchmark_id: benchmark_terminal_bench_2_1
   evaluation_setup:
     evaluation_harness:
       status: not_disclosed
@@ -87238,7 +87417,7 @@ occurrences:
   source_revision_id: revision_google_deepmind_revision_launch_google_deepmind_20260721_introducing_gemini_3_6_flash_3_5_flash_lite_and_3_5
   source_type: launch_page
   summary: The source names this benchmark in public reporting for the released Google DeepMind model.
-- benchmark_id: benchmark_terminal_bench_2_0
+- benchmark_id: benchmark_terminal_bench_2_1
   evaluation_setup:
     evaluation_harness:
       status: not_disclosed
@@ -87697,7 +87876,7 @@ occurrences:
   model_id: model_anthropic_model_anthropic_20260724_introducing_claude_opus_5
   publication_date: '2026-07-24'
   release_id: release_anthropic_20260724_introducing_claude_opus_5
-  review_status: verified
+  review_status: quarantined
   source_id: source_anthropic_technical_0950dae1ba6b341e4f1a009e535e0f025625efeca21bd043a9a5ae148a3f2e6b
   source_revision_id: revision_anthropic_revision_technical_0950dae1ba6b341e4f1a009e535e0f025625efeca21bd043a9a5ae148a3f2e6b
   source_type: system_card
@@ -88945,7 +89124,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260803_qwen3_8
   publication_date: '2026-08-03'
   release_id: release_qwen_20260803_qwen3_8
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260803_qwen3_8
   source_revision_id: revision_qwen_revision_qwen_20260803_qwen3_8
   source_type: launch_page
@@ -89491,7 +89670,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260803_qwen3_8
   publication_date: '2026-08-03'
   release_id: release_qwen_20260803_qwen3_8
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260803_qwen3_8
   source_revision_id: revision_qwen_revision_qwen_20260803_qwen3_8
   source_type: launch_page
@@ -90896,7 +91075,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260803_qwen3_8
   publication_date: '2026-08-03'
   release_id: release_qwen_20260803_qwen3_8
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260803_qwen3_8
   source_revision_id: revision_qwen_revision_qwen_20260803_qwen3_8
   source_type: launch_page
@@ -91183,7 +91362,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_pro_0813
   publication_date: '2026-08-13'
   release_id: release_deepseek_20260813_deepseek_v4_pro_update
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_type: launch_page
@@ -91210,7 +91389,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_pro_0813
   publication_date: '2026-08-13'
   release_id: release_deepseek_20260813_deepseek_v4_pro_update
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_type: launch_page
@@ -91237,7 +91416,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_pro_0813
   publication_date: '2026-08-13'
   release_id: release_deepseek_20260813_deepseek_v4_pro_update
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_type: launch_page
@@ -91264,7 +91443,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_pro_0813
   publication_date: '2026-08-13'
   release_id: release_deepseek_20260813_deepseek_v4_pro_update
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_type: launch_page
@@ -91291,7 +91470,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_pro_0813
   publication_date: '2026-08-13'
   release_id: release_deepseek_20260813_deepseek_v4_pro_update
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_type: launch_page
@@ -91318,7 +91497,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_pro_0813
   publication_date: '2026-08-13'
   release_id: release_deepseek_20260813_deepseek_v4_pro_update
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_type: launch_page
@@ -91345,7 +91524,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_pro_0813
   publication_date: '2026-08-13'
   release_id: release_deepseek_20260813_deepseek_v4_pro_update
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_type: launch_page
@@ -91372,7 +91551,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_pro_0813
   publication_date: '2026-08-13'
   release_id: release_deepseek_20260813_deepseek_v4_pro_update
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_type: launch_page
@@ -91399,7 +91578,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_pro_0813
   publication_date: '2026-08-13'
   release_id: release_deepseek_20260813_deepseek_v4_pro_update
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_type: launch_page
@@ -91426,7 +91605,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_pro_0813
   publication_date: '2026-08-13'
   release_id: release_deepseek_20260813_deepseek_v4_pro_update
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260813_deepseek_v4_pro_update
   source_type: launch_page
@@ -91504,7 +91683,7 @@ occurrences:
   model_id: model_google_deepmind_google_deepmind_gemini_3_7_flash
   publication_date: '2026-08-13'
   release_id: release_google_deepmind_20260813_introducing_gemini_3_7_flash
-  review_status: verified
+  review_status: quarantined
   source_id: source_google_deepmind_source_launch_google_deepmind_20260813_introducing_gemini_3_7_flash
   source_revision_id: revision_google_deepmind_revision_launch_google_deepmind_20260813_introducing_gemini_3_7_flash
   source_type: launch_page
@@ -91585,7 +91764,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_flash_vision_exp
   publication_date: '2026-08-21'
   release_id: release_deepseek_20260821_deepseek_v4_flash_vision_exp_release
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_type: launch_page
@@ -91614,7 +91793,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_flash_vision_exp
   publication_date: '2026-08-21'
   release_id: release_deepseek_20260821_deepseek_v4_flash_vision_exp_release
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_type: launch_page
@@ -91643,7 +91822,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_flash_vision_exp
   publication_date: '2026-08-21'
   release_id: release_deepseek_20260821_deepseek_v4_flash_vision_exp_release
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_type: launch_page
@@ -91672,7 +91851,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_flash_vision_exp
   publication_date: '2026-08-21'
   release_id: release_deepseek_20260821_deepseek_v4_flash_vision_exp_release
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_type: launch_page
@@ -91701,7 +91880,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_flash_vision_exp
   publication_date: '2026-08-21'
   release_id: release_deepseek_20260821_deepseek_v4_flash_vision_exp_release
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_type: launch_page
@@ -91730,7 +91909,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_flash_vision_exp
   publication_date: '2026-08-21'
   release_id: release_deepseek_20260821_deepseek_v4_flash_vision_exp_release
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_type: launch_page
@@ -91759,7 +91938,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_flash_vision_exp
   publication_date: '2026-08-21'
   release_id: release_deepseek_20260821_deepseek_v4_flash_vision_exp_release
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_type: launch_page
@@ -91788,7 +91967,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_flash_vision_exp
   publication_date: '2026-08-21'
   release_id: release_deepseek_20260821_deepseek_v4_flash_vision_exp_release
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_type: launch_page
@@ -91817,7 +91996,7 @@ occurrences:
   model_id: model_deepseek_model_deepseek_v4_flash_vision_exp
   publication_date: '2026-08-21'
   release_id: release_deepseek_20260821_deepseek_v4_flash_vision_exp_release
-  review_status: verified
+  review_status: quarantined
   source_id: source_deepseek_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_revision_id: revision_deepseek_revision_source_launch_deepseek_20260821_deepseek_v4_flash_vision_exp_release
   source_type: launch_page
@@ -91843,7 +92022,7 @@ occurrences:
   model_id: model_qwen_model_qwen_20260826_qwen3_8_flash_next
   publication_date: '2026-08-26'
   release_id: release_qwen_20260826_qwen3_8_flash_next
-  review_status: verified
+  review_status: quarantined
   source_id: source_qwen_source_qwen_20260826_qwen3_8_flash_next
   source_revision_id: revision_qwen_revision_qwen_20260826_qwen3_8_flash_next
   source_type: launch_page

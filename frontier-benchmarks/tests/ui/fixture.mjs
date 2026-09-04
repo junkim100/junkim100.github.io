@@ -172,6 +172,17 @@ export const fixture = {
   coverage,
   occurrences,
   derived_statuses,
+  recent_model_counts: {
+    window: { start: "2026-06-06", end: "2026-09-03", inclusive_days: 90 },
+    label: "models in latest 90 days",
+    counts: benchmarks.map((benchmark) => ({
+      benchmark_id: benchmark.id,
+      canonical_name: benchmark.name,
+      distinct_model_count: occurrences.some((occurrence) => occurrence.benchmark_id === benchmark.id && occurrence.publication_date >= "2026-06-06" && occurrence.publication_date <= "2026-09-03")
+        ? new Set(occurrences.filter((occurrence) => occurrence.benchmark_id === benchmark.id && occurrence.publication_date >= "2026-06-06" && occurrence.publication_date <= "2026-09-03").map((occurrence) => occurrence.model_id)).size
+        : 0,
+    })),
+  },
   canonical_definitions,
   release_candidates: releases.map((release) => ({
     id: release.candidate_id,

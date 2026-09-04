@@ -64,7 +64,7 @@ class CorpusReconciliationTests(unittest.TestCase):
         for occurrence in self.catalog["occurrences"]:
             self.assertNotIn(occurrence["id"], occurrence_ids)
             occurrence_ids.add(occurrence["id"])
-            self.assertEqual(occurrence["review_status"], "verified")
+            self.assertIn(occurrence["review_status"], {"verified", "quarantined"})
             self.assertTrue(occurrence["summary"])
             self.assertTrue(occurrence["locator"]["kind"])
             self.assertTrue(occurrence["locator"]["value"])
@@ -80,29 +80,29 @@ class CorpusReconciliationTests(unittest.TestCase):
         releases_with_occurrences = {row["release_id"] for row in self.catalog["occurrences"]}
         zero_occurrence = {row["id"] for row in self.catalog["releases"]} - releases_with_occurrences
         self.assertEqual(len(zero_occurrence), 24)
-        self.assertEqual(len(self.catalog["benchmarks"]), 869)
+        self.assertEqual(len(self.catalog["benchmarks"]), 870)
         self.assertEqual(len(self.catalog["categories"]), 106)
 
     def test_generated_corpus_counts_unions_and_references_are_exact(self) -> None:
         expected_counts = {
             "labs": 6,
             "releases": 172,
-            "benchmarks": 869,
+            "benchmarks": 870,
             "occurrences": 2821,
-            "derived_statuses": 5593,
+            "derived_statuses": 5211,
             "sources": 537,
             "canonical_definitions": 8,
             "quarantine": 1,
         }
         self.assertEqual({key: len(self.document[key]) for key in expected_counts}, expected_counts)
-        self.assertEqual(len(self.public_bytes), 11_980_016)
-        self.assertEqual(hashlib.sha256(self.public_bytes).hexdigest(), "a945abe22b49e9cd6d309aa47b2979f2a069691ff3d2da1411b10de4ac3c93f5")
+        self.assertEqual(len(self.public_bytes), 11_706_437)
+        self.assertEqual(hashlib.sha256(self.public_bytes).hexdigest(), "a3b3f289db44441c9a9f3ac27d594b3d606f2f2142d1056e0f02f13b5d7d94df")
         ids = {
             key: {record["id"] for record in self.document[key]}
             for key in ("labs", "releases", "benchmarks", "occurrences", "derived_statuses", "sources", "canonical_definitions")
         }
         self.assertEqual(len(ids["releases"]), 172)
-        self.assertEqual(len(ids["derived_statuses"]), 5593)
+        self.assertEqual(len(ids["derived_statuses"]), 5211)
         for occurrence in self.document["occurrences"]:
             self.assertIn(occurrence["lab_id"], ids["labs"])
             self.assertIn(occurrence["release_id"], ids["releases"])

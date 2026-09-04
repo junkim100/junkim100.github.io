@@ -1,7 +1,28 @@
-import { collisionRows, datePosition, formatDate, indexData, normalize, timelineTicks, validateInterface } from "./core.mjs";
+import {
+  captureCenterDate,
+  collisionRows,
+  createSearchableCombobox,
+  datePosition,
+  formatDate,
+  indexData,
+  isLiveCanonical,
+  liveCanonicalBenchmarks,
+  mappedBenchmarkId,
+  normalize,
+  recentModelCount,
+  recentModelCountLabel,
+  restoreCenterDate,
+  scrollToNewest,
+  timelineTicks,
+  validateInterface,
+} from "./core.mjs";
 
 export const MAX_SELECTIONS = 6;
 export const DEFAULT_BENCHMARK_ID = "benchmark_terminal_bench_2_0";
+export const ZOOM_LEVELS = Object.freeze([1, 2, 4]);
+export const DEFAULT_ZOOM = ZOOM_LEVELS[0];
+const FILTER_KEYS = ["category", "lab", "from", "to", "zoom"];
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 const LAB_COLORS = ["#315b8a", "#8b5540", "#31725f", "#735a91", "#8a6a2f", "#8a4564"];
 
@@ -26,7 +47,7 @@ const matchClass = (value, query) => {
   return candidate.includes(query) ? 3 : -1;
 };
 
-const benchmarkCatalog = (benchmarks = []) => benchmarks.map((benchmark) => typeof benchmark === "string" ? { id: benchmark, name: benchmark } : benchmark);
+const benchmarkCatalog = (benchmarks = []) => liveCanonicalBenchmarks(benchmarks.map((benchmark) => typeof benchmark === "string" ? { id: benchmark, name: benchmark } : benchmark));
 
 const compareBenchmarkIds = (records, leftId, rightId) => {
   const leftName = normalize(records.get(leftId)?.name || leftId);
@@ -78,10 +99,62 @@ export function parseBenchmarkState(search = "", benchmarks = [], defaultId = DE
   return sanitizeBenchmarkIds(new URLSearchParams(search).getAll("benchmark"), benchmarks, defaultId);
 }
 
+const isIsoDate = (value) => {
+  if (typeof value !== "string" || !ISO_DATE.test(value)) return false;
+  const [year, month, day] = value.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day;
+};
+
+export function sanitizeTrendsFilters(candidate, data) {
+  const allowedCategories = new Set((data.categories || []).map((item) => item.id));
+  const allowedLabs = new Set((data.labs || []).map((item) => item.id));
+  const start = data.corpus?.publication_window?.start;
+  const end = data.corpus?.publication_window?.end;
+  const isDateInWindow = (value) => isIsoDate(value) && (!start || value >= start) && (!end || value <= end);
+  let from = isDateInWindow(candidate.from || "") ? candidate.from : "";
+  let to = isDateInWindow(candidate.to || "") ? candidate.to : "";
+  if (from && to && from > to) [from, to] = ["", ""];
+  const zoom = String(candidate.zoom || "");
+  return {
+    category: allowedCategories.has(candidate.category) ? candidate.category : "",
+    lab: allowedLabs.has(candidate.lab) ? candidate.lab : "",
+    from,
+    to,
+    zoom: ZOOM_LEVELS.map(String).includes(zoom) ? Number(zoom) : DEFAULT_ZOOM,
+  };
+}
+
+export function parseTrendsState(search = "", benchmarks = [], data = {}, defaultId = DEFAULT_BENCHMARK_ID) {
+  const params = new URLSearchParams(search);
+  return {
+    ids: sanitizeBenchmarkIds(params.getAll("benchmark"), benchmarks, defaultId),
+    filters: sanitizeTrendsFilters({
+      category: params.get("category") || "",
+      lab: params.get("lab") || "",
+      from: params.get("from") || "",
+      to: params.get("to") || "",
+      zoom: params.get("zoom") || "",
+    }, data),
+  };
+}
+
 /** Returns a canonical query string with one repeated benchmark key per ordered ID. */
 export function serializeBenchmarkState(ids = []) {
   const params = new URLSearchParams();
   for (const id of ids) params.append("benchmark", String(id));
+  const query = params.toString();
+  return query ? `?${query}` : "";
+}
+
+export function serializeTrendsState(ids = [], filters = {}) {
+  const params = new URLSearchParams();
+  for (const id of ids) params.append("benchmark", String(id));
+  for (const key of FILTER_KEYS) {
+    const value = filters[key];
+    if (!value || (key === "zoom" && Number(value) === DEFAULT_ZOOM)) continue;
+    params.set(key, String(value));
+  }
   const query = params.toString();
   return query ? `?${query}` : "";
 }
@@ -101,17 +174,26 @@ export function transitionBenchmarkSelection(ids = [], benchmarkId = "", benchma
 }
 
 /** Returns release matches as ordered { release, benchmarkIds, occurrences } records. */
-export function releaseMatches(indexed, selectedIds = []) {
-  const orderedIds = [...new Set(selectedIds)].filter((id) => indexed.benchmarks.has(id));
+export function releaseMatches(indexed, selectedIds = [], filters = {}) {
+  const orderedIds = [...new Set(selectedIds)].filter((id) => indexed.benchmarks.has(id) && isLiveCanonical(indexed.benchmarks.get(id)));
   const selected = new Set(orderedIds);
+  const lab = filters.lab || "";
+  const from = filters.from || "";
+  const to = filters.to || "";
   return [...indexed.data.releases]
+    .filter((release) => !lab || release.lab_id === lab)
+    .filter((release) => !from || release.publication_date >= from)
+    .filter((release) => !to || release.publication_date <= to)
     .map((release) => {
-      const occurrences = (indexed.occurrencesByRelease.get(release.id) || []).filter((occurrence) => occurrence.release_id === release.id && selected.has(occurrence.benchmark_id));
+      const occurrences = (indexed.occurrencesByRelease.get(release.id) || []).filter((occurrence) => {
+        if (occurrence.review_status && occurrence.review_status !== "verified") return false;
+        return selected.has(mappedBenchmarkId(indexed.benchmarks, occurrence));
+      });
       if (!occurrences.length) return null;
       return {
         release,
-        benchmarkIds: orderedIds.filter((id) => occurrences.some((occurrence) => occurrence.benchmark_id === id)),
-        occurrences: [...occurrences].sort((left, right) => orderedIds.indexOf(left.benchmark_id) - orderedIds.indexOf(right.benchmark_id) || stableCompare(left.id, right.id)),
+        benchmarkIds: orderedIds.filter((id) => occurrences.some((occurrence) => mappedBenchmarkId(indexed.benchmarks, occurrence) === id)),
+        occurrences: [...occurrences].sort((left, right) => orderedIds.indexOf(mappedBenchmarkId(indexed.benchmarks, left)) - orderedIds.indexOf(mappedBenchmarkId(indexed.benchmarks, right)) || stableCompare(left.id, right.id)),
       };
     })
     .filter(Boolean)
@@ -121,9 +203,12 @@ export function releaseMatches(indexed, selectedIds = []) {
 }
 
 /** Returns every exact occurrence represented in one selected benchmark lane. */
-export function laneOccurrences(matches = [], benchmarkId = "") {
+export function laneOccurrences(matches = [], benchmarkId = "", indexed = null) {
   return matches.flatMap((match) => match.occurrences
-    .filter((occurrence) => occurrence.benchmark_id === benchmarkId)
+    .filter((occurrence) => {
+      if (!indexed) return occurrence.benchmark_id === benchmarkId;
+      return mappedBenchmarkId(indexed.benchmarks, occurrence) === benchmarkId;
+    })
     .map((occurrence) => ({ match, occurrence })));
 }
 
@@ -151,6 +236,7 @@ class Trends {
     this.detailHost = document.querySelector("#trends-detail");
     this.indexed = null;
     this.selectedIds = [];
+    this.filters = { category: "", lab: "", from: "", to: "", zoom: DEFAULT_ZOOM };
     this.searchQuery = "";
     this.options = [];
     this.activeOption = -1;
@@ -172,10 +258,10 @@ class Trends {
     return response.json();
   }
 
-  canonicalUrl(ids = this.selectedIds) {
+  canonicalUrl(ids = this.selectedIds, filters = this.filters) {
     const url = new URL(window.location.href);
     const fixture = this.isUiFixture(url);
-    url.search = serializeBenchmarkState(ids);
+    url.search = serializeTrendsState(ids, filters);
     if (fixture) url.searchParams.append("fixture", "ui");
     return url;
   }
@@ -184,32 +270,78 @@ class Trends {
     return `${url.pathname}${url.search}${url.hash}`;
   }
 
+  historyPayload(centerDate = this.centerDate) {
+    const payload = { ...(window.history.state || {}) };
+    if (centerDate) payload.trendsCenterDate = centerDate;
+    return payload;
+  }
+
+  currentFrame() {
+    return this.chartHost?.querySelector(".trends-frame");
+  }
+
+  corpusWindow() {
+    return this.indexed.data.corpus.publication_window;
+  }
+
+  captureViewportDate() {
+    const frame = this.currentFrame();
+    if (!frame || !this.indexed) return this.centerDate;
+    const { start, end } = this.corpusWindow();
+    this.centerDate = captureCenterDate(frame, start, end);
+    return this.centerDate;
+  }
+
+  restoreViewport(options = {}) {
+    const frame = this.currentFrame();
+    if (!frame || !this.indexed) return;
+    const { start, end } = this.corpusWindow();
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (options.newest) scrollToNewest(frame);
+      else restoreCenterDate(frame, this.centerDate || end, start, end);
+      this.centerDate = captureCenterDate(frame, start, end);
+      window.history.replaceState(this.historyPayload(this.centerDate), "", this.historyTarget(this.canonicalUrl()));
+    }));
+  }
+
   replaceCanonicalUrl() {
     const url = this.canonicalUrl();
     const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
     const target = this.historyTarget(url);
-    if (target !== current) window.history.replaceState(window.history.state, "", target);
+    if (target !== current) window.history.replaceState(this.historyPayload(), "", target);
   }
 
-  pushSelection(ids, message) {
+  pushSelection(ids, message, newest = false) {
+    this.captureViewportDate();
     this.selectedIds = sanitizeBenchmarkIds(ids, this.indexed.data.benchmarks, DEFAULT_BENCHMARK_ID);
     const url = this.canonicalUrl();
-    window.history.pushState(window.history.state, "", this.historyTarget(url));
-    this.render(message);
+    window.history.pushState(this.historyPayload(), "", this.historyTarget(url));
+    this.render(message, { newest });
   }
 
   async initialize() {
     if (!this.pickerHost || !this.chartHost || !this.detailHost) return;
     try {
       this.indexed = indexData(validateInterface(await this.loadData()));
-      this.selectedIds = parseBenchmarkState(window.location.search, this.indexed.data.benchmarks, DEFAULT_BENCHMARK_ID);
+      const parsed = parseTrendsState(window.location.search, this.indexed.data.benchmarks, this.indexed.data, DEFAULT_BENCHMARK_ID);
+      this.selectedIds = parsed.ids;
+      this.filters = parsed.filters;
+      this.centerDate = window.history.state?.trendsCenterDate || "";
       this.replaceCanonicalUrl();
       this.renderPicker();
-      this.render();
-      window.addEventListener("popstate", () => {
-        this.selectedIds = parseBenchmarkState(window.location.search, this.indexed.data.benchmarks, DEFAULT_BENCHMARK_ID);
+      this.render("", { newest: !this.centerDate });
+      window.addEventListener("popstate", (event) => {
+        const restored = parseTrendsState(window.location.search, this.indexed.data.benchmarks, this.indexed.data, DEFAULT_BENCHMARK_ID);
+        this.selectedIds = restored.ids;
+        this.filters = restored.filters;
+        this.centerDate = event.state?.trendsCenterDate || this.centerDate;
         this.replaceCanonicalUrl();
+        this.syncFilterControls();
         this.render("Selection restored from browser history.");
+      });
+      window.addEventListener("resize", () => {
+        this.captureViewportDate();
+        this.restoreViewport();
       });
       document.addEventListener("keydown", (event) => {
         if (event.defaultPrevented || event.key !== "Escape" || !this.pinnedReleaseId) return;
@@ -218,7 +350,7 @@ class Trends {
       });
     } catch (error) {
       replaceChildren(this.pickerHost, [element("p", { className: "trends-error", role: "alert", text: "Benchmark choices could not be loaded." })]);
-      replaceChildren(this.chartHost, [element("p", { className: "trends-error", role: "alert", text: error.message })]);
+      replaceChildren(this.chartHost, [element("p", { className: "trends-error", role: "alert", text: "Trends data could not be loaded. Refresh the page or try again later." })]);
     }
   }
 
@@ -240,13 +372,51 @@ class Trends {
     this.count = element("span", { className: "trends-selection-count" });
     this.live = element("p", { className: "visually-hidden", role: "status", "aria-live": "polite", "aria-atomic": "true" });
     const field = element("div", { className: "trends-combobox" }, [this.input, this.listbox]);
+    const data = this.indexed.data;
+    const categories = [{ value: "", label: "All categories" }, ...[...data.categories]
+      .sort((left, right) => left.name.localeCompare(right.name, "en"))
+      .map((item) => ({ value: item.id, label: item.name, searchText: (item.aliases || []).join(" ") }))];
+    this.categoryControl = createSearchableCombobox({
+      id: "trends-category",
+      label: "Category",
+      value: this.filters.category,
+      options: categories,
+      emptyLabel: "All categories",
+      placeholder: "Find a category",
+      onChange: (value) => this.updateFilters({ category: value }),
+    });
+    const lab = element("select");
+    lab.append(element("option", { value: "", text: "All labs" }));
+    data.labs.forEach((item) => lab.append(element("option", { value: item.id, text: item.name })));
+    const from = element("input", { type: "date", min: data.corpus.publication_window.start, max: data.corpus.publication_window.end });
+    const to = element("input", { type: "date", min: data.corpus.publication_window.start, max: data.corpus.publication_window.end });
+    const zoom = element("select");
+    ZOOM_LEVELS.forEach((level) => zoom.append(element("option", { value: level, text: `${level}×` })));
+    const reset = element("button", { className: "button button-quiet", type: "button", text: "Reset" });
+    reset.addEventListener("click", () => this.resetView());
+    this.filterControls = { lab, from, to, zoom };
+    Object.entries(this.filterControls).forEach(([key, control]) => {
+      control.id = `trends-${key}`;
+      control.addEventListener("change", () => this.updateFilters({ [key]: control.value }));
+    });
+    const filterField = (key, label, control) => element("div", { className: "field" }, [element("label", { for: control.id, text: label }), control]);
+    const filters = element("div", { className: "trends-filter-panel", role: "group", "aria-label": "Trends filters" }, [
+      this.categoryControl.element,
+      filterField("lab", "Lab", lab),
+      filterField("from", "From", from),
+      filterField("to", "To", to),
+      filterField("zoom", "Zoom", zoom),
+      element("div", { className: "filter-actions" }, [reset]),
+    ]);
     replaceChildren(this.pickerHost, [
       element("div", { className: "trends-picker-head" }, [element("label", { for: this.input.id, text: "Benchmarks" }), this.count]),
       this.chips,
       field,
       element("p", { id: "benchmark-picker-help", className: "trends-picker-help", text: "Type to filter. Use arrow keys to review choices and Enter to add. Choose 1 to 6 benchmarks." }),
+      filters,
       this.live,
     ]);
+    this.syncFilterControls();
     this.input.addEventListener("focus", () => this.openOptions());
     this.input.addEventListener("input", () => {
       this.searchQuery = this.input.value;
@@ -262,11 +432,46 @@ class Trends {
     });
   }
 
-  render(message = "") {
+  syncFilterControls() {
+    if (this.categoryControl) this.categoryControl.setValue(this.filters.category);
+    Object.entries(this.filterControls || {}).forEach(([key, control]) => {
+      control.value = this.filters[key] ?? "";
+    });
+  }
+
+  updateFilters(changes) {
+    this.captureViewportDate();
+    this.filters = sanitizeTrendsFilters({ ...this.filters, ...changes }, this.indexed.data);
+    window.history.pushState(this.historyPayload(), "", this.historyTarget(this.canonicalUrl()));
+    this.syncFilterControls();
+    this.render("Filters updated.");
+  }
+
+  resetView() {
+    this.filters = sanitizeTrendsFilters({ category: "", lab: "", from: "", to: "", zoom: DEFAULT_ZOOM }, this.indexed.data);
+    this.selectedIds = sanitizeBenchmarkIds([DEFAULT_BENCHMARK_ID], this.indexed.data.benchmarks, DEFAULT_BENCHMARK_ID);
+    this.searchQuery = "";
+    if (this.input) this.input.value = "";
+    window.history.pushState(this.historyPayload(), "", this.historyTarget(this.canonicalUrl()));
+    this.syncFilterControls();
+    this.render("Filters reset.", { newest: true });
+  }
+
+  countLabel(benchmarkId) {
+    const count = recentModelCount(this.indexed.data, benchmarkId);
+    return `${count} ${recentModelCountLabel(this.indexed.data)}`;
+  }
+
+  versionlessNote(benchmark) {
+    return benchmark?.id === "benchmark_terminal_bench" ? "version not stated by source" : "";
+  }
+
+  render(message = "", options = {}) {
     this.renderChips();
     this.renderOptions();
     this.renderChart();
     if (this.pinnedReleaseId) this.renderDetail(this.pinnedReleaseId);
+    this.restoreViewport(options);
     if (message) this.announce(message);
   }
 
@@ -275,15 +480,23 @@ class Trends {
       const benchmark = this.indexed.benchmarks.get(id);
       const remove = element("button", { type: "button", "aria-label": `Remove ${benchmark.name}`, "data-remove-benchmark": id, text: "×" });
       remove.addEventListener("click", () => this.removeSelection(id, true));
-      return element("span", { className: "trends-chip", role: "listitem", title: benchmark.name }, [element("span", { text: benchmark.name }), remove]);
+      const note = this.versionlessNote(benchmark);
+      const label = element("span", { text: `${benchmark.name} · ${this.countLabel(id)}` });
+      return element("span", { className: "trends-chip", role: "listitem", title: note ? `${benchmark.name} (${note})` : benchmark.name }, [label, note ? element("span", { className: "trends-chip-note", text: note }) : null, remove]);
     });
     replaceChildren(this.chips, chips);
     this.count.textContent = `${this.selectedIds.length} of ${MAX_SELECTIONS} selected`;
   }
 
+  discoveryBenchmarks() {
+    const live = liveCanonicalBenchmarks(this.indexed.data.benchmarks);
+    if (!this.filters.category) return live;
+    return live.filter((benchmark) => benchmark.category_id === this.filters.category || this.selectedIds.includes(benchmark.id));
+  }
+
   renderOptions() {
     if (!this.input) return;
-    this.options = rankBenchmarks(this.indexed.data.benchmarks, this.searchQuery);
+    this.options = rankBenchmarks(this.discoveryBenchmarks(), this.searchQuery);
     if (this.activeOption >= this.options.length) this.activeOption = this.options.length - 1;
     const atLimit = this.selectedIds.length >= MAX_SELECTIONS;
     const nodes = this.options.map((benchmark, index) => {
@@ -296,7 +509,11 @@ class Trends {
         "aria-selected": String(selected),
         "aria-disabled": String(disabled),
         "data-benchmark-id": benchmark.id,
-      }, [element("span", { className: "trends-option-name", text: benchmark.name }), selected ? element("span", { className: "trends-option-state", text: "Selected" }) : null]);
+      }, [
+        element("span", { className: "trends-option-name", text: benchmark.name }),
+        element("span", { className: "trends-option-count", text: this.countLabel(benchmark.id) }),
+        selected ? element("span", { className: "trends-option-state", text: "Selected" }) : null,
+      ]);
       option.addEventListener("pointerdown", (event) => event.preventDefault());
       option.addEventListener("click", () => {
         if (selected) this.removeSelection(benchmark.id, false);
@@ -415,9 +632,10 @@ class Trends {
   }
 
   renderChart() {
-    const matches = releaseMatches(this.indexed, this.selectedIds);
-    const laneCounts = this.selectedIds.map((id) => laneOccurrences(matches, id).length);
-    const chartWidth = Math.max(1120, Math.min(7200, 280 + Math.max(0, ...laneCounts) * 190));
+    const matches = releaseMatches(this.indexed, this.selectedIds, this.filters);
+    const laneCounts = this.selectedIds.map((id) => laneOccurrences(matches, id, this.indexed).length);
+    const zoom = this.filters.zoom || DEFAULT_ZOOM;
+    const chartWidth = Math.max(1120, Math.min(7200, 280 + Math.max(0, ...laneCounts) * 190)) * zoom;
     this.markersByRelease = new Map();
     const representedLabs = this.indexed.data.labs.filter((lab) => matches.some((match) => match.release.lab_id === lab.id));
     const legend = element("ul", { className: "trends-legend", "aria-label": "Lab legend" }, representedLabs.map((lab) => element("li", { style: { "--lab-color": this.labColor(lab.id) } }, [element("span", { "aria-hidden": "true" }), element("span", { text: lab.name })])));
@@ -432,19 +650,32 @@ class Trends {
     const canvas = element("div", { className: "trends-canvas", style: { width: `${chartWidth}px` } }, [axis]);
     this.selectedIds.forEach((benchmarkId) => canvas.append(this.renderLane(benchmarkId, matches, start, end, chartWidth)));
     const frame = element("div", { className: "trends-frame", tabindex: "0", role: "region", "aria-label": "Horizontally scrollable benchmark trends chart" }, [canvas]);
+    frame.addEventListener("scroll", () => {
+      if (this.scrollFramePending) return;
+      this.scrollFramePending = requestAnimationFrame(() => {
+        this.scrollFramePending = null;
+        this.captureViewportDate();
+        window.history.replaceState(this.historyPayload(this.centerDate), "", this.historyTarget(this.canonicalUrl()));
+      });
+    }, { passive: true });
     replaceChildren(this.chartHost, [summary, empty, frame]);
     this.syncMarkerHighlights();
   }
 
   renderLane(benchmarkId, matches, start, end, chartWidth) {
     const benchmark = this.indexed.benchmarks.get(benchmarkId);
-    const occurrences = laneOccurrences(matches, benchmarkId);
+    const occurrences = laneOccurrences(matches, benchmarkId, this.indexed);
     const trackWidth = Math.max(1, chartWidth - 210);
     const positions = occurrences.map(({ match }) => (datePosition(match.release.publication_date, start, end) / 100) * trackWidth);
     const rows = collisionRows(positions, 178);
     const rowCount = Math.max(1, ...rows.map((row) => row + 1));
     const lane = element("section", { className: "trends-lane", style: { "--lane-rows": rowCount }, "aria-labelledby": `trends-lane-${benchmarkId}` });
-    lane.append(element("h3", { id: `trends-lane-${benchmarkId}`, className: "trends-lane-label", text: benchmark.name, title: benchmark.name }));
+    const note = this.versionlessNote(benchmark);
+    lane.append(element("h3", { id: `trends-lane-${benchmarkId}`, className: "trends-lane-label", title: benchmark.name }, [
+      element("span", { text: benchmark.name }),
+      element("span", { className: "trends-lane-count", text: this.countLabel(benchmarkId) }),
+      note ? element("span", { className: "trends-lane-note", text: note }) : null,
+    ]));
     const track = element("div", { className: "trends-track" });
     occurrences.forEach(({ match, occurrence }, index) => track.append(this.renderMarker(match, occurrence, benchmark, rows[index], datePosition(match.release.publication_date, start, end))));
     lane.append(track);
@@ -520,7 +751,7 @@ class Trends {
   }
 
   renderDetail(releaseId) {
-    const match = releaseMatches(this.indexed, this.selectedIds).find((candidate) => candidate.release.id === releaseId);
+    const match = releaseMatches(this.indexed, this.selectedIds, this.filters).find((candidate) => candidate.release.id === releaseId);
     if (!match) {
       this.closeDetail(false);
       return;

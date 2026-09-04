@@ -10,6 +10,7 @@ export function normalize(value = "") {
   return String(value)
     .normalize("NFKD")
     .toLocaleLowerCase("en")
+    .replaceAll("+", " plus ")
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
 }
@@ -57,10 +58,41 @@ export function benchmarkSearchText(benchmark, categories) {
   ].join(" "));
 }
 
+export function isLiveCanonical(benchmark) {
+  return !benchmark?.identity_status || benchmark.identity_status === "canonical";
+}
+
+export function liveCanonicalBenchmarks(benchmarks = []) {
+  return benchmarks.filter(isLiveCanonical);
+}
+
+export function mappedBenchmarkId(benchmarksById, occurrence) {
+  const benchmark = typeof benchmarksById.get === "function"
+    ? benchmarksById.get(occurrence.benchmark_id)
+    : benchmarksById[occurrence.benchmark_id];
+  if (benchmark?.identity_status === "merged" && benchmark.canonical_benchmark_id) {
+    return benchmark.canonical_benchmark_id;
+  }
+  return occurrence.benchmark_id;
+}
+
+export function isRetainedOccurrence(occurrence) {
+  return occurrence?.review_status === "verified";
+}
+
+export function recentModelCount(data, benchmarkId) {
+  const row = (data?.recent_model_counts?.counts || []).find((item) => item.benchmark_id === benchmarkId);
+  return row ? row.distinct_model_count : 0;
+}
+
+export function recentModelCountLabel(data) {
+  return data?.recent_model_counts?.label || "models in latest 90 days";
+}
+
 export function matchingBenchmarkIds(indexed, query = "", categoryId = "") {
   const needle = normalize(query);
   return new Set(
-    indexed.data.benchmarks
+    liveCanonicalBenchmarks(indexed.data.benchmarks)
       .filter((benchmark) => !categoryId || benchmark.category_id === categoryId)
       .filter((benchmark) => !needle || benchmarkSearchText(benchmark, indexed.categories).includes(needle))
       .map((benchmark) => benchmark.id),
@@ -69,8 +101,11 @@ export function matchingBenchmarkIds(indexed, query = "", categoryId = "") {
 
 export function occurrenceFrequency(data) {
   const counts = new Map();
+  const benchmarks = byId(data.benchmarks || []);
   for (const occurrence of data.occurrences || []) {
-    counts.set(occurrence.benchmark_id, (counts.get(occurrence.benchmark_id) || 0) + 1);
+    if (!isRetainedOccurrence(occurrence)) continue;
+    const benchmarkId = mappedBenchmarkId(benchmarks, occurrence);
+    counts.set(benchmarkId, (counts.get(benchmarkId) || 0) + 1);
   }
   return counts;
 }
@@ -84,13 +119,14 @@ export function orderedReleaseOccurrences(indexed, releaseId, matchingIds = null
       .map((status) => status.occurrence_id),
   );
   return [...(indexed.occurrencesByRelease.get(releaseId) || [])]
-    .filter((occurrence) => !matchingIds || matchingIds.has(occurrence.benchmark_id))
+    .filter((occurrence) => isRetainedOccurrence(occurrence))
+    .filter((occurrence) => !matchingIds || matchingIds.has(mappedBenchmarkId(indexed.benchmarks, occurrence)))
     .sort((left, right) => {
       const firstDelta = Number(firstReported.has(right.id)) - Number(firstReported.has(left.id));
       if (firstDelta) return firstDelta;
       const frequencyDelta = (frequencies.get(right.benchmark_id) || 0) - (frequencies.get(left.benchmark_id) || 0);
       if (frequencyDelta) return frequencyDelta;
-      return indexed.benchmarks.get(left.benchmark_id).name.localeCompare(indexed.benchmarks.get(right.benchmark_id).name, "en");
+      return indexed.benchmarks.get(mappedBenchmarkId(indexed.benchmarks, left)).name.localeCompare(indexed.benchmarks.get(mappedBenchmarkId(indexed.benchmarks, right)).name, "en");
     });
 }
 
@@ -121,6 +157,33 @@ export function datePosition(isoDate, startDate, endDate) {
   const end = dateValue(endDate);
   if (end <= start) return 0;
   return Math.max(0, Math.min(100, ((dateValue(isoDate) - start) / (end - start)) * 100));
+}
+
+export function dateFromPosition(percent, startDate, endDate) {
+  const start = dateValue(startDate);
+  const end = dateValue(endDate);
+  const span = end - start;
+  const ms = start + (Number(percent) / 100) * (span || 0);
+  return new Date(ms).toISOString().slice(0, 10);
+}
+
+export function captureCenterDate(frame, startDate, endDate) {
+  if (!frame || !frame.scrollWidth) return endDate;
+  const percent = ((frame.scrollLeft + frame.clientWidth / 2) / frame.scrollWidth) * 100;
+  return dateFromPosition(percent, startDate, endDate);
+}
+
+export function restoreCenterDate(frame, centerDate, startDate, endDate) {
+  if (!frame) return;
+  const percent = datePosition(centerDate, startDate, endDate);
+  const centerPx = (percent / 100) * frame.scrollWidth;
+  const maxScroll = Math.max(0, frame.scrollWidth - frame.clientWidth);
+  frame.scrollLeft = Math.min(maxScroll, Math.max(0, centerPx - frame.clientWidth / 2));
+}
+
+export function scrollToNewest(frame) {
+  if (!frame) return;
+  frame.scrollLeft = Math.max(0, frame.scrollWidth - frame.clientWidth);
 }
 
 export function collisionRows(positions, minimumGap) {
@@ -202,6 +265,7 @@ export function createSearchableCombobox({
   const listbox = document.createElement("ul");
   const clear = document.createElement("button");
   const listboxId = `${id}-listbox`;
+  const status = document.createElement("p");
   let selectedValue = options.some((option) => option.value === value) ? value : "";
   let visibleOptions = [];
   let activeIndex = -1;
@@ -218,6 +282,9 @@ export function createSearchableCombobox({
   listbox.className = "combobox-listbox";
   listbox.setAttribute("role", "listbox");
   listbox.hidden = true;
+  status.id = `${id}-window-status`;
+  status.className = "combobox-window-status visually-hidden";
+  status.setAttribute("role", "status");
   clear.type = "button";
   clear.id = `${id}-clear`;
   clear.className = "combobox-clear";
@@ -252,9 +319,8 @@ export function createSearchableCombobox({
   };
   const renderOptions = (query = "") => {
     const needle = normalize(query);
-    visibleOptions = options
-      .filter((option) => !needle || normalize(`${option.label} ${option.searchText || ""}`).includes(needle))
-      .slice(0, COMBOBOX_OPTION_LIMIT);
+    const matches = options.filter((option) => !needle || normalize(`${option.label} ${option.searchText || ""}`).includes(needle));
+    visibleOptions = matches.slice(0, COMBOBOX_OPTION_LIMIT);
     listbox.replaceChildren();
     visibleOptions.forEach((option, index) => {
       const item = document.createElement("li");
@@ -267,6 +333,11 @@ export function createSearchableCombobox({
       item.addEventListener("click", () => select(option));
       listbox.append(item);
     });
+    status.textContent = matches.length > COMBOBOX_OPTION_LIMIT
+      ? `Showing ${visibleOptions.length} of ${matches.length} choices`
+      : "";
+    if (status.textContent) status.setAttribute("aria-live", "polite");
+    else status.removeAttribute("aria-live");
     listbox.hidden = false;
     input.setAttribute("aria-expanded", "true");
     activeIndex = visibleOptions.findIndex((option) => option.value === selectedValue);
@@ -316,6 +387,6 @@ export function createSearchableCombobox({
   });
   setValue(selectedValue);
   shell.append(input, clear, listbox);
-  field.append(labelNode, shell);
-  return { element: field, input, setValue, close };
+  field.append(labelNode, shell, status);
+  return { element: field, input, setValue, close, status };
 }

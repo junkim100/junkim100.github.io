@@ -59,11 +59,12 @@ FORBIDDEN_TEXT = [
     re.compile(r"\b[-+]?\d+(?:\.\d+)?\s+(?:points?|rating)\b", re.IGNORECASE),
     *AMBIGUOUS_BARE_NUMERIC_TEXT,
 ]
-SAFE_NUMERIC_KEYS = {"omission_count", "consecutive_reviewed_omissions"}
+SAFE_NUMERIC_KEYS = {"omission_count", "consecutive_reviewed_omissions", "distinct_model_count", "inclusive_days"}
 SAFE_STRUCTURAL_TEXT_KEYS = {
     "schema_version", "definitions_version", "version", "id", "identifier", "name", "label",
     "title", "publication_date", "retrieval_date", "review_date", "url", "source_revision",
-    "row_id", "record_id", "record_ids", "provenance_record_ids",
+    "row_id", "record_id", "record_ids", "provenance_record_ids", "canonical_name",
+    "benchmark_id", "label",
 }
 
 
@@ -295,30 +296,126 @@ def validate_terminal_dispositions(catalog: dict) -> None:
         raise ValidationError("candidate disposition reconciliation failed")
 
 
+RECENT_MODEL_WINDOW_START = date.fromisoformat("2026-06-06")
+RECENT_MODEL_WINDOW_END = date.fromisoformat("2026-09-03")
+RECENT_MODEL_COUNT_LABEL = "models in latest 90 days"
+
+
+def identity_status(record: Mapping[str, Any]) -> str:
+    return str(record.get("identity_status") or "canonical")
+
+
+def canonical_benchmark_id(record: Mapping[str, Any]) -> str | None:
+    status = identity_status(record)
+    if status == "quarantined":
+        return None
+    if status == "merged":
+        return record.get("canonical_benchmark_id")
+    return record["id"]
+
+
+def is_live_canonical(record: Mapping[str, Any]) -> bool:
+    return identity_status(record) == "canonical"
+
+
 def normalize_search_term(value: str) -> str:
     normalized = unicodedata.normalize("NFKD", value).casefold()
     normalized = "".join(character for character in normalized if not unicodedata.combining(character))
+    normalized = normalized.replace("+", " plus ")
     return " ".join(re.sub(r"[^a-z0-9]+", " ", normalized).split())
 
 
 def build_search_index(catalog: dict) -> List[dict]:
-    owner_by_term: Dict[Tuple[str, str], str] = {}
-    rows: List[dict] = []
+    name_owner: Dict[Tuple[str, str], str] = {}
+    alias_candidates: Dict[Tuple[str, str], List[str]] = defaultdict(list)
     for collection, kind in (("categories", "category"), ("benchmarks", "benchmark")):
         for record in catalog[collection]:
-            terms = sorted({normalize_search_term(value) for value in [record["name"], *record["aliases"]]})
-            if "" in terms:
+            if kind == "benchmark" and not is_live_canonical(record):
+                continue
+            name_term = normalize_search_term(record["name"])
+            if not name_term:
                 raise ValidationError(f"{kind} {record['id']} has an empty normalized search term")
-            for term in terms:
-                key = (kind, term)
-                owner = owner_by_term.get(key)
-                if owner and owner != record["id"]:
-                    raise ValidationError(
-                        f"normalized search term collision for {kind} {term!r}: {owner} and {record['id']}"
-                    )
-                owner_by_term[key] = record["id"]
-                rows.append({"term": term, "kind": kind, "record_id": record["id"]})
+            name_key = (kind, name_term)
+            existing = name_owner.get(name_key)
+            if existing and existing != record["id"]:
+                raise ValidationError(
+                    f"normalized search term collision for {kind} {name_term!r}: {existing} and {record['id']}"
+                )
+            name_owner[name_key] = record["id"]
+            for alias in record["aliases"]:
+                term = normalize_search_term(alias)
+                if not term:
+                    raise ValidationError(f"{kind} {record['id']} has an empty normalized search term")
+                alias_candidates[(kind, term)].append(record["id"])
+    chosen: Dict[Tuple[str, str], str] = dict(name_owner)
+    for key, record_ids in alias_candidates.items():
+        unique_ids = sorted(set(record_ids))
+        if key in chosen:
+            continue
+        if len(unique_ids) > 1:
+            raise ValidationError(
+                f"normalized search term collision for {key[0]} {key[1]!r}: {unique_ids[0]} and {unique_ids[1]}"
+            )
+        chosen[key] = unique_ids[0]
+    rows = [{"term": term, "kind": kind, "record_id": record_id} for (kind, term), record_id in chosen.items()]
     return sorted(rows, key=lambda row: (row["term"], row["kind"], row["record_id"]))
+
+
+def validate_benchmark_identities(catalog: dict) -> None:
+    benchmarks = records_by_id(catalog, "benchmarks")
+    for benchmark in catalog["benchmarks"]:
+        status = identity_status(benchmark)
+        if status == "merged":
+            target_id = benchmark.get("canonical_benchmark_id")
+            if not target_id or target_id not in benchmarks:
+                raise ValidationError(f"merged benchmark {benchmark['id']} references missing canonical_benchmark_id")
+            target = benchmarks[target_id]
+            if not is_live_canonical(target):
+                raise ValidationError(f"merged benchmark {benchmark['id']} must map onto a live canonical identity")
+        elif "canonical_benchmark_id" in benchmark and status != "merged":
+            raise ValidationError(f"benchmark {benchmark['id']} has canonical_benchmark_id without merged status")
+
+
+def build_recent_model_counts(catalog: dict) -> dict:
+    benchmarks = records_by_id(catalog, "benchmarks")
+    models_by_benchmark: Dict[str, set[str]] = defaultdict(set)
+    for occurrence in catalog["occurrences"]:
+        if occurrence.get("review_status") != "verified":
+            continue
+        published = parse_iso_date(occurrence["publication_date"], f"occurrences.{occurrence['id']}.publication_date")
+        if not RECENT_MODEL_WINDOW_START <= published <= RECENT_MODEL_WINDOW_END:
+            continue
+        source = benchmarks.get(occurrence["benchmark_id"])
+        if source is None:
+            raise ValidationError(f"occurrence {occurrence['id']} references missing benchmark {occurrence['benchmark_id']}")
+        canonical_id = canonical_benchmark_id(source)
+        if not canonical_id or canonical_id not in benchmarks or not is_live_canonical(benchmarks[canonical_id]):
+            continue
+        models_by_benchmark[canonical_id].add(occurrence["model_id"])
+    window_days = (RECENT_MODEL_WINDOW_END - RECENT_MODEL_WINDOW_START).days + 1
+    if window_days != 90:
+        raise ValidationError(f"recent model window must span 90 inclusive dates, found {window_days}")
+    counts = []
+    for benchmark in catalog["benchmarks"]:
+        if not is_live_canonical(benchmark):
+            continue
+        counts.append(
+            {
+                "benchmark_id": benchmark["id"],
+                "canonical_name": benchmark["name"],
+                "distinct_model_count": len(models_by_benchmark.get(benchmark["id"], set())),
+            }
+        )
+    counts.sort(key=lambda row: row["benchmark_id"])
+    return {
+        "window": {
+            "start": RECENT_MODEL_WINDOW_START.isoformat(),
+            "end": RECENT_MODEL_WINDOW_END.isoformat(),
+            "inclusive_days": window_days,
+        },
+        "label": RECENT_MODEL_COUNT_LABEL,
+        "counts": counts,
+    }
 
 
 def validate_definitions(definitions: dict) -> None:
@@ -492,6 +589,7 @@ def build_document(catalog: dict, definitions: dict) -> dict:
         }
         for row in search_index
     ]
+    output["recent_model_counts"] = build_recent_model_counts(catalog)
     return output
 
 
@@ -541,7 +639,9 @@ def validate_all(catalog: dict, definitions: dict) -> None:
     validate_referential_integrity(catalog)
     validate_source_domains(catalog)
     validate_terminal_dispositions(catalog)
+    validate_benchmark_identities(catalog)
     build_search_index(catalog)
+    build_recent_model_counts(catalog)
     assert_no_score_like(catalog, ("catalog",))
     assert_no_score_like(definitions, ("definitions",))
 

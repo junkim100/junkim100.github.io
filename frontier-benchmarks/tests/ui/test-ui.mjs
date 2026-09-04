@@ -6,7 +6,10 @@ import { fileURLToPath } from "node:url";
 import {
   COMBOBOX_OPTION_LIMIT,
   collisionRows,
+  dateFromPosition,
+  datePosition,
   indexData,
+  liveCanonicalBenchmarks,
   matchingBenchmarkIds,
   normalize,
   orderedReleaseOccurrences,
@@ -218,7 +221,7 @@ for (const [name, contract] of [
   ["Ledger and History headings", /\.route-intro h1\s*\{[^}]*font-size:\s*clamp\(2\.6rem, 6vw, 5\.5rem\)[^}]*white-space:\s*nowrap/],
   ["360px Ledger and History headings", /@media \(max-width: 390px\)[\s\S]*?\.route-intro h1\s*\{[^}]*font-size:\s*1\.75rem/],
 ]) assert.match(cssSource, contract, `${name} stays on one line at 360, 768, 1280, and 1920 CSS px`);
-assert.match(cssSource, /\.theme-toggle\s*\{[^}]*width:\s*2\.4rem[^}]*height:\s*2\.4rem/);
+assert.match(cssSource, /\.theme-toggle\s*\{[^}]*width:\s*2\.75rem[^}]*height:\s*2\.75rem/);
 assert.match(cssSource, /\.theme-toggle-icon\s*\{[^}]*font-size:\s*1rem/);
 assert.match(indexHtml, /id="trends-picker"/);
 assert.match(indexHtml, /id="trends-chart" role="region" aria-label="Benchmark trends chart"/);
@@ -228,7 +231,7 @@ assert.match(timelineHtml, /<h1 class="route-title">Releases<\/h1>/);
 assert.match(indexHtml, /<h1 id="page-title">Frontier Benchmark Observatory<\/h1>\s*<div class="landing-overview">[\s\S]*<section class="trends-workspace"/);
 assert.match(indexHtml, /<p class="landing-lead">An evidence-first, score-free record of which benchmarks six frontier AI labs name in reviewed first-party release materials, when those references appear, and the source behind each occurrence\.<\/p>/);
 assert.match(indexHtml, /<aside class="landing-boundary" aria-labelledby="landing-boundary-title">\s*<h2 id="landing-boundary-title">A reporting record, not a leaderboard\.<\/h2>\s*<p>An omission means only that a benchmark was not found in the reviewed first-party source bundle\. It does not establish whether a lab ran an evaluation privately or elsewhere\.<\/p>/);
-assert.match(indexHtml, /<dl class="landing-corpus-stats" aria-label="Fixed corpus counts">[\s\S]*<dt>Window<\/dt><dd>2024-01-01 to 2026-09-01<\/dd>[\s\S]*<dt>Labs<\/dt><dd>6<\/dd>[\s\S]*<dt>Releases<\/dt><dd>172<\/dd>[\s\S]*<dt>Benchmarks<\/dt><dd>869<\/dd>[\s\S]*<dt>Evidence occurrences<\/dt><dd>2,821<\/dd>[\s\S]*<dt>First-party sources<\/dt><dd>537<\/dd>/);
+assert.match(indexHtml, /<dl class="landing-corpus-stats" aria-label="Fixed corpus counts">[\s\S]*<dt>Window<\/dt><dd>2024-01-01 to 2026-09-01<\/dd>[\s\S]*<dt>Labs<\/dt><dd>6<\/dd>[\s\S]*<dt>Releases<\/dt><dd>172<\/dd>[\s\S]*<dt>Benchmarks<\/dt><dd>870<\/dd>[\s\S]*<dt>Evidence occurrences<\/dt><dd>2,821<\/dd>[\s\S]*<dt>First-party sources<\/dt><dd>537<\/dd>/);
 assert.doesNotMatch(indexHtml, /landing-intro|hero-intro|boundary-note|class="corpus-stats"|download-row|methodology|route-cards|<table\b/);
 assert.match(cssSource, /\.landing-overview\s*\{[^}]*margin:\s*0 0 0\.8rem/);
 assert.match(cssSource, /\.landing-boundary\s*\{[^}]*display:\s*grid[^}]*grid-template-columns:\s*minmax\(14rem,\s*0\.7fr\)\s*minmax\(18rem,\s*1\.3fr\)[^}]*border:\s*1px solid var\(--line-strong\)[^}]*background:\s*var\(--surface\)/);
@@ -270,12 +273,12 @@ assert.match(dataRoutesSource, /"aria-sort"/);
 assert.match(dataRoutesSource, /text: "Source"/);
 assert.doesNotMatch(dataRoutesSource, /innerHTML|insertAdjacentHTML/);
 
-assert.match(timelineSource, /history\.state\?\.timelineScroll/);
-assert.match(timelineSource, /payload\.timelineScroll = scroll/);
-assert.match(timelineSource, /frame\.scrollLeft = frame\.scrollWidth - frame\.clientWidth/);
-assert.match(timelineSource, /requestFullscreen\(\)/);
-assert.match(timelineSource, /navigateToFallback\(\)/);
-assert.match(timelineSource, /window\.location\.assign\(url\.href\)/);
+assert.match(timelineSource, /history\.state\?\.timelineCenterDate/);
+assert.match(timelineSource, /payload\.timelineCenterDate = centerDate/);
+assert.match(timelineSource, /scrollToNewest\(frame\)/);
+assert.doesNotMatch(timelineSource, /requestFullscreen\(\)/);
+assert.doesNotMatch(timelineSource, /navigateToFallback\(\)/);
+assert.doesNotMatch(timelineSource, /window\.location\.assign\(url\.href\)/);
 assert.match(timelineSource, /text: "Source"/);
 assert.match(timelineSource, /text: displayName/);
 assert.doesNotMatch(timelineSource, /text: release\.id|Open exact first-party source|detail-release-id|Evaluation setup|Coverage review|Review date|Reporting state|Review state|Source type|Locator|Record/);
@@ -291,7 +294,15 @@ assert.match(cssSource, /\.timeline-host-compact\s*\{[^}]*height:\s*560px/);
 assert.match(cssSource, /@media \(max-width: 767px\)[\s\S]*?\.timeline-host-compact\s*\{[^}]*height:\s*460px/);
 assert.match(cssSource, /\.timeline-frame\s*\{[^}]*overflow-y:\s*hidden/);
 assert.match(cssSource, /\.timeline-lane\s*\{[^}]*height:\s*calc\(100% \/ 6\)/);
+assert.match(trendsSource, /label: "Category"/);
+assert.match(trendsSource, /"Lab"/);
+assert.match(trendsSource, /"From"/);
+assert.match(trendsSource, /"To"/);
+assert.match(trendsSource, /"Zoom"/);
+assert.match(trendsSource, /text: "Reset"/);
+assert.match(coreSource, /models in latest 90 days/);
 assert.match(cssSource, /prefers-reduced-motion: reduce/);
+assert.match(cssSource, /animation-duration:\s*0\.01ms/);
 assert.match(cssSource, /:focus-visible\s*\{[^}]*outline:\s*3px solid var\(--accent\)/);
 assert.match(cssSource, /\.trends-chip button\s*\{[^}]*width:\s*2\.75rem[^}]*min-height:\s*2\.75rem/);
 assert.match(cssSource, /\.detail-close\s*\{[^}]*width:\s*2\.75rem[^}]*min-height:\s*2\.75rem/);
@@ -300,17 +311,23 @@ assert.match(cssSource, /\.trends-marker\s*\{[^}]*min-height:\s*2\.75rem/);
 
 const production = validateInterface(JSON.parse(jsonBytes.toString("utf8")));
 const productionIndex = indexData(production);
-assert.deepEqual({ labs: production.labs.length, releases: production.releases.length, benchmarks: production.benchmarks.length, occurrences: production.occurrences.length, statuses: production.derived_statuses.length, sources: production.sources.length, definitions: production.canonical_definitions.length, quarantine: production.quarantine.length }, { labs: 6, releases: 172, benchmarks: 869, occurrences: 2821, statuses: 5593, sources: 537, definitions: 8, quarantine: 1 });
-assert.equal(rankBenchmarks(production.benchmarks, "").length, 869, "an empty query exposes the complete canonical benchmark denominator");
-const terminalCounts = new Map(["benchmark_terminal_bench", "benchmark_terminal_bench_2_0", "benchmark_terminal_bench_2_1"].map((id) => [id, production.occurrences.filter((occurrence) => occurrence.benchmark_id === id).length]));
-assert.deepEqual(Object.fromEntries(terminalCounts), { benchmark_terminal_bench: 15, benchmark_terminal_bench_2_0: 18, benchmark_terminal_bench_2_1: 8 });
-assert.equal(production.benchmarks.some((benchmark) => ["benchmark_terminal_bench_3_0", "benchmark_terminal_bench_4_0"].includes(benchmark.id) || ["terminal bench 3 0", "terminal bench 4 0"].includes(normalize(benchmark.name))), false, "canonical Terminal-Bench 3.0 and 4.0 IDs and names are absent");
+assert.deepEqual({ labs: production.labs.length, releases: production.releases.length, benchmarks: production.benchmarks.length, occurrences: production.occurrences.length, statuses: production.derived_statuses.length, sources: production.sources.length, definitions: production.canonical_definitions.length, quarantine: production.quarantine.length }, { labs: 6, releases: 172, benchmarks: 870, occurrences: 2821, statuses: 5211, sources: 537, definitions: 8, quarantine: 1 });
+assert.equal(rankBenchmarks(liveCanonicalBenchmarks(production.benchmarks), "").length, 803, "an empty query exposes the live canonical benchmark denominator");
+assert.equal(normalize("HumanEval+"), "humaneval plus");
+assert.equal(dateFromPosition(datePosition("2025-06-15", "2024-01-01", "2026-09-01"), "2024-01-01", "2026-09-01"), "2025-06-15");
+const terminalCounts = new Map(["benchmark_terminal_bench", "benchmark_terminal_bench_2_0", "benchmark_terminal_bench_2_1"].map((id) => [id, production.occurrences.filter((occurrence) => occurrence.benchmark_id === id && occurrence.review_status === "verified").length]));
+assert.deepEqual(Object.fromEntries(terminalCounts), { benchmark_terminal_bench: 7, benchmark_terminal_bench_2_0: 21, benchmark_terminal_bench_2_1: 10 });
+assert.equal(production.benchmarks.some((benchmark) => benchmark.id === "benchmark_terminal_bench_3_0"), true, "canonical Terminal-Bench 3.0 is present");
+assert.equal(production.benchmarks.some((benchmark) => benchmark.id === "benchmark_terminal_bench_4_0" || ["terminal bench 4 0"].includes(normalize(benchmark.name))), false, "canonical Terminal-Bench 4.0 is absent");
+assert.equal(production.recent_model_counts.label, "models in latest 90 days");
+assert.equal(production.recent_model_counts.window.inclusive_days, 90);
+assert.equal(production.recent_model_counts.counts.length, 803);
 const selectedTerminalIds = [...terminalCounts.keys()];
 const terminalMatches = releaseMatches(productionIndex, selectedTerminalIds);
-const expectedTerminalReleaseIds = new Set(production.occurrences.filter((occurrence) => selectedTerminalIds.includes(occurrence.benchmark_id)).map((occurrence) => occurrence.release_id));
+const expectedTerminalReleaseIds = new Set(production.occurrences.filter((occurrence) => selectedTerminalIds.includes(occurrence.benchmark_id) && occurrence.review_status === "verified").map((occurrence) => occurrence.release_id));
 assert.deepEqual(new Set(terminalMatches.map(({ release }) => release.id)), expectedTerminalReleaseIds, "trend release inclusion is the exact OR union of selected occurrences");
 for (const benchmarkId of selectedTerminalIds) {
-  const expectedOccurrences = production.occurrences.filter((occurrence) => occurrence.benchmark_id === benchmarkId).map((occurrence) => occurrence.id).sort();
+  const expectedOccurrences = production.occurrences.filter((occurrence) => occurrence.benchmark_id === benchmarkId && occurrence.review_status === "verified").map((occurrence) => occurrence.id).sort();
   assert.deepEqual(laneOccurrences(terminalMatches, benchmarkId).map(({ occurrence }) => occurrence.id).sort(), expectedOccurrences, `${benchmarkId} lane preserves every exact occurrence without collision loss`);
 }
 const duplicatedOccurrence = { ...fixture.occurrences[0], id: `${fixture.occurrences[0].id}_duplicate` };
@@ -318,7 +335,7 @@ const collisionData = { ...fixture, occurrences: [...fixture.occurrences, duplic
 const collisionMatches = releaseMatches(indexData(collisionData), [duplicatedOccurrence.benchmark_id]);
 assert.equal(laneOccurrences(collisionMatches, duplicatedOccurrence.benchmark_id).filter(({ match }) => match.release.id === duplicatedOccurrence.release_id).length, 2, "same release, benchmark, and date occurrences remain separately represented");
 assert.equal(new Set(production.releases.map((release) => release.name)).size, 172, "current release names are unique");
-assert.equal(jsonBytes.length, 11980016);
-assert.equal(createHash("sha256").update(jsonBytes).digest("hex"), "a945abe22b49e9cd6d309aa47b2979f2a069691ff3d2da1411b10de4ac3c93f5");
+assert.equal(jsonBytes.length, 11706437);
+assert.equal(createHash("sha256").update(jsonBytes).digest("hex"), "a3b3f289db44441c9a9f3ac27d594b3d606f2f2142d1056e0f02f13b5d7d94df");
 
 console.log(JSON.stringify({ result: "PASS", labs: production.labs.length, releases: production.releases.length, occurrences: production.occurrences.length, statuses: production.derived_statuses.length, source_associations: production.occurrences.length, routes: pages.size }));

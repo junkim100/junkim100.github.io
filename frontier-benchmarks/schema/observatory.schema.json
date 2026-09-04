@@ -64,7 +64,20 @@
     },
     "benchmark": {
       "type": "object", "additionalProperties": false, "required": ["id", "name", "aliases", "category_id"],
-      "properties": {"id": {"$ref": "#/$defs/id"}, "name": {"$ref": "#/$defs/nonempty"}, "aliases": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/nonempty"}}, "category_id": {"$ref": "#/$defs/id"}}
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "name": {"$ref": "#/$defs/nonempty"},
+        "aliases": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/nonempty"}},
+        "category_id": {"$ref": "#/$defs/id"},
+        "identity_status": {"enum": ["canonical", "merged", "quarantined"]},
+        "canonical_benchmark_id": {"$ref": "#/$defs/id"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"identity_status": {"const": "merged"}}, "required": ["identity_status"]},
+          "then": {"required": ["canonical_benchmark_id"]}
+        }
+      ]
     },
     "revision": {
       "oneOf": [
@@ -100,7 +113,7 @@
       "properties": {
         "id": {"$ref": "#/$defs/id"}, "lab_id": {"$ref": "#/$defs/id"}, "release_id": {"$ref": "#/$defs/id"}, "model_id": {"$ref": "#/$defs/id"}, "lineage_id": {"$ref": "#/$defs/id"}, "benchmark_id": {"$ref": "#/$defs/id"}, "source_id": {"$ref": "#/$defs/id"}, "source_revision_id": {"$ref": "#/$defs/id"}, "source_type": {"enum": ["launch_page", "technical_report", "system_card", "model_card", "official_repository", "official_hugging_face_card"]}, "publication_date": {"$ref": "#/$defs/date"},
         "locator": {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"enum": ["page", "section", "table", "figure", "row", "heading", "anchor", "repository_path"]}, "value": {"$ref": "#/$defs/nonempty"}}},
-        "summary": {"$ref": "#/$defs/nonempty"}, "evaluation_setup": {"$ref": "#/$defs/setup"}, "review_status": {"enum": ["verified", "needs_review"]}
+        "summary": {"$ref": "#/$defs/nonempty"}, "evaluation_setup": {"$ref": "#/$defs/setup"}, "review_status": {"enum": ["verified", "needs_review", "quarantined"]}
       }
     }
   }

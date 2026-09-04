@@ -1,10 +1,14 @@
 import {
+  captureCenterDate,
+  collisionRows,
   createSearchableCombobox,
   datePosition,
   formatDate,
   indexData,
   matchingBenchmarkIds,
   orderedReleaseOccurrences,
+  restoreCenterDate,
+  scrollToNewest,
   timelineTicks,
   validateInterface,
 } from "./core.mjs";
@@ -88,7 +92,8 @@ class Timeline {
     this.controls = {};
     this.nodeByRelease = new Map();
     this.activeReleaseId = "";
-    this.restoredScroll = finiteScroll(window.history.state?.timelineScroll) ? window.history.state.timelineScroll : null;
+    this.centerDate = window.history.state?.timelineCenterDate || "";
+    this.filtersOpen = false;
   }
 
   readState() {
@@ -113,21 +118,29 @@ class Timeline {
     if (fixtureRequested) url.searchParams.set("fixture", "ui");
   }
 
-  historyPayload(scroll = this.currentScroll()) {
+  historyPayload(centerDate = this.centerDate) {
     const payload = { ...(window.history.state || {}) };
-    if (finiteScroll(scroll)) payload.timelineScroll = scroll;
+    if (centerDate) payload.timelineCenterDate = centerDate;
+    delete payload.timelineScroll;
     return payload;
   }
 
-  writeState(method, scroll = this.currentScroll()) {
+  writeState(method, centerDate = this.centerDate) {
     const url = new URL(window.location.href);
     this.writeTimelineQuery(url, this.isUiFixture(url));
-    window.history[method](this.historyPayload(scroll), "", `${url.pathname}${url.search}${url.hash}`);
+    window.history[method](this.historyPayload(centerDate), "", `${url.pathname}${url.search}${url.hash}`);
   }
 
-  currentScroll() {
-    const value = this.mount?.querySelector(".timeline-frame")?.scrollLeft;
-    return finiteScroll(value) ? value : 0;
+  currentFrame() {
+    return this.mount?.querySelector(".timeline-frame");
+  }
+
+  captureViewportDate() {
+    const frame = this.currentFrame();
+    if (!frame || !this.indexed) return this.centerDate;
+    const { start, end } = this.indexed.data.corpus.publication_window;
+    this.centerDate = captureCenterDate(frame, start, end);
+    return this.centerDate;
   }
 
   async loadData() {
@@ -144,19 +157,23 @@ class Timeline {
       this.state = this.sanitizeState(this.rawState);
       this.labels = releaseDisplayLabels(this.indexed.data.releases);
       this.explicitInitialTarget = this.explicitTarget(this.rawState, this.state);
-      this.writeState("replaceState", this.restoredScroll ?? 0);
+      this.writeState("replaceState", this.centerDate);
       this.renderControls();
-      this.setupFullscreen();
-      this.render({ restoredScroll: this.restoredScroll, initial: true });
+      this.render({ initial: true });
       window.addEventListener("popstate", (event) => {
         this.state = this.sanitizeState(this.readState());
         this.activeReleaseId = this.state.release;
         this.syncControls();
-        const restoredScroll = finiteScroll(event.state?.timelineScroll) ? event.state.timelineScroll : null;
-        this.render({ restoredScroll, initial: false });
+        this.centerDate = event.state?.timelineCenterDate || this.centerDate;
+        this.render({ restoredDate: this.centerDate, initial: false });
+      });
+      window.addEventListener("resize", () => {
+        this.captureViewportDate();
+        this.restoreHorizontalPosition({ restoredDate: this.centerDate });
       });
     } catch (error) {
-      replaceChildren(this.mount, [element("p", { className: "timeline-pending", text: error.message })]);
+      replaceChildren(this.mount, [element("p", { className: "timeline-error", role: "alert", text: "Release chronology could not be loaded. Refresh the page or try again later." })]);
+      if (this.controlsHost) replaceChildren(this.controlsHost, [element("p", { className: "route-status", role: "alert", text: "Timeline controls are unavailable until the chronology loads." })]);
     }
   }
 
@@ -237,7 +254,7 @@ class Timeline {
       this.controls[key] = control;
       if (key !== "q") control.addEventListener("change", () => this.updateState({ [key]: control.value }));
     });
-    const toolbar = element("div", { className: "timeline-filter-panel", role: "group", "aria-label": "Timeline filters" }, [
+    const panel = element("div", { className: "timeline-filter-panel", id: "timeline-filter-panel", role: "group", "aria-label": "Timeline filters" }, [
       field("q", "Benchmark search", query),
       category.element,
       field("lab", "Lab", lab),
@@ -247,8 +264,37 @@ class Timeline {
       release.element,
       element("div", { className: "filter-actions" }, [reset]),
     ]);
-    replaceChildren(this.controlsHost, [toolbar, element("p", { className: "route-status", id: "timeline-filter-status", role: "status", "aria-live": "polite" })]);
+    const disclosure = element("button", { className: "button filters-disclosure", type: "button", id: "timeline-filters-disclosure", "aria-controls": "timeline-filter-panel", "aria-expanded": "false", text: "Filters" });
+    disclosure.addEventListener("click", () => {
+      this.filtersOpen = !this.filtersOpen;
+      disclosure.setAttribute("aria-expanded", String(this.filtersOpen));
+      panel.hidden = !this.filtersOpen && this.shouldCollapseFilters();
+      this.syncFilterDisclosure();
+    });
+    this.controls.disclosure = disclosure;
+    this.filterPanel = panel;
+    replaceChildren(this.controlsHost, [disclosure, panel, element("p", { className: "route-status", id: "timeline-filter-status", role: "status", "aria-live": "polite" })]);
     this.syncControls();
+    this.syncFilterDisclosure();
+  }
+
+  shouldCollapseFilters() {
+    return window.innerWidth <= 390;
+  }
+
+  activeFilterCount() {
+    return ["q", "category", "lab", "from", "to"].reduce((count, key) => count + (this.state[key] ? 1 : 0), 0) + (this.state.zoom !== DEFAULT_ZOOM ? 1 : 0) + (this.state.release ? 1 : 0);
+  }
+
+  syncFilterDisclosure() {
+    const disclosure = this.controls.disclosure;
+    if (!disclosure || !this.filterPanel) return;
+    const collapsed = this.shouldCollapseFilters();
+    disclosure.hidden = !collapsed;
+    this.filterPanel.hidden = collapsed && !this.filtersOpen;
+    const active = this.activeFilterCount();
+    disclosure.textContent = active ? `Filters (${active} active)` : "Filters";
+    disclosure.setAttribute("aria-expanded", String(!collapsed || this.filtersOpen));
   }
 
   setControlStatus(message) {
@@ -258,20 +304,22 @@ class Timeline {
 
   syncControls() {
     Object.entries(this.controls).forEach(([key, control]) => {
+      if (key === "disclosure") return;
       if (typeof control.setValue === "function") control.setValue(this.state[key]);
-      else control.value = this.state[key];
+      else if ("value" in control) control.value = this.state[key];
     });
   }
 
   updateState(changes, focusDetail = false, options = {}) {
-    const previousScroll = this.currentScroll();
+    this.captureViewportDate();
     const next = { ...this.state, ...changes };
     if (["q", "category", "lab", "from", "to"].some((key) => changes[key] !== undefined)) next.release = "";
     this.state = this.sanitizeState(next);
-    this.writeState("pushState", previousScroll);
+    this.writeState("pushState", this.centerDate);
     this.syncControls();
+    this.syncFilterDisclosure();
     const explicit = this.explicitTarget(changes, this.state);
-    this.render({ preserveScroll: previousScroll, explicit, defaultEnd: options.defaultEnd });
+    this.render({ explicit, defaultEnd: options.defaultEnd, preserveDate: this.centerDate });
     if (focusDetail && this.state.release) this.focusClose();
   }
 
@@ -282,7 +330,9 @@ class Timeline {
     const selected = this.state.release ? this.indexed.releases.get(this.state.release) : null;
     if (selected) this.renderDetail(selected);
     else this.closeDetail();
-    this.setControlStatus(`${releases.length} of ${this.indexed.data.releases.length} releases shown.`);
+    const labsShown = new Set(releases.map((release) => release.lab_id)).size;
+    const totalLabs = this.indexed.data.labs.length;
+    this.setControlStatus(`${releases.length} of ${this.indexed.data.releases.length} releases shown across ${labsShown} of ${totalLabs} lab lanes.`);
     this.restoreHorizontalPosition(scrollOptions);
   }
 
@@ -292,7 +342,12 @@ class Timeline {
 
   chart(releases) {
     const data = this.indexed.data;
-    const summary = element("p", { className: "timeline-summary", role: "status", text: `${releases.length} of ${data.releases.length} releases across ${data.labs.length} lab lanes.` });
+    const summary = element("p", { className: "timeline-summary", role: "status", text: `${releases.length} of ${data.releases.length} releases across ${new Set(releases.map((release) => release.lab_id)).size} of ${data.labs.length} lab lanes.` });
+    const empty = releases.length ? null : element("div", { className: "timeline-empty" }, [
+      element("h3", { text: "No matching releases" }),
+      element("p", { text: "No reviewed releases match the current filters. Reset to return to the full chronology." }),
+      element("button", { className: "button", type: "button", text: "Reset", onclick: () => this.updateState({ q: "", category: "", lab: "", from: "", to: "", zoom: DEFAULT_ZOOM, release: "" }, false, { defaultEnd: true }) }),
+    ]);
     const preview = element("section", { className: "timeline-preview", "aria-live": "polite", "aria-atomic": "true" }, [
       element("p", { className: "timeline-preview-copy", text: "Focus, point to, or select a release to inspect benchmarks named in reviewed materials." }),
     ]);
@@ -301,16 +356,22 @@ class Timeline {
     const canvas = element("div", { className: "timeline-canvas" });
     canvas.style.setProperty("min-width", `${this.canvasWidth(releases)}px`);
     canvas.append(this.axis(data.corpus.publication_window.start, data.corpus.publication_window.end));
-    data.labs.forEach((lab, index) => canvas.append(this.lane(lab, index, releases)));
+    const labsToRender = this.state.lab ? data.labs.filter((lab) => lab.id === this.state.lab) : data.labs;
+    labsToRender.forEach((lab, index) => {
+      const laneReleases = releases.filter((release) => release.lab_id === lab.id);
+      if (this.state.lab && !laneReleases.length) return;
+      canvas.append(this.lane(lab, index, laneReleases));
+    });
     frame.append(canvas);
     frame.addEventListener("scroll", () => {
       if (this.scrollFramePending) return;
       this.scrollFramePending = requestAnimationFrame(() => {
         this.scrollFramePending = null;
-        this.writeState("replaceState", frame.scrollLeft);
+        this.captureViewportDate();
+        this.writeState("replaceState", this.centerDate);
       });
     }, { passive: true });
-    return element("div", { className: "timeline-shell" }, [summary, frame, preview]);
+    return element("div", { className: "timeline-shell" }, [summary, empty, frame, preview]);
   }
 
   axis(start, end) {
@@ -319,17 +380,21 @@ class Timeline {
     return axis;
   }
 
-  lane(lab, index, releases) {
-    const laneReleases = releases.filter((release) => release.lab_id === lab.id);
+  lane(lab, index, laneReleases) {
+    const start = this.indexed.data.corpus.publication_window.start;
+    const end = this.indexed.data.corpus.publication_window.end;
+    const positions = laneReleases.map((release) => (datePosition(release.publication_date, start, end) / 100) * 1200);
+    const rows = collisionRows(positions, 52);
+    const rowCount = Math.max(1, ...rows.map((row) => row + 1), 1);
     const lane = element("section", { className: "timeline-lane", style: { "--lab-color": LAB_COLORS[index % LAB_COLORS.length] }, "aria-label": `${lab.name} releases` });
     lane.append(element("h2", { className: "lab-label", text: lab.name }));
     const track = element("div", { className: "lab-track" });
-    laneReleases.forEach((release) => track.append(this.releasePoint(release, datePosition(release.publication_date, this.indexed.data.corpus.publication_window.start, this.indexed.data.corpus.publication_window.end))));
+    laneReleases.forEach((release, releaseIndex) => track.append(this.releasePoint(release, datePosition(release.publication_date, start, end), rows[releaseIndex])));
     lane.append(track);
     return lane;
   }
 
-  releasePoint(release, position) {
+  releasePoint(release, position, row = 0) {
     const displayName = this.labels.get(release.id);
     const button = element("button", {
       className: "release-node",
@@ -413,18 +478,18 @@ class Timeline {
     requestAnimationFrame(() => this.detailHost?.querySelector(".detail-close")?.focus({ preventScroll: true }));
   }
 
-  restoreHorizontalPosition({ restoredScroll = null, preserveScroll = null, explicit = null, initial = false, defaultEnd = false } = {}) {
+  restoreHorizontalPosition({ restoredDate = null, preserveDate = null, explicit = null, initial = false, defaultEnd = false } = {}) {
     const frame = this.mount.querySelector(".timeline-frame");
     if (!frame) return;
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      const target = restoredScroll !== null ? { type: "scroll", value: restoredScroll } : explicit || (initial ? this.explicitInitialTarget : null);
-      if (target?.type === "scroll") frame.scrollLeft = Math.min(target.value, frame.scrollWidth - frame.clientWidth);
-      else if (target?.type === "release") this.scrollReleaseIntoView(target.value, frame);
+      const { start, end } = this.indexed.data.corpus.publication_window;
+      const target = explicit || (initial ? this.explicitInitialTarget : null);
+      if (target?.type === "release") this.scrollReleaseIntoView(target.value, frame);
       else if (target?.type === "date") this.scrollDateIntoView(target.value, frame);
-      else if (target?.type === "zoom") frame.scrollLeft = 0;
-      else if (defaultEnd || (initial && !target)) frame.scrollLeft = frame.scrollWidth - frame.clientWidth;
-      else if (finiteScroll(preserveScroll)) frame.scrollLeft = Math.min(preserveScroll, frame.scrollWidth - frame.clientWidth);
-      this.writeState("replaceState", frame.scrollLeft);
+      else if (defaultEnd || (initial && !target && !this.centerDate)) scrollToNewest(frame);
+      else restoreCenterDate(frame, restoredDate || preserveDate || this.centerDate || end, start, end);
+      this.centerDate = captureCenterDate(frame, start, end);
+      this.writeState("replaceState", this.centerDate);
     }));
   }
 
@@ -435,48 +500,13 @@ class Timeline {
 
   scrollDateIntoView(date, frame) {
     const { start, end } = this.indexed.data.corpus.publication_window;
-    const trackStart = window.innerWidth < 768 ? 120 : 160;
-    const usable = Math.max(0, frame.scrollWidth - trackStart - 24);
-    frame.scrollLeft = Math.max(0, trackStart + usable * (datePosition(date, start, end) / 100) - frame.clientWidth / 2);
-  }
-
-  setupFullscreen() {
-    if (!this.fullscreenButton || !this.fullscreenTarget) return;
-    this.fullscreenButton.addEventListener("click", () => this.toggleFullscreen());
-    document.addEventListener("fullscreenchange", () => {
-      const active = document.fullscreenElement === this.fullscreenTarget;
-      this.fullscreenButton.textContent = active ? "Exit fullscreen" : "Fullscreen";
-      this.fullscreenButton.setAttribute("aria-pressed", String(active));
-      this.writeState("replaceState");
-    });
-  }
-
-  async toggleFullscreen() {
-    if (document.fullscreenElement === this.fullscreenTarget && document.exitFullscreen) {
-      await document.exitFullscreen();
-      return;
-    }
-    if (!this.fullscreenTarget.requestFullscreen || document.fullscreenEnabled === false) {
-      this.navigateToFallback();
-      return;
-    }
-    try {
-      await this.fullscreenTarget.requestFullscreen();
-    } catch (_) {
-      this.navigateToFallback();
-    }
-  }
-
-  navigateToFallback() {
-    const url = new URL("./timeline.html", window.location.href);
-    this.writeTimelineQuery(url, this.isUiFixture(new URL(window.location.href)));
-    window.location.assign(url.href);
+    restoreCenterDate(frame, date, start, end);
   }
 
   setupEscape() {
     document.addEventListener("keydown", (event) => {
       if (event.key !== "Escape" || !this.state.release) return;
-      if (!document.fullscreenElement) event.preventDefault();
+      event.preventDefault();
       this.closePinned();
     });
   }

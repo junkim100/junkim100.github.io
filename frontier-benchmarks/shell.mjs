@@ -20,6 +20,10 @@ export function setupTheme() {
   } catch (_) {}
 
   button.setAttribute("aria-pressed", String(activeTheme() === "dark"));
+  window.matchMedia?.("(prefers-color-scheme: dark)")?.addEventListener("change", () => {
+    if (document.documentElement.dataset.theme) return;
+    button.setAttribute("aria-pressed", String(activeTheme() === "dark"));
+  });
   button.addEventListener("click", () => {
     const nextTheme = activeTheme() === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = nextTheme;
