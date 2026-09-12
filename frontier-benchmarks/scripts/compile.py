@@ -10,11 +10,11 @@ import json
 import re
 import sys
 import unicodedata
-from collections import defaultdict
-from datetime import date
+from collections import Counter, defaultdict
+from datetime import date, datetime, timedelta
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Mapping, Sequence, Tuple
-from urllib.parse import urlparse
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
+from urllib.parse import unquote, urlparse
 
 import yaml
 from jsonschema import Draft202012Validator, FormatChecker
@@ -24,6 +24,8 @@ CATALOG_PATH = ROOT / "data" / "catalog.yaml"
 DEFINITIONS_PATH = ROOT / "data" / "definitions.yaml"
 CATALOG_SCHEMA_PATH = ROOT / "schema" / "observatory.schema.json"
 DEFINITIONS_SCHEMA_PATH = ROOT / "schema" / "definitions.schema.json"
+AUDIT_OVERLAY_PATH = ROOT / "data" / "audit-overlay.json"
+AUDIT_OVERLAY_SCHEMA_PATH = ROOT / "schema" / "audit-overlay.schema.json"
 PUBLIC_JSON_PATH = ROOT / "public" / "observatory.json"
 
 REQUIRED_DEFINITIONS = {
@@ -35,6 +37,44 @@ REQUIRED_DEFINITIONS = {
     "outdated_in_public_reporting",
     "insufficient_evidence",
     "quarantined",
+}
+CATALOG_COLLECTIONS = (
+    "labs",
+    "categories",
+    "lineages",
+    "models",
+    "release_candidates",
+    "releases",
+    "benchmarks",
+    "sources",
+    "coverage",
+    "quarantine",
+    "occurrences",
+)
+SOURCE_EDGE_FIELDS = {
+    "release_candidates": ("source_id",),
+    "coverage": ("reviewed_source_ids",),
+    "occurrences": ("source_id",),
+    "quarantine": ("source_id",),
+}
+AUDIT_STRUCTURAL_COUNT_KEYS = {
+    "baseline_audit_units",
+    "named_candidates",
+    "url_candidates",
+    "partition_units",
+    "current_catalog_rows",
+    "typed_source_edges",
+    "overlay_records",
+    "unresolved_named_candidates",
+    "unresolved",
+    "retained",
+    "corrected",
+    "added",
+    "used",
+    "quarantined",
+    "inaccessible",
+    "duplicate",
+    "irrelevant",
 }
 FORBIDDEN_KEY = re.compile(
     r"(?:^|_)(?:scores?|results?|ratings?|points?|rank(?:ing)?s?|win_rates?|accurac(?:y|ies)|performance|elo|pass_at|competitor_rows?)(?:$|_)",
@@ -59,7 +99,13 @@ FORBIDDEN_TEXT = [
     re.compile(r"\b[-+]?\d+(?:\.\d+)?\s+(?:points?|rating)\b", re.IGNORECASE),
     *AMBIGUOUS_BARE_NUMERIC_TEXT,
 ]
-SAFE_NUMERIC_KEYS = {"omission_count", "consecutive_reviewed_omissions", "distinct_model_count", "inclusive_days"}
+SAFE_NUMERIC_KEYS = {
+    "omission_count",
+    "consecutive_reviewed_omissions",
+    "distinct_model_count",
+    "inclusive_days",
+    *AUDIT_STRUCTURAL_COUNT_KEYS,
+}
 SAFE_STRUCTURAL_TEXT_KEYS = {
     "schema_version", "definitions_version", "version", "id", "identifier", "name", "label",
     "title", "publication_date", "retrieval_date", "review_date", "url", "source_revision",
@@ -301,6 +347,174 @@ RECENT_MODEL_WINDOW_END = date.fromisoformat("2026-09-03")
 RECENT_MODEL_COUNT_LABEL = "models in latest 90 days"
 
 
+def typed_source_edge_ids(catalog: Mapping[str, Any]) -> List[str]:
+    edges = []
+    for collection, fields in SOURCE_EDGE_FIELDS.items():
+        for record in catalog[collection]:
+            for field in fields:
+                values = record[field] if isinstance(record[field], list) else [record[field]]
+                for source_id in values:
+                    edges.append(f"{collection}:{record['id']}:{field}:{source_id}")
+    return edges
+
+
+def validate_audit_overlay(catalog: dict, overlay: dict) -> None:
+    validate_json_schema(overlay, load_json(AUDIT_OVERLAY_SCHEMA_PATH), "audit overlay")
+
+    # Discovery URL units are evidence associations, never catalog entities or approvals.
+    discovery_ids = set()
+    discovery_proposals = set()
+    for evidence in overlay.get("discovery_evidence", []):
+        unit_id = evidence["unit_id"]
+        if unit_id in discovery_ids:
+            raise ValidationError(f"duplicate discovery evidence unit {unit_id!r}")
+        discovery_ids.add(unit_id)
+        unread = evidence["semantic_status"] == "UNPROCESSED"
+        if unread != (evidence["semantic_outcome"] == "UNPROCESSED"):
+            raise ValidationError(f"contradictory discovery unread state {unit_id!r}")
+        if unread and (evidence["reporting_lab"] is not None or evidence["proposal_ids"]):
+            raise ValidationError(f"unread discovery has semantic association {unit_id!r}")
+        for proposal_id in evidence["proposal_ids"]:
+            if proposal_id in discovery_proposals:
+                raise ValidationError(f"duplicate discovery proposal {proposal_id!r}")
+            discovery_proposals.add(proposal_id)
+
+    window = overlay["recent_window"]
+    window_start = parse_iso_date(window["start"], "audit_overlay.recent_window.start")
+    window_end = parse_iso_date(window["end"], "audit_overlay.recent_window.end")
+    actual_days = (window_end - window_start).days + 1
+    if actual_days != 90 or window["inclusive_days"] != actual_days:
+        raise ValidationError(f"recent model window must span 90 inclusive dates, found {actual_days}")
+    cutoff = datetime.fromisoformat(overlay["intake_cutoff"].replace("Z", "+00:00"))
+    if cutoff.utcoffset() != timedelta(0):
+        raise ValidationError("audit overlay intake cutoff must use UTC")
+    if window_end != cutoff.date():
+        raise ValidationError("audit overlay recent window end must match intake cutoff date")
+    corpus_start = parse_iso_date(catalog["corpus"]["publication_window"]["start"], "corpus.window.start")
+    corpus_end = parse_iso_date(catalog["corpus"]["publication_window"]["end"], "corpus.window.end")
+    if window_start < corpus_start or window_end > corpus_end or window_end != corpus_end:
+        raise ValidationError("audit overlay recent window must match the catalog publication window end")
+
+    for evidence in overlay.get("discovery_evidence", []):
+        publication = evidence.get("publication_window")
+        if publication is None:
+            continue  # Older bounded adjudications need not invent date precision.
+        start, end = publication["interval_start"], publication["interval_end"]
+        if publication["verdict"] == "UNRESOLVED":
+            if start is not None or end is not None:
+                raise ValidationError("unresolved discovery publication window contains inferred dates")
+            continue
+        if start is None or end is None:
+            raise ValidationError("resolved discovery publication window requires a complete interval")
+        start = parse_iso_date(start, "discovery.publication_window.interval_start")
+        end = parse_iso_date(end, "discovery.publication_window.interval_end")
+        if start > end:
+            raise ValidationError("discovery publication window has an inverted interval")
+        expected = (
+            "IN_WINDOW" if corpus_start <= start <= end <= corpus_end
+            else "OUTSIDE_WINDOW" if end < corpus_start or start > corpus_end
+            else "UNRESOLVED"
+        )
+        if publication["verdict"] != expected:
+            raise ValidationError("discovery publication window verdict contradicts its complete interval")
+
+    expected_record_keys = {
+        (collection, record["id"])
+        for collection in CATALOG_COLLECTIONS
+        for record in catalog[collection]
+    }
+    edge_ids = typed_source_edge_ids(catalog)
+    if len(edge_ids) != len(set(edge_ids)):
+        raise ValidationError("catalog has duplicate typed source edges")
+    expected_record_keys.update(("source_associations", edge_id) for edge_id in edge_ids)
+
+    ledger_ids = set()
+    record_keys = set()
+    baseline_dispositions: Counter = Counter()
+    candidate_added = 0
+    for record in overlay["records"]:
+        if record["ledger_id"] in ledger_ids:
+            raise ValidationError(f"duplicate audit overlay ledger_id {record['ledger_id']!r}")
+        ledger_ids.add(record["ledger_id"])
+        key = (record["entity_type"], record["record_id"])
+        if key in record_keys:
+            raise ValidationError(f"duplicate audit overlay record key {key!r}")
+        record_keys.add(key)
+        if record["resulting_ids"] != [record["record_id"]]:
+            raise ValidationError(f"audit overlay record {record['ledger_id']!r} has mismatched resulting_ids")
+        if record["origin"] == "baseline":
+            baseline_dispositions[record["disposition"]] += 1
+            expected_implementation = (
+                "patch_listed_fields_only"
+                if record["disposition"] == "corrected"
+                else "preserve_baseline_with_uncertainty"
+            )
+            if record["disposition"] == "added" or record["implementation_disposition"] != expected_implementation:
+                raise ValidationError(f"audit overlay baseline disposition mismatch at {record['ledger_id']!r}")
+        else:
+            candidate_added += 1
+            if record["disposition"] != "added" or record["implementation_disposition"] != "add_scoped":
+                raise ValidationError(f"audit overlay candidate disposition mismatch at {record['ledger_id']!r}")
+
+    missing = expected_record_keys - record_keys
+    orphaned = record_keys - expected_record_keys
+    if missing:
+        raise ValidationError(f"audit overlay missing current record keys: {sorted(missing)[:3]!r}")
+    if orphaned:
+        raise ValidationError(f"audit overlay has orphan record keys: {sorted(orphaned)[:3]!r}")
+
+    sources = {source["id"]: source["url"] for source in catalog["sources"]}
+    source_check_keys = set()
+    current_source_checks = set()
+    for check in overlay["source_checks"]:
+        source_id = check["source_id"]
+        if source_id not in sources:
+            raise ValidationError(f"audit overlay source check references missing source {source_id!r}")
+        key = (source_id, check["exact_url"])
+        if key in source_check_keys:
+            raise ValidationError(f"duplicate audit overlay source check {key!r}")
+        source_check_keys.add(key)
+        if check["exact_url"] == sources[source_id]:
+            current_source_checks.add(key)
+        if check["access_status"] is None and any(
+            check[field] is not None for field in ("accessed_at", "fingerprint", "fingerprint_kind")
+        ):
+            raise ValidationError(f"unknown source check {key!r} contains guessed retrieval metadata")
+        if (check["fingerprint"] is None) != (check["fingerprint_kind"] is None):
+            raise ValidationError(f"source check {key!r} has incomplete fingerprint metadata")
+    expected_source_checks = set(sources.items())
+    missing_source_checks = expected_source_checks - current_source_checks
+    if missing_source_checks:
+        raise ValidationError(f"audit overlay missing current source checks: {sorted(missing_source_checks)[:3]!r}")
+
+    summary = overlay["summary"]
+    current_catalog_rows = sum(len(catalog[collection]) for collection in CATALOG_COLLECTIONS)
+    expected_summary_values = {
+        "baseline_audit_units": sum(baseline_dispositions.values()),
+        "baseline_audit_dispositions": dict(baseline_dispositions),
+        "current_catalog_rows": current_catalog_rows,
+        "typed_source_edges": len(edge_ids),
+        "overlay_records": len(overlay["records"]),
+        "unresolved_named_candidates": summary["candidate_dispositions"]["unresolved"],
+    }
+    for field, expected in expected_summary_values.items():
+        if summary[field] != expected:
+            raise ValidationError(f"audit overlay summary {field} does not reconcile")
+    if sum(summary["candidate_dispositions"].values()) != summary["named_candidates"]:
+        raise ValidationError("audit overlay named candidate dispositions do not reconcile")
+    if summary["candidate_dispositions"]["added"] != candidate_added:
+        raise ValidationError("audit overlay added candidate count does not reconcile")
+    if sum(summary["url_dispositions"].values()) != summary["url_candidates"]:
+        raise ValidationError("audit overlay URL dispositions do not reconcile")
+    if (
+        summary["baseline_audit_units"] + summary["named_candidates"] + summary["url_candidates"]
+        != summary["partition_units"]
+    ):
+        raise ValidationError("audit overlay partition units do not reconcile")
+    if summary["baseline_audit_units"] + candidate_added != summary["overlay_records"]:
+        raise ValidationError("audit overlay projected record count does not reconcile")
+
+
 def identity_status(record: Mapping[str, Any]) -> str:
     return str(record.get("identity_status") or "canonical")
 
@@ -376,14 +590,20 @@ def validate_benchmark_identities(catalog: dict) -> None:
             raise ValidationError(f"benchmark {benchmark['id']} has canonical_benchmark_id without merged status")
 
 
-def build_recent_model_counts(catalog: dict) -> dict:
+def build_recent_model_counts(catalog: dict, recent_window: Optional[Mapping[str, Any]] = None) -> dict:
     benchmarks = records_by_id(catalog, "benchmarks")
+    if recent_window is None:
+        window_start = RECENT_MODEL_WINDOW_START
+        window_end = RECENT_MODEL_WINDOW_END
+    else:
+        window_start = parse_iso_date(recent_window["start"], "recent_window.start")
+        window_end = parse_iso_date(recent_window["end"], "recent_window.end")
     models_by_benchmark: Dict[str, set[str]] = defaultdict(set)
     for occurrence in catalog["occurrences"]:
         if occurrence.get("review_status") != "verified":
             continue
         published = parse_iso_date(occurrence["publication_date"], f"occurrences.{occurrence['id']}.publication_date")
-        if not RECENT_MODEL_WINDOW_START <= published <= RECENT_MODEL_WINDOW_END:
+        if not window_start <= published <= window_end:
             continue
         source = benchmarks.get(occurrence["benchmark_id"])
         if source is None:
@@ -392,8 +612,8 @@ def build_recent_model_counts(catalog: dict) -> dict:
         if not canonical_id or canonical_id not in benchmarks or not is_live_canonical(benchmarks[canonical_id]):
             continue
         models_by_benchmark[canonical_id].add(occurrence["model_id"])
-    window_days = (RECENT_MODEL_WINDOW_END - RECENT_MODEL_WINDOW_START).days + 1
-    if window_days != 90:
+    window_days = (window_end - window_start).days + 1
+    if window_days != 90 or (recent_window is not None and recent_window["inclusive_days"] != window_days):
         raise ValidationError(f"recent model window must span 90 inclusive dates, found {window_days}")
     counts = []
     for benchmark in catalog["benchmarks"]:
@@ -409,8 +629,8 @@ def build_recent_model_counts(catalog: dict) -> dict:
     counts.sort(key=lambda row: row["benchmark_id"])
     return {
         "window": {
-            "start": RECENT_MODEL_WINDOW_START.isoformat(),
-            "end": RECENT_MODEL_WINDOW_END.isoformat(),
+            "start": window_start.isoformat(),
+            "end": window_end.isoformat(),
             "inclusive_days": window_days,
         },
         "label": RECENT_MODEL_COUNT_LABEL,
@@ -466,7 +686,11 @@ def assert_no_score_like(value: Any, path: Tuple[str, ...] = ()) -> None:
             )
             if structural_text and pattern in AMBIGUOUS_BARE_NUMERIC_TEXT:
                 continue
-            if pattern.search(value):
+            # Inspect decoded URL text without rewriting its literal identity.
+            # An escaped space after a model number is not a percentage; an
+            # encoded percentage or score claim must still be rejected.
+            inspected = unquote(value) if leaf in {"url", "exact_url"} else value
+            if pattern.search(inspected):
                 raise ValidationError(f"forbidden score-like text at {'.'.join(path)}")
 
 
@@ -561,21 +785,24 @@ def validate_derived_status_reproduction(catalog: dict, generated_rows: Sequence
         raise ValidationError("derived reporting statuses cannot be reproduced from canonical records")
 
 
-def build_document(catalog: dict, definitions: dict) -> dict:
+def build_document(catalog: dict, definitions: dict, overlay: Optional[dict] = None) -> dict:
     search_index = build_search_index(catalog)
     derived_statuses = derive_statuses(catalog)
+    generated_from = {
+        "catalog": "data/catalog.yaml",
+        "definitions": "data/definitions.yaml",
+        "compiler": "scripts/compile.py",
+    }
+    if overlay is not None:
+        generated_from["audit_overlay"] = "data/audit-overlay.json"
     output = {
         "schema_version": catalog["schema_version"],
-        "generated_from": {
-            "catalog": "data/catalog.yaml",
-            "definitions": "data/definitions.yaml",
-            "compiler": "scripts/compile.py",
-        },
+        "generated_from": generated_from,
         "corpus": copy.deepcopy(catalog["corpus"]),
         "definitions_version": definitions["definitions_version"],
         "canonical_definitions": _provenanced_records(definitions["definitions"], "definition", "data/definitions.yaml"),
     }
-    for collection in ("labs", "categories", "lineages", "models", "release_candidates", "releases", "benchmarks", "sources", "coverage", "quarantine", "occurrences"):
+    for collection in CATALOG_COLLECTIONS:
         output[collection] = _provenanced_records(catalog[collection], collection, "data/catalog.yaml")
     output["derived_statuses"] = derived_statuses
     output["search_index"] = [
@@ -589,7 +816,11 @@ def build_document(catalog: dict, definitions: dict) -> dict:
         }
         for row in search_index
     ]
-    output["recent_model_counts"] = build_recent_model_counts(catalog)
+    output["recent_model_counts"] = build_recent_model_counts(
+        catalog, overlay["recent_window"] if overlay is not None else None
+    )
+    if overlay is not None:
+        output["audit_overlay"] = copy.deepcopy(overlay)
     return output
 
 
@@ -612,6 +843,7 @@ def canonical_json_bytes(document: dict) -> bytes:
 def validate_score_free_repository_payloads(root: Path = ROOT) -> None:
     """Scan canonical, fixture, snapshot, and renderable payloads, not validator source."""
     paths = set((root / "data").glob("*.yaml"))
+    paths.update((root / "data").glob("*.json"))
     for directory in (root / "tests" / "fixtures", root / "tests" / "snapshots", root / "public"):
         if directory.exists():
             paths.update(path for path in directory.rglob("*") if path.is_file())
@@ -631,7 +863,7 @@ def validate_score_free_repository_payloads(root: Path = ROOT) -> None:
         assert_no_score_like(payload, ("repository_payload", relative))
 
 
-def validate_all(catalog: dict, definitions: dict) -> None:
+def validate_all(catalog: dict, definitions: dict, overlay: Optional[dict] = None) -> None:
     validate_json_schema(catalog, load_json(CATALOG_SCHEMA_PATH), "catalog")
     validate_json_schema(definitions, load_json(DEFINITIONS_SCHEMA_PATH), "definitions")
     validate_definitions(definitions)
@@ -641,16 +873,26 @@ def validate_all(catalog: dict, definitions: dict) -> None:
     validate_terminal_dispositions(catalog)
     validate_benchmark_identities(catalog)
     build_search_index(catalog)
-    build_recent_model_counts(catalog)
+    build_recent_model_counts(catalog, overlay["recent_window"] if overlay is not None else None)
+    if overlay is not None:
+        validate_audit_overlay(catalog, overlay)
+        assert_no_score_like(overlay, ("audit_overlay",))
     assert_no_score_like(catalog, ("catalog",))
     assert_no_score_like(definitions, ("definitions",))
 
 
-def compile_catalog(catalog_path: Path = CATALOG_PATH, definitions_path: Path = DEFINITIONS_PATH) -> Tuple[bytes, dict]:
+def compile_catalog(
+    catalog_path: Path = CATALOG_PATH,
+    definitions_path: Path = DEFINITIONS_PATH,
+    overlay_path: Optional[Path] = None,
+) -> Tuple[bytes, dict]:
     catalog = load_yaml(catalog_path)
     definitions = load_yaml(definitions_path)
-    validate_all(catalog, definitions)
-    document = build_document(catalog, definitions)
+    if overlay_path is None and catalog_path.resolve() == CATALOG_PATH.resolve():
+        overlay_path = AUDIT_OVERLAY_PATH
+    overlay = load_json(overlay_path) if overlay_path is not None else None
+    validate_all(catalog, definitions, overlay)
+    document = build_document(catalog, definitions, overlay)
     validate_derived_status_reproduction(catalog, document["derived_statuses"])
     validate_generated_provenance(document)
     assert_no_score_like(document, ("generated_json",))
@@ -665,11 +907,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--catalog", type=Path, default=CATALOG_PATH)
     parser.add_argument("--definitions", type=Path, default=DEFINITIONS_PATH)
+    parser.add_argument("--overlay", type=Path)
     parser.add_argument("--output-dir", type=Path, default=PUBLIC_JSON_PATH.parent)
     parser.add_argument("--check", action="store_true", help="fail if committed generated files differ")
     args = parser.parse_args(argv)
     try:
-        json_bytes, _ = compile_catalog(args.catalog, args.definitions)
+        json_bytes, _ = compile_catalog(args.catalog, args.definitions, args.overlay)
         targets = {
             args.output_dir / PUBLIC_JSON_PATH.name: json_bytes,
         }

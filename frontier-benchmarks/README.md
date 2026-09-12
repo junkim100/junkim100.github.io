@@ -6,6 +6,7 @@ This directory contains the static, score-free Observatory and its reviewable da
 
 - `data/catalog.yaml` holds labs, lineages, models, release candidates, releases, benchmarks, sources, occurrences, coverage, and quarantine records.
 - `data/definitions.yaml` holds the reporting-status definitions consumed by compilation.
+- `data/audit-overlay.json` preserves scoped dispositions and unresolved limitations from the reconciled audit, keyed to ledger and catalog identities. It is not blanket semantic approval.
 - `schema/*.schema.json` contains the JSON Schema draft 2020-12 contracts applied to the parsed YAML documents.
 
 Derived reporting statuses never appear in canonical source data. `scripts/compile.py` validates both inputs, computes lineage-scoped statuses, and writes one deterministic UTF-8 generated artifact.
@@ -17,35 +18,52 @@ From this directory, with a currently supported Python 3 release:
 ```sh
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
-.venv/bin/python scripts/compile.py
+.venv/bin/python scripts/compile.py --check
 .venv/bin/python -m unittest discover -s tests -v
 node tests/ui/test-ui.mjs
 node tests/ui/test-data-routes.mjs
-node tests/ui/test-timeline-geometry.mjs
+node tests/ui/test-workspace-core.mjs
+node tests/ui/test-workspace-chronology.mjs
+node tests/ui/test-workspace-routes.mjs
+node tests/ui/test-workspace-geometry.mjs
+node --check core.mjs
+node --check trends.mjs
+node --check timeline.mjs
+node --check data-routes.mjs
+node --check shell.mjs
 ```
 
-The compiler accepts `--check` to verify that the committed generated artifact is current without rewriting it. The tests include a byte-for-byte double-build check.
+The compiler emits `public/observatory.json` deterministically from the canonical inputs. `--check` verifies the committed artifact without rewriting it, and the Python suite includes a byte-for-byte double-build check.
+
+`tests/ui/test-timeline-geometry.mjs` launches local Chrome and is not authorized for this cloud-only verification workflow. Replay applicable rendered geometry assertions in the authorized isolated cloud browser rather than running that script locally.
+
+`test-workspace-geometry.mjs` is a pure synthetic-coordinate regression and launches no browser. It does not establish actual rendered focus, layout, touch behavior, or visual chronology preservation.
 
 ## Static interface
 
-- `index.html` is the Benchmark Trends landing page. It retains the fixed corpus overview and renders publication-date lanes for 1 to 6 selected canonical benchmarks.
-- `timeline.html` is the viewport-bounded Releases chronology.
-- `ledger.html` and `history.html` are paginated data views.
-- `about.html` states the review window, first-party source boundary, score-free purpose, and absence caveat.
-- `definitions.html` is a compatibility redirect to About.
+- `index.html` is the Benchmarks workspace with canonical discovery, one-to-six benchmark selection, reporting-date lanes, and occurrence evidence.
+- `timeline.html` is the Releases chronology with release-date positioning and pinned release detail.
+- `ledger.html` is the complete release ledger with retained and withheld occurrence counts.
+- `history.html` is reporting history with canonical OR filters, an explicit historical/withheld identity audit mode, coverage disclosures, and occurrence evidence.
+- `about.html` retains useful static interpretation boundaries and loads generated audit limitations and all reporting definitions.
+- `definitions.html` is a JavaScript compatibility document that maps known status links to stable About fragments and retains a manual fallback.
 
-`shell.mjs` owns shared theme behavior. `trends.mjs` owns the benchmark picker, URL selection state, release matching, benchmark lanes, shared release highlighting, and allowlisted Source links. `timeline.mjs` renders the six-lab release chronology, keeps every release focusable, restores horizontal position through history state, and exposes every selected release occurrence through allowlisted Source links. `data-routes.mjs` renders the Ledger and History tables. `core.mjs` contains shared data and searchable-combobox helpers.
+`core.mjs` owns canonical identity mapping, retained-occurrence policy, source destination validation, source disclosure, v2 route state, route transfer, history payloads, and cancelable search. `trends.mjs`, `timeline.mjs`, and `data-routes.mjs` consume those shared contracts. `shell.mjs` owns storage-tolerant theme behavior, common-only header route transfer, landing compatibility, scope-change announcements, Definitions compatibility, and generated About content.
+
+All interactive routes fetch `public/observatory.json`; no public fixture query selects alternate data. CSP, score-free rendering, exact stored source destinations, and explicit coverage uncertainty remain part of the interface contract.
 
 ## Durable view state
 
-Benchmark Trends state uses one repeated `benchmark` query parameter for each ordered selection, plus optional `category`, `lab`, `from`, `to`, and `zoom` keys. Unknown and duplicate identifiers are removed, selections are limited to six, and order is canonicalized by normalized benchmark name and canonical ID. Merged and quarantined identities are dropped. A state with no valid identifier uses Terminal-Bench 2.0 when it remains canonical, otherwise the first live canonical benchmark. Category filters discovery only. Lab and date filters constrain visible markers. The search query remains local to the picker and is never written to the URL. Both Trends and Releases persist the ISO date at the viewport center in history state and initialize at the newest/rightmost edge. Local UI fixture mode preserves `fixture=ui` only on localhost or `127.0.0.1`.
+Canonical interactive URLs carry `v=2`. Common context is repeated `benchmark` plus `lab`, `from`, `to`, `zoom`, `center`, and `release`. Header navigation retains only that common context so route-specific search and table controls cannot leak between meanings.
 
-The pure Trends helpers have stable return shapes: `rankBenchmarks` returns ordered benchmark records; `sanitizeBenchmarkIds` and `parseBenchmarkState` return canonical identifier arrays; `serializeBenchmarkState` returns a leading-question-mark query string; `transitionBenchmarkSelection` returns an identifier array and transition outcome; `releaseMatches` returns publication-ordered `{ release, benchmarkIds, occurrences }` records; and `laneOccurrences` returns every exact occurrence for one selected benchmark lane.
+Benchmarks accepts local discovery `search` and `category`. Releases accepts benchmark and alias query `q` plus `category`. Repeated benchmark identities are explicitly mapped, deduplicated, ordered, and bounded by the shared decoder. A center is an ISO UTC instant, while release and reporting dates remain distinct.
 
-Timeline state accepts known category, lab, and release identifiers; corpus-window `from` and `to` dates in start-before-end order; zoom levels `1`, `2`, or `4`; and search text bounded to 160 characters. A default visit starts at the latest release. Explicit date, zoom, selected release, or restored horizontal history state takes precedence.
+Ledger and Reporting history accept `q`, `status`, finite route sort keys, `asc` or `desc`, page sizes 25, 50, or 100, and positive pages. Reporting history additionally accepts repeated benchmark keys as an OR filter and `audit=all`. Table writes preserve common chronological context, and copied table links preserve the full table-specific state.
 
-Ledger and History state includes search, lab, status, date range, sort, direction, page, and page size. History also accepts an exact benchmark identifier. Search updates after a 150ms debounce, every finite filter applies immediately, and page sizes are restricted to 25, 50, or 100 with 50 as the default.
+Invalid finite values, impossible or out-of-window dates, inverted ranges, and unknown identities are canonicalized with a visible explanation. Page numbers clamp to the filtered result range with an explicit status. Back, Reset, route leave, and finite actions cancel pending table searches so an older callback cannot overwrite a newer state.
 
-Unknown identifiers, unsupported sort or direction values, impossible or out-of-window dates, inverted date ranges, invalid pages, and unsupported page sizes are removed from the canonical URL and fall back to finite defaults. A valid query with no matches remains a valid zero-result view.
+The default History projection excludes quarantined benchmark identity rows, not entire occurrence records: 3,062 rows contain 1,800 occurrence links. `audit=all` exposes 3,104 stable status rows and all 1,826 occurrence links, including 26 links on historical identity rows. These counts are exercised by `tests/ui/test-data-routes.mjs` against the committed generated corpus. The benchmark and release inspectors use the retained canonical mapping independently of that default History projection.
 
-The compact timeline host is fixed to 560px at viewport widths of 768px and above, and 460px below that breakpoint. The fallback timeline route consumes the available viewport without ordinary document scrolling.
+Discovery publication-window supplements preserve date intervals rather than inventing exact days. A publisher month wholly inside the corpus window, a dated exact-byte author-repository publication, and an explicitly matched report edition can establish window membership without establishing a model release date. `UNRESOLVED` retains null interval bounds; a current download or copyright year alone does not settle historical publication. Discovery evidence remains separate from catalog identity and does not approve whole records or historical index completeness.
+
+The selected residual review retains all 281 occurrence identities and their source evidence, but none may supply positive reporting while its whole-record model, benchmark/version, setup or chronology association remains unapproved. This includes 29 formerly inherited `verified` rows now marked `needs_review`; the other selected rows retain their existing `needs_review` or `quarantined` state. Their release coverage remains incomplete, so withholding is not evidence of non-reporting. This bounded hold does not renew the rest of the corpus or close the 148 historical-index obligations. The exact-edition publication dates for discovery IDs `inventory:url_43df9cadd55a0cc26d0c` and `inventory:url_c1a3f9dd955eb86068ce` remain unknown, with null interval bounds and no inferred publication-window assertion. Original source and acceptance denominators remain unchanged.

@@ -4,17 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; form-action 'self'; img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'" />
-    <meta http-equiv="refresh" content="0; url=./about.html" />
     <meta name="robots" content="noindex" />
     <link rel="canonical" href="https://junkim100.github.io/frontier-benchmarks/about.html" />
     <link rel="stylesheet" href="./styles.css" />
     <title>About | Frontier Benchmark Observatory</title>
   </head>
-  <body class="redirect-page">
+  <body class="redirect-page" data-page="definitions">
     <a class="skip-link" href="#main">Skip to content</a>
     <main id="main" class="page-shell redirect-main">
       <h1>This page has moved</h1>
-      <p><a href="./about.html">Continue to About</a>.</p>
+      <p id="definitions-explanation">Known reporting-status links continue to the matching definition on About. Unknown requests continue to the complete reporting definitions with an explanation.</p>
+      <p><a id="definitions-continue" href="./about.html#reporting-definitions">Continue to About</a>.</p>
+      <noscript><p>Automatic definition mapping requires JavaScript. The manual link opens all reporting definitions.</p></noscript>
     </main>
+    <script type="module" src="./shell.mjs"></script>
   </body>
 </html>

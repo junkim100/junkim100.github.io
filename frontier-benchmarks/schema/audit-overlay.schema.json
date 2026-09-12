@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://junkim100.github.io/frontier-benchmarks/schema/audit-overlay.schema.json",
+  "title": "Frontier Benchmark Observatory audit overlay",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "baseline_revision", "intake_cutoff", "coverage_claim", "semantic_corpus_approval", "recent_window", "summary", "records", "source_checks"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0.0"},
+    "baseline_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "intake_cutoff": {"type": "string", "format": "date-time"},
+    "coverage_claim": {"type": "string", "const": "bounded_and_incomplete"},
+    "semantic_corpus_approval": {"type": "boolean", "const": false},
+    "recent_window": {"$ref": "#/$defs/recent_window"},
+    "summary": {"$ref": "#/$defs/summary"},
+    "records": {"type": "array", "items": {"$ref": "#/$defs/record"}},
+    "source_checks": {"type": "array", "items": {"$ref": "#/$defs/source_check"}},
+    "discovery_evidence": {"type": "array", "items": {"$ref": "#/$defs/discovery_evidence"}}
+  },
+  "$defs": {
+    "discovery_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unit_id", "url", "semantic_status", "semantic_outcome", "reporting_lab", "binding", "evidence_task_id", "evidence_archive_sha256", "adjudication_path", "adjudication_sha256", "proposal_ids", "whole_record_approved", "historical_equivalence", "uncertainty"],
+      "properties": {
+        "unit_id": {"type": "string", "pattern": "^inventory:url_[0-9a-f]{20}$"},
+        "url": {"type": "string", "format": "uri", "pattern": "^https://"},
+        "semantic_status": {"enum": ["PROCESSED_BOUNDED", "BOUNDED_SEMANTIC_ADJUDICATION", "UNPROCESSED"]},
+        "semantic_outcome": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]+$"},
+        "reporting_lab": {"type": ["string", "null"]},
+        "binding": {"const": "discovery_only_not_catalog_identity"},
+        "evidence_task_id": {"type": "string", "pattern": "^t_[0-9a-f]{8,}$"},
+        "evidence_archive_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "adjudication_path": {"$ref": "#/$defs/nonempty"},
+        "adjudication_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "proposal_ids": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/nonempty"}},
+        "whole_record_approved": {"const": false},
+        "historical_equivalence": {"const": false},
+        "uncertainty": {"$ref": "#/$defs/nonempty"},
+        "publication_window": {"$ref": "#/$defs/publication_window"}
+      }
+    },
+    "publication_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verdict", "interval_start", "interval_end", "date_basis", "edition_join"],
+      "properties": {
+        "verdict": {"enum": ["IN_WINDOW", "OUTSIDE_WINDOW", "UNRESOLVED"]},
+        "interval_start": {"type": ["string", "null"], "format": "date"},
+        "interval_end": {"type": ["string", "null"], "format": "date"},
+        "date_basis": {"$ref": "#/$defs/nonempty"},
+        "edition_join": {"$ref": "#/$defs/nonempty"}
+      }
+    },
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"},
+    "nonempty": {"type": "string", "minLength": 1},
+    "nonnegative_integer": {"type": "integer", "minimum": 0},
+    "recent_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end", "inclusive_days"],
+      "properties": {
+        "start": {"type": "string", "format": "date"},
+        "end": {"type": "string", "format": "date"},
+        "inclusive_days": {"type": "integer", "const": 90}
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseline_audit_units", "baseline_audit_dispositions", "named_candidates", "candidate_dispositions", "url_candidates", "url_dispositions", "partition_units", "current_catalog_rows", "typed_source_edges", "overlay_records", "unresolved_named_candidates"],
+      "properties": {
+        "baseline_audit_units": {"$ref": "#/$defs/nonnegative_integer"},
+        "baseline_audit_dispositions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["unresolved", "retained", "corrected"],
+          "properties": {
+            "unresolved": {"$ref": "#/$defs/nonnegative_integer"},
+            "retained": {"$ref": "#/$defs/nonnegative_integer"},
+            "corrected": {"$ref": "#/$defs/nonnegative_integer"}
+          }
+        },
+        "named_candidates": {"$ref": "#/$defs/nonnegative_integer"},
+        "candidate_dispositions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["added", "unresolved"],
+          "properties": {
+            "added": {"$ref": "#/$defs/nonnegative_integer"},
+            "unresolved": {"$ref": "#/$defs/nonnegative_integer"}
+          }
+        },
+        "url_candidates": {"$ref": "#/$defs/nonnegative_integer"},
+        "url_dispositions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["used", "quarantined", "inaccessible", "duplicate", "irrelevant"],
+          "properties": {
+            "used": {"$ref": "#/$defs/nonnegative_integer"},
+            "quarantined": {"$ref": "#/$defs/nonnegative_integer"},
+            "inaccessible": {"$ref": "#/$defs/nonnegative_integer"},
+            "duplicate": {"$ref": "#/$defs/nonnegative_integer"},
+            "irrelevant": {"$ref": "#/$defs/nonnegative_integer"}
+          }
+        },
+        "partition_units": {"$ref": "#/$defs/nonnegative_integer"},
+        "current_catalog_rows": {"$ref": "#/$defs/nonnegative_integer"},
+        "typed_source_edges": {"$ref": "#/$defs/nonnegative_integer"},
+        "overlay_records": {"$ref": "#/$defs/nonnegative_integer"},
+        "unresolved_named_candidates": {"$ref": "#/$defs/nonnegative_integer"}
+      }
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ledger_id", "entity_type", "record_id", "origin", "disposition", "resulting_ids", "implementation_disposition", "evidence_ids", "supplemental_evidence_ids", "uncertainty"],
+      "properties": {
+        "ledger_id": {"$ref": "#/$defs/nonempty"},
+        "entity_type": {"enum": ["labs", "categories", "lineages", "models", "release_candidates", "releases", "benchmarks", "sources", "coverage", "quarantine", "occurrences", "source_associations"]},
+        "record_id": {"$ref": "#/$defs/nonempty"},
+        "origin": {"enum": ["baseline", "candidate"]},
+        "disposition": {"enum": ["unresolved", "retained", "corrected", "added"]},
+        "resulting_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/nonempty"}},
+        "implementation_disposition": {"enum": ["preserve_baseline_with_uncertainty", "patch_listed_fields_only", "add_scoped"]},
+        "evidence_ids": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/nonempty"}},
+        "supplemental_evidence_ids": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/nonempty"}},
+        "uncertainty": {"type": "string"},
+        "checked_fields": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/nonempty"}},
+        "accessed_at": {"type": ["string", "null"], "format": "date-time"}
+      }
+    },
+    "source_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "exact_url", "access_status", "accessed_at", "fingerprint", "fingerprint_kind", "uncertainty"],
+      "properties": {
+        "source_id": {"$ref": "#/$defs/id"},
+        "exact_url": {"type": "string", "format": "uri", "pattern": "^https://"},
+        "access_status": {"type": ["string", "null"], "enum": ["retrieved", "thin_or_client_rendered_unresolved", "unavailable", "truncated_unresolved", null]},
+        "accessed_at": {"type": ["string", "null"], "format": "date-time"},
+        "fingerprint": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "fingerprint_kind": {"type": ["string", "null"], "enum": ["sha256_extracted_text", null]},
+        "uncertainty": {"$ref": "#/$defs/nonempty"}
+      }
+    }
+  }
+}

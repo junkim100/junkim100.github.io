@@ -65,17 +65,25 @@ assert.match(canonicalSearch("ledger", ledgerDateState), new RegExp(`from=${ledg
 
 const ledgerRecords = recordsForRoute("ledger", indexed);
 const historyRecords = recordsForRoute("history", indexed);
-assert.equal(ledgerRecords.length, 172);
-assert.equal(historyRecords.length, 5211);
+assert.equal(ledgerRecords.length, 173);
+assert.equal(historyRecords.length, 3062);
 assert.deepEqual(new Set(ledgerRecords.map((record) => record.id)), new Set(production.releases.map((release) => release.id)), "ledger default is the exact release ID union");
-assert.deepEqual(new Set(historyRecords.map((record) => record.id)), new Set(production.derived_statuses.map((status) => status.id)), "history default is the exact status ID union");
+assert.deepEqual(new Set(historyRecords.map((record) => record.id)), new Set(production.derived_statuses.filter((status) => indexed.benchmarks.get(status.benchmark_id)?.identity_status !== "quarantined").map((status) => status.id)), "history default excludes withheld identities while preserving raw row IDs");
 
 const occurrences = new Map(production.occurrences.map((occurrence) => [occurrence.id, occurrence]));
-const historyById = new Map(historyRecords.map((record) => [record.id, record]));
+const historyAllRecords = recordsForRoute("history", indexed, { audit: "all" });
+const historyById = new Map(historyAllRecords.map((record) => [record.id, record]));
 const statusesWithOccurrence = production.derived_statuses.filter((status) => status.occurrence_id);
-const linkedHistoryRows = historyRecords.filter((record) => record.sourceHref);
-assert.equal(statusesWithOccurrence.length, 2571);
-assert.equal(linkedHistoryRows.length, 2571, "every history row associated with an occurrence exposes one Source destination");
+const linkedHistoryRows = historyAllRecords.filter((record) => record.sourceHref);
+assert.equal(historyRecords.filter((record) => record.sourceHref).length, 1800, "26 retained occurrence links belong to historical identity rows accessible in audit=all");
+assert.equal(statusesWithOccurrence.length, 1826);
+assert.equal(linkedHistoryRows.length, 1826, "every history row associated with an occurrence exposes one Source destination");
+const readme = await readFile(new URL("../../README.md", import.meta.url), "utf8");
+const defaultLinks = historyRecords.filter((record) => record.sourceHref).length;
+const number = (value) => value.toLocaleString("en-US");
+assert.ok(readme.includes(`${number(historyRecords.length)} rows contain ${number(defaultLinks)} occurrence links`), "README default History counts come from the real route projection");
+assert.ok(readme.includes(`${number(historyAllRecords.length)} stable status rows and all ${number(linkedHistoryRows.length)} occurrence links`), "README audit History counts come from the real route projection");
+assert.ok(readme.includes(`including ${number(linkedHistoryRows.length - defaultLinks)} links on historical identity rows`), "README historical-link count reconciles with the real route projections");
 for (const status of statusesWithOccurrence) {
   const occurrence = occurrences.get(status.occurrence_id);
   const source = indexed.sources.get(occurrence.source_id);
@@ -97,6 +105,6 @@ const validSource = production.sources[0];
 assert.match(safeSourceHref(indexed, validSource), /^https:\/\//);
 assert.equal(safeSourceHref(indexed, { ...validSource, url: `https://user@${new URL(validSource.url).hostname}/unsafe` }), null);
 assert.equal(safeSourceHref(indexed, { ...validSource, url: "javascript:alert(1)" }), null);
-assert.deepEqual(Object.fromEntries([172, 5211].map((count) => [count, paginate(Array.from({ length: count }), 9999, 50).totalPages])), { 172: 4, 5211: 105 });
+assert.deepEqual(Object.fromEntries([173, 3074].map((count) => [count, paginate(Array.from({ length: count }), 9999, 50).totalPages])), { 173: 4, 3074: 62 });
 
 console.log(JSON.stringify({ result: "PASS", page_sizes: PAGE_SIZES, default_page_size: DEFAULT_PAGE_SIZE, releases: ledgerRecords.length, statuses: historyRecords.length, source_links: linkedHistoryRows.length }));

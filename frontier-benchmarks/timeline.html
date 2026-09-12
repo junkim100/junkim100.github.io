@@ -4,25 +4,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self'; form-action 'self'; img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'" />
-    <meta name="description" content="A viewport-bounded chronology of benchmark reporting across frontier model releases." />
+    <meta name="description" content="A bounded release chronology with exact retained benchmark evidence and separate release and reporting dates." />
     <link rel="canonical" href="https://junkim100.github.io/frontier-benchmarks/timeline.html" />
     <link rel="stylesheet" href="./styles.css" />
     <title>Releases | Frontier Benchmark Observatory</title>
   </head>
-  <body data-page="timeline" class="viewport-route">
+  <body data-page="timeline">
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <a class="wordmark" href="./" aria-label="Frontier Benchmark Observatory">Observatory</a>
-      <nav class="primary-nav" aria-label="Observatory"><ul><li><a href="./">Trends</a></li><li><a aria-current="page" href="./timeline.html">Releases</a></li><li><a href="./ledger.html">Ledger</a></li><li><a href="./history.html">History</a></li><li><a href="./about.html">About</a></li></ul></nav>
+      <nav class="primary-nav" aria-label="Observatory"><ul><li><a href="./">Benchmarks</a></li><li><a aria-current="page" href="./timeline.html">Releases</a></li><li><a href="./ledger.html">Release ledger</a></li><li><a href="./history.html">Reporting history</a></li><li><a href="./about.html">About</a></li></ul></nav>
       <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span class="theme-toggle-icon" aria-hidden="true">◐</span></button>
     </header>
     <main id="main" class="timeline-route-main">
-      <section class="timeline-workspace page-shell" aria-label="Release timeline workspace">
-        <h1 class="route-title">Releases</h1>
-        <div class="route-toolbar" id="timeline-controls" data-route-controls="timeline"><p class="route-status" id="timeline-status" role="status" aria-live="polite">Timeline controls load here.</p></div>
-        <div class="timeline-host timeline-host-full" id="timeline-host" data-timeline-mode="full" role="region" aria-label="Release timeline"><div class="timeline-mount" id="timeline-chart" aria-live="polite"><p class="timeline-pending">The release timeline loads here.</p></div><aside class="detail-panel-host" id="release-detail-host" aria-label="Pinned release detail" hidden></aside></div>
+      <section class="timeline-workspace page-shell" aria-labelledby="page-title">
+        <header class="route-intro chronology-intro"><div><p class="section-kicker">Release publication chronology</p><h1 id="page-title" class="route-title">Releases</h1></div><p>Release dates position records. Benchmark search and category filters use retained canonical associations. Reporting dates remain explicit in the evidence inspector.</p></header>
+        <div class="route-toolbar" id="timeline-controls" data-route-controls="timeline"><p class="route-status" id="timeline-status" role="status" aria-live="polite">Release filters and chronology controls load here.</p></div>
+        <div class="timeline-host timeline-host-full" id="timeline-host" data-timeline-mode="full" role="region" aria-label="Release chronology"><div class="timeline-mount" id="timeline-chart"><p class="timeline-pending">The release chronology loads here.</p></div></div>
+        <aside class="detail-panel-host" id="release-detail-host" aria-label="Evidence inspector" hidden></aside>
       </section>
-      <noscript><section class="page-shell noscript"><h2>JavaScript is unavailable</h2><p>The interactive release chronology requires JavaScript. Trends, Ledger, History, and About remain available from the navigation.</p></section></noscript>
+      <noscript><section class="page-shell noscript"><h2>JavaScript is unavailable</h2><p>The release chronology requires JavaScript and generated data. <a href="./about.html">About and coverage limitations remain available.</a></p></section></noscript>
     </main>
     <script type="module" src="./shell.mjs"></script>
     <script type="module" src="./timeline.mjs"></script>

@@ -25,7 +25,7 @@ class CorpusReconciliationTests(unittest.TestCase):
     def test_exact_six_lab_release_and_occurrence_counts(self) -> None:
         expected_releases = {
             "openai": 33,
-            "anthropic": 16,
+            "anthropic": 17,
             "google_deepmind": 39,
             "meta": 16,
             "deepseek": 20,
@@ -33,7 +33,7 @@ class CorpusReconciliationTests(unittest.TestCase):
         }
         expected_occurrences = {
             "openai": 322,
-            "anthropic": 528,
+            "anthropic": 531,
             "google_deepmind": 218,
             "meta": 395,
             "deepseek": 254,
@@ -42,19 +42,19 @@ class CorpusReconciliationTests(unittest.TestCase):
         self.assertEqual({row["id"] for row in self.catalog["labs"]}, set(expected_releases))
         self.assertEqual(Counter(row["lab_id"] for row in self.catalog["releases"]), Counter(expected_releases))
         self.assertEqual(Counter(row["lab_id"] for row in self.catalog["occurrences"]), Counter(expected_occurrences))
-        self.assertEqual(len(self.catalog["releases"]), 172)
-        self.assertEqual(len(self.catalog["occurrences"]), 2821)
+        self.assertEqual(len(self.catalog["releases"]), 173)
+        self.assertEqual(len(self.catalog["occurrences"]), 2824)
 
     def test_denominator_terminal_dispositions_and_meta_splits(self) -> None:
-        expected = {"included": 169, "excluded": 111, "duplicate_or_alias": 18, "quarantined": 1}
+        expected = {"included": 170, "excluded": 111, "duplicate_or_alias": 18, "quarantined": 1}
         self.assertEqual(Counter(row["disposition"] for row in self.catalog["release_candidates"]), Counter(expected))
-        self.assertEqual(len(self.catalog["release_candidates"]), 299)
+        self.assertEqual(len(self.catalog["release_candidates"]), 300)
         releases_by_candidate = defaultdict(list)
         for release in self.catalog["releases"]:
             releases_by_candidate[release["candidate_id"]].append(release["id"])
         included = [row for row in self.catalog["release_candidates"] if row["disposition"] == "included"]
         self.assertTrue(all(releases_by_candidate[row["id"]] for row in included))
-        self.assertEqual(Counter(len(releases_by_candidate[row["id"]]) for row in included), Counter({1: 166, 2: 3}))
+        self.assertEqual(Counter(len(releases_by_candidate[row["id"]]) for row in included), Counter({1: 167, 2: 3}))
         self.assertEqual(len(self.catalog["quarantine"]), 1)
 
     def test_occurrence_provenance_and_setup_are_complete(self) -> None:
@@ -64,7 +64,7 @@ class CorpusReconciliationTests(unittest.TestCase):
         for occurrence in self.catalog["occurrences"]:
             self.assertNotIn(occurrence["id"], occurrence_ids)
             occurrence_ids.add(occurrence["id"])
-            self.assertIn(occurrence["review_status"], {"verified", "quarantined"})
+            self.assertIn(occurrence["review_status"], {"verified", "needs_review", "quarantined"})
             self.assertTrue(occurrence["summary"])
             self.assertTrue(occurrence["locator"]["kind"])
             self.assertTrue(occurrence["locator"]["value"])
@@ -80,29 +80,29 @@ class CorpusReconciliationTests(unittest.TestCase):
         releases_with_occurrences = {row["release_id"] for row in self.catalog["occurrences"]}
         zero_occurrence = {row["id"] for row in self.catalog["releases"]} - releases_with_occurrences
         self.assertEqual(len(zero_occurrence), 24)
-        self.assertEqual(len(self.catalog["benchmarks"]), 870)
+        self.assertEqual(len(self.catalog["benchmarks"]), 873)
         self.assertEqual(len(self.catalog["categories"]), 106)
 
     def test_generated_corpus_counts_unions_and_references_are_exact(self) -> None:
         expected_counts = {
             "labs": 6,
-            "releases": 172,
-            "benchmarks": 870,
-            "occurrences": 2821,
-            "derived_statuses": 5211,
-            "sources": 537,
+            "releases": 173,
+            "benchmarks": 873,
+            "occurrences": 2824,
+            "derived_statuses": 3104,
+            "sources": 539,
             "canonical_definitions": 8,
             "quarantine": 1,
         }
         self.assertEqual({key: len(self.document[key]) for key in expected_counts}, expected_counts)
-        self.assertEqual(len(self.public_bytes), 11_706_437)
-        self.assertEqual(hashlib.sha256(self.public_bytes).hexdigest(), "a3b3f289db44441c9a9f3ac27d594b3d606f2f2142d1056e0f02f13b5d7d94df")
+        self.assertEqual(len(self.public_bytes), 19_036_515)
+        self.assertEqual(hashlib.sha256(self.public_bytes).hexdigest(), "aa18a2ca4b91034f0a1bee0279ebd727c2a07527baf67398ad7fcad11407559b")
         ids = {
             key: {record["id"] for record in self.document[key]}
             for key in ("labs", "releases", "benchmarks", "occurrences", "derived_statuses", "sources", "canonical_definitions")
         }
-        self.assertEqual(len(ids["releases"]), 172)
-        self.assertEqual(len(ids["derived_statuses"]), 5211)
+        self.assertEqual(len(ids["releases"]), 173)
+        self.assertEqual(len(ids["derived_statuses"]), 3104)
         for occurrence in self.document["occurrences"]:
             self.assertIn(occurrence["lab_id"], ids["labs"])
             self.assertIn(occurrence["release_id"], ids["releases"])

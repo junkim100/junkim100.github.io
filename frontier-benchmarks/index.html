@@ -4,50 +4,46 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self'; form-action 'self'; img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'" />
-    <meta name="description" content="Benchmark reporting trends across frontier model releases, grounded in reviewed first-party sources." />
+    <meta name="description" content="A bounded record of which benchmarks frontier model releases publicly report, without scores or performance comparisons." />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3f5f4" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111716" />
     <link rel="canonical" href="https://junkim100.github.io/frontier-benchmarks/" />
     <link rel="stylesheet" href="./styles.css" />
-    <title>Benchmark Trends | Frontier Benchmark Observatory</title>
+    <title>Benchmarks | Frontier Benchmark Observatory</title>
   </head>
   <body data-page="trends">
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <a class="wordmark" href="./" aria-label="Frontier Benchmark Observatory">Observatory</a>
-      <nav class="primary-nav" aria-label="Observatory"><ul><li><a aria-current="page" href="./">Trends</a></li><li><a href="./timeline.html">Releases</a></li><li><a href="./ledger.html">Ledger</a></li><li><a href="./history.html">History</a></li><li><a href="./about.html">About</a></li></ul></nav>
+      <nav class="primary-nav" aria-label="Observatory"><ul><li><a aria-current="page" href="./">Benchmarks</a></li><li><a href="./timeline.html">Releases</a></li><li><a href="./ledger.html">Release ledger</a></li><li><a href="./history.html">Reporting history</a></li><li><a href="./about.html">About</a></li></ul></nav>
       <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span class="theme-toggle-icon" aria-hidden="true">◐</span></button>
     </header>
     <main id="main" class="landing-main">
       <section class="landing-timeline page-shell" aria-labelledby="page-title">
-        <h1 id="page-title">Frontier Benchmark Observatory</h1>
+        <h1 id="page-title">Which benchmarks do models publicly report?</h1>
         <div class="landing-overview">
-          <p class="landing-lead">An evidence-first, score-free record of which benchmarks six frontier AI labs name in reviewed first-party release materials, when those references appear, and the source behind each occurrence.</p>
+          <p class="landing-lead">A bounded record of public reporting, not a performance comparison.</p>
           <aside class="landing-boundary" aria-labelledby="landing-boundary-title">
-            <h2 id="landing-boundary-title">A reporting record, not a leaderboard.</h2>
-            <p>An omission means only that a benchmark was not found in the reviewed first-party source bundle. It does not establish whether a lab ran an evaluation privately or elsewhere.</p>
+            <h2 id="landing-boundary-title">Coverage is bounded and incomplete.</h2>
+            <p>A missing or withheld record does not show that an evaluation was not run. <a href="./about.html#coverage">Read About and coverage limitations.</a></p>
           </aside>
-          <dl class="landing-corpus-stats" aria-label="Fixed corpus counts">
-            <div><dt>Window</dt><dd>2024-01-01 to 2026-09-01</dd></div>
-            <div><dt>Labs</dt><dd>6</dd></div>
-            <div><dt>Releases</dt><dd>172</dd></div>
-            <div><dt>Benchmarks</dt><dd>870</dd></div>
-            <div><dt>Evidence occurrences</dt><dd>2,821</dd></div>
-            <div><dt>First-party sources</dt><dd>537</dd></div>
+          <dl class="landing-corpus-stats" id="landing-corpus-summary" aria-label="Generated corpus counts">
+            <div><dt>Status</dt><dd>Loading generated counts</dd></div>
           </dl>
         </div>
-        <section class="trends-workspace" aria-label="Benchmark trends">
+        <section class="trends-workspace" aria-label="Benchmark chronology">
           <header class="trends-heading">
-            <p>Select up to six benchmarks to see the releases whose reviewed first-party materials name them. Dates show publication timing, not scores or comparative performance.</p>
+            <p>Select one to six benchmarks. Reporting dates position exact retained occurrences on a fixed corpus domain. Recent model counts are global and use the fixed window shown with each benchmark.</p>
           </header>
-          <div class="trends-picker-host" id="trends-picker"><p class="trends-pending" role="status">Benchmark picker loads here.</p></div>
+          <div class="trends-picker-host" id="trends-picker"><p class="trends-pending" role="status">Benchmark discovery and chronology controls load here.</p></div>
           <div class="trends-layout">
-            <div class="trends-chart-host" id="trends-chart" role="region" aria-label="Benchmark trends chart"><p class="trends-pending">Benchmark trends load here.</p></div>
-            <aside class="trends-detail-host" id="trends-detail" aria-label="Pinned release detail" hidden></aside>
+            <div class="trends-chart-host" id="trends-chart" role="region" aria-label="Benchmark chronology chart"><p class="trends-pending">Benchmark chronology loads here.</p></div>
+            <aside class="trends-detail-host" id="trends-detail" aria-label="Evidence inspector" hidden></aside>
           </div>
+          <p class="coverage-note">No marker means no retained matching occurrence in this bounded corpus. It does not mean that a benchmark was not evaluated.</p>
         </section>
       </section>
-      <noscript><section class="page-shell noscript"><h2>JavaScript is unavailable</h2><p>Benchmark Trends requires JavaScript. Releases, Ledger, History, and About remain available from the navigation.</p></section></noscript>
+      <noscript><section class="page-shell noscript"><h2>JavaScript is unavailable</h2><p>The benchmark chronology requires JavaScript and generated data. <a href="./about.html">About and coverage limitations remain available.</a></p></section></noscript>
     </main>
     <script type="module" src="./shell.mjs"></script>
     <script type="module" src="./trends.mjs"></script>
