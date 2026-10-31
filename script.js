@@ -110,7 +110,7 @@
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)")
       .matches;
     const items = document.querySelectorAll(
-      ".section-head, .highlight-item, .pub, .project-card, .xp-item, .edu-card, .contact-inner, .hero-stats .stat"
+      ".section-head, .highlight-item, .pub, .project-card, .xp-item, .edu-card, .contact-inner"
     );
     if (reduced || !("IntersectionObserver" in window)) {
       items.forEach((el) => el.classList.add("visible"));

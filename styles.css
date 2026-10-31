@@ -253,10 +253,6 @@ ol {
   border-color: var(--accent);
   color: var(--accent);
 }
-.chip-muted {
-  border-color: var(--line);
-  color: var(--muted);
-}
 
 /* ============================================================
    Header
@@ -610,40 +606,6 @@ body.menu-open .menu-toggle .bar:nth-child(3) {
   filter: saturate(0.92);
   position: relative;
 }
-/* Stats strip */
-.hero-stats {
-  border-top: 1px solid var(--ink);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
-.stat {
-  padding: 1.5rem 1.5rem 1.5rem 0;
-  border-right: 1px solid var(--line);
-}
-.stat:last-child {
-  border-right: 0;
-}
-.stat + .stat {
-  padding-left: 1.5rem;
-}
-.stat-value {
-  font-family: var(--serif);
-  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
-  line-height: 1.1;
-}
-.stat-value em {
-  font-style: italic;
-  color: var(--accent);
-}
-.stat-label {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  margin-top: 0.3rem;
-}
-
 /* Marquee */
 .marquee {
   border-top: 1px solid var(--line);
@@ -1632,31 +1594,6 @@ body.menu-open .menu-toggle .bar:nth-child(3) {
     width: min(100%, 21rem);
     order: -1;
   }
-  .hero-stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .stat {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-    padding: 1.1rem 0;
-  }
-  .stat + .stat {
-    padding-left: 0;
-  }
-  .stat:nth-child(odd) {
-    border-right: 1px solid var(--line);
-    padding-right: 1.1rem;
-  }
-  .stat:nth-child(even) {
-    padding-left: 1.1rem;
-  }
-  .stat:last-child {
-    grid-column: 1 / -1;
-    border-right: 0;
-    border-bottom: 0;
-    padding-right: 0;
-  }
-
   .pub-head {
     grid-template-columns: 2.4rem 1fr auto;
     gap: 0.9rem;
@@ -1690,9 +1627,6 @@ body.menu-open .menu-toggle .bar:nth-child(3) {
 @media (max-width: 520px) {
   .hero-name {
     font-size: clamp(3rem, 14vw, 4rem);
-  }
-  .hero-stats {
-    grid-template-columns: 1fr 1fr;
   }
   .highlight-item a {
     grid-template-columns: 2.2rem 1fr auto;
