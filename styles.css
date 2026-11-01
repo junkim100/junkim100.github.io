@@ -992,7 +992,7 @@ body.menu-open .menu-toggle .bar:nth-child(3) {
 
 .models-intro {
   max-width: 46rem;
-  margin: calc(-1 * clamp(1rem, 3vw, 2rem)) 0 clamp(2rem, 4vw, 2.75rem);
+  margin: 0 0 1.5rem;
   font-size: 1rem;
   line-height: 1.6;
   color: #cdc9bc;
@@ -1233,7 +1233,7 @@ body.menu-open .menu-toggle .bar:nth-child(3) {
   font-weight: 600;
 }
 
-/* Earlier work: compact rows */
+/* Group labels (Upstage, Korea University) and compact rows */
 .model-group-label {
   margin: clamp(2.25rem, 5vw, 3rem) 0 0.75rem;
   font-family: var(--mono);
@@ -1242,6 +1242,9 @@ body.menu-open .menu-toggle .bar:nth-child(3) {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: #8d897c;
+}
+.model-group-label.model-group-first {
+  margin-top: calc(-1 * clamp(1rem, 3vw, 2rem));
 }
 .model-compact .model-head {
   align-items: center;
