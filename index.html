@@ -76,7 +76,7 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=20261101" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -395,7 +395,7 @@
 
           <ul class="highlight-list">
             <li class="highlight-item">
-              <a href="#projects">
+              <a href="#model-solar-pro-4">
                 <span class="highlight-no">01</span>
                 <span class="highlight-title">Solar Pro 4</span>
                 <span class="highlight-meta"
@@ -405,7 +405,7 @@
               </a>
             </li>
             <li class="highlight-item">
-              <a href="#projects">
+              <a href="#model-solar-open-2">
                 <span class="highlight-no">02</span>
                 <span class="highlight-title">Solar Open 2</span>
                 <span class="highlight-meta">Upstage · Frontier open model</span>
@@ -1865,7 +1865,7 @@
         </div>
       </section>
 
-      <!-- ================= Projects ================= -->
+      <!-- ================= Models ================= -->
       <section id="projects" class="section section-projects">
         <div class="container">
           <div class="section-head">
@@ -1873,240 +1873,385 @@
               <span class="section-no">03</span>
               <h2 class="section-title">Models</h2>
             </div>
+            <p class="section-note">Click a model to expand</p>
           </div>
 
-          <div class="projects-grid">
-            <!-- Solar Mini 4 -->
-            <article class="project-card">
-              <a
-                class="project-card-link"
-                href="https://console.upstage.ai/docs/models/solar-mini-4"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Solar Mini 4 model page"
-              ></a>
-              <div class="project-no">
-                <span>2026</span>
-                <span class="project-tags">
-                  <span class="chip t-eval">Evaluation</span>
-                  <span class="chip t-infra">Infrastructure</span>
-                  <span class="chip t-agents">Agent Workloads</span>
-                </span>
-              </div>
-              <h3 class="project-title">Solar Mini 4</h3>
-              <p class="project-subtitle">
-                <a
-                  href="https://www.upstage.ai/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Upstage</a
-                >
-                · Evaluation Team
-              </p>
-              <ul class="project-bullets">
-                <li>
-                  Evaluated <strong>Solar Mini 4</strong>, Upstage's compact model for high-volume agent workloads: a <strong>35B-A3B MoE</strong> with a <strong>512K-token context window</strong>, released September 2026 (<strong>AAII 24</strong>, top among 3B-active models, 6 points above Qwen3.6-35B-A3B).
-                </li>
-                <li>
-                  Tracked progress against <strong>similarly sized models</strong> and prior Solar generations across the full benchmark suite, with a focus on <strong>agentic benchmarks</strong>, analyzing <strong>regressions between checkpoints</strong> to guide training.
-                </li>
-                <li>
-                  Ran it on the same reproducible, high-throughput <strong>evaluation infrastructure</strong> built for Solar Open 2 and Solar Pro 4.
-                </li>
-              </ul>
-            </article>
+          <p class="models-intro">
+            For each Solar model below: end-to-end evaluation at each training
+            stage over a 50+ benchmark suite (incl. agentic), feeding training
+            and data decisions.
+          </p>
 
-            <!-- Solar Pro 4 -->
-            <article class="project-card">
-              <a
-                class="project-card-link"
-                href="https://www.upstage.ai/blog/en/solar-pro-4"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Solar Pro 4 announcement"
-              ></a>
-              <div class="project-no">
-                <span>2026</span>
-                <span class="project-tags">
-                  <span class="chip t-eval">Evaluation</span>
-                  <span class="chip t-infra">Infrastructure</span>
-                  <span class="chip t-agents">Long-Horizon Agents</span>
-                </span>
+          <ol class="model-list">
+            <!-- 01 · Solar Mini 4 -->
+            <li class="model" id="model-solar-mini-4">
+              <div class="model-head">
+                <span class="model-no">01</span>
+                <div class="model-main">
+                  <h3 class="model-title">
+                    <button
+                      class="model-trigger"
+                      aria-expanded="false"
+                      aria-controls="model-body-solar-mini-4"
+                    >
+                      Solar Mini 4
+                    </button>
+                  </h3>
+                  <p class="model-tagline">Compact model for high-volume agent workloads</p>
+                  <div class="model-meta">
+                    <span class="chip">Upstage · Sep 2026</span>
+                    <span class="chip t-eval">Evaluation</span>
+                    <span class="chip t-infra">Infrastructure</span>
+                    <span class="chip t-agents">Agent Workloads</span>
+                  </div>
+                </div>
+                <span class="model-toggle-icon" aria-hidden="true"></span>
               </div>
-              <h3 class="project-title">Solar Pro 4</h3>
-              <p class="project-subtitle">
-                <a
-                  href="https://www.upstage.ai/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Upstage</a
-                >
-                · Evaluation Team
-              </p>
-              <ul class="project-bullets">
-                <li>
-                  Evaluated <strong>Solar Pro 4</strong>, Upstage's flagship frontier reasoning model for long-horizon agentic workflows: <strong>524K-token context window</strong>, released August 2026 (<strong>AAII 42</strong>, a 27-point jump over Solar Pro 3).
-                </li>
-                <li>
-                  Tracked progress against <strong>frontier models</strong> and prior Solar generations across the full benchmark suite, with a focus on <strong>agentic long-horizon benchmarks</strong>, analyzing <strong>regressions between checkpoints</strong> to guide training.
-                </li>
-                <li>
-                  Built and ran the <strong>evaluation infrastructure</strong> behind it: the same reproducible, high-throughput stack developed for Solar Open 2.
-                </li>
-              </ul>
-            </article>
-
-            <!-- Solar Open 2 -->
-            <article class="project-card">
-              <a
-                class="project-card-link"
-                href="https://huggingface.co/upstage/Solar-Open2-250B"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Solar Open 2 on HuggingFace"
-              ></a>
-              <div class="project-no">
-                <span>2026</span>
-                <span class="project-tags">
-                  <span class="chip t-eval">Evaluation</span>
-                  <span class="chip t-infra">Infrastructure</span>
-                </span>
+              <div class="model-body" id="model-body-solar-mini-4">
+                <div class="model-body-inner">
+                  <div class="model-detail">
+                    <dl class="model-facts">
+                      <div><dt>Released</dt><dd>Sep 2026</dd></div>
+                      <div><dt>Architecture</dt><dd>35B-A3B MoE</dd></div>
+                      <div><dt>Context</dt><dd>512K tokens</dd></div>
+                      <div><dt>AAII</dt><dd>24</dd></div>
+                      <div>
+                        <dt>Links</dt>
+                        <dd>
+                          <a
+                            href="https://console.upstage.ai/docs/models/solar-mini-4"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Model page ↗</a
+                          >
+                        </dd>
+                      </div>
+                    </dl>
+                    <div class="model-part">
+                      <p class="model-label">My part</p>
+                      <ul class="model-bullets">
+                        <li>
+                          Evaluated SFT and RL checkpoints on
+                          <strong>long-horizon agentic benchmarks</strong>
+                          (SWE-bench, Terminal-Bench, MCP-Atlas, GDPval,
+                          τ-bench).
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 class="project-title">Solar Open 2</h3>
-              <p class="project-subtitle">
-                <a
-                  href="https://www.upstage.ai/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Upstage</a
-                >
-                · Evaluation Team ·
-                <a
-                  href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;mId=214&amp;mPid=208&amp;bbsSeqNo=88&amp;nttSeqNo=3175891"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Independent AI Foundation Model</a
-                >
-              </p>
-              <ul class="project-bullets">
-                <li>
-                  Member of the Evaluation Team for <strong>Solar Open 2</strong>, Upstage's frontier open model: a <strong>250B-A15B MoE</strong> with a <strong>1M-token context window</strong> for long-horizon agentic tasks, released July 2026 (AAII 37, highest Korean-benchmark average of any model compared).
-                </li>
-                <li>
-                  Ran <strong>large-scale evaluations</strong> across 50+ benchmarks spanning reasoning, math, coding, agentic, and Korean-specific domains, feeding <strong>training and data decisions</strong> between checkpoints.
-                </li>
-                <li>
-                  Made evaluation results <strong>fully reproducible</strong>: the same configuration gives the same result no matter who runs it or when.
-                </li>
-                <li>
-                  Cut full-suite evaluation time from <strong>days to hours</strong> by finding and removing serving and pipeline bottlenecks.
-                </li>
-              </ul>
-            </article>
+            </li>
 
-            <!-- VAETKI -->
-            <article class="project-card">
-              <a
-                class="project-card-link"
-                href="https://huggingface.co/NC-AI-consortium-VAETKI/VAETKI"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="VAETKI on HuggingFace"
-              ></a>
-              <div class="project-no">
-                <span>2025</span>
-                <span class="project-tags">
-                  <span class="chip t-eval">Evaluation</span>
-                  <span class="chip t-data">Data</span>
-                </span>
+            <!-- 02 · Solar Pro 4 -->
+            <li class="model" id="model-solar-pro-4">
+              <div class="model-head">
+                <span class="model-no">02</span>
+                <div class="model-main">
+                  <h3 class="model-title">
+                    <button
+                      class="model-trigger"
+                      aria-expanded="false"
+                      aria-controls="model-body-solar-pro-4"
+                    >
+                      Solar Pro 4
+                    </button>
+                  </h3>
+                  <p class="model-tagline">Flagship reasoning model for long-horizon agentic workflows</p>
+                  <div class="model-meta">
+                    <span class="chip">Upstage · Aug 2026</span>
+                    <span class="chip t-eval">Evaluation</span>
+                    <span class="chip t-infra">Infrastructure</span>
+                    <span class="chip t-agents">Long-Horizon Agents</span>
+                  </div>
+                </div>
+                <span class="model-toggle-icon" aria-hidden="true"></span>
               </div>
-              <h3 class="project-title">VAETKI</h3>
-              <p class="project-subtitle">
-                Korea University NLP&amp;AI Lab · with
-                <a
-                  href="https://nc-ai.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >NC AI</a
-                >
-                and
-                <a
-                  href="https://www.etri.re.kr/eng/main/main.etri"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >ETRI</a
-                >
-              </p>
-              <ul class="project-bullets">
-                <li>
-                  Evaluated <strong>VAETKI</strong>, the consortium's
-                  independent foundation model, implementing an
-                  <strong>evaluation framework spanning 50+ benchmarks</strong>
-                  across reasoning, safety, and robustness with reproducible
-                  pipelines and CI triggers.
-                </li>
-                <li>
-                  Designed a unified metric layer and
-                  <strong>Weights &amp; Biases dashboards</strong> for
-                  time-series tracking, regression checks, and cross-model slice
-                  analysis.
-                </li>
-                <li>
-                  Ran <strong>pre- and post-training analyses</strong> on
-                  successive VAETKI checkpoints, identified failure modes, and
-                  informed data and recipe updates.
-                </li>
-                <li>
-                  Introduced <strong>contamination checks</strong> (deduplication
-                  and overlap scans) and standardized runbooks for fair,
-                  comparable evaluations.
-                </li>
-              </ul>
-            </article>
-
-            <!-- KULLM -->
-            <article class="project-card">
-              <a
-                class="project-card-link"
-                href="https://huggingface.co/nlpai-lab/KULLM3"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="KULLM 3 on HuggingFace"
-              ></a>
-              <div class="project-no">
-                <span>2024 – 2025</span>
-                <span class="project-tags">
-                  <span class="chip t-train">Training</span>
-                </span>
+              <div class="model-body" id="model-body-solar-pro-4">
+                <div class="model-body-inner">
+                  <div class="model-detail">
+                    <dl class="model-facts">
+                      <div><dt>Released</dt><dd>Aug 2026</dd></div>
+                      <div><dt>Context</dt><dd>512K tokens</dd></div>
+                      <div><dt>AAII</dt><dd>42</dd></div>
+                      <div>
+                        <dt>Links</dt>
+                        <dd>
+                          <a
+                            href="https://www.upstage.ai/blog/en/solar-pro-4"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Announcement ↗</a
+                          >
+                        </dd>
+                      </div>
+                    </dl>
+                    <div class="model-part">
+                      <p class="model-label">My part</p>
+                      <ul class="model-bullets">
+                        <li>
+                          Tracked progress against <strong>frontier models</strong>
+                          and prior Solar generations across the full benchmark
+                          suite, with a focus on
+                          <strong>agentic long-horizon benchmarks</strong>,
+                          analyzing <strong>regressions between checkpoints</strong>
+                          to guide training.
+                        </li>
+                        <li>
+                          Built and ran the
+                          <strong>evaluation infrastructure</strong> behind it: the
+                          same reproducible, high-throughput stack developed for
+                          Solar Open 2.
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 class="project-title">
-                KULLM 3 · KULLM R · Ko-Gemma Training
-              </h3>
-              <p class="project-subtitle">Korea University NLP&amp;AI Lab</p>
-              <ul class="project-bullets">
-                <li>
-                  Contributed to <strong>post-training</strong> on a team of 10:
-                  instruction tuning, the training framework, and multilingual
-                  / code-switch datasets.
-                </li>
-                <li>
-                  Curated code and math corpora, established quality gates, and
-                  ran capability evaluations for coding and math.
-                </li>
-                <li>
-                  <strong>KULLM Reasoning</strong>: implemented RL with custom
-                  reward functions and <strong>GRPO</strong>, applying adaptive
-                  response length.
-                </li>
-                <li>
-                  Internal evaluations showed improved Korean reasoning and math
-                  accuracy over a Qwen3 reasoning baseline, with reduced
-                  verbosity.
-                </li>
-              </ul>
-            </article>
+            </li>
 
-          </div>
+            <!-- 03 · Solar Open 2 -->
+            <li class="model" id="model-solar-open-2">
+              <div class="model-head">
+                <span class="model-no">03</span>
+                <div class="model-main">
+                  <h3 class="model-title">
+                    <button
+                      class="model-trigger"
+                      aria-expanded="false"
+                      aria-controls="model-body-solar-open-2"
+                    >
+                      Solar Open 2
+                    </button>
+                  </h3>
+                  <p class="model-tagline">Frontier open model for long-horizon agentic tasks</p>
+                  <div class="model-meta">
+                    <span class="chip">Upstage · Jul 2026</span>
+                    <span class="chip t-eval">Evaluation</span>
+                    <span class="chip t-infra">Infrastructure</span>
+                  </div>
+                </div>
+                <span class="model-toggle-icon" aria-hidden="true"></span>
+              </div>
+              <div class="model-body" id="model-body-solar-open-2">
+                <div class="model-body-inner">
+                  <div class="model-detail">
+                    <dl class="model-facts">
+                      <div><dt>Released</dt><dd>Jul 2026</dd></div>
+                      <div><dt>Architecture</dt><dd>250B-A15B MoE</dd></div>
+                      <div><dt>Context</dt><dd>1M tokens</dd></div>
+                      <div><dt>AAII</dt><dd>37</dd></div>
+                      <div>
+                        <dt>Program</dt>
+                        <dd>
+                          <a
+                            href="https://www.msit.go.kr/bbs/view.do?sCode=user&amp;mId=214&amp;mPid=208&amp;bbsSeqNo=88&amp;nttSeqNo=3175891"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Independent AI Foundation Model ↗</a
+                          >
+                        </dd>
+                      </div>
+                      <div>
+                        <dt>Links</dt>
+                        <dd>
+                          <a
+                            href="https://arxiv.org/abs/2607.20062"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Tech report ↗</a
+                          >
+                          ·
+                          <a
+                            href="https://huggingface.co/upstage/Solar-Open2-250B"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Weights ↗</a
+                          >
+                        </dd>
+                      </div>
+                    </dl>
+                    <div class="model-part">
+                      <p class="model-label">My part</p>
+                      <ul class="model-bullets">
+                        <li>
+                          Ran <strong>competitor baselines</strong> for the Solar
+                          Open 2 tech report.
+                        </li>
+                        <li>
+                          Cut a full suite (~50 benchmarks) from
+                          <strong>several days to ~7 hours</strong> with an
+                          optimizer that packs benchmarks into single-node Slurm
+                          shards.
+                        </li>
+                        <li>
+                          Restored <strong>10 of 13 agentic benchmarks</strong>
+                          broken on a Solar Open 2 checkpoint (GAIA false timeouts
+                          103 → 18).
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ol>
+
+          <p class="model-group-label">Earlier · Korea University NLP&amp;AI Lab</p>
+          <ol class="model-list">
+            <!-- 04 · VAETKI -->
+            <li class="model model-compact" id="model-vaetki">
+              <div class="model-head">
+                <span class="model-no">04</span>
+                <div class="model-main">
+                  <h3 class="model-title">
+                    <button
+                      class="model-trigger"
+                      aria-expanded="false"
+                      aria-controls="model-body-vaetki"
+                    >
+                      VAETKI
+                    </button>
+                  </h3>
+                  <p class="model-tagline">Evaluation · consortium foundation model with NC AI and ETRI · 2025</p>
+                </div>
+                <span class="model-toggle-icon" aria-hidden="true"></span>
+              </div>
+              <div class="model-body" id="model-body-vaetki">
+                <div class="model-body-inner">
+                  <div class="model-detail">
+                    <dl class="model-facts">
+                      <div><dt>Year</dt><dd>2025</dd></div>
+                      <div>
+                        <dt>Partners</dt>
+                        <dd>
+                          <a
+                            href="https://nc-ai.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >NC AI</a
+                          >
+                          ·
+                          <a
+                            href="https://www.etri.re.kr/eng/main/main.etri"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >ETRI</a
+                          >
+                        </dd>
+                      </div>
+                      <div>
+                        <dt>Links</dt>
+                        <dd>
+                          <a href="#pub-vaetki">Tech report</a>
+                          ·
+                          <a
+                            href="https://huggingface.co/NC-AI-consortium-VAETKI/VAETKI"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Weights ↗</a
+                          >
+                        </dd>
+                      </div>
+                    </dl>
+                    <div class="model-part">
+                      <p class="model-label">My part</p>
+                      <ul class="model-bullets">
+                        <li>
+                          Evaluated <strong>VAETKI</strong>, the consortium's
+                          independent foundation model, implementing an
+                          <strong>evaluation framework spanning 50+ benchmarks</strong>
+                          across reasoning, safety, and robustness with reproducible
+                          pipelines and CI triggers.
+                        </li>
+                        <li>
+                          Designed a unified metric layer and
+                          <strong>Weights &amp; Biases dashboards</strong> for
+                          time-series tracking, regression checks, and cross-model
+                          slice analysis.
+                        </li>
+                        <li>
+                          Ran <strong>pre- and post-training analyses</strong> on
+                          successive VAETKI checkpoints, identified failure modes,
+                          and informed data and recipe updates.
+                        </li>
+                        <li>
+                          Introduced <strong>contamination checks</strong>
+                          (deduplication and overlap scans) and standardized
+                          runbooks for fair, comparable evaluations.
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <!-- 05 · KULLM -->
+            <li class="model model-compact" id="model-kullm">
+              <div class="model-head">
+                <span class="model-no">05</span>
+                <div class="model-main">
+                  <h3 class="model-title">
+                    <button
+                      class="model-trigger"
+                      aria-expanded="false"
+                      aria-controls="model-body-kullm"
+                    >
+                      KULLM 3 · KULLM R · Ko-Gemma
+                    </button>
+                  </h3>
+                  <p class="model-tagline">Training · post-training and RL with GRPO · 2024 – 2025</p>
+                </div>
+                <span class="model-toggle-icon" aria-hidden="true"></span>
+              </div>
+              <div class="model-body" id="model-body-kullm">
+                <div class="model-body-inner">
+                  <div class="model-detail">
+                    <dl class="model-facts">
+                      <div><dt>Years</dt><dd>2024 – 2025</dd></div>
+                      <div><dt>Team</dt><dd>10 people</dd></div>
+                      <div>
+                        <dt>Links</dt>
+                        <dd>
+                          <a
+                            href="https://huggingface.co/nlpai-lab/KULLM3"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >KULLM 3 ↗</a
+                          >
+                        </dd>
+                      </div>
+                    </dl>
+                    <div class="model-part">
+                      <p class="model-label">My part</p>
+                      <ul class="model-bullets">
+                        <li>
+                          Contributed to <strong>post-training</strong> on a team of
+                          10: instruction tuning, the training framework, and
+                          multilingual / code-switch datasets.
+                        </li>
+                        <li>
+                          Curated code and math corpora, established quality gates,
+                          and ran capability evaluations for coding and math.
+                        </li>
+                        <li>
+                          <strong>KULLM Reasoning</strong>: implemented RL with
+                          custom reward functions and <strong>GRPO</strong>,
+                          applying adaptive response length.
+                        </li>
+                        <li>
+                          Internal evaluations showed improved Korean reasoning and
+                          math accuracy over a Qwen3 reasoning baseline, with
+                          reduced verbosity.
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ol>
         </div>
       </section>
 
@@ -2513,6 +2658,6 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=20261101"></script>
   </body>
 </html>

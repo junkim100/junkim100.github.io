@@ -54,36 +54,44 @@
 })();
 
 /* ============================================================
-   Publications accordion
+   Accordions: Publications (.pub) and Models (.model)
    ============================================================ */
 (function () {
+  const KINDS = [
+    { item: "pub", head: ".pub-head", trigger: ".pub-trigger" },
+    { item: "model", head: ".model-head", trigger: ".model-trigger" },
+  ];
+
   document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".pub").forEach((pub) => {
-      const head = pub.querySelector(".pub-head");
-      const trigger = pub.querySelector(".pub-trigger");
-      if (!head || !trigger) return;
+    KINDS.forEach((kind) => {
+      document.querySelectorAll("." + kind.item).forEach((entry) => {
+        const head = entry.querySelector(kind.head);
+        const trigger = entry.querySelector(kind.trigger);
+        if (!head || !trigger) return;
 
-      function toggle() {
-        const open = pub.classList.toggle("open");
-        trigger.setAttribute("aria-expanded", String(open));
-      }
+        function toggle() {
+          const open = entry.classList.toggle("open");
+          trigger.setAttribute("aria-expanded", String(open));
+        }
 
-      head.addEventListener("click", (e) => {
-        // Let inner links (arXiv, code, …) behave normally
-        if (e.target.closest("a")) return;
-        e.preventDefault();
-        toggle();
-      });
-
-      trigger.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
+        head.addEventListener("click", (e) => {
+          // Let inner links (arXiv, code, …) behave normally
+          if (e.target.closest("a")) return;
           e.preventDefault();
           toggle();
-        }
+        });
+
+        trigger.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            toggle();
+          }
+        });
       });
     });
 
-    // Deep link: #pub-xxx opens that entry (on load and on later hash changes)
+    // Deep link: #pub-xxx or #model-xxx opens that entry
+    // (on load and on later hash changes)
     function openFromHash() {
       let id = location.hash.slice(1);
       if (!id) return;
@@ -91,9 +99,11 @@
         id = decodeURIComponent(id);
       } catch (_) {}
       const target = document.getElementById(id);
-      if (target && target.classList.contains("pub")) {
+      if (!target) return;
+      const kind = KINDS.find((k) => target.classList.contains(k.item));
+      if (kind) {
         target.classList.add("open");
-        const trigger = target.querySelector(".pub-trigger");
+        const trigger = target.querySelector(kind.trigger);
         if (trigger) trigger.setAttribute("aria-expanded", "true");
       }
     }
@@ -110,7 +120,7 @@
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)")
       .matches;
     const items = document.querySelectorAll(
-      ".section-head, .highlight-item, .pub, .project-card, .xp-item, .edu-card, .contact-inner"
+      ".section-head, .highlight-item, .pub, .model, .xp-item, .edu-card, .contact-inner"
     );
     if (reduced || !("IntersectionObserver" in window)) {
       items.forEach((el) => el.classList.add("visible"));
