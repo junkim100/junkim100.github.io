@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Dongjun Kim · AI Research Engineer at Upstage. LLM evaluation, mechanistic interpretability, and AI safety."
+      content="Dongjun Kim · AI Research Engineer at Upstage. Trustworthy LLM evaluation, agentic eval environments, AI safety, and mechanistic interpretability."
     />
     <meta
       name="keywords"
@@ -31,7 +31,7 @@
     <meta property="og:title" content="Dongjun Kim · AI Research Engineer" />
     <meta
       property="og:description"
-      content="AI Research Engineer at Upstage. LLM evaluation, mechanistic interpretability, and AI safety."
+      content="AI Research Engineer at Upstage. Trustworthy LLM evaluation, agentic eval environments, AI safety, and mechanistic interpretability."
     />
     <meta
       property="og:image"
@@ -53,7 +53,7 @@
     />
     <meta
       name="twitter:description"
-      content="AI Research Engineer at Upstage. LLM evaluation, mechanistic interpretability, and AI safety."
+      content="AI Research Engineer at Upstage. Trustworthy LLM evaluation, agentic eval environments, AI safety, and mechanistic interpretability."
     />
     <meta
       name="twitter:image"
@@ -76,7 +76,7 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="styles.css?v=20261101b" />
+    <link rel="stylesheet" href="styles.css?v=20261101c" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -125,7 +125,7 @@
           <a href="#publications" class="nav-link">Publications</a>
           <a href="#projects" class="nav-link">Models</a>
           <a href="#experience" class="nav-link">Experience</a>
-          <a href="#volunteering" class="nav-link">Volunteering</a>
+          <a href="#volunteering" class="nav-link">Service</a>
           <a href="#education" class="nav-link">Education</a>
           <a href="#contact" class="nav-link">Contact</a>
         </nav>
@@ -193,7 +193,7 @@
           ><span class="no">04</span><span>Experience</span></a
         >
         <a class="overlay-link" href="#volunteering"
-          ><span class="no">05</span><span>Volunteering</span></a
+          ><span class="no">05</span><span>Service</span></a
         >
         <a class="overlay-link" href="#education"
           ><span class="no">06</span><span>Education</span></a
@@ -236,7 +236,8 @@
               </p>
               <h1 class="hero-name">Dongjun&nbsp;<em>Kim</em></h1>
               <p class="hero-tagline">
-                I turn deep research insights into real-world AI systems.
+                Making evals trustworthy and robust, and closing the gap between
+                eval analysis and training decisions.
               </p>
               <p class="hero-bio">
                 I'm an AI Research Engineer at
@@ -247,10 +248,9 @@
                   >Upstage</a
                 >, where I evaluate <strong>Solar</strong>, our frontier model
                 family, through 50+ benchmark campaigns that steer training and
-                data decisions. My research applies mechanistic
-                interpretability to
-                what models and benchmarks actually measure, with first-author
-                orals at ACL 2026 and EMNLP 2025. Previously, I was in the
+                data decisions. I work on agentic eval environments, AI safety,
+                and mechanistic interpretability, with first-author orals at
+                ACL 2026 and EMNLP 2025. Previously, I was in the
                 <a
                   href="https://nlp.korea.ac.kr/"
                   target="_blank"
@@ -262,7 +262,7 @@
                   href="https://scholar.google.com/citations?user=HMTkz7oAAAAJ"
                   target="_blank"
                   rel="noopener noreferrer"
-                  >Dr. Heuiseok Lim</a
+                  >Prof. Heuiseok Lim</a
                 >.
               </p>
               <div class="hero-actions">
@@ -899,10 +899,73 @@
               </div>
             </article>
 
-            <!-- 05 · VAETKI Technical Report -->
-            <article class="pub" id="pub-vaetki">
+            <!-- 05 · CultureConverse -->
+            <article class="pub" id="pub-cultureconverse">
               <div class="pub-head">
                 <span class="pub-no">05</span>
+                <div>
+                  <h3 class="pub-title">
+                    <button
+                      class="pub-trigger"
+                      aria-expanded="false"
+                      aria-controls="pub-body-cultureconverse"
+                    >
+                      CultureConverse: A Multilingual Multi-turn Simulation
+                      Harness for Culturally Grounded Assistance in East and
+                      Southeast Asia
+                    </button>
+                  </h3>
+                  <p class="pub-tagline">A multi-turn simulation harness that tests how well models help people across 10 East and Southeast Asian regions.</p>
+                  <p class="pub-authors">
+                    Bryan Chen Zhengyu Tan, Weihua Zheng, et al., incl.
+                    <strong>Dongjun Kim</strong>, Roy Ka-Wei Lee
+                  </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">EMNLP 2026 · Main</span>
+                  </div>
+                </div>
+                <div class="pub-side">
+                  <span class="pub-toggle-icon" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pub-body" id="pub-body-cultureconverse">
+                <div class="pub-body-inner">
+                  <div class="pub-detail pub-detail-solo">
+                    <div>
+                      <dl class="case">
+                        <dt>Summary</dt>
+                        <dd>
+                          Most cultural evaluations of LLMs test single-turn
+                          recall with multiple-choice questions. CultureConverse
+                          instead simulates multi-turn help-seeking dialogues
+                          across 10 East and Southeast Asian regions, 58
+                          subgroup identities, and 7 domains, and scores the
+                          assistance. The released CultureConverse-DS has 14,610
+                          evaluation episodes and 274,295 oracle-guided
+                          dialogues. Across 18 models, automated scores track
+                          human judgments, and fine-tuning on 27,860
+                          high-quality samples improves in-domain assistance and
+                          transfers to cultural MCQ and safety classification.
+                        </dd>
+                      </dl>
+                      <div class="pub-links">
+                        <a
+                          href="https://arxiv.org/abs/2608.28405"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >arXiv ↗</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 06 · VAETKI Technical Report -->
+            <article class="pub" id="pub-vaetki">
+              <div class="pub-head">
+                <span class="pub-no">06</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -971,10 +1034,30 @@
               </div>
             </article>
 
-            <!-- 06 · Benchmark Profiling -->
+            <!-- 07 · CrossDocVQA -->
+            <article class="pub pub-static" id="pub-crossdocvqa">
+              <div class="pub-head">
+                <span class="pub-no">07</span>
+                <div>
+                  <h3 class="pub-title">
+                    CrossDocVQA: A Benchmark for Multi-Hop Cross-Document Visual
+                    Question Answering
+                  </h3>
+                  <p class="pub-authors">
+                    Gyuho Shim, J. Shin, <strong>Dongjun Kim</strong>, Chanjun
+                    Park, Heuiseok Lim
+                  </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">arXiv · 2026</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 08 · Benchmark Profiling -->
             <article class="pub" id="pub-bench-prof">
               <div class="pub-head">
-                <span class="pub-no">06</span>
+                <span class="pub-no">08</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1119,10 +1202,10 @@
               </div>
             </article>
 
-            <!-- 07 · KoLEG -->
+            <!-- 09 · KoLEG -->
             <article class="pub" id="pub-koleg">
               <div class="pub-head">
-                <span class="pub-no">07</span>
+                <span class="pub-no">09</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1250,10 +1333,10 @@
               </div>
             </article>
 
-            <!-- 08 · ATE -->
+            <!-- 10 · ATE -->
             <article class="pub" id="pub-ate">
               <div class="pub-head">
-                <span class="pub-no">08</span>
+                <span class="pub-no">10</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1375,10 +1458,10 @@
               </div>
             </article>
 
-            <!-- 09 · KITE -->
+            <!-- 11 · KITE -->
             <article class="pub" id="pub-kite">
               <div class="pub-head">
-                <span class="pub-no">09</span>
+                <span class="pub-no">11</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1507,10 +1590,30 @@
               </div>
             </article>
 
-            <!-- 10 · SIL -->
+            <!-- 12 · Towards Computational Comprehension -->
+            <article class="pub pub-static" id="pub-computational-comprehension">
+              <div class="pub-head">
+                <span class="pub-no">12</span>
+                <div>
+                  <h3 class="pub-title">
+                    Towards Computational Comprehension: A Non-Anthropocentric
+                    Framework for Evaluating LLM Understanding
+                  </h3>
+                  <p class="pub-authors">
+                    <strong>Dongjun Kim</strong>, Gyuho Shim, Minhyuk Kim,
+                    Chanjun Park, Heuiseok Lim
+                  </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">arXiv · 2025</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 13 · SIL -->
             <article class="pub" id="pub-sil">
               <div class="pub-head">
-                <span class="pub-no">10</span>
+                <span class="pub-no">13</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1524,8 +1627,12 @@
                   </h3>
                   <p class="pub-tagline">A leaderboard that regenerates itself daily from real-world data.</p>
                   <p class="pub-authors">
-                    Chanjun Park, <strong>Dongjun Kim</strong>
+                    Chanjun Park, Hyeonseok Moon, <strong>Dongjun Kim</strong>,
+                    Seolhwa Lee, Jaehyung Seo, Sugyeong Eo, Heuiseok Lim
                   </p>
+                  <div class="pub-meta-inline">
+                    <span class="chip">arXiv · 2025</span>
+                  </div>
                 </div>
                 <div class="pub-side">
                   <span class="pub-toggle-icon" aria-hidden="true"></span>
@@ -1625,10 +1732,10 @@
               </div>
             </article>
 
-            <!-- 11 · Korean Biases -->
+            <!-- 14 · Korean Biases -->
             <article class="pub" id="pub-korean-biases">
               <div class="pub-head">
-                <span class="pub-no">11</span>
+                <span class="pub-no">14</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1738,10 +1845,10 @@
               </div>
             </article>
 
-            <!-- 12 · CitySEIRCast -->
+            <!-- 15 · CitySEIRCast -->
             <article class="pub" id="pub-cityseircast">
               <div class="pub-head">
-                <span class="pub-no">12</span>
+                <span class="pub-no">15</span>
                 <div>
                   <h3 class="pub-title">
                     <button
@@ -1932,10 +2039,9 @@
                       <p class="model-label">My part</p>
                       <ul class="model-bullets">
                         <li>
-                          Evaluated SFT and RL checkpoints on
-                          <strong>long-horizon agentic benchmarks</strong>
-                          (SWE-bench, Terminal-Bench, MCP-Atlas, GDPval,
-                          τ-bench).
+                          Evaluated <strong>SFT and RL checkpoints</strong>, using
+                          repeated-run ablations of sampling and serving settings
+                          to separate real gains from run-to-run noise.
                         </li>
                       </ul>
                     </div>
@@ -2080,15 +2186,10 @@
                           Open 2 tech report.
                         </li>
                         <li>
-                          Cut a full suite (~50 benchmarks) from
+                          Cut a full Solar Open 2 suite (~50 benchmarks) from
                           <strong>several days to ~7 hours</strong> with an
                           optimizer that packs benchmarks into single-node Slurm
-                          shards.
-                        </li>
-                        <li>
-                          Restored <strong>10 of 13 agentic benchmarks</strong>
-                          broken on a Solar Open 2 checkpoint (GAIA false timeouts
-                          103 → 18).
+                          shards based on profiled throughput.
                         </li>
                       </ul>
                     </div>
@@ -2159,11 +2260,11 @@
                       <p class="model-label">My part</p>
                       <ul class="model-bullets">
                         <li>
-                          Evaluated <strong>VAETKI</strong>, the consortium's
-                          independent foundation model, implementing an
-                          <strong>evaluation framework spanning 50+ benchmarks</strong>
-                          across reasoning, safety, and robustness with reproducible
-                          pipelines and CI triggers.
+                          Engineered the <strong>evaluation pipeline</strong> for
+                          the National Foundation Model Project, standardizing
+                          <strong>50+ benchmarks</strong> into a single
+                          reproducible runtime with automated regression tracking
+                          across checkpoints.
                         </li>
                         <li>
                           Designed a unified metric layer and
@@ -2199,7 +2300,7 @@
                       aria-expanded="false"
                       aria-controls="model-body-kullm"
                     >
-                      KULLM 3 · KULLM R · Ko-Gemma
+                      KULLM3 · KULLM-R · Ko-Gemma
                     </button>
                   </h3>
                   <p class="model-tagline">Training · post-training and RL with GRPO · 2024 – 2025</p>
@@ -2219,7 +2320,14 @@
                             href="https://huggingface.co/nlpai-lab/KULLM3"
                             target="_blank"
                             rel="noopener noreferrer"
-                            >KULLM 3 ↗</a
+                            >KULLM3 ↗</a
+                          >
+                          ·
+                          <a
+                            href="https://huggingface.co/nobrand/KULLM-R"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >KULLM-R ↗</a
                           >
                         </dd>
                       </div>
@@ -2228,19 +2336,19 @@
                       <p class="model-label">My part</p>
                       <ul class="model-bullets">
                         <li>
-                          Contributed to <strong>post-training</strong> on a team of
-                          10: instruction tuning, the training framework, and
-                          multilingual / code-switch datasets.
+                          <strong>Instruction tuning</strong> plus data curation
+                          for KULLM3 and Ko-Gemma.
+                        </li>
+                        <li>
+                          <strong>GRPO</strong> in VERL for KULLM-R with
+                          verifiable custom rewards and an adaptive length
+                          penalty.
                         </li>
                         <li>
                           Curated code and math corpora, established quality gates,
                           and ran capability evaluations for coding and math.
                         </li>
-                        <li>
-                          <strong>KULLM Reasoning</strong>: implemented RL with
-                          custom reward functions and <strong>GRPO</strong>,
-                          applying adaptive response length.
-                        </li>
+
                         <li>
                           Internal evaluations showed improved Korean reasoning and
                           math accuracy over a Qwen3 reasoning baseline, with
@@ -2279,146 +2387,89 @@
                     decoding="async"
                   />
                   <div>
-                    <h3 class="xp-role">AI Research Engineer · Evaluation Team</h3>
-                    <p class="xp-org">Upstage · Seoul, South Korea</p>
-                  </div>
-                </div>
-                <ul class="xp-bullets">
-                  <li>Make LLM evals trustworthy and fast enough to drive training decisions, especially in agentic settings, working directly on <strong>Solar Open 2</strong>, <strong>Solar Pro 4</strong>, and <strong>Solar Mini 4</strong>.</li>
-                  <li>Maintain Upstage's internal <strong>eval framework</strong>, running 100+ models on 100+ benchmarks across Slurm clusters. Cut a full Solar Open 2 suite (~50 benchmarks) from several days to ~7 hours with an optimizer that packs benchmarks into single-node Slurm shards.</li>
-                  <li>Made chunked prefill and prefix caching the <strong>vLLM serving</strong> standard (2.0× faster evals, 1.6× throughput) and removed wasted compute without changing results: batched repeated sampling (1.65× on HMMT), parallelized τ²-bench (~4h → 1.9h), and restored a silently disabled batching option that wasted 4× to 10× decoding on GPQA and AIME.</li>
-                  <li>Audited 67 benchmarks across 5 configuration layers and found 9 where sampling settings never reached the model. Replaced ad hoc overrides with an explicit <strong>registry standard</strong> enforced by a blocking 22-rule CI lint, so the same settings give the same result no matter who runs them.</li>
-                  <li>Standardized <strong>error accounting</strong> across 109 benchmarks and 5 error types (half of all retry paths never retried), with one team-wide rule for scoring errored samples and a unified result schema replacing 518 inconsistent metric keys.</li>
-                  <li>Caught <strong>silent scoring bugs</strong>: Solar evaluated at a 32K reasoning budget instead of 131K on 8 agentic benchmarks (fixed across 4 agent harnesses including Claude Code and Codex, recovering 8 points on SciCode), a judge reusing stale judgments, and blank answers scored as 54.5% accuracy.</li>
-                  <li>Evaluated SFT and RL checkpoints on <strong>agentic benchmarks</strong> (SWE-bench, Terminal-Bench, MCP-Atlas, GDPval, τ-bench), ran competitor baselines for the Solar Open 2 tech report, and used repeated-run ablations of generation and serving settings to choose eval and API serving defaults.</li>
-                  <li>Built <strong>Light Bench</strong> (reduced versions of 30 benchmarks, up to 98% faster per benchmark) for checkpoint comparison, an estimator for Artificial Analysis's private AutomationBench score (5.3-point RMSE over 15 models), and config-driven leaderboards and comparison reports for the training team and executives.</li>
-                  <li>Built <strong>unified eval log collection</strong>: every model call (evaluated model, judge, user simulator) recorded at the HTTP layer or through a recording proxy, under one schema across 126 benchmark classes. Backfilled 165 runs (115,485 records) and 33,352 agentic trajectories, with analysis that flags degeneration, API and judge failures, and scoring anomalies.</li>
-                  <li>Made the team's workflow <strong>agent-native</strong>: a shared agent skill stack, a 64-page team LLM wiki synthesized from 280 Notion docs, 1,236 Slack threads, and the codebase, and repo guidelines plus CI that turned benchmark migration from a bottleneck into a checked process agents can run.</li>
-                </ul>
-              </div>
-            </article>
-
-            <article class="xp-item">
-              <div class="xp-when">2023.03 – 2024.01</div>
-              <div>
-                <div class="xp-head">
-                  <img
-                    class="xp-logo logo-invert-dark"
-                    src="assets/scaleai.png"
-                    alt="Scale AI logo"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div>
-                    <h3 class="xp-role">RLHF Data Trainer</h3>
-                    <p class="xp-org">Scale AI · San Francisco, CA, USA (Remote)</p>
+                    <h3 class="xp-role">AI Research Engineer · LLM Evaluation &amp; Analysis</h3>
+                    <p class="xp-org">Upstage (Solar Model Project) · Seoul, South Korea</p>
                   </div>
                 </div>
                 <ul class="xp-bullets">
                   <li>
-                    Supported alignment and safety tuning for flagship models at
-                    Google (Flamingo, Bard), Meta (Llama), and OpenAI.
+                    <strong>Trustworthy results:</strong> Made scores reproducible and caught errors that silently changed them.
+                    <ul>
+                      <li>Found 9 of 67 benchmarks where configured sampling settings (e.g., temperature) never reached the model; made every setting explicit and enforced it with a 22-rule CI check.</li>
+                      <li>Audited how failed requests (API errors, timeouts, judge failures) were scored across 109 benchmarks, found that half of all retry paths never actually retried, and set one team-wide rule for scoring them.</li>
+                      <li>Caught silent scoring bugs, like an LLM judge reusing old verdicts and blank answers scored as 54.5% correct.</li>
+                    </ul>
                   </li>
                   <li>
-                    Produced expert-level preference data for RLHF and
-                    instruction tuning on advanced platforms (e.g., OpenAI
-                    Feather).
+                    <strong>Agentic evaluation:</strong> Build and scale sandboxed agent environments and harnesses for long-horizon agentic evals (SWE-bench, Terminal-Bench, τ²-bench).
+                    <ul>
+                      <li>Caught under-elicitation: Solar ran at a 32K reasoning budget instead of 131K on 8 agentic benchmarks, so it looked weaker than it was; fixed it across 4 agent harnesses, including Claude Code and Codex.</li>
+                      <li>Restored 10 of 13 agentic benchmarks that broke on a new checkpoint; false timeouts on one fell from 103 to 18.</li>
+                    </ul>
                   </li>
                   <li>
-                    Curated and annotated image reasoning, coding, math,
-                    multi-turn dialog, and safety-critical (PII/harmful)
-                    content.
-                  </li>
-                </ul>
-              </div>
-            </article>
-
-            <article class="xp-item">
-              <div class="xp-when">2023.05 – 2023.11</div>
-              <div>
-                <div class="xp-head">
-                  <img
-                    class="xp-logo"
-                    src="assets/simacro.png"
-                    alt="Simacro logo"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div>
-                    <h3 class="xp-role">AR/VR Software Engineering Intern</h3>
-                    <p class="xp-org">Simacro · Cambridge, MA, USA</p>
-                  </div>
-                </div>
-                <ul class="xp-bullets">
-                  <li>
-                    Built Unity VR/AR apps converting static P&amp;IDs into
-                    interactive digital twins, streamlining operations for
-                    clients incl. Hyundai Oil Bank.
+                    <strong>Eval infrastructure:</strong> Maintain Upstage's eval framework: 100+ models on 100+ benchmarks across Slurm clusters.
+                    <ul>
+                      <li>Cut a full Solar Open 2 suite (~50 benchmarks) from several days to ~7 hours with an optimizer that packs benchmarks into single-node Slurm shards based on profiled throughput.</li>
+                      <li>Tuned vLLM and SGLang serving and chat templates for Solar; standardized settings made evals 2.0× faster.</li>
+                      <li>Restored a silently disabled batching option that was wasting 4× to 10× decoding on GPQA and AIME.</li>
+                    </ul>
                   </li>
                   <li>
-                    Developed a Python/C# computer-vision API for symbol
-                    detection, automating 80% of labeling at 95% accuracy.
+                    <strong>Model development:</strong> Worked directly on Solar Open 2 (250B MoE), Solar Pro 4, and Solar Mini 4.
+                    <ul>
+                      <li>Evaluated SFT and RL checkpoints, ran competitor baselines for the Solar Open 2 tech report, and used repeated-run ablations of sampling and serving settings to separate real gains from run-to-run noise.</li>
+                      <li>Built Light Bench, reduced versions of 30 benchmarks (up to 98% faster) for comparing checkpoints; analyzed where light scores drift from full (noise floor, long-tail generations) and tested stratified sampling to close the gap.</li>
+                      <li>Estimated Artificial Analysis's private AutomationBench score from public-set runs (15 models, 5.3-point RMSE).</li>
+                      <li>Built leaderboards and comparison reports (score deltas, per-question diffs) for the training team and executives.</li>
+                    </ul>
                   </li>
                   <li>
-                    Integrated the Virnect image-tracking SDK into Unity for
-                    robust AR overlays on physical machinery.
+                    <strong>Eval logs:</strong> Built a pipeline that records every model call (evaluated model, judge, user simulator) under one schema for every benchmark in the framework, even ones that don't save trajectories.
+                    <ul>
+                      <li>Backfilled 165 runs (115K records, zero validation errors) and linked 33K agentic trajectories.</li>
+                      <li>Added analysis that flags degeneration, API and judge failures, and scoring anomalies.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Agent-native tooling:</strong> Built the team's shared agent skills and a knowledge base every team member's agent loads, plus repo guidelines and CI that turned benchmark migration from a bottleneck into a checked process agents can run.
                   </li>
                 </ul>
               </div>
             </article>
 
             <article class="xp-item">
-              <div class="xp-when">2022.08 – 2023.05</div>
+              <div class="xp-when">2024.01 – 2026.02</div>
               <div>
                 <div class="xp-head">
                   <img
                     class="xp-logo"
-                    src="assets/usf.png"
-                    alt="University of South Florida seal"
+                    src="assets/korea-university.png"
+                    alt="Korea University emblem"
                     loading="lazy"
                     decoding="async"
                   />
                   <div>
-                    <h3 class="xp-role">High Performance Computing Intern</h3>
-                    <p class="xp-org">Dr. Edwin Michael's Lab, USF · Tampa, FL, USA</p>
+                    <h3 class="xp-role">NLP &amp; AI Researcher</h3>
+                    <p class="xp-org">NLP&amp;AI Lab, Korea University · Seoul, South Korea</p>
                   </div>
                 </div>
                 <ul class="xp-bullets">
                   <li>
-                    Built the <strong>CitySEIRCast</strong> digital twin for
-                    city-scale pandemic forecasting using MPI/OpenMP/CUDA.
+                    <strong>National Foundation Model Project (VAETKI, NC AI Consortium):</strong> Engineered the evaluation pipeline, standardizing 50+ benchmarks into a single reproducible runtime with automated regression tracking across checkpoints.
                   </li>
                   <li>
-                    Implemented NumPy/Pandas/SQL data pipelines; optimized
-                    C++/Python simulations for HPC clusters.
-                  </li>
-                </ul>
-              </div>
-            </article>
-
-            <article class="xp-item">
-              <div class="xp-when">2022.01 – 2023.05</div>
-              <div>
-                <div class="xp-head">
-                  <img
-                    class="xp-logo"
-                    src="assets/usf.png"
-                    alt="University of South Florida seal"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div>
-                    <h3 class="xp-role">Mixed Reality Research Assistant</h3>
-                    <p class="xp-org">USF Mixed Reality Lab · Tampa, FL, USA</p>
-                  </div>
-                </div>
-                <ul class="xp-bullets">
-                  <li>
-                    Designed an automatic room-mapping method reducing manual
-                    mapping time by 40%.
+                    <strong>Evaluation research:</strong> Drove benchmark design (<a href="#pub-kite">KITE</a>) and benchmark-profiling analyses of what benchmarks actually measure, finding that most test a mix of abilities, not the single skill on their label.
                   </li>
                   <li>
-                    Published MR data collection and modeling work at IPMV 2023.
+                    <strong>Mechanistic interpretability:</strong> Developed SAE-based feature discovery, feature steering, and causal-intervention workflows that connect internal signals to evaluation outcomes.
+                  </li>
+                  <li>
+                    <strong>LLM Training:</strong> Supported Korean LLM post-training and reasoning improvements.
+                    <ul>
+                      <li>GRPO in VERL for KULLM-R (<a href="https://huggingface.co/nobrand/KULLM-R" target="_blank" rel="noopener noreferrer">nobrand/KULLM-R</a>) with verifiable custom rewards and an adaptive length penalty.</li>
+                      <li>Instruction tuning plus data curation for KULLM3 and Ko-Gemma.</li>
+                    </ul>
                   </li>
                 </ul>
               </div>
@@ -2427,48 +2478,60 @@
         </div>
       </section>
 
-      <!-- ================= Volunteering ================= -->
+      <!-- ================= Honors & Service ================= -->
       <section id="volunteering" class="section">
         <div class="container">
           <div class="section-head">
             <div class="section-head-left">
               <span class="section-no">05</span>
-              <h2 class="section-title">Volunteering</h2>
+              <h2 class="section-title">Honors &amp; Service</h2>
             </div>
           </div>
 
           <div class="xp-list">
             <article class="xp-item">
-              <div class="xp-when">2026.05 · 1 mo</div>
+              <div class="xp-when">2026.10</div>
               <div>
                 <div class="xp-head">
                   <div>
-                    <h3 class="xp-role">ARR 2026 March Reviewer</h3>
-                    <p class="xp-org">ACL Rolling Review</p>
+                    <h3 class="xp-role">Outstanding Reviewer</h3>
+                    <p class="xp-org">ACL Rolling Review · May 2026 cycle</p>
                   </div>
                 </div>
               </div>
             </article>
 
             <article class="xp-item">
-              <div class="xp-when">2026.06 · 1 mo</div>
-              <div>
-                <div class="xp-head">
-                  <div>
-                    <h3 class="xp-role">NeurIPS 2026 Reviewer</h3>
-                    <p class="xp-org">NeurIPS</p>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <article class="xp-item">
-              <div class="xp-when">2026.07 · 1 mo</div>
+              <div class="xp-when">2026.07</div>
               <div>
                 <div class="xp-head">
                   <div>
                     <h3 class="xp-role">ARR 2026 May Reviewer</h3>
-                    <p class="xp-org">ACL Rolling Review</p>
+                    <p class="xp-org">ACL Rolling Review · 6 papers</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="xp-item">
+              <div class="xp-when">2026.06</div>
+              <div>
+                <div class="xp-head">
+                  <div>
+                    <h3 class="xp-role">NeurIPS 2026 Reviewer</h3>
+                    <p class="xp-org">NeurIPS · 4 papers</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="xp-item">
+              <div class="xp-when">2026.05</div>
+              <div>
+                <div class="xp-head">
+                  <div>
+                    <h3 class="xp-role">ARR 2026 March Reviewer</h3>
+                    <p class="xp-org">ACL Rolling Review · 4 papers</p>
                   </div>
                 </div>
               </div>
@@ -2508,7 +2571,7 @@
                       href="https://scholar.google.com/citations?user=HMTkz7oAAAAJ"
                       target="_blank"
                       rel="noopener noreferrer"
-                      >Dr. Heuiseok Lim</a
+                      >Prof. Heuiseok Lim</a
                     >
                     ·
                     <a
@@ -2521,6 +2584,13 @@
                 </div>
               </div>
               <div class="edu-rows">
+                <div class="edu-row">
+                  <span class="edu-key">Focus</span>
+                  <span class="edu-val"
+                    >LLM evaluation, mechanistic interpretability, and AI
+                    safety</span
+                  >
+                </div>
                 <div class="edu-row">
                   <span class="edu-key">Skills</span>
                   <span class="edu-val"
@@ -2553,7 +2623,7 @@
                     University of South Florida ·
                     <span class="edu-degree">B.S. in Computer Science</span>
                   </h3>
-                  <p class="edu-meta">Graduated May 2023 · Tampa, FL, USA</p>
+                  <p class="edu-meta">Graduated May 2023 · Cum Laude · Tampa, FL, USA</p>
                 </div>
               </div>
               <div class="edu-rows">
@@ -2659,6 +2729,6 @@
       </div>
     </footer>
 
-    <script src="script.js?v=20261101b"></script>
+    <script src="script.js?v=20261101c"></script>
   </body>
 </html>
