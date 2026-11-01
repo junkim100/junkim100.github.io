@@ -2098,48 +2098,16 @@
                   </div>
                 </div>
                 <ul class="xp-bullets">
-                  <li>
-                    Solar Model Project: end-to-end evaluation
-                    of <strong>Solar Open 2</strong> (Korea's Independent AI
-                    Foundation Model project) and
-                    <strong>Solar Pro 4</strong> with one-command campaigns over a
-                    50+ benchmark suite (incl. agentic) on multi-node GPU
-                    clusters at each training stage, feeding training and data
-                    decisions.
-                  </li>
-                  <li>
-                    Designed <strong>light benchmark variants</strong> for rapid
-                    checkpoint screening, cutting core-suite wall-time by ~86%
-                    (42 → 6 min), with score fidelity validated through
-                    repeated-run variance analysis and per-category sampling.
-                  </li>
-                  <li>
-                    Migrated and hardened <strong>agentic benchmarks</strong>
-                    (SWE-bench Verified/Pro/Multilingual, GAIA, MCP-Atlas,
-                    Terminal-Bench, τ²-bench, CritPT) with reproduction studies
-                    against reported scores and fixes to timeout semantics,
-                    grading environments, and reasoning-output parsing.
-                  </li>
-                  <li>
-                    Reduced evaluation wall-time through systems work:
-                    tail-latency analysis, multi-completion sampling (up to
-                    1.65× on repeat-sampling math benchmarks), prefix-caching
-                    studies, and a deterministic scheduler that auto-tunes
-                    benchmark ordering and parallelism under cluster-throughput
-                    and sandbox-concurrency constraints.
-                  </li>
-                  <li>
-                    Built automated <strong>leaderboard reporting</strong> on
-                    Notion: incremental per-benchmark upload with pass@k,
-                    response/reasoning length, truncation-ratio, and
-                    degeneration monitoring.
-                  </li>
-                  <li>
-                    Aligned in-house results with external indices (e.g.,
-                    Artificial Analysis), root-causing HLE and CritPT score
-                    gaps down to judge choice, prompts, temperature, and a
-                    streaming reasoning-parser bug.
-                  </li>
+                  <li>Make LLM evals trustworthy and fast enough to drive training decisions, especially in agentic settings, working directly on <strong>Solar Open 2</strong>, <strong>Solar Pro 4</strong>, and <strong>Solar Mini 4</strong>.</li>
+                  <li>Maintain Upstage's internal <strong>eval framework</strong>, running 100+ models on 100+ benchmarks across Slurm clusters. Cut a full Solar Open 2 suite (~50 benchmarks) from several days to ~7 hours with an optimizer that packs benchmarks into single-node Slurm shards.</li>
+                  <li>Made chunked prefill and prefix caching the <strong>vLLM serving</strong> standard (2.0× faster evals, 1.6× throughput) and removed wasted compute without changing results: batched repeated sampling (1.65× on HMMT), parallelized τ²-bench (~4h → 1.9h), and restored a silently disabled batching option that wasted 4× to 10× decoding on GPQA and AIME.</li>
+                  <li>Audited 67 benchmarks across 5 configuration layers and found 9 where sampling settings never reached the model. Replaced ad hoc overrides with an explicit <strong>registry standard</strong> enforced by a blocking 22-rule CI lint, so the same settings give the same result no matter who runs them.</li>
+                  <li>Standardized <strong>error accounting</strong> across 109 benchmarks and 5 error types (half of all retry paths never retried), with one team-wide rule for scoring errored samples and a unified result schema replacing 518 inconsistent metric keys.</li>
+                  <li>Caught <strong>silent scoring bugs</strong>: Solar evaluated at a 32K reasoning budget instead of 131K on 8 agentic benchmarks (fixed across 4 agent harnesses including Claude Code and Codex, recovering 8 points on SciCode), a judge reusing stale judgments, and blank answers scored as 54.5% accuracy.</li>
+                  <li>Evaluated SFT and RL checkpoints on <strong>agentic benchmarks</strong> (SWE-bench, Terminal-Bench, MCP-Atlas, GDPval, τ-bench), ran competitor baselines for the Solar Open 2 tech report, and used repeated-run ablations of generation and serving settings to choose eval and API serving defaults.</li>
+                  <li>Built <strong>Light Bench</strong> (reduced versions of 30 benchmarks, up to 98% faster per benchmark) for checkpoint comparison, an estimator for Artificial Analysis's private AutomationBench score (5.3-point RMSE over 15 models), and config-driven leaderboards and comparison reports for the training team and executives.</li>
+                  <li>Built <strong>unified eval log collection</strong>: every model call (evaluated model, judge, user simulator) recorded at the HTTP layer or through a recording proxy, under one schema across 126 benchmark classes. Backfilled 165 runs (115,485 records) and 33,352 agentic trajectories, with analysis that flags degeneration, API and judge failures, and scoring anomalies.</li>
+                  <li>Made the team's workflow <strong>agent-native</strong>: a shared agent skill stack, a 64-page team LLM wiki synthesized from 280 Notion docs, 1,236 Slack threads, and the codebase, and repo guidelines plus CI that turned benchmark migration from a bottleneck into a checked process agents can run.</li>
                 </ul>
               </div>
             </article>
